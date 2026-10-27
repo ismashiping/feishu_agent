@@ -1,6 +1,8 @@
 # SPEC 01：离线知识库、基础 RAG 与飞书 MVP
 
-版本：0.12；状态：Phase1进行中，P1-01–11已实现离线入库、基础向量检索、RAG工作流/证据关联回答、CLI及FastAPI入口；飞书尚未实现。详细规则见 [P1-01](tasks/p1-01-literature-contracts.md)、[P1-02](tasks/p1-02-pdf-parsing.md)、[P1-03](tasks/p1-03-pubmed-xml.md)、[P1-04](tasks/p1-04-source-chunking.md)、[P1-05](tasks/p1-05-local-embedding.md)、[P1-06](tasks/p1-06-postgres-schema.md)、[P1-07](tasks/p1-07-offline-ingestion.md)、[P1-08](tasks/p1-08-vector-retrieval.md)、[P1-09](tasks/p1-09-basic-rag.md)、[P1-10](tasks/p1-10-cli-entrypoints.md)、[P1-11](tasks/p1-11-fastapi.md)。
+框架职责修订（2026-10-27）：LangGraph 负责 Agent 编排，LangChain 负责标准化模型调用及通用 Agent 工具接口，DeepSeek 只作底层模型供应商。当前生成使用供应商无关 LangChainAnswerGenerator 与通过配置 URL 接入的通用 ChatOpenAI；数据库/解析/飞书 SDK 不强行包装为模型工具。详见[调整 SPEC](tasks/langchain-model-boundary.md)。
+
+版本：0.19；状态：Phase1进行中，P1-01–16已实现离线入库、基础向量检索、RAG工作流/证据关联回答、CLI、FastAPI、飞书纯事件过滤、独立Redis原子去重、有界研究分派及文本渲染/受限发送；P1-16官方SDK/鉴权/生产装配与隔离Compose运行已验收，P1-17技术验收/学习文档已交付，医学人工审查待完成，Phase1整体仍未验收。见[阶段报告](../phase1-acceptance.md)和[P1-17 SPEC](tasks/p1-17-mvp-acceptance.md)。详细规则见 [P1-01](tasks/p1-01-literature-contracts.md)、[P1-02](tasks/p1-02-pdf-parsing.md)、[P1-03](tasks/p1-03-pubmed-xml.md)、[P1-04](tasks/p1-04-source-chunking.md)、[P1-05](tasks/p1-05-local-embedding.md)、[P1-06](tasks/p1-06-postgres-schema.md)、[P1-07](tasks/p1-07-offline-ingestion.md)、[P1-08](tasks/p1-08-vector-retrieval.md)、[P1-09](tasks/p1-09-basic-rag.md)、[P1-10](tasks/p1-10-cli-entrypoints.md)、[P1-11](tasks/p1-11-fastapi.md)、[P1-12](tasks/p1-12-feishu-events.md)、[P1-13](tasks/p1-13-redis-dedup.md)、[P1-14](tasks/p1-14-feishu-worker.md)、[P1-15](tasks/p1-15-feishu-sender.md)、[P1-16](tasks/p1-16-feishu-runtime.md)。
 
 ## 1. 背景及目标
 
@@ -47,6 +49,8 @@
 
 本地 PubMed XML 无 PMID 的条目明确 rejected；一般文档 PMID/DOI 允许未知。authors 为空和出版日期不精确是正常数据，不虚构补全。PDF 标题可来自人工元数据/文档元数据/文件名，但须记录 title_origin，不能把文件名当作已核实的正式标题。
 
+以下P1-01–09段落保留各任务交付时的模型演进快照；“尚未/待实现”仅针对当时范围，当前已交付情况以上述状态及第9节映射为准。
+
 P1-01 当前落地 PublicationDate、SourceMetadata、EvidenceLocation、EmbeddingInfo、EvidenceChunk、LiteratureDocument；后续回答/claims/引用 DTO 尚未实现。文献平铺来源字段，片段保存同一来源快照；日期不补齐、字符偏移保留原文本、摘要与全文范围互斥。空片段/空 embedding_info 允许表示准备过程，不代表已经入库或可检索。结构校验不替代真实元数据核验。
 
 P1-02 增加 PdfSourceUnit/ParsedPdf 和 pypdf 适配器，保留规范化单页文本、空页页号与同一字节快照 hash，并能验证单页证据切片；尚未持久化快照/来源单元，不能据此宣称完成入库。文件/页数/解码流/字符/协作时间限制以 P1-02 详细 SPEC 为准，不是硬资源隔离。
@@ -83,6 +87,8 @@ src/feishu/ 约五个职责：入口/SDK 生命周期、事件解析与过滤、
 
 ## 9. 测试用例清单
 
+编号约定：`G-xx`是项目需求，`P1-Fxx`是Phase 1功能需求，`P1-Txx`是阶段验收场景，`P1-xx`是按顺序执行的开发任务。例如`P1-T11`指“真实模型与SDK长连接冒烟”，不是第11个开发任务，也不是Phase 1最后一个任务。一个验收场景可以跨多个任务，一个任务也可以覆盖多个场景；pytest参数化用例数量不等于这些编号数量。
+
 | ID | 场景 | 期望 |
 | --- | --- | --- |
 | P1-T01 | DTO 正常、缺失/空值、非法日期、错误定位、摘要范围 | 正确校验，保留未知与精度，不补造 |
@@ -97,18 +103,38 @@ src/feishu/ 约五个职责：入口/SDK 生命周期、事件解析与过滤、
 | P1-T10 | LLM/发送失败、关闭线程池、SDK 超时 | 友好失败且资源释放；不无限重试 |
 | P1-T11 | 真实模型与 SDK 长连接冒烟 | 实际维度、CPU 资源和收发可用，独立记录 |
 
+### 验收场景与开发任务的对应关系
+
+任务完整状态与未来任务规划统一维护于[开发计划](../development-plan.md#phase-1-任务进度)。下表为范围映射，不取代最终阶段验收。
+
+| 阶段场景 | 已交付的相关任务 | 剩余验收 |
+| --- | --- | --- |
+| P1-T01 | P1-01文献DTO；P1-09回答/引用DTO | 阶段回归核对 |
+| P1-T02 | P1-02 PDF解析 | 阶段回归核对 |
+| P1-T03 | P1-03离线PubMed XML | 阶段回归核对；在线检索仍属Phase 4 |
+| P1-T04 | P1-04分块、P1-05真实tokenizer/Embedding | 阶段回归核对 |
+| P1-T05 | P1-06迁移、P1-07原子入库、P1-08向量查询 | 阶段数据库验收 |
+| P1-T06 | P1-09基础RAG与引用门禁 | 固定样例医学支持关系人工审查 |
+| P1-T07 | P1-10 CLI、P1-11 API | P1-14共享ResearchService/真实图替身端口、P1-16生产装配和P1-17 CLI/API复验已通过 |
+| P1-T08 | P1-12纯事件过滤；P1-13原子重复/并发重复裁决 | P1-14实际RAG调用次数与接纳联动、P1-16 SDK映射已通过 |
+| P1-T09 | P1-13真实Redis原子租约/owner/过期/故障 | P1-14已验证满载不占位及容量恢复；P1-17真实Redis/worker/sender组合已通过 |
+| P1-T10 | API已有自身有界执行测试，不代替飞书验收 | P1-14工作池/关闭及P1-15离线受限发送/错误投递已验收；P1-16已验证SDK生命周期与真实收发，P1-16隔离容器关闭也已验收 |
+| P1-T11 | P1-05真实模型；P1-08实际E5/PG | P1-16已通过真实SDK/Redis/消息收发（合成研究）；隔离部署已由P1-16验收，P1-17真实E5/PG/LLM合成与固定摘要样例已通过技术核验，人工医学审核待完成 |
+
+因此P1-13“Redis原子消息去重”落实的是原P1-F07、P1-T08/09/10，仍在既定MVP范围内。P1-13已按独立去重边界验收，详细范围见其任务SPEC；P1-14已按[独立分派SPEC](tasks/p1-14-feishu-worker.md)验收；P1-15已按[离线发送SPEC](tasks/p1-15-feishu-sender.md)验收；P1-16已细化[SPEC](tasks/p1-16-feishu-runtime.md)并实现运行时/Compose入口，验收边界见开发进度；P1-17已交付阶段技术验收和六份学习文档，医学人工支持关系审核尚未签署；进入单项任务时才冻结参数、编写失败测试并实施。Phase 1也不以“最后编号的任务完成”替代第11节的全部DoD。
+
 ## 10. 可执行验收标准
 
-进入实施后建立上述用例对应测试文件，预期执行 `uv run pytest tests/unit tests/integration -m "not external"`，数据库/Redis 测试必须连测试专用服务，不用 Mock 冒充。真实模型、LLM 和飞书放 external 标记并分别记录命令、配置前提与结果；未执行不可标记该项通过。
+进入实施后建立上述用例对应测试文件，准备好显式测试服务后执行 `uv run pytest tests/unit tests/integration -m "not external and not performance"`，该选择会包含database场景；数据库/Redis测试必须连测试专用服务，不用 Mock 冒充。真实模型、LLM 和飞书放 external 标记并分别记录命令、配置前提与结果；未执行不可标记该项通过。
 
 验收实验：同一 PDF/本地 XML 导入两次并并发提交，文档/片段行数不增加；embedding 故障不留半成品；问题有证据时每项医学结论均有存在的片段标识，无证据时不调用 LLM；重复飞书文本只受理一次；以小容量池提交超过上限消息，观察快速拒绝及容量恢复。Compose config 有 feishu_bot，启动后用测试应用完成一次真实文本收发。
 
-这些是未来验收步骤，不是当前已存在的 CLI/API 或测试结果。各细任务必须先固定命令、阈值和失败断言后再实现。
+上述是完整MVP的阶段验收目标；P1-01–16已交付业务与飞书闭环，P1-17已补真实E5/PG/LLM技术验收和学习材料，剩余医学人工审查按第9节映射及阶段报告跟踪。独立任务的已有结果不能等同于全部阶段目标通过；未开始任务仍须先固定命令、阈值和失败断言。
 
 ## 11. 阶段依赖及完成定义（DoD）
 
 依赖 Phase 0 全部验收及学习材料齐备。第一个任务 **P1-01：文献与证据 DTO、来源和定位契约**，先细化 SPEC，再写 P1-T01 的失败测试；不同时实现数据库、PDF 和飞书。
 
-P1-01–11已按各自SPEC执行实际RED/GREEN，过程和当前回归见 [开发记录](../development-plan.md)。P1-08验证真实E5/PG检索，P1-09验证真实LangGraph及DeepSeek合成上下文，尚未验证E5/PG/LLM完整真实链路或医学专家审查。P1-10的CLI复用服务与生产装配已验证真实E5/PG，LLM为HTTP协议替身；真实付费整链路及医学人工审查仍待阶段验收。P1-11已验证真实Uvicorn TCP、生命周期共享E5及PG入库/问答，LLM仍为HTTP协议替身，真实付费整链路不因此视为通过。下一步建议飞书消息契约与事件过滤，需用户指定并细化SPEC。Phase1整体未验收。
+以下P1-01–16段落保留各任务交付时的验证边界；P1-17已补真实E5/PG/LLM合成与固定摘要闭环及六份教材，医学人工审查仍待签署。P1-01–11已按各自SPEC执行实际RED/GREEN，过程和当前回归见 [开发记录](../development-plan.md)。P1-08验证真实E5/PG检索，P1-09验证真实LangGraph及DeepSeek合成上下文，尚未验证E5/PG/LLM完整真实链路或医学专家审查。P1-10的CLI复用服务与生产装配已验证真实E5/PG，LLM为HTTP协议替身；真实付费整链路及医学人工审查仍待阶段验收。P1-11已验证真实Uvicorn TCP、生命周期共享E5及PG入库/问答，LLM仍为HTTP协议替身，真实付费整链路不因此视为通过。P1-12实现解码字典的消息契约与纯事件过滤；P1-13已实现Redis原子去重并通过独立真实服务测试；P1-14已实现有界线程池、去重联动及共享研究服务调用；P1-15已实现文本渲染与受限发送并完成官方REST协议离线验证；P1-16已实现SDK对象适配/长连接与生产鉴权/资源装配，真实服务与容器验收边界单独记录。Phase1整体未验收。
 
 完成 P1-F01–07、核心单元/真实集成/必要真实服务冒烟、CLI/API/飞书闭环、迁移与配置文档以及 docs/learning/phase-01/ 六份学习材料后，才可验收本阶段。完整报告核验和增量更新仍留在所属后续阶段，不因 MVP 完成而宣称全部目标达成。

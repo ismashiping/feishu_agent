@@ -77,7 +77,8 @@ def test_submit_failure_returns_capacity(monkeypatch):
 
 
 def test_shared_runtime_one_model_engine_http(monkeypatch, tmp_path):
-    from clinical_agent.adapters import deepseek, embedding
+    from clinical_agent.adapters import embedding
+    from clinical_agent.adapters import llm as llm_api
     from clinical_agent.adapters.postgres import connection
     from clinical_agent.api_runtime import ApiSettings, open_api_runtime
     from clinical_agent.application.ingestion import IngestionService
@@ -88,7 +89,7 @@ def test_shared_runtime_one_model_engine_http(monkeypatch, tmp_path):
         connection, "DatabaseSettings", lambda: events.append("db-config") or object()
     )
     monkeypatch.setattr(
-        deepseek, "DeepSeekSettings", lambda: events.append("llm-config") or object()
+        llm_api, "LLMSettings", lambda: events.append("llm-config") or object()
     )
     monkeypatch.setattr(
         embedding, "load_local_embedder", lambda config: events.append("model") or object()
@@ -111,7 +112,7 @@ def test_shared_runtime_one_model_engine_http(monkeypatch, tmp_path):
             events.append("http-exit")
 
     monkeypatch.setattr(connection, "database_engine", engine)
-    monkeypatch.setattr(deepseek, "deepseek_generator", llm)
+    monkeypatch.setattr(llm_api, "open_llm", llm)
     settings = ApiSettings(
         model_dir=tmp_path, import_root=tmp_path, snapshot_dir=tmp_path / "snapshots"
     )

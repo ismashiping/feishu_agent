@@ -39,7 +39,7 @@ def test_ingestion_assembly_has_no_llm(monkeypatch):
     from clinical_agent.command_runtime import IngestionCommand, open_ingestion
 
     events = patch_components(monkeypatch)
-    monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
+    monkeypatch.delenv("LLM_API_KEY", raising=False)
     with open_ingestion(
         IngestionCommand(model_dir=Path("model"), snapshot_dir=Path("snapshots"))
     ) as service:
@@ -50,7 +50,7 @@ def test_ingestion_assembly_has_no_llm(monkeypatch):
 
 @pytest.mark.parametrize("fail", [False, True])
 def test_research_assembly_closes_http_before_engine(monkeypatch, fail):
-    from clinical_agent.adapters import deepseek
+    from clinical_agent.adapters import llm as llm_api
     from clinical_agent.application.research import ResearchService
     from clinical_agent.command_runtime import open_research
 
@@ -68,8 +68,8 @@ def test_research_assembly_closes_http_before_engine(monkeypatch, fail):
         finally:
             events.append("http-exit")
 
-    monkeypatch.setattr(deepseek, "DeepSeekSettings", settings)
-    monkeypatch.setattr(deepseek, "deepseek_generator", http)
+    monkeypatch.setattr(llm_api, "LLMSettings", settings)
+    monkeypatch.setattr(llm_api, "open_llm", http)
     with pytest.raises(RuntimeError) if fail else __import__("contextlib").nullcontext():
         with open_research(Path("model")) as service:
             assert isinstance(service, ResearchService)
@@ -87,7 +87,7 @@ def test_research_assembly_closes_http_before_engine(monkeypatch, fail):
 
 
 def test_configuration_failure_precedes_model_loading(monkeypatch):
-    from clinical_agent.adapters import deepseek
+    from clinical_agent.adapters import llm as llm_api
     from clinical_agent.command_runtime import open_research
 
     events = patch_components(monkeypatch)
@@ -95,7 +95,7 @@ def test_configuration_failure_precedes_model_loading(monkeypatch):
     def settings():
         raise ValueError("invalid config")
 
-    monkeypatch.setattr(deepseek, "DeepSeekSettings", settings)
+    monkeypatch.setattr(llm_api, "LLMSettings", settings)
     with pytest.raises(ValueError):
         with open_research(Path("model")):
             pytest.fail("Must not enter")

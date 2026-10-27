@@ -1,6 +1,44 @@
 # 开发进度与任务记录
 
-更新时间：2026-10-27（Asia/Shanghai）。Phase0已完成；Phase1当前完成P1-01–11：离线入库、基础向量检索、RAG证据关联工作流、CLI与FastAPI；飞书与阶段验收未完成。Phase0结论见 [阶段报告](phase0-acceptance.md)。
+## 通用模型 API 接入调整（2026-10-27）
+
+用户进一步明确：DeepSeek 只是通过 URL 指定的 API 服务商，项目不保留专属适配器或专属业务逻辑。本次按[修订 SPEC](specs/tasks/langchain-model-boundary.md)移除 `adapters/deepseek.py`、专属 Settings/Generator/工厂及 `langchain-deepseek` 依赖；新增 `adapters/llm.py` 的 `LLMSettings/open_llm`，通过通用 LangChain ChatOpenAI 接入兼容 Chat Completions API。生成仍由 LangChainAnswerGenerator 执行，Agent 编排仍由 LangGraph 执行，领域引用规则保持独立。
+
+配置统一为必填 `LLM_BASE_URL`、`LLM_API_KEY`、`LLM_MODEL`，以及可选 `LLM_MAX_TOKENS`；无域名白名单或供应商默认值，不读取旧变量，也不提供旧供应商名称兼容入口。模型 API 需支持标准消息、JSON mode、max_tokens 和非流式响应；私有推理扩展不参与业务。`.env.example` 中 DeepSeek URL/模型名仅为示例数据。
+
+修改涉及模型适配器、CLI/API 装配与 CLI 帮助、Compose 共享环境、依赖/锁文件、协议与装配/在线测试入口、README/PROJECT/架构/技术选型/RAG/入口操作/学习文档。协议测试重命名为 `tests/integration/test_llm.py`，当前源码、测试、manifest、lock 和 Compose 均无 DeepSeek 专属标识；已安装专属集成包也已卸载。历史 SPEC 与真实调用记录保留原时点，并明确迁移说明。
+
+验证：
+
+- RED：通用协议与 URL/模型切换测试 25 failed，均因 `clinical_agent.adapters.llm` 尚未创建。
+- GREEN：通用协议、LangChain 生成及 CLI/API 装配测试 48 passed；实际使用 ChatOpenAI/SDK 与 HTTPX MockTransport，覆盖两个远端 URL、网关路径前缀和本地回环 URL，未联网。
+- 默认回归：`pytest -q --basetemp=.artifacts/generic-llm-regression-tmp -o cache_dir=.artifacts/generic-llm-cache`，1039 passed / 95 deselected，167.27s；1 项既有飞书 protobuf 弃用警告。
+- `ruff check src tests`、新文件格式检查通过；`mypy src` 39 个源文件通过；`uv lock --check --offline --cache-dir .artifacts/generic-llm-uv-cache` 通过，110 条锁记录；CLI help 正常且描述通用模型 API。
+- 文件/导入检查确认专属模块不存在、专属集成包已卸载；未发起真实付费模型调用或重建/部署容器。既有线上与容器验收不视为本次迁移后验收。
+
+本项完成；Phase1 医学人工审查仍待完成，后续按既有计划选择任务，不自动进入新阶段。官方接口依据：[ChatOpenAI](https://docs.langchain.com/oss/python/integrations/chat/openai)，本次仅使用兼容标准字段。
+
+
+## 框架职责调整（2026-10-27 历史快照，已由下述通用接入替代）
+
+按用户指定完成单项架构调整，SPEC 为 [LangChain 模型调用边界](specs/tasks/langchain-model-boundary.md)。LangGraph 保留 Agent 状态和分支；新增 `adapters/langchain_generation.py`，用 LangChain BaseChatModel、标准消息与 invoke 统一生成；`adapters/deepseek.py` 改为官方 ChatDeepSeek 装配、显式供应商配置及受限传输，保留兼容入口、响应包门禁和引用规则。通用 Agent 工具接口约定使用 LangChain，当前没有新增未来阶段工具或在线 PubMed。
+
+依赖直接固定 langchain-core 1.7.0 / langchain-deepseek 1.1.1，锁定新增 langchain-openai 1.7.3、openai 3.39.0、jiter 0.18.0 和 tiktoken 0.14.0。已同步 CLI/API 的可选依赖检查、轻量导入审计、README、PROJECT、总体/MVP SPEC、架构/技术选型及 Phase1 学习说明。官方依据：[ChatDeepSeek 标准调用](https://docs.langchain.com/oss/python/integrations/chat/deepseek)。未使用的 LangChain 顶层包不额外安装。
+
+验证记录：
+
+- RED：`pytest tests/unit/test_langchain_generation.py -q`，6 failed，原因是新适配器模块缺失；后续修正测试输入，使合成证据满足现有非空契约。
+- GREEN：标准生成器、真实 LangGraph 与 DeepSeek 协议目标测试，80 passed。
+- 默认回归：`pytest -q --basetemp=.artifacts/langchain-regression-tmp -o cache_dir=.artifacts/langchain-cache`，1032 passed / 95 deselected，137.65s；1 项既有飞书 SDK protobuf 弃用警告。
+- 随后补充标准消息/JSON mode/预算传递和总期限测试，与供应商协议测试合计 28 passed。这两项新增测试不计入上面的 1032。
+- `ruff check src tests` 通过；`mypy src`，39 个源文件通过；本地 doctor 返回 ok。`uv lock --check --offline --cache-dir .artifacts/langchain-uv-cache` 验证 111 条锁记录。
+
+全部模型调用验证使用真实 LangChain/ChatDeepSeek 与 HTTPX MockTransport 或标准假模型，不发送真实付费请求；已有容器和真实模型历史验收不视为迁移后的新验收。Phase1 医学人工审查状态保持待完成，本任务不进入后续阶段。后续任务仍按既有阶段计划选择。
+
+
+更新时间：2026-10-27（Asia/Shanghai）。Phase0已完成；Phase1当前完成P1-01–16：离线入库、基础向量检索、RAG证据关联工作流、CLI、FastAPI、飞书纯事件过滤、Redis原子去重、有界研究任务分派及文本渲染/受限发送；P1-16已通过SDK真实收发、鉴权/装配、Linux共享镜像及隔离Compose验收，边界如下；P1-17技术验收与学习材料已交付，医学支持关系人工审查按用户选择待完成，Phase1未整体验收。Phase0结论见 [阶段报告](phase0-acceptance.md)。
+
+2026-10-27已完成[文档一致性核对](documentation-audit.md)：补充编号映射、MVP剩余任务规划，修正过期当前状态及环境说明；本轮为文档维护，不是新业务任务验收。
 
 本文件记录 Phase 0 执行顺序与 Phase 0–9 阶段路线。总体契约见 [SPEC 00](specs/00-project-overview.md)，未来阶段是概要基线，进入各阶段前必须按最小任务细化，不据此一次性实现全部项目。
 
@@ -17,6 +55,8 @@
 
 ## Phase 1 任务进度
 
+`P1-xx`是开发任务ID；MVP中的`P1-Fxx`是功能需求、`P1-Txx`是验收场景，三者不是同一编号序列。场景与任务的多对多关系见[MVP映射表](specs/01-mvp.md#验收场景与开发任务的对应关系)。下表是当前任务状态入口；后文“本次执行/下一任务”均保留对应历史时点，不能当作当前待办。
+
 | 任务 | 状态 | 范围与证据 |
 | --- | --- | --- |
 | P1-01 文献与证据 DTO、来源和定位契约 | 完成 | [详细 SPEC](specs/tasks/p1-01-literature-contracts.md)；97 目标用例、158 全量回归通过，无真实解析/数据库/模型调用 |
@@ -30,7 +70,14 @@
 | P1-09 基础RAG工作流与证据关联回答 | 完成（Python服务/独立生成验收） | [SPEC](specs/tasks/p1-09-basic-rag.md)；74目标、581默认回归、1真实DeepSeek合成证据测试；[操作说明](basic-rag.md)；未验收真实E5/PG/LLM整链路 |
 | P1-10 CLI离线入库与问答入口 | 完成 | [SPEC](specs/tasks/p1-10-cli-entrypoints.md)；43目标、625默认回归、1真实E5/PG+HTTP替身集成；[操作说明](cli.md) |
 | P1-11 FastAPI入库与问答入口 | 完成 | [SPEC](specs/tasks/p1-11-fastapi.md)；60目标、687默认、1真实Uvicorn/E5/PG+HTTP替身集成；[操作说明](api.md) |
-| P1-12 飞书消息契约与事件过滤（建议） | 未开始 | 待用户指定后细化SPEC，不自动执行 |
+| P1-12 飞书消息契约与事件过滤 | 完成（纯事件边界） | [SPEC](specs/tasks/p1-12-feishu-events.md)；88事件目标、34隔离导入、777默认回归；[契约说明](feishu-events.md)；本任务不含SDK/Redis/工作池/发送；Redis现由P1-13交付 |
+| P1-13 Redis原子消息去重 | 完成（独立去重边界） | [SPEC](specs/tasks/p1-13-redis-dedup.md)、[说明](feishu-dedup.md)；76单元+12真实Redis，854默认回归；原子占位/owner/有限续租/完成与释放/故障隔离通过；其任务验收时工作池/发送未实现，worker现由P1-14交付 |
+| P1-14 飞书有界任务分派与服务复用 | 完成（独立分派边界） | [SPEC](specs/tasks/p1-14-feishu-worker.md)、[说明](feishu-worker.md)；43 worker目标、243联合、898默认回归通过；实际线程结束释放容量、去重联动、共享ResearchService及有限关闭；其任务验收时发送/SDK未实现；sender现由P1-15交付 |
+| P1-15 飞书文本渲染与受限发送 | 完成（离线发送边界） | [SPEC](specs/tasks/p1-15-feishu-sender.md)、[说明](feishu-sender.md)；72 sender目标、316联合、971默认回归通过；完整来源/局限、双层字节预算、单线程有界队列及官方REST协议；真实租户收发/鉴权装配待P1-16 |
+| P1-16 官方SDK长连接、装配与Compose入口 | 完成（任务范围验收） | [SPEC](specs/tasks/p1-16-feishu-runtime.md)、[说明](feishu-runtime.md)；368联合、1023默认回归；真实SDK/Redis/官方回复1 passed（合成研究）；Linux共享镜像、现有迁移/API空库/机器人连接与SIGTERM退出通过，隔离资源已清理 |
+| P1-17 MVP阶段验收与学习文档 | 验收中（技术/教材交付，医学人工待审查） | [SPEC](specs/tasks/p1-17-mvp-acceptance.md)、[阶段报告](phase1-acceptance.md)、[学习导航](learning/phase-01/README.md)；真实E5/PG/LLM两样例、Redis组合、安全构建升级；人工签署待完成 |
+
+P1-13/14/15已按下文独立任务范围验收；P1-16已细化并实施，外部验收按上表单列；P1-17已由本次用户指令启动，仅实施既有阶段验收与教材范围；医学人工审查仍待完成，不新增Phase2–9功能。每次仅在用户指定后细化并完成其中一项；若实施前需调整拆分，应同步本表及MVP映射，不重编号已交付任务。
 
 ## P0-02 本次执行
 
@@ -59,7 +106,7 @@
 | 阶段 / SPEC | 需求映射与交付目标 | 核心验收证据 | 当前状态 |
 | --- | --- | --- | --- |
 | [Phase 0](specs/00-project-overview.md) | 调研、SPEC、架构、测试框架、锁文件及最小离线骨架 | 真实 RED/GREEN、干净环境安装、CLI Demo、代码检查及学习文档 | 完成：P0-01–08；范围/局限见独立验收报告 |
-| [Phase 1](specs/01-mvp.md) | G-01–04：离线入库、本地 RAG、可追溯证据及官方飞书接入 | 单文档原子幂等、真实 pgvector/Redis、引用门禁、模型和长连接收发 | 进行中；P1-01–11完成离线入库/检索/基础RAG结构工作流、CLI与API；飞书与阶段完整真实验收未完成 |
+| [Phase 1](specs/01-mvp.md) | G-01–04：离线入库、本地 RAG、可追溯证据及官方飞书接入 | 单文档原子幂等、真实 pgvector/Redis、引用门禁、模型和长连接收发 | 进行中；P1-01–15完成离线入库/检索/基础RAG结构工作流、CLI、API、飞书纯事件过滤、Redis原子去重、有界分派及渲染/受限发送；飞书运行时与阶段完整真实验收未完成 |
 | [Phase 2](specs/02-async-experience.md) | G-05：快速受理、任务状态、后台执行与超时 | Fake clock 终态测试、真实任务存储、满载/重启/通知故障 | 未开始 |
 | [Phase 3](specs/03-pico.md) | G-06：分类、部分 PICO、可解释查询计划 | 中英标注 fixtures、缺失/否定/来源区间、模型评估与回归 | 未开始 |
 | [Phase 4](specs/04-pubmed-search.md) | G-07：官方在线检索、元数据、分页与限流 | MockTransport fixtures、失败与零结果区分、少量真实接口冒烟 | 未开始 |
@@ -953,3 +1000,213 @@ API只接受服务器固定import_root内相对文件路径，拒绝客户端配
 下一步建议：**P1-12：飞书消息契约与事件过滤**，待用户指定后细化SPEC，本次停止。Phase1仍有飞书、真实付费整链路/医学人工审查及完整阶段学习验收，不标记Phase1完成，已撤销四节点草案保持撤销。
 
 交付核对：`python .artifacts/p1-11-20261027-01/audit-delivery.py`通过。45份Markdown、304个本地链接/锚点、十一节SPEC完整；20份交付文件Git空白检查通过。63份既有Python文件仅导入审计修改，原CLI/核心/迁移保持；32源码/32测试文件/3迁移Python文件。manifest仅新增api extra，旧锁版本保持，103条锁/101个安装唯一包；60目标/687默认/1实际TCP-E5-PG-HTTP替身、11包基础/23包api-only证据存在。数据库0残留fixture，容器停止、卷保留；用户.env未读取且与测试密码文件均忽略，交付/证据无密钥格式值。已撤销草案及其引用保持不存在，历史交付不改写。delivery-audit.json/txt保存结果，无提交操作。
+
+
+## P1-12 本次执行（2026-10-27）
+
+按顺序读取AGENTS.md.txt/PROJECT.md.txt、当前进度、MVP/架构相关边界、核心DTO及导入测试。PROJECT.md.txt的“Phase0”是旧状态，以本进度及仓库源码为当前事实。开始时Git干净，尚无飞书源码、测试及详细任务SPEC；先新增[十一节SPEC](specs/tasks/p1-12-feishu-events.md)，冻结纯事件过滤范围，再写测试观察RED，不依赖历史聊天或扩展到机器人运行时。
+
+新增src/feishu/__init__.py及events.py：EventPolicy、MessageEnvelope、EventDecision和filter_event。处理解码字典，过滤目标应用/事件类型/自身/机器人/非文本/不支持会话；单聊允许、群聊要求真实open_id对应的完整@占位符。校验JSON/Unicode/重复键、32KiB内容、最终1–4000字符及最多100 mentions。message_id优先、event_id回退，三元组区分应用及ID类型，UUID5稳定关联；accepted只代表过滤通过，重复事件仍accepted，不冒充原子去重。只用现有Pydantic，不读取环境或创建资源/调用研究服务。
+
+新增tests/unit/test_feishu_events.py，修改test_package.py增加feishu及feishu.events的隔离导入并按顶层包核对源码路径。新增任务SPEC、feishu-events.md，更新README、总体/MVP/架构/测试策略及本进度，共12份交付文件。原clinical_agent源码、迁移、pyproject.toml及uv.lock均未修改；未修改用户规则或过时历史记录。
+
+证据目录`.artifacts/p1-12-20261027-01/`。以下python均为`.venv/Scripts/python.exe`；每轮pytest保存/清理PYTEST_ADDOPTS与PYTEST_PLUGINS并finally恢复，使用独立`--basetemp`及`-o cache_dir`。
+
+| 实际命令/操作 | 结果与证据 |
+| --- | --- |
+| `python -m pytest tests/unit/test_feishu_events.py -q`（red-temp/red-cache） | 72 failed，2.13s；red.txt，均因缺少feishu模块，非环境故障 |
+| 同目标命令（green-temp/green-cache） | 72 passed，0.28s；green.txt |
+| `python -m pytest tests/unit/test_feishu_events.py tests/unit/test_package.py -q`（target-temp/target-cache） | 122 passed，42.58s；target.txt：扩展88事件场景+34隔离导入 |
+| `python -m pytest -q --cov=feishu.events --cov-branch --cov-report=term-missing --cov-report=json:.artifacts/p1-12-20261027-01/coverage.json`（regression-temp/regression-cache） | 777 passed /80 deselected，105.87s；regression.txt/coverage.json。仅新事件模块含分支综合99%，两行防御性ValidationError兜底未触发；不是全项目覆盖率 |
+| `python -m ruff check src tests alembic`；`python -m ruff format --check src tests alembic`；`python -m mypy src` | 全部通过，71个格式文件/34源码；ruff.txt、format.txt、mypy.txt。初轮未使用导入/排版及Literal.__args__类型错误已修正为get_args，无放宽规则 |
+| `python -m uv lock --check --offline`；`python -m uv pip check`（UV_CACHE_DIR临时设仓库.research-cache/uv并恢复） | 103条锁、101已安装包兼容通过；lock-check.txt、pip-check.txt。初轮默认用户缓存目录无写权限，改用项目缓存后成功，无依赖变更 |
+| 既有P1-11基础环境`python -I -c <导入与无重依赖断言>` | base-import.txt通过；复用原基础环境，仅验证新模块导入及策略构造，不声称本轮新建环境/构建wheel |
+| 本地链接/围栏/空白、十一节SPEC及文档Python示例执行；`git diff --check` | 文档示例与静态交付核查通过；delivery-audit.txt、diff-check.txt。UTF8文档链接有效，原核心/迁移/manifest/lock无diff |
+
+事件字段参照SPEC所链飞书官方文档；官方正文直读为空壳，搜索索引提供事件头/sender等结构，未使用参考项目代码或宣称真实SDK验证。未安装SDK/Redis、无网络业务调用、无凭据读取、无数据库/模型/LLM/飞书真实服务测试。SDK认证/对象映射、长连接、去重租约、工作池及发送仍待对应任务；本过滤器不能直接充当公网Webhook。当前任务无遗留阻塞，Phase1仍未整体验收，不提前生成完整阶段学习材料。
+
+下一任务建议：**P1-13：Redis原子消息去重**，待用户指定后细化SPEC。本次停止，不自动开发后续模块；不创建提交。
+
+
+## 文档一致性核对（2026-10-27，P1-12后）
+
+按用户要求核对原49份Markdown/项目规则文本，完整问题及处理见[核对报告](documentation-audit.md)。明确G/P1-F/P1-T/P1开发任务四类编号，MVP的P1-T11不是第11个开发任务；Redis去重属于P1-F07、P1-T08/09/10。补齐P1-13–17规划但未细化SPEC、未实施，保留Phase 0–9边界。同步PROJECT/README/架构/技术基线/使用说明，区分历史任务契约、旧计数和当前状态；不改写旧验收结论。
+
+验证：原49份修订后文档374个本地链接/锚点及11段Python示例语法通过，新增报告及引用后全量复核结果见`.artifacts/docs-audit-20261027/verification.json`。`python -m pytest --collect-only -q`为777/857 collected、80 deselected，0.72秒，仅收集，不冒充本轮业务测试通过。73份既有源码/测试/迁移/manifest/lock哈希与本轮开始一致；`git diff --check`检查当前变更。证据目录`.artifacts/docs-audit-20261027/`。
+
+仍待闭环：原Python构建升级/外部业务启用前重核要求、飞书实际运行链路、真实E5/PG/LLM完整链路、医学人工审查及完整Phase 1学习/验收。无新代码、依赖或环境升级，不重新执行P1-12，不开始P1-13。
+
+
+## P1-13 本次执行（2026-10-27）
+
+按AGENTS.md.txt/PROJECT.md.txt → 当前开发进度 → MVP/既定架构 → P1-12消息DTO与隔离测试顺序核对，当前仓库只有纯事件过滤，无P1-13详细SPEC或Redis实现。保留开始时已有的大量未提交文档/P1-12改动；不依赖聊天记录、不重构已定架构。先新增[十一节SPEC](specs/tasks/p1-13-redis-dedup.md)，再写失败测试、最小实现、边界RED修复和完整回归。
+
+新增src/feishu/dedup.py：规范身份JSON的SHA256版本键；SET NX PX原子占位；UUID4 owner；Redis TIME固定总期限；单键Lua原子check/renew/complete/release。renew不延长总期限，complete使用独立短期TTL，旧owner不能删除/修改新租约。Redis错误/未知响应固定unavailable，无内存降级、无自动重试、无盲删；响应丢失即使服务端已占位也不继续。工厂显式URL、1秒连接/读超时、最多16连接、禁用重试，拒绝URL参数/片段及非法数据库路径；模块导入无Redis/环境/网络副作用。
+
+依赖仅新增dedup extra的redis8.1.0（Python>=3.10，MIT，官方PyPI核查）；uv.lock增加一个包，既有版本保持，104条锁/102个当前安装包。采用本机已有Redis7.4.11镜像执行隔离测试，未新部署生产Redis8；只用基础Lua/SET/TTL，不依赖8系列新命令。没有启用外部业务/升级Python构建；原Python构建升级前置事项继续留给外部业务/部署启用前闭环。
+
+文件范围：新增模块、tests/unit/test_feishu_dedup.py（76项）、tests/integration/test_feishu_dedup_redis.py（12项）、任务SPEC和docs/feishu-dedup.md；test_package.py只追加feishu.dedup隔离导入；pyproject.toml/uv.lock增加可选Redis依赖与专用集成标记；同步PROJECT、README、MVP、架构、技术基线、事件说明、测试策略及本进度。没有修改既有核心业务/事件过滤实现/迁移/生产Compose，不创建提交。
+
+证据目录`.artifacts/p1-13-20261027-01/`。命令中的python为`.venv/Scripts/python.exe`；每轮pytest清理PYTEST_ADDOPTS/PYTEST_PLUGINS并finally恢复，使用独立basetemp/cache，Redis URL也恢复。
+
+| 实际命令/操作 | 结果与证据 |
+| --- | --- |
+| `python -m pytest tests/unit/test_feishu_dedup.py -q` | 首次72 failed/1.55s；red.txt。尚无dedup及Redis依赖，部分故障用例因缺Redis依赖失败，不能全部当作纯功能RED |
+| 仅增加可选依赖/标记后，`python -m pytest tests/unit/test_feishu_dedup.py tests/integration/test_feishu_dedup_redis.py -m "not external and not database" -q` | 73 failed/8 errors，2.59s；red-final.txt。依赖已就绪，全部因缺少feishu.dedup实现，是有效功能RED |
+| 同目标命令，注入专用Redis URL | 81 passed，3.83s；green.txt（最初72单元+9真实Redis） |
+| 扩展目标加test_feishu_events.py/test_package.py，采集模块覆盖 | 210 passed/1 failed，47.35s；target.txt。新增非法数据库路径用例发现redis-py静默回退，没有放宽断言，补工厂前置校验 |
+| 最终去重两个目标文件，同-m选择，`--cov=feishu.dedup --cov-branch --cov-report=term-missing --cov-report=json:.../coverage-final.json` | 88 passed，5.23s；target-final.txt。76单元+12真实Redis；Python模块含分支综合98%，工厂异常兜底两行未覆盖；该百分比不覆盖Lua语句，Lua行为由真实Redis测试验证 |
+| `python -m pytest -q` | 854 passed/92 deselected，86.73s；regression.txt。包含原事件过滤及35项隔离导入；默认排除80项既有外部/DB测试及12项Redis集成，Redis已经独立执行，不以deselected冒充通过 |
+| `python -m ruff check src tests alembic`；`python -m ruff format --check src tests alembic`；`python -m mypy src` | 全部通过；ruff-final.txt/format-final.txt/mypy-final.txt，74格式文件/35源码；首轮导入/排版问题只修新增文件，未放宽规则 |
+| `python -m uv lock --check --offline`；`python -m uv pip check` | 104条锁、102已安装包兼容通过；lock-check.txt/pip-check.txt。UV_CACHE_DIR临时设项目研究缓存并恢复；正式锁只增加Redis |
+| 专用容器启动/实际服务核验/收尾 | Redis7.4.11、12独立客户端并发同身份仅一个owner；过期/续租/总期限/完成/释放/旧owner/损坏键/拒绝连接/已写入但响应丢失等通过。redis-audit.json确认0残留键；redis-image.txt/redis-stop.txt/redis-final-state.txt记录digest与exited |
+
+真实Redis使用本次容器`clinical-agent-p113-20261027`（任务标签p1-13）、127.0.0.1:53806、无卷/快照/AOF；镜像`redis@sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499`。Docker指定独立配置与本机Linux engine pipe，不读用户.env/默认Docker凭据；fixture只清理本次UUID前缀，未执行FLUSHALL/FLUSHDB；核实标签后只停止本次容器，不影响其他服务。并发通过Barrier同步12个独立客户端，不把Fake或串行读写当成原子性证明。
+
+交付核对：10份相关文档的212个本地链接均存在，围栏闭合、任务SPEC十一节完整；旧锁定版本全部保持，唯一新增包Redis；delivery-audit.json保存核查结果。git diff --check通过（只有既有文件LF/CRLF提示），新增源码/测试/文档无尾随空白。
+
+P1-13无任务内遗留阻塞。局限：短期租约不是exactly-once；失去租约/故障的调用方必须停止业务，发送前再check，检查和远端发送之间无法跨系统原子化。工作池/续租调度、实际RAG次数、发送未知结果和SDK收发尚未实现，满载联动须由P1-14补齐；生产Compose/外部业务、Python构建前置重核、真实完整模型/PG/LLM链路、医学人工审查及Phase1学习材料仍待后续任务。不因此标记Phase1完成。
+
+下一任务：**P1-14：飞书有界任务分派与服务复用**（仍仅规划，未细化SPEC/未开始）。本次停止，不自动进入。
+
+
+## P1-14 本次执行（2026-10-27）
+
+按项目规则AGENTS.md.txt/PROJECT.md.txt → 当前进度 → MVP/任务SPEC → 已有相关源码与测试顺序核对。当前仓库是唯一代码依据；已有P1-12事件契约、P1-13去重及ResearchService，没有P1-14 SPEC或worker。先补[十一节SPEC](specs/tasks/p1-14-feishu-worker.md)，再写失败测试，最小实现后验证。保留开始时已有文档、依赖、P1-12/13等未提交改动；不重新设计核心架构，不进入P1-15。
+
+新增src/feishu/worker.py：标准ThreadPoolExecutor、Semaphore和Condition/RLock；容量先于Redis acquire；重复/故障/满载不调用研究；提交失败清理自己的租约。实际Future结束及清理回调才释放容量，调用方等待超时/cancel不提前放行运行中的线程；未开始的取消释放一次。显式注入共享ResearchPort，以消息text/request_id构造独立QuestionRequest，复用已有ResearchService和LangGraph，不改RAG/事件/去重实现。研究前后检查owner及处理预算，非法输出/服务异常转固定research_failed；无凭据/原文异常回显。
+
+定义非阻塞DeliveryPort交接，携带合法答案/错误、租约及单调发送截止时间；队列拒绝时owner release，交接异常为unknown并保留TTL，不盲删/重试。worker不提前complete；P1-15 sender须出队再核对deadline/owner并按实际投递结果处理完成标记。默认研究90秒、交接发送15秒及5秒裕量，要求显式至少110秒Redis租期；测试用120秒。采用覆盖预算的固定租约，无续租调度线程，不改变P1-13默认策略。
+
+close停止接纳、停止线程池接收新提交，并有期限等待实际工作及清理回调；返回False不杀线程、不关闭借用资源，调用方必须继续等待。取得接纳锁前已在进行的Redis调用受其自身1秒I/O超时约束。排空研究后还需排空sender才能关闭共享服务/Redis，生产装配属于P1-16。
+
+文件范围：新增worker.py、tests/unit/test_feishu_worker.py、任务SPEC、docs/feishu-worker.md；test_package.py只新增worker隔离导入；更新PROJECT、README、MVP、架构、测试策略、去重说明及本进度。无新依赖、迁移、核心业务变更、SDK、生产Compose或提交。
+
+证据目录`.artifacts/p1-14-20261027/`；python均为仓库`.venv/Scripts/python.exe`。pytest每轮清理并finally恢复PYTEST_ADDOPTS/PYTEST_PLUGINS，独立basetemp/cache；uv临时使用项目研究缓存并恢复UV_CACHE_DIR。
+
+| 实际操作 | 结果 |
+| --- | --- |
+| `python -m pytest tests/unit/test_feishu_worker.py -q`，首次 | 12 failed/16 errors，0.90秒，均缺feishu.worker；red.txt，真实功能RED |
+| 最小实现后同目标测试 | 28 passed，1.22秒；green.txt |
+| 扩展取消/快照/容量/故障/真实图证据测试 | 41 passed/1 failed，2.07秒；boundary.txt。失败为测试误用不存在的citations属性，依当前ResearchAnswer.sources修正；不算功能RED |
+| 新增发送截止时间测试 | 42 passed/1 failed，1.88秒；deadline-red.txt，Delivery缺deadline的真实功能RED；补字段与有界期限后通过 |
+| worker/events/dedup/package联合测试，含`--cov=feishu.worker --cov-branch` | 243 passed，47.28秒；target.txt/coverage.json，worker 133语句/26分支均覆盖，100%；不代表真实服务或医学语义验收 |
+| 最终`python -m pytest -q` | 898 passed/92 deselected，89.32秒；regression.txt。含43 worker目标及36隔离导入；最终真实图生成测试用Barrier强制两请求重叠，直接服务调用完整DTO一致，问题/来源/定位不串请求 |
+| `python -m ruff check src tests alembic`、`python -m ruff format --check src tests alembic`、`python -m mypy src` | 全通过；ruff.txt/format.txt/mypy-final.txt，76格式文件/36源码。只修新增代码排版及已校验身份的类型标注，未放宽规则 |
+| `python -m uv lock --check --offline`、`python -m uv pip check` | 全通过；lock-check.txt/pip-check.txt，104锁定包/102已安装包，无依赖修改 |
+
+独立真实Redis脚本仍以P1-13记录为证，本轮未重跑真实Redis，未连接模型/PG/LLM/飞书；Fake仅验证分派协议联动，不冒充Redis原子性。真实线程与真实LangGraph已运行，检索/生成端口使用合成证据替身。默认排除的92项不能当作通过。真实Redis与worker组合、官方发送、长连接、生产生命周期和全链路验收仍待后续任务。
+
+P1-14任务内无阻塞。限制：同步阻塞调用不能强杀，容量只能等其实际结束；发送交接必须遵守非阻塞有界端口契约；租约与网络发送没有跨系统原子性，不是exactly-once。Phase1未整体验收，原Python构建升级前置核查、真实完整模型/PG/LLM链路、医学人工审查及Phase1学习材料继续保留。下一任务：**P1-15 飞书文本渲染与受限发送**（规划，未细化SPEC/未开始）；本次停止，不自动进入。
+
+交付核对：本任务9份相关文档的197个本地链接存在，Markdown围栏闭合、SPEC十一节齐全，新文件无尾随空白；git diff --check通过（仅已有文件LF/CRLF提示）。delivery-audit.json保存代码/测试/SPEC/说明哈希与核查结果。
+
+
+## P1-15 本次执行（2026-10-27）
+
+按仓库AGENTS.md.txt/PROJECT.md.txt → 当前开发进度 → MVP/任务SPEC → 相关源码和测试顺序核对。当前仓库是唯一代码依据；已有events/dedup/worker与DeliveryPort，尚无P1-15 SPEC、sender或目标测试。先补十一节[SPEC](specs/tasks/p1-15-feishu-sender.md)，再真实RED/GREEN；沿用既有五模块架构，无研究服务/Redis Lua修改，无新依赖、迁移、SDK、生产入口、Compose或提交。保留启动时全部已有未提交改动。
+
+新增src/feishu/sender.py：ResearchAnswer重校验，渲染结论类型/来源编号/chunk、结论与全局局限、文献元数据/范围/document/hash及页码/摘要节和字符区间；不编造元数据、不输出本地URI，尖括号等转为全角防止at标签，来源URL仅允许无凭据HTTP(S)。内部content 24000字节/完整外层30000字节，双层JSON转义计入；超长整体替换固定提示，避免断裂引用，不分段发送。无证据不解释为无效。
+
+Sender以标准Queue、锁内在途计数及单个标准线程承接DeliveryPort。容量含执行中与排队，满载/关闭非阻塞False不接管租约；有效交接重校验并深复制。默认8项、发送5秒、通知5秒；research_failed/busy/unavailable/invalid_input固定通知共用容量，无伪造owner。出队、渲染后及token取得后临HTTP再检查owner/deadline。真实执行和清理结束才释放发送容量。
+
+OfficialMessageAPI使用已有锁定httpx 0.28.1调用官方REST（有message_id为reply，仅event_id为chat_id create），不另建鉴权缓存；借用client和有期限token提供者，不读密钥/配置、不关闭借用资源。token/SDK长连接与生产装配仍待P1-16。注入客户端必须禁用重试/重定向，不附默认鉴权/参数或敏感日志hooks。每项最多一次消息POST，明确成功才owner complete；确定未发/明确失败owner release；未知/失租/Redis不可用保留TTL，无递归错误或重试。标准logger仅记录request_id及固定结果字段，生产handler装配留P1-16。
+
+close有期限等待实际排空，False不杀线程、不能提前关闭借用资源；先研究池排空，再sender，最后客户端。httpx阶段超时不是硬墙钟总期限，已开始调用无法撤回，晚到确认仍尝试complete并记录实际结果；Redis/HTTP无跨系统原子性，不承诺exactly-once。
+
+文件范围：新增sender.py、tests/unit/test_feishu_sender.py、任务SPEC和docs/feishu-sender.md；test_package.py只加sender隔离导入；更新PROJECT、README、开发进度、MVP、架构、测试策略、worker/dedup说明。任务学习说明见sender文档；Phase1仍未整体验收，不提前生成完整阶段学习材料。
+
+所有Python命令使用仓库.venv/Scripts/python.exe；证据`.artifacts/p1-15-20261027/`。执行子进程移除PYTEST_ADDOPTS/PYTEST_PLUGINS（父环境不修改），每轮独立basetemp/cache；UV_CACHE_DIR仅在子进程指向研究缓存。初始lint控制台曾因GBK无法打印测试中的emoji，日志已写入；随后显式UTF-8输出并完成复核。没有因输出编码问题跳过测试。
+
+| 实际检查 | 结果与证据 |
+| --- | --- |
+| 首次目标RED | 35 failed/27 errors，2.35秒，均缺feishu.sender；red.txt |
+| 最小实现GREEN | 62 passed，2.34秒；green.txt |
+| 扩展外层预算RED | 70 passed/1 failed，3.53秒；outer-red.txt。引号使content在外层再次转义而超预算，属真实功能缺口 |
+| 外层预算修复及边界GREEN | 71 passed，3.89秒；boundary-green.txt |
+| 正常/错误Dispatcher→Sender联动、完整飞书/隔离导入联合 | 316 passed，52.52秒；target.txt，含72 sender目标及37包隔离导入；sender 232语句/76分支，综合覆盖96%，coverage.json（不等同于所有异常或医学语义已验收） |
+| 最终默认pytest | 971 passed/92 deselected，90.98秒；regression.txt。排除的外部服务/数据库/Redis/性能项不算通过 |
+| ruff check、ruff format --check src tests alembic、mypy src | 全通过；ruff.txt/format.txt/mypy.txt，78格式文件、37源码。仅修新文件排版和maketrans映射类型，不放宽规则 |
+| uv lock --check --offline、uv pip check | 全通过；lock-check.txt/pip-check.txt，104锁定包/102安装包；无依赖/锁变更 |
+
+协议依据为2026-10-27核查的飞书官方reply/create与text结构文档（链接见SPEC及发送说明）；网页正文部分为空壳，文本结构搜索索引可核对content和at语义；离线MockTransport才是本项目请求结构的执行证据。不使用第三方镜像作为技术依据，不宣称真实SDK或真实租户验证。
+
+真实Queue/线程/Event与Dispatcher已执行，Redis和消息HTTP/token是明确替身；全部来源为合成数据。本轮未连接真实飞书/Redis/模型/PG/LLM，无真实用户消息发送；未新增真实租户收发的验收结论。任务内无阻塞；生产token提供者、官方SDK长连接/接收映射、日志handler与资源装配/Compose留P1-16。真实完整模型/PG/LLM链路、医学人工审查、原Python构建前置核查及Phase1学习材料留阶段验收。下一任务：**P1-16 官方SDK长连接、装配与Compose入口**（规划，未细化/未开始）；本次完成P1-15后停止。
+
+交付核对：10份相关文档的212个本地链接可达，围栏闭合、SPEC十一节齐全，新文件无尾随空白；git diff --check通过（仅已有文件换行转换提示）。代码/测试/说明/SPEC哈希与检查结果保存delivery-audit.json。
+
+
+## P1-16 本次执行（2026-10-27）
+
+按仓库AGENTS.md.txt/PROJECT.md.txt → 开发进度 → MVP/当前任务SPEC → 相关源码测试顺序核对。仓库原无P1-16详细SPEC/main.py，已先补十一节SPEC再TDD；保留全部已有未提交改动，不依赖历史聊天，不改研究服务或去重Lua，不进入P1-17。
+
+实现第五模块src/feishu/main.py：官方SDK DTO显式映射至既有filter_event、固定通知路由、按deadline单次获取官方tenant token（无新缓存）、共享open_research/Redis/HTTP/Sender/Dispatcher装配、启动失败回滚、worker→sender→客户端逆序排空。超时不提前关闭依赖，CLI继续有期限排空；日志只含固定事件/UTC时间/request_id/固定状态，关闭异常也不回显原文。单独入口clinical-feishu与python -m feishu.main，help/导入不创建外部资源。
+
+官方lark-oapi固定1.7.5；下载wheel核查后将缺timeout的SDK发现请求集中适配为5秒HTTP，并复用其EndpointResp/ClientConfig、帧/心跳/重连；_connect/_ping_loop/_disconnect与SDK模块loop是明确私有兼容点，运行拒绝其他版本。SIGINT/SIGTERM、后台任务终止、任务取消及信号/日志状态恢复均有离线测试。正式锁新增SDK/pycryptodome，websockets由17.3降至SDK兼容的15.0.1；未扩大为新框架。
+
+Dockerfile以uv.lock安装api/rag/db/ml/feishu共用镜像，非root用户、只读模型挂载、构建上下文允许清单；Compose保留postgres并新增Redis、API与feishu_bot，显式profiles、依赖健康检查、API ready检查和130秒停止宽限期。不自动迁移/导入/下载模型，不启动普通用户机器人。
+
+文件范围：新增main.py、tests/unit/test_feishu_main.py、tests/unit/test_feishu_deployment.py、显式external/redis集成测试、任务SPEC、docs/feishu-runtime.md、Dockerfile/.dockerignore；更新Compose、pyproject/uv.lock、隔离导入测试、README/PROJECT/环境样例、MVP/架构/发送/工作池/去重/测试策略及本进度。任务级学习/取舍/执行流程见运行说明，Phase1六份阶段学习材料仍留P1-17。
+
+项目解释器.venv/Scripts/python.exe；证据.artifacts/p1-16-20261027。默认检查子进程移除PYTEST_ADDOPTS/PYTEST_PLUGINS，独立basetemp/cache；UTF-8输出。最初审批因额度不可用而未执行写入，用户继续后重试成功，不绕过审批。初次同步尚未结束时的GREEN尝试产生SDK导入失败，等待安装完成后重跑；真实冷导入栈诊断显示生成模块导入耗时。早期测试替身缺future及合成protobuf帧缺四个必填字段已修正，未通过放宽断言使其通过。
+
+| 实际检查 | 结果与证据 |
+| --- | --- |
+| 初始目标RED | 41 failed，1.45秒；red.txt，全部缺feishu.main |
+| 部署RED | 2 failed，0.42秒；deploy-red.txt，Compose缺服务/Dockerfile不存在 |
+| SDK后台终止RED | 1 failed，2.08秒；background-red.txt，原入口一直等待；修复后有明确固定错误退出 |
+| 日志/关闭隐私RED | 2 failed，1.00秒；privacy-red.txt，缺UTC字段与原始清理异常传播；已修复 |
+| 初步目标GREEN | 47 passed，20.46秒；target-green.txt；后补3项协议帧/日志/关闭测试 |
+| 最终飞书/包隔离联合 | 367 passed，68.27秒；target-pass.txt，含48运行时、2部署、38包隔离及全部既有飞书测试 |
+| 最终默认回归 | 1022 passed, 93 deselected, 1 warning in 106.53s (0:01:46)；regression-delivery.txt；被排除的服务/模型/性能项不算通过 |
+| Ruff/格式/mypy | 全通过；ruff-delivery.txt/format-delivery.txt/mypy-delivery.txt，82格式文件、38源码；不放宽规则 |
+| 锁与安装一致性 | uv lock --check --offline、uv pip check通过；lock-delivery.txt/pip-delivery.txt，106锁定包、104安装包 |
+| Compose config | 通过；compose.json/compose-errors.txt；空env文件+合成凭据，仅结构验证，未泄露真实.env |
+| 共享镜像构建 | 实际尝试失败；docker-build.txt，Docker Hub鉴权服务网络超时，尚未下载基础镜像/安装Linux依赖，不声称构建或容器运行通过 |
+| 真实官方身份接口 | 用户提供凭据后，经隐藏终端输入执行；auth与bot info均HTTP200/code0。密钥仅在测试进程内存/子进程环境使用，不写代码、文档、日志或配置文件 |
+| 真实SDK/Redis/消息冒烟 | 实际1 failed，185.34秒；真实SDK连接已确认，但180秒测试窗口内未收到指定口令（No matching test nonce received），未发生已确认测试回复；不得标真实收发通过；live-external.txt |
+
+真实测试只接纳明确口令P116_SMOKE_20261027，使用临时隔离Redis容器与合成ResearchPort，绝不据此声称验证了真实医学问题/E5/PG/付费LLM链路。早期冒烟就绪钩子误用SDK仅重连时触发的on_reconnected，已停止并修正为实际_connect成功；不把等待或中断记作成功。测试后清理临时Redis和接收进程。SDK自身有datetime/事件循环弃用警告，未全局屏蔽，升级仍须兼容性复验。
+
+未解决：共享镜像构建因Docker Hub网络失败，Linux安装与容器启动/停止尚未验收；真实口令收发也未闭环，不能将P1-16或Phase1标记完整验收。Python构建升级前置核查、真实完整模型/PG/LLM链路、医学支持关系人工审查与Phase1整体验收/学习文档仍留P1-17；本任务不自动开始P1-17。
+
+交付复核：22份本次交付文件的本地链接/围栏、SPEC十一节及无尾随空白已核对；git diff --check修正本次追加段落的EOF空行后通过。文件哈希与结果见delivery-audit.json。临时Redis容器与测试进程已退出，未提交Git commit。
+
+
+最终真实联调补记：用户重发并核对接收方式后，显式延长窗口至600秒；实际1 failed、606.82秒，已建立SDK连接但仍未收到指定口令/消息事件。不能确认原因是订阅方式、未生效权限、测试目标或其他客户端接收中的哪一项；未声称发送成功。需在开放平台选择使用长连接接收事件，添加im.message.receive_v1并发布所需权限后重新联调。最后证据live-external-600s.txt；接收进程与临时Redis均已清理。
+
+## P1-16 发布后真实收发补验（2026-10-27）
+
+用户在开放平台发布配置后再次执行既有external+redis测试：**1 passed、1个SDK弃用警告，34.38秒**。实际输出依次为P116_LIVE_CONNECTED、P116_LIVE_EVENT accepted/eligible、P116_LIVE_SENT；真实官方SDK收到指定口令，官方reply接口明确成功，真实Redis owner complete返回owned。证据`.artifacts/p1-16-20261027/live-external-published.txt`。旧180/600秒未收到事件的失败保留为当时事实，本次已补齐指定口令收发验收；不能将旧记录当作当前收发状态。
+
+研究端口为明确的合成ResearchPort，仅回复本地范围/合成测试的证据不足文本，未执行真实医学检索、E5/PG/付费LLM完整链路，也未把HTTP成功当成医学正确性。沿用当前实现，没有因联调成功修改核心代码或放宽测试。凭据仅通过隐藏终端输入及进程环境传递，不写源码或证据；运行结束SDK进程及临时隔离Redis已退出。
+
+当前剩余P1-16验收为Linux共享镜像构建、Compose容器启动/停止；不因真实收发成功自动标记部署或Phase1完成。P1-17未开始。
+
+## P1-16 Linux容器最终验收（2026-10-27）
+
+本次完成P1-16剩余验收，以下结论取代此前“镜像网络阻塞/容器待验收”的当前状态；旧失败保留为历史。
+
+Docker直连Hub超时后，只读确认既有本机7890代理可访问官方registry。使用官方google/go-containerregistry的crane v0.22.1（校验官方release SHA256）获取固定python:3.12.15-slim-bookworm及redis:8.2.2-alpine的linux/amd64镜像；未使用不明镜像源、未关闭TLS/摘要检查、未改Docker/系统全局代理。Python源platform manifest为57d96f71de145a98e7ceca18ee4ade77bba4103a33a72dfaea026b23625c6bf0，Redis为3f835dae62fe5012baf5a768293967c93bc09cf9e848d415351dfba04ee87537。导入后以临时HTTP_PROXY/HTTPS_PROXY build args和正式uv.lock构建共用镜像；生产镜像未保留代理或凭据ENV。89个Linux运行包安装并uv pip check通过，CLI help与非root配置通过。
+
+首次Compose脚本在机器人就绪日志上超时，不能算通过。定位发现_LOG=logging.getLogger(__name__)在python -m入口下成为__main__，脱离feishu JSON handler。新增真实runpy别名测试先RED（1 failed/48 deselected，entrypoint-red.txt），固定logger名称为feishu.main后GREEN（1 passed/48 deselected，entrypoint-green.txt）；仅这一行应用修复，不改SDK/研究/去重/发送算法。第二次脚本仍超时，核查是验收辅助脚本仅采集docker logs的stdout，漏掉了JSON日志所在的stderr；修正为日志命令合并两流，未放宽就绪条件，旧失败另存compose-accept-result-initial.json与compose-accept-result-stdout-only.json。修复后368联合（94.44秒）及1023 passed/93 deselected默认回归（155.73秒）通过；Ruff/format（82文件）/mypy（38源码）通过。证据container-fix-*.txt。
+
+最终Compose使用独立项目clinical-p116-accept-20261027、全新测试卷及空env文件，端口通过验收override移除，避免触碰既有数据库/服务。PostgreSQL/Redis健康、现有Alembic迁移、真实E5只读挂载、API runtime ready与空库问答insufficient_evidence/零claims/零sources均通过；未调用付费LLM。生产python -m feishu.main入口加载共享研究装配并连接真实SDK；API/机器人使用同一镜像、UID10001、只读模型。收到SIGTERM后机器人exit_code=0，API exit_code=143且日志明确Application shutdown complete/Finished server process，两者OOMKilled=false。Uvicorn0.54会在优雅关闭后重新抛出已捕获信号，因此Linux API的143可为正常信号退出，不能单独据此判定失败或成功；已按实际源码及关闭日志修正验收判据，旧误判记录另存compose-accept-result-api143.json。随后只删除本次项目的容器、卷及网络，清理断言通过。实际脚本耗时111.28秒，脚本断言通过，不冒称pytest用例数量。
+
+最终应用镜像ID：sha256:013d6909cef814039ea1f610e5bd4f4c1f60fc65e683714d2bde603266e50a9c。证据docker-build-proxy.txt、python-base-pull.txt、redis-base-pull.txt、image-check.json、compose-accept-result.json、compose-accept-commands.json及compose-accept-api/feishu_bot.log。真实口令收发仍以此前live-external-published.txt的1 passed/34.38秒为准（研究为合成替身）；本次生产容器验证启动/连接/停止，不追加真实医学消息。
+
+P1-16任务内无阻塞，Phase1尚未整体验收。真实E5/PG/付费LLM完整研究链路、医学支持关系人工审查、解释器升级前置要求与phase-01六份学习文档仍归P1-17；未自动开始。原有未提交改动保留，未创建Git提交。
+
+## P1-17 本次执行（2026-10-27）
+
+按规则→当前进度→MVP与新细化SPEC→相关源码测试顺序推进；未依赖历史聊天、重做架构或进入Phase2。完成学习材料缺失RED/GREEN；补真实Redis/Dispatcher/Sender组合与真实E5/PG/DeepSeek闭环测试。合成PDF和固定NCBI摘要各一次真实付费请求，累计2次后停止；固定医学样例输出10条claims及逐条人工审查包，用户选择保留待审查，不伪造签署。
+
+补齐docs/learning/phase-01六份教材和demo.py；新增阶段报告、详细SPEC与tests/integration/test_phase1_acceptance.py。安全版本一致性断言先RED，再将.python-version/Dockerfile及正式.venv升级为3.12.16；原环境备份.venv-p117-prior。官方standalone校验、候选独立环境、Linux候选镜像、默认/真实服务复验的实际证据见[阶段报告](phase1-acceptance.md)。未修改现有研究服务、SDK兼容层、Redis Lua或正式依赖锁。
+
+原3.12.15：默认1024 passed/95 deselected、PG74、Redis13、实际E5/CLI/API/入库/检索5、真实合成闭环1通过。3.12.16候选：默认1024、PG74、Redis13、医学闭环1通过；首次模型组合4通过/1加载失败，独立检索通过，串行复验结果见最新报告；mypy旧缓存内部错误改为独立新缓存后38源码通过。真实失败记录保留，不计作成功。正式环境最终检查以.artifacts/p1-17-20261027/final-*.txt为准。
+
+模型组合串行复验仍失败后捕获底层os1455页面文件不足；新增显式真实模型测试夹具，恢复测试patch后gc.collect回收已结束的图/ASGI/模型引用，原五项同进程组合最终5 passed/80.74秒。只修改tests/conftest.py及六个显式模型测试的夹具标记，不修改生产内存/模型配置。mypy最终使用独立缓存。安全解释器引导脚本install-python.ps1固定官方资产SHA256且已实测本地路径。
+
+未解决：真实医学样例的支持关系人工审核仍待签署（用户已明确保留待审查）；因此P1-17/Phase1不标完成，不自动开始Phase2。其他执行结果/升级限制以阶段报告为准。保留原有未提交改动，未创建Git提交。
+
+P1-17最终交付复核：正式Python3.12.16默认回归1025 passed/95 deselected/1 SDK弃用警告（266.94秒），Ruff、84文件格式、38源码mypy、106锁定包/104安装包检查全部通过。3.12.16真实PG74、Redis13、修复后的模型组合5通过；真实LLM两样例各1通过。升级后Linux共享镜像与隔离Compose API迁移/只读E5/空库问答/非root/SIGTERM关闭通过（0次付费调用），所有本轮临时容器/卷/网络已清理；API正常退出143结合完整关闭日志判定。首次Compose辅助日志GBK解码失败保留并修正为UTF-8，未放宽产品判据。医学人工审核仍待签署，P1-17/Phase1保持验收中；不进入Phase2。交付文件链接/围栏/十一节SPEC与git diff --check通过，详delivery-audit.json。

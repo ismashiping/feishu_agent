@@ -1,6 +1,6 @@
 # 离线入库应用服务（P1-07）
 
-当前通过Python服务导入单个PDF或单个PubMed XML批次，尚无导入CLI/API/飞书入口。依据 [详细SPEC](specs/tasks/p1-07-offline-ingestion.md)，执行证据见 [开发记录](development-plan.md)。
+P1-07提供Python服务导入单个PDF或单个PubMed XML批次；当前已有[CLI](cli.md)和[API](api.md)入口。飞书只完成纯事件过滤，运行时尚未接通。依据 [详细SPEC](specs/tasks/p1-07-offline-ingestion.md)，执行证据见 [开发记录](development-plan.md)。
 
 ## 准备与调用
 

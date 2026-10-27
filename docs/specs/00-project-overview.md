@@ -1,6 +1,8 @@
 # SPEC 00：项目总体与 Phase 0 工程初始化
 
-版本：0.7；日期：2026-10-27；状态：Phase 0 在 Windows 本地工程骨架范围验收完成；学习材料和结论见 [阶段验收报告](../phase0-acceptance.md)。Phase1完成P1-01–11离线入库、基础检索、RAG证据关联工作流、CLI与FastAPI入口，飞书及阶段验收未完成，实际范围见 [开发计划](../development-plan.md)。
+框架职责修订（2026-10-27）：LangGraph 负责 Agent 编排，LangChain 负责标准化模型调用及通用 Agent 工具接口，DeepSeek 只作底层模型供应商。当前生成使用供应商无关 LangChainAnswerGenerator 与通过配置 URL 接入的通用 ChatOpenAI；数据库/解析/飞书 SDK 不强行包装为模型工具。详见[调整 SPEC](tasks/langchain-model-boundary.md)。
+
+版本：0.9；日期：2026-10-27；状态：Phase 0 在 Windows 本地工程骨架范围验收完成；学习材料和结论见 [阶段验收报告](../phase0-acceptance.md)。Phase1完成P1-01–12离线入库、基础检索、RAG证据关联工作流、CLI、FastAPI与飞书纯事件过滤，飞书运行时及阶段验收未完成，实际范围见 [开发计划](../development-plan.md)。
 
 ## 1. 背景及目标
 
@@ -47,7 +49,7 @@ Phase 0 不实现入库、向量库业务表、RAG、飞书连接、PubMed 在�
 
 以下是跨阶段逻辑契约，不是已实现 API；Pydantic 字段约束、实际路由和模块位置由所属任务细化。
 
-- `ImportRequest`：本地来源、格式、可选元数据；输出 `IngestionResult`，每项区分 imported / already_present / needs_update / rejected / failed，包含文档标识、原因及汇总。needs_update 表示已有相同外部身份但内容变化，Phase 1 不覆盖旧内容，Phase 8 再实现版本更新；不把跳过错误当成功。
+- `ImportRequest`：本地来源、格式、可选元数据；输出 `IngestionResult`，每项区分 imported / already_present / needs_update / conflict / rejected / failed，包含文档标识、原因及汇总。needs_update 表示已有相同外部身份但内容变化，Phase 1 不覆盖旧内容，Phase 8 再实现版本更新；不把跳过错误当成功。
 - `QuestionRequest`：request_id、非空 question、检索范围；默认去首尾空白后 1–4000 字符，top_k 默认 5、允许 1–20。Phase 1 固定 local 范围，Phase 4 才允许 online/hybrid；不支持的选项显式拒绝。
 - `ResearchAnswer`：request_id、status（answered / insufficient_evidence）、claims、sources、limitations、retrieval_scope、generated_at。依赖故障走错误契约，不伪装成证据不足。
 - `ErrorInfo`：稳定 code、用户可读 message、request_id、retryable；使用扁平业务错误码及成熟异常即可。输入错误、无证据、外部不可用、引用无效、忙碌需可区分；不暴露堆栈和密钥。
@@ -55,7 +57,7 @@ Phase 0 不实现入库、向量库业务表、RAG、飞书连接、PubMed 在�
 
 ## 6. 数据模型
 
-此处定义共享语义；ORM 与业务 DTO 分开。P1-01 已实现文献/证据及日期/来源/定位/Embedding 信息 DTO，实际字段与边界见 [详细契约](tasks/p1-01-literature-contracts.md)；ORM、claims/答案/引用 DTO 尚未实现。
+此处定义共享语义；ORM 与业务 DTO 分开。P1-01 已实现文献/证据及日期/来源/定位/Embedding 信息 DTO，实际字段与边界见 [详细契约](tasks/p1-01-literature-contracts.md)；ORM与持久化由[P1-06/07](tasks/p1-07-offline-ingestion.md)实现，claims/答案/引用DTO由[P1-09](tasks/p1-09-basic-rag.md)实现；不是等待后续阶段才补的契约。
 
 | 对象 | 必需字段及规则 |
 | --- | --- |
@@ -101,7 +103,7 @@ Phase 0 工程流：调研 → SPEC → 架构 → 测试策略/任务 SPEC → 
 
 P0-04 文档任务现在可执行：核对 00–09 文件齐全、每份含本规范要求的 11 节、需求 G-01–12 均映射阶段、相对链接有效、围栏闭合、无伪造“测试通过”记录，并检查空白错误。
 
-P0-04 制定时以下检查仅是目标；现在实际执行命令已由详细任务冻结，P0-07/08 记录真实结果。项目根目录的 PowerShell 命令为：
+P0-04制定时以下检查是Phase 0目标；P0-07/08已记录对应历史结果。下列sync只安装基础开发依赖；对当前仓库执行全量pytest前必须按[README](../../README.md)安装ml/db/rag/api四个extras，不能把历史命令当作当前全量环境准备。项目根目录的PowerShell命令为：
 
 ```powershell
 $projectPython = Join-Path (Get-Location) '.venv/Scripts/python.exe'
@@ -120,4 +122,4 @@ P0-01–03 调研已完成；P0-04 本文档组不表示工程完成。P0-05 产
 
 以上产物、测试记录、可运行最小 Demo、调试与练习齐全且无必需验证缺口时，才可标记 Phase 0 完成。每次一个任务，等待下一任务指令；Phase 1–9 概要进入对应阶段前必须细化，不能直接拿概要一次性编码。
 
-P0-08 已按 [独立清单](tasks/phase0-acceptance.md) 验收上述产物；阶段完成限于已记录的 Windows 骨架范围，不包含 Linux/无缓存下载或真实业务服务。用户指定的 P1-01–03 契约/本地 PDF/XML 解析现已完成，Phase 1 仍须后续逐任务实施验收。
+P0-08 已按 [独立清单](tasks/phase0-acceptance.md) 验收上述产物；阶段完成限于已记录的 Windows 骨架范围，不包含 Linux/无缓存下载或真实业务服务。P1-01–12已按各自任务范围交付；Phase 1仍须完成飞书运行时及阶段验收，当前任务表见[开发计划](../development-plan.md#phase-1-任务进度)。开发任务P1-xx与阶段测试场景P1-Txx不同，映射见[MVP](01-mvp.md#验收场景与开发任务的对应关系)。

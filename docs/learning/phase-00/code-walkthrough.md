@@ -1,5 +1,7 @@
 # 按实际执行顺序读代码
 
+历史范围：本文记录Phase 0对应任务/教材时点，旧测试数、模块数及“下一任务”不表示当前状态。当前进度见[任务表](../../development-plan.md#phase-1-任务进度)；在当前仓库跑全量测试须安装ml/db/rag/api四个extras，基础doctor示例仍无需这些业务依赖。
+
 先完成 [最小 Demo](tutorial.md)，再打开下面链接逐个定位。本页只解释当前六个源模块；architecture.md 中未来的 domain/application/adapters/feishu 不属于已实现调用链。
 
 ## 1. 安装如何生成两个入口

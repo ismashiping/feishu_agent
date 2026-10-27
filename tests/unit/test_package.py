@@ -25,7 +25,8 @@ from pydantic_settings import BaseSettings
 attempts = []
 blocked_roots = {
     "torch", "transformers", "sentence_transformers", "sqlalchemy",
-    "redis", "lark_oapi", "langgraph", "langsmith", "httpx", "fastapi", "uvicorn",
+    "redis", "lark_oapi", "langchain_core", "langchain_openai", "langgraph",
+    "langsmith", "httpx", "fastapi", "uvicorn",
 }
 if sys.argv[1] in {
     "clinical_agent.adapters.postgres.models", "clinical_agent.adapters.postgres.connection",
@@ -111,10 +112,17 @@ sys.exit(1 if error else 0)
         "clinical_agent.domain.research",
         "clinical_agent.domain.citations",
         "clinical_agent.application.research",
-        "clinical_agent.adapters.deepseek",
+        "clinical_agent.adapters.llm",
+        "clinical_agent.adapters.langchain_generation",
         "clinical_agent.command_runtime",
         "clinical_agent.api_runtime",
         "clinical_agent.api",
+        "feishu",
+        "feishu.events",
+        "feishu.dedup",
+        "feishu.worker",
+        "feishu.sender",
+        "feishu.main",
     ],
 )
 def test_package_import_is_isolated_and_quiet(module_name: str, tmp_path: Path) -> None:
@@ -140,5 +148,5 @@ def test_package_import_is_isolated_and_quiet(module_name: str, tmp_path: Path) 
     assert result.stderr == ""
     assert report["attempts"] == []
     assert report["handlers_changed"] is False
-    source_package = Path(__file__).resolve().parents[2] / "src" / "clinical_agent"
+    source_package = Path(__file__).resolve().parents[2] / "src" / module_name.split(".")[0]
     assert Path(report["module_file"]).resolve().is_relative_to(source_package)

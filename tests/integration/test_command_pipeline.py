@@ -12,6 +12,7 @@ import pytest
 pytestmark = [pytest.mark.integration, pytest.mark.database, pytest.mark.external]
 
 
+@pytest.mark.usefixtures("release_model_memory")
 def test_cli_ingestion_and_rag_with_real_model_database(
     tmp_path,
     pdf_factory,
@@ -21,7 +22,8 @@ def test_cli_ingestion_and_rag_with_real_model_database(
     from sqlalchemy import delete, func, select, text
 
     from clinical_agent import cli
-    from clinical_agent.adapters import deepseek, embedding
+    from clinical_agent.adapters import embedding
+    from clinical_agent.adapters import llm as llm_api
     from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
     from clinical_agent.adapters.postgres.models import ChunkRecord, DocumentRecord
 
@@ -32,9 +34,9 @@ def test_cli_ingestion_and_rag_with_real_model_database(
         Path(__file__).resolve().parents[2] / "models/multilingual-e5-base" / embedding.REVISION
     )
     assert model_dir.is_dir()
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "synthetic-not-a-real-key")
-    monkeypatch.setenv("DEEPSEEK_MODEL", "protocol-fixture")
-    monkeypatch.setenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
+    monkeypatch.setenv("LLM_API_KEY", "synthetic-not-a-real-key")
+    monkeypatch.setenv("LLM_MODEL", "protocol-fixture")
+    monkeypatch.setenv("LLM_BASE_URL", "https://api.example.test/v1")
     original_connect = socket.socket.connect
 
     def loopback_only(sock, address):
@@ -57,7 +59,7 @@ def test_cli_ingestion_and_rag_with_real_model_database(
     calls = []
 
     def handler(request):
-        assert request.url.host == "api.deepseek.com"
+        assert request.url.host == "api.example.test"
         context = json.loads(json.loads(request.content)["messages"][1]["content"])
         calls.append(context)
         raw = json.dumps(
@@ -82,9 +84,9 @@ def test_cli_ingestion_and_rag_with_real_model_database(
         )
 
     monkeypatch.setattr(
-        deepseek,
-        "deepseek_generator",
-        partial(deepseek.deepseek_generator, transport=httpx.MockTransport(handler)),
+        llm_api,
+        "open_llm",
+        partial(llm_api.open_llm, transport=httpx.MockTransport(handler)),
     )
 
     pdf = pdf_factory(
@@ -165,7 +167,7 @@ def test_cli_ingestion_and_rag_with_real_model_database(
                 "cli": "main with production composition",
                 "embedding": "real fixed E5 CPU; reused within test",
                 "database": "real PostgreSQL/pgvector",
-                "llm": "HTTPX MockTransport; NOT real DeepSeek",
+                "llm": "HTTPX MockTransport; NOT real model API",
                 "ingestion_statuses": [first["status"], again["status"], article["status"]],
                 "documents": documents,
                 "chunks": chunks,

@@ -15,5 +15,76 @@ services:
       timeout: 3s
       retries: 30
     command: ["postgres", "-c", "timezone=UTC"]
+  redis:
+    image: redis:8.2.2-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+  api:
+    profiles: [api]
+    image: clinical-literature-agent:local
+    build: .
+    init: true
+    command: ["uvicorn", "clinical_agent.api:create_app", "--factory", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "127.0.0.1:${CLINICAL_AGENT_API_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment: &app_environment
+      CLINICAL_AGENT_APP_ENV: production
+      CLINICAL_AGENT_LOG_LEVEL: ${CLINICAL_AGENT_LOG_LEVEL:-INFO}
+      CLINICAL_AGENT_DB_HOST: postgres
+      CLINICAL_AGENT_DB_PORT: "5432"
+      CLINICAL_AGENT_DB_NAME: ${CLINICAL_AGENT_DB_NAME:-clinical_agent}
+      CLINICAL_AGENT_DB_USER: ${CLINICAL_AGENT_DB_USER:-clinical_agent}
+      CLINICAL_AGENT_DB_PASSWORD: ${CLINICAL_AGENT_DB_PASSWORD:?Set CLINICAL_AGENT_DB_PASSWORD explicitly}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-}
+      LLM_MODEL: ${LLM_MODEL:-}
+      CLINICAL_AGENT_API_MODEL_DIR: /app/model
+      CLINICAL_AGENT_API_IMPORT_ROOT: /app/data/incoming
+      CLINICAL_AGENT_API_SNAPSHOT_DIR: /app/data/snapshots
+    volumes:
+      - ${CLINICAL_AGENT_MODEL_DIR:-./models/multilingual-e5-base/d128750597153bb5987e10b1c3493a34e5a4502a}:/app/model:ro
+      - incoming_data:/app/data/incoming:ro
+      - snapshot_data:/app/data/snapshots
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+      start_period: 120s
+    stop_grace_period: 130s
+  feishu_bot:
+    profiles: [bot]
+    image: clinical-literature-agent:local
+    build: .
+    init: true
+    command: ["python", "-m", "feishu.main"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      <<: *app_environment
+      CLINICAL_AGENT_FEISHU_APP_ID: ${CLINICAL_AGENT_FEISHU_APP_ID:-}
+      CLINICAL_AGENT_FEISHU_APP_SECRET: ${CLINICAL_AGENT_FEISHU_APP_SECRET:-}
+      CLINICAL_AGENT_FEISHU_BOT_OPEN_ID: ${CLINICAL_AGENT_FEISHU_BOT_OPEN_ID:-}
+      CLINICAL_AGENT_FEISHU_MODEL_DIR: /app/model
+      CLINICAL_AGENT_FEISHU_REDIS_URL: redis://redis:6379/0
+      CLINICAL_AGENT_FEISHU_CAPACITY: ${CLINICAL_AGENT_FEISHU_CAPACITY:-2}
+      CLINICAL_AGENT_FEISHU_SENDER_CAPACITY: ${CLINICAL_AGENT_FEISHU_SENDER_CAPACITY:-8}
+      CLINICAL_AGENT_FEISHU_SHUTDOWN_SECONDS: "5"
+    volumes:
+      - ${CLINICAL_AGENT_MODEL_DIR:-./models/multilingual-e5-base/d128750597153bb5987e10b1c3493a34e5a4502a}:/app/model:ro
+    stop_grace_period: 130s
+
 volumes:
   postgres_data:
+  incoming_data:
+  snapshot_data:

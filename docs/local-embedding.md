@@ -1,6 +1,6 @@
 # 本地 Embedding 使用与验证（P1-05）
 
-当前提供 Python 适配器，不提供入库/问答 CLI。详细范围见 [SPEC](specs/tasks/p1-05-local-embedding.md)，验收结果见 [开发记录](development-plan.md)。共享 Conda 环境无需修改。
+本页说明P1-05的Python适配器；当前已有复用该适配器的[入库/问答CLI](cli.md)及[API](api.md)。详细范围见 [SPEC](specs/tasks/p1-05-local-embedding.md)，验收结果见 [开发记录](development-plan.md)。共享 Conda 环境无需修改。
 
 ## 环境与固定模型
 
@@ -11,6 +11,8 @@ $env:UV_CACHE_DIR=Join-Path (Get-Location) '.research-cache/uv'
 $env:UV_PYTHON_INSTALL_DIR=Join-Path (Get-Location) '.tools/python'
 .venv/Scripts/python.exe -m uv sync --locked --extra ml --system-certs
 ```
+
+本页sync命令仅安装模型模块所需ml extra，uv会移除未选中的extras；当前全量开发/测试请按[README](../README.md)同时选择ml/db/rag/api。
 
 ML 是可选 extra：sentence-transformers 6.2.0、transformers 5.21.0、torch 2.14.1；Windows/Linux 的锁定 CPU 构建为 2.14.1+cpu。其他依赖由 uv.lock 锁定。普通 `uv sync --locked` 不安装 ML；加载模型是显式操作，doctor/模块导入不会自动加载模型。
 

@@ -256,6 +256,7 @@ def test_database_error_cannot_become_empty_result(engine, store):
 
 
 @pytest.mark.external
+@pytest.mark.usefixtures("release_model_memory")
 def test_actual_e5_query_and_document_vectors_return_traceable_hits(
     engine, store, tmp_path, pdf_factory, monkeypatch
 ):

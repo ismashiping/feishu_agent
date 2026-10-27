@@ -1,6 +1,6 @@
 # CLI离线入库与问答（P1-10）
 
-已安装的`clinical-agent`与`python -m clinical_agent`提供相同入口，复用现有入库、检索及RAG服务。[任务SPEC](specs/tasks/p1-10-cli-entrypoints.md)、[执行记录](development-plan.md)。P1-11已增加[API入口](api.md)，飞书仍未实现。
+已安装的`clinical-agent`与`python -m clinical_agent`提供相同入口，复用现有入库、检索及RAG服务。[任务SPEC](specs/tasks/p1-10-cli-entrypoints.md)、[执行记录](development-plan.md)。P1-11已增加[API入口](api.md)，飞书已完成[纯事件过滤](feishu-events.md)，业务运行时尚未接通。
 
 ## 环境与帮助
 
@@ -12,9 +12,9 @@
 .venv/Scripts/python.exe -m clinical_agent doctor
 ```
 
-入库只需db/ml extras；问答另外需要rag。help/doctor不加载模型、不读取数据库/DeepSeek配置，11包基础环境仍可执行。缺可选依赖时报missing_dependency，不自动安装或下载。现有控制台脚本无需修改，模块和console均已通过安装入口测试。
+入库只需db/ml extras；问答另外需要rag。上述命令针对CLI，会移除未选择的api extra；保留当前全量开发/测试环境时还应添加--extra api。help/doctor不加载模型、不读取数据库/DeepSeek配置，11包基础环境仍可执行。缺可选依赖时报missing_dependency，不自动安装或下载。现有控制台脚本无需修改，模块和console均已通过安装入口测试。
 
-业务命令需要先按[数据库说明](postgres.md)启动PostgreSQL并手动执行迁移；CLI不会自动迁移。按[本地模型说明](local-embedding.md)准备固定E5 revision资产；CLI不会下载模型。设置数据库密码等环境变量，问答另需DEEPSEEK_API_KEY、DEEPSEEK_BASE_URL和DEEPSEEK_MODEL；不要把密钥写入argv或共享脚本，应用不会自动读取.env。
+业务命令需要先按[数据库说明](postgres.md)启动PostgreSQL并手动执行迁移；CLI不会自动迁移。按[本地模型说明](local-embedding.md)准备固定E5 revision资产；CLI不会下载模型。设置数据库密码等环境变量，问答另需LLM_API_KEY、LLM_BASE_URL和LLM_MODEL；不要把密钥写入argv或共享脚本，应用不会自动读取.env。
 
 ## 导入单个文件
 
@@ -43,7 +43,7 @@ stdout为一个JSON对象：request_id和result；result保留每项index/status
 
 ask只检索local，top_k为1..20，min_similarity为[-1,1]有限数；默认5和0.0。相似度不是概率或证据质量。问题trim后1..4000字符，编码器仍执行token预算，不静默截断。只有成功空召回才返回insufficient_evidence；服务故障不会伪装成无证据。
 
-**ask会把问题及命中的原文片段发送至已配置的DeepSeek服务，产生供应商调用费用。** 应确认文献适合发送至该服务。书目/定位从可信命中构造，不接纳模型新增来源；结构引用检查不是医学语义核验。完整生成/来源规则及局限见[RAG说明](basic-rag.md)。
+**ask会把问题及命中的原文片段发送至已配置的模型 API 服务，产生供应商调用费用。** 应确认文献适合发送至该服务。书目/定位从可信命中构造，不接纳模型新增来源；结构引用检查不是医学语义核验。完整生成/来源规则及局限见[RAG说明](basic-rag.md)。
 
 stdout直接输出ResearchAnswer：request_id、status、claims、sources、limitations、retrieval_scope、generated_at。保留kind以区分证据、推断和不确定性，sources保留实际引用原文和定位，不能丢弃局限后当成诊疗结论。JSON使用ASCII转义表示Unicode，`json.loads`会还原中文，适合Windows非UTF8管道；这不是中文丢失。
 

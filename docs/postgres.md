@@ -2,7 +2,7 @@
 
 P1-06 只提供 ORM、连接构造、Alembic 和本地基础设施；还没有文献导入服务、DTO 映射、检索或问答命令。[任务 SPEC](specs/tasks/p1-06-postgres-schema.md)、[实际验收记录](development-plan.md)。
 
-P1-07当前补充：Python离线入库服务/DTO映射已实现，操作见 [入库说明](offline-ingestion.md)。最新head=p107_0002，增加nullable ingestion_metadata；既有P106行不伪造解析信息，读作legacy并拒绝当合法重复。上文P106是历史交付范围，检索/问答命令仍未实现。
+P1-07当前补充：Python离线入库服务/DTO映射已实现，操作见 [入库说明](offline-ingestion.md)。最新head=p107_0002，增加nullable ingestion_metadata；既有P106行不伪造解析信息，读作legacy并拒绝当合法重复。上文P106是历史交付范围；当前已有[P1-08检索](vector-retrieval.md)、[基础RAG](basic-rag.md)、[CLI](cli.md)及[API](api.md)。
 
 ## 安装与本地启动
 
@@ -12,7 +12,7 @@ $env:UV_PYTHON_INSTALL_DIR=Join-Path (Get-Location) '.tools/python'
 .venv/Scripts/python.exe -m uv sync --locked --extra db --extra ml --system-certs
 ```
 
-只做数据库工作可以省略 ml extra；完整默认开发测试需要 db extra，真实模型测试另需 ml。基础 doctor 不需要任一 extra。
+只做数据库工作可以省略 ml extra；当前完整默认开发/测试需要ml/db/rag/api四个extras，见[README](../README.md)；上述sync只面向入库/数据库模块，会移除未选中的extras。基础 doctor 不需要任一 extra。
 
 Compose 镜像固定为 pgvector/pgvector:0.8.7-pg16 及实际 digest。P1-06 实测 PostgreSQL16.15 / pgvector0.8.7；容器只绑定127.0.0.1，数据保存在 project 独立 named volume。本阶段没有 Redis/API/飞书服务占位。
 
@@ -85,6 +85,6 @@ $env:CLINICAL_AGENT_DB_ALLOW_TEST_RESET='1'
     --basetemp=.artifacts/p106-manual-db-temp -o cache_dir=.artifacts/p106-manual-db-cache
 ```
 
-使用未用过的 basetemp 保留历史证据。测试会升降级/重建该库业务表，验证实际持久化、向量距离、约束、回滚和双连接争抢；缺少安全前提时失败，不 skip 后冒充通过。原业务程序的 already_present/needs_update、重试和应用幂等尚未实现。
+使用未用过的 basetemp 保留历史证据。测试会升降级/重建该库业务表，验证实际持久化、向量距离、约束、回滚和双连接争抢；缺少安全前提时失败，不 skip 后冒充通过。这组schema测试不代替应用级幂等验收；already_present/needs_update/conflict及应用幂等已由P1-07实现并另测，见[入库说明](offline-ingestion.md)。当前不提供通用自动重试。
 
 结束后可停止自己的服务并保留卷：`docker compose -p <自己的project> --env-file .env.example stop postgres`。不要清理其他 project、执行 volume prune，或为了重复验收删除用户数据卷。

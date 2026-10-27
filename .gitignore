@@ -25,3 +25,6 @@ coverage.xml
 data/
 models/
 logs/
+.venv-p117/
+.venv-p117-prior/
+.venv-p117-partial/

@@ -1,5 +1,7 @@
 # Phase 0 阶段验收报告
 
+历史范围：本文记录Phase 0对应任务/教材时点，旧测试数、模块数及“下一任务”不表示当前状态。当前进度见[任务表](development-plan.md#phase-1-任务进度)；在当前仓库跑全量测试须安装ml/db/rag/api四个extras，基础doctor示例仍无需这些业务依赖。
+
 日期：2026-10-26（Asia/Shanghai）；任务：P0-08；结论：**Phase 0 验收通过，范围为 Windows 本地工程骨架、学习材料与已记录的缓存离线验证。尚未进入 Phase 1。**
 
 本报告保留 P0-08 验收时点的状态/计数；后续 Phase 1 进展以 [开发计划](development-plan.md) 为准，不将旧 wheel/覆盖率证据作为新增代码的验证结果。

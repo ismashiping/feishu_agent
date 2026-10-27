@@ -1,20 +1,22 @@
 # Clinical Literature Research Agent
 
-医学文献检索与循证问答的渐进式Python项目，用于科研辅助。**Phase0已完成，Phase1当前完成P1-01–11：离线入库、本地向量检索、基础RAG证据关联回答、CLI及FastAPI入口**。可通过HTTP、CLI或Python服务调用，飞书尚未实现。[API用法](docs/api.md)。[CLI用法及退出码](docs/cli.md)。当前RAG装配与验证边界见 [使用说明](docs/basic-rag.md)。
+当前架构职责：**LangGraph 负责 Agent 编排，LangChain 负责标准化模型调用及通用 Agent 工具接口，DeepSeek 仅作为底层模型供应商。** 模型生成使用 LangChain 通用 `ChatOpenAI` 兼容接口和 `LLM_BASE_URL`、`LLM_API_KEY`、`LLM_MODEL` 配置；源码不包含供应商专属模块、类型或依赖。HTTPX 承担底层传输与边界防护；领域层独立核验引用。详见[架构设计](docs/architecture.md)与[本次调整 SPEC](docs/specs/tasks/langchain-model-boundary.md)。
+
+医学文献检索与循证问答的渐进式Python项目，用于科研辅助。**Phase0已完成，Phase1当前完成P1-01–16：离线入库、本地向量检索、基础RAG证据关联回答、CLI、FastAPI、飞书纯事件过滤、Redis原子去重、有界研究任务分派及文本渲染/受限发送**。可通过HTTP、CLI或Python服务调用；P1-16官方SDK真实收发、鉴权装配、共享镜像与隔离Compose运行已验收，具体边界见[运行说明](docs/feishu-runtime.md)；[有界分派说明](docs/feishu-worker.md)。[渲染与发送](docs/feishu-sender.md)（P1-15离线协议与P1-16合成研究的真实SDK收发已验证）。[飞书过滤契约](docs/feishu-events.md)。[API用法](docs/api.md)。[CLI用法及退出码](docs/cli.md)。当前RAG装配与验证边界见 [使用说明](docs/basic-rag.md)。
 
 ## 当前环境
 
 | 项目 | 已验证值 |
 | --- | --- |
 | 开发平台 | Windows x64 |
-| 项目解释器 | CPython 3.12.15，位于项目 .tools/python/ |
+| 项目解释器 | CPython 3.12.16，位于项目 .tools/p117-python31216/python/ |
 | 项目环境 | .venv/，不继承共享 Conda 的安装包 |
 | 工具 | uv 0.13.5（引导环境原有 uv 0.13.1 未修改） |
 | 发行包 / 导入名 | clinical-literature-agent 0.1.0 / clinical_agent |
 | 正式依赖 | pyproject.toml + uv.lock |
 | 构建后端 | setuptools.build_meta；构建隔离依赖固定 setuptools 83.0.0 |
 
-原 SPEC 的 3.12.16 在实际 uv 下载目录中不可取得；官方 standalone 最新发行 20261021 为 3.12.15，因此本次显式修订到 3.12.15，兼容范围仍为 >=3.12,<3.13。3.12.16 是后续安全修订升级目标，不能把当前离线验证当成其验证，启用外部业务/部署前需重新核查。[官方构建发行](https://github.com/astral-sh/python-build-standalone/releases/tag/20261021)。
+P1-17已通过官方standalone20261026的SHA256SUMS取得并验证3.12.16；正式.venv与Dockerfile已升级，原环境保留为.venv-p117-prior。uv0.13.5内置下载清单落后于官方资产，安装时显式使用已核验的解释器。复验及边界见[阶段报告](docs/phase1-acceptance.md)。
 
 ## 安装（PowerShell，项目根目录）
 
@@ -30,11 +32,12 @@ function Invoke-ProjectUv {
 }
 
 Invoke-ProjectUv --version
-Invoke-ProjectUv python install 3.12.15 --no-bin --no-registry
-Invoke-ProjectUv sync --locked --group dev --extra ml --extra db --extra rag --extra api
+# uv内置清单尚无3.12.16；脚本从官方资产下载并校验已冻结SHA256。
+$phase1Python = & ./docs/learning/phase-01/install-python.ps1
+Invoke-ProjectUv sync --locked --group dev --extra ml --extra db --extra rag --extra api --extra feishu --python $phase1Python
 ```
 
---no-bin/--no-registry 避免注册用户级解释器入口；无需更改系统 PATH 或激活/改造共享 Conda。实际 .venv 基于受控的项目内解释器。不要把 docs/research/dependencies/ 的历史解析清单当正式环境安装说明。
+引导脚本仅解包至项目内目录，不注册用户级解释器入口；无需更改系统 PATH 或激活/改造共享 Conda。实际 .venv 基于受控的项目内解释器。不要把 docs/research/dependencies/ 的历史解析清单当正式环境安装说明。
 
 ## 最小验证
 
@@ -112,14 +115,16 @@ $env:CLINICAL_AGENT_LOG_LEVEL = 'INFO'
 两种入口均已在 Windows 实际运行。`doctor` 的 stdout 为一份 JSON，例如以下结构（request_id 每次生成，python_version 来自实际解释器）：
 
 ```json
-{"status":"ok","scope":"local_environment","external_services_checked":false,"python_version":"3.12.15","app_env":"test","request_id":"017969be-9f9e-4a43-9963-aa577b754ee8"}
+{"status":"ok","scope":"local_environment","external_services_checked":false,"python_version":"3.12.16","app_env":"test","request_id":"017969be-9f9e-4a43-9963-aa577b754ee8"}
 ```
 
-INFO 下 stderr 有一条 `local_check_completed` JSON 日志，与结果使用同一 request_id；WARNING 可过滤该日志。无参数、主帮助和 doctor 帮助均不装配 runtime，非法环境配置也不影响帮助。未知命令/参数返回 2；doctor 配置错误返回 2，stderr 为 `Invalid configuration.`；意外失败返回 1，输出 `Local check failed.` 和已可用的受控错误日志，不输出原始异常。argparse 会显示用户输入的非法参数，不应通过命令参数传密钥。
+INFO 下 stderr 有一条 `local_check_completed` JSON 日志，与结果使用同一 request_id；WARNING 可过滤该日志。无参数、主帮助和 doctor 帮助均不装配 runtime，非法环境配置也不影响帮助。未知命令/参数返回 2；doctor 配置错误返回 2，stderr 为 `Invalid configuration.`；意外失败返回 1，输出 `Local check failed.` 和已可用的受控错误日志，不输出原始异常。当前解析器覆盖了argparse错误输出，只显示usage与固定Invalid arguments.，不回显非法参数值；仍不应通过命令参数传密钥。
 
 `bootstrap.open_runtime()` 在进入上下文时读取一次配置、配置日志并生成 UUID；也可显式传入 Settings/request_id。Runtime 是冻结 dataclass，只有配置与关联 ID，当前没有外部连接或线程，也没有假的关闭操作。CLI 支持注入上下文工厂，在上下文内构造 DoctorReport，成功退出后才发布结果；Fake 生命周期测试不证明未来数据库或 SDK 的关闭行为。
 
 ## 干净环境与 wheel 复现
+
+下述25/8包、六模块及59项测试是P0-07e历史记录。复用这些命令验证当前仓库时，全量测试需安装ml/db/rag/api四个extras；当前wheel的模块数与依赖按现有源码/锁文件重新核对，不能套用旧计数。基础wheel环境只用于help/doctor与轻量导入，不运行全部测试。
 
 2026-10-26 在 `.artifacts/p0-07e-20261026-01/` 新建两个环境验证成功：repro-venv 安装锁定的 25 个开发/运行包，wheel-venv 仅安装 8 个运行依赖及项目 wheel。两者不继承系统 site-packages；wheel 的六个模块均从该环境的 site-packages 导入，不依赖源码路径。使用本地缓存完成离线验证，未验证无缓存下载或 Linux 安装。
 
@@ -129,11 +134,11 @@ INFO 下 stderr 有一条 `local_check_completed` JSON 日志，与结果使用�
 $verificationRoot = Join-Path (Get-Location) '.artifacts/p0-07e-local'
 if (Test-Path -LiteralPath $verificationRoot) { throw 'Choose a new verification directory.' }
 New-Item -ItemType Directory -Path $verificationRoot | Out-Null
-$basePython = Join-Path (Get-Location) '.tools/python/cpython-3.12.15-windows-x86_64-none/python.exe'
+$basePython = Join-Path (Get-Location) '.tools/p117-python31216/python/python.exe'
 $savedProjectEnvironment = $env:UV_PROJECT_ENVIRONMENT
 try {
     $env:UV_PROJECT_ENVIRONMENT = Join-Path $verificationRoot 'repro-venv'
-    & $projectPython -m uv sync --locked --group dev --offline --python $basePython --no-python-downloads
+    & $projectPython -m uv sync --locked --group dev --extra ml --extra db --extra rag --extra api --offline --python $basePython --no-python-downloads
 } finally {
     $env:UV_PROJECT_ENVIRONMENT = $savedProjectEnvironment
 }
@@ -195,7 +200,7 @@ DTO 不读取文件、不联网，不验证 URL 可达性、DOI/PMID 的真实�
 
 ## PDF 文本层解析（P1-02）
 
-[adapters/pdf.py](src/clinical_agent/adapters/pdf.py) 提供 `parse_pdf(path, *, allowed_root, document_id, ingestion_time, metadata=None, limits=None)`，返回 ParsedPdf：文献、原页号来源单元、规范化版本和解析器版本。新增的 pypdf 6.21.2 已精确锁定；当前环境共 26 个包。
+[adapters/pdf.py](src/clinical_agent/adapters/pdf.py) 提供 `parse_pdf(path, *, allowed_root, document_id, ingestion_time, metadata=None, limits=None)`，返回 ParsedPdf：文献、原页号来源单元、规范化版本和解析器版本。新增的 pypdf 6.21.2 已精确锁定；P1-02验收时的开发环境共26个包；当前安装范围见顶部安装命令。
 
 调用方明确传入允许根目录、UUID 和带时区时间。解析只读一次有界字节快照，hash 和 Reader 用同一份 bytes；混合空白页保留原页号，正文以两个 LF 拼接，始终标记 extracted_text。标题按人工值→PDF /Title→文件名回退；创建时间不当成出版日期，作者字段不猜拆，DOI/PMID 等未知值不从正文补造。`ParsedPdf.validate_chunk()` 可验证指定页内区间与证据文本一致。
 
@@ -209,7 +214,7 @@ DTO 不读取文件、不联网，不验证 URL 可达性、DOI/PMID 的真实�
 & $projectPython -I -m pytest tests/unit/test_pdf_contracts.py tests/integration/test_pdf.py -q
 ```
 
-源码/API、错误码、预算和测试边界见 [P1-02 SPEC](docs/specs/tasks/p1-02-pdf-parsing.md)。当前未新增 PDF CLI，也未进行 OCR、复杂版面或真实论文效果评估。
+源码/API、错误码、预算和测试边界见 [P1-02 SPEC](docs/specs/tasks/p1-02-pdf-parsing.md)。P1-02本身不提供CLI；当前已有P1-10的PDF/XML导入CLI和P1-11的API，见顶部用法链接。OCR、复杂版面或真实论文效果评估仍未完成。
 
 ## 本地 PubMed XML（P1-03）
 
@@ -219,7 +224,7 @@ DTO 不读取文件、不联网，不验证 URL 可达性、DOI/PMID 的真实�
 
 混合标签按文本顺序提取，空白折叠为单空格，版本 pubmed-xml-text-v1；章节标签/类别单独保留，正文以两个 LF 拼接，偏移相对整段摘要。`ParsedPubmedArticle.validate_chunk()` 核验片段属于同一来源且位于单节内；不会把摘要标为全文。
 
-安全解析使用精确锁定 defusedxml 0.7.1，当前共 27 包。正常 DOCTYPE 可出现但不加载外部 DTD；自定义/外部实体明确拒绝。默认限制：10 MiB、1000 顶层条目、深度 64、100000 节点、每篇摘要 1000000 字符、协作计时 30 秒。语法/安全/全局预算失败整体抛错，不返回前半批次；逐篇文本预算或映射错误明确 rejected。这不是进程级硬时间/内存沙箱或完整 DTD 验证。
+安全解析使用精确锁定defusedxml 0.7.1；P1-03验收时开发环境共27包，属于历史计数。正常 DOCTYPE 可出现但不加载外部 DTD；自定义/外部实体明确拒绝。默认限制：10 MiB、1000 顶层条目、深度 64、100000 节点、每篇摘要 1000000 字符、协作计时 30 秒。语法/安全/全局预算失败整体抛错，不返回前半批次；逐篇文本预算或映射错误明确 rejected。这不是进程级硬时间/内存沙箱或完整 DTD 验证。
 
 ```powershell
 & $projectPython -I -m pytest tests/unit/test_pubmed_contracts.py tests/integration/test_pubmed_xml.py -q
@@ -227,7 +232,9 @@ DTO 不读取文件、不联网，不验证 URL 可达性、DOI/PMID 的真实�
 
 上述使用真实安全库与合成 XML，不请求 PubMed API。[详细 SPEC](docs/specs/tasks/p1-03-pubmed-xml.md) 记录字段路径、安全设置、限制与错误码。defusedxml 稳定版发行较久，选择与维护风险见 [技术选型](docs/tech-stack.md)，不将版本声明代替当前环境实测。
 
-## 当前测试证据与范围
+## 历次测试证据与范围
+
+本节计数对应各任务验收时点，不是当前pytest总数。P1-13最近默认回归为854 passed、92 deselected；最新结果及待验收项统一见[开发计划](docs/development-plan.md#phase-1-任务进度)。
 
 2026-10-26 实际执行：目标包缺失时 **1 failed**，原因 ModuleNotFoundError: clinical_agent；只添加包初始化文件并安装后，同一测试命令 **1 passed**。锁文件检查、25 个已安装包的一致性检查、Ruff、格式检查及 mypy 通过。原始 RED/GREEN 输出保存在本机忽略目录 .artifacts/；可审阅摘要在 [开发计划](docs/development-plan.md)。
 
@@ -276,4 +283,8 @@ P1-10：新增ingest/ask命令，复用现有应用服务及显式资源装配�
 
 P1-11：新增FastAPI工厂、离线导入／问答及健康接口，生命周期复用模型/engine/HTTP资源，使用有界线程池接纳和统一脱敏错误。60目标、687默认回归及1项真实Uvicorn TCP/E5/PG集成通过；LLM仍为明确HTTP替身。详见 [API说明](docs/api.md)、[任务SPEC](docs/specs/tasks/p1-11-fastapi.md) 与开发记录。
 
-下一步建议 **P1-12：飞书消息契约与事件过滤**，待用户指定后细化SPEC；本次不开始，Phase1尚未验收。
+P1-12：已完成消息DTO、解码事件过滤、群聊@校验及去重身份选择；88项事件用例、34项隔离导入、777项默认回归通过。[契约说明](docs/feishu-events.md)、[任务SPEC](docs/specs/tasks/p1-12-feishu-events.md)。accepted仅为过滤通过；Redis去重由P1-13单独实现，机器人运行时尚未实现。
+
+P1-13：已完成Redis原子占位、owner校验、有限续租、完成/释放和故障隔离；76单元+12真实Redis测试、854默认回归通过。[说明](docs/feishu-dedup.md)、[SPEC](docs/specs/tasks/p1-13-redis-dedup.md)。
+
+**P1-16：官方SDK长连接、装配与Compose入口** 已按任务范围验收，证据以[开发进度](docs/development-plan.md#phase-1-任务进度)为准。当前验收任务 **P1-17：MVP阶段验收与学习文档**（技术验收与教材已交付，医学人工审查待完成；见[阶段报告](docs/phase1-acceptance.md)与[学习导航](docs/learning/phase-01/README.md)）；完整剩余任务见[开发计划](docs/development-plan.md#phase-1-任务进度)。`P1-xx`是开发任务，`P1-Txx`是阶段验收场景，两者不一一对应；见[MVP映射](docs/specs/01-mvp.md#验收场景与开发任务的对应关系)。Phase1尚未验收。

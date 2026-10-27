@@ -1,26 +1,41 @@
 # 基础RAG与证据关联回答（P1-09）
 
-本任务交付可复用的Python问答服务、真实LangGraph工作流、DeepSeek JSON生成适配器及基础引用门禁。已提供[CLI业务入口](cli.md)和P1-11的[HTTP入口](api.md)，飞书仍未实现。[任务SPEC](specs/tasks/p1-09-basic-rag.md)、[执行记录](development-plan.md)。
+## 当前模型接入方式（2026-10-27 修订）
+
+LangGraph 负责 Agent 状态、节点与分支编排；LangChain 负责标准消息和模型调用。`adapters/llm.py` 中的 `LLMSettings` / `open_llm` 通过通用 `ChatOpenAI` 装配模型，`LangChainAnswerGenerator` 使用 `BaseChatModel.invoke`，领域层独立核验引用。DeepSeek 仅是配置示例中的 API 服务商，不存在供应商专属模块、类型、依赖或业务分支。
+
+显式设置 `LLM_BASE_URL`、`LLM_API_KEY`、`LLM_MODEL`，三项均必填；可选 `LLM_MAX_TOKENS` 默认 1500。旧供应商变量不再读取。URL 可含 `/v1` 或网关路径前缀；远端使用 HTTPS，本地回环可使用 HTTP；禁止 URL 内嵌凭据、查询参数或 fragment。应用不自动读取 `.env`。部署时 API 和飞书共享 Compose 的三项通用模型配置。
+
+调用关系：入口 → `ResearchService` / LangGraph → `AnswerGenerator` → `LangChainAnswerGenerator` → LangChain `ChatOpenAI` → 配置的模型 API URL。服务需兼容 OpenAI Chat Completions 的标准消息、JSON mode、`max_tokens` 与非流式响应；不使用供应商推理扩展字段。HTTPX 仅负责受限传输，保留超时、响应上限、无重试及资源关闭。
+
+直接依赖固定为 `langchain-core==1.7.0` 与 `langchain-openai==1.7.3`。[调整 SPEC](specs/tasks/langchain-model-boundary.md)。以下按任务日期保留的直连协议与真实调用结果属于迁移前历史证据，不代表新实现已执行在线验收。
+
+
+
+
+P1-17当前更新（2026-10-27）：已通过真实E5/PG/DeepSeek的合成PDF与固定NCBI摘要闭环，累计2次授权付费请求；Python3.12.16宿主/共享镜像已核验，六份学习材料已交付。医学支持关系人工审查按用户选择待完成，Phase1未标完成。详见[阶段报告](phase1-acceptance.md)和[学习导航](learning/phase-01/README.md)。下文旧任务结果按各自时点阅读。
+
+本任务交付可复用的Python问答服务、真实LangGraph工作流、通用模型 API 生成适配器及基础引用门禁。已提供[CLI业务入口](cli.md)和P1-11的[HTTP入口](api.md)，飞书已完成[P1-12纯事件过滤](feishu-events.md)，尚未接入业务运行时。[任务SPEC](specs/tasks/p1-09-basic-rag.md)、[执行记录](development-plan.md)。
 
 ## 准备与运行
 
-先按[数据库](postgres.md)、[模型](local-embedding.md)和[离线入库](offline-ingestion.md)说明准备文献、固定E5资产及数据库。完整当前开发环境需要三个extra，uv同步会移除未选中的可选依赖：
+先按[数据库](postgres.md)、[模型](local-embedding.md)和[离线入库](offline-ingestion.md)说明准备文献、固定E5资产及数据库。当前全量开发/测试环境需要ml/db/rag/api四个extras，uv同步会移除未选中的可选依赖；只运行Python RAG服务可省略api：
 
 ```powershell
-.venv/Scripts/python.exe -m uv sync --locked --extra ml --extra db --extra rag --system-certs
+.venv/Scripts/python.exe -m uv sync --locked --extra ml --extra db --extra rag --extra api --system-certs
 ```
 
-通过调用进程显式设置数据库环境变量，以及DEEPSEEK_API_KEY、DEEPSEEK_BASE_URL、DEEPSEEK_MODEL。应用不自动读取.env。密钥不要写入源码、共享终端记录或命令示例；DeepSeekSettings使用SecretStr，不回显密钥。允许端点为https://api.deepseek.com及其/v1路径，模型必须显式提供。
+通过调用进程显式设置数据库环境变量，以及LLM_API_KEY、LLM_BASE_URL、LLM_MODEL。应用不自动读取.env。密钥不要写入源码、共享终端记录或命令示例；LLMSettings使用SecretStr，不回显密钥。服务地址、密钥与模型必须通过 LLM_BASE_URL、LLM_API_KEY、LLM_MODEL 显式提供，不限制供应商域名。
 
-用户指定deepseek-chat；2026-10-27实测响应model为deepseek-flash，表明服务端按别名解析，不能把别名视为不可变模型版本。后续评估需记录实际响应模型。本次未验证其他供应商或任意兼容端点。
+用户指定deepseek-chat；2026-10-27实测响应model为deepseek-flash，表明服务端按别名解析，不能把别名视为不可变模型版本。后续评估需记录实际响应模型。该历史真实请求记录不证明当前通用适配器已通过所有供应商在线验证。
 
-以下真实装配方式会将问题与检索命中的原文片段发送给已配置DeepSeek服务；不会发送书目字段、本机路径字段或向量。运行前应确认所用文献允许发送至该服务，调用按服务收费。
+以下真实装配方式会将问题与检索命中的原文片段发送给已配置的模型 API 服务；不会发送书目字段、本机路径字段或向量。运行前应确认所用文献允许发送至该服务，调用按服务收费。
 
 ```python
 from pathlib import Path
 from uuid import uuid4
 
-from clinical_agent.adapters.deepseek import DeepSeekSettings, deepseek_generator
+from clinical_agent.adapters.llm import LLMSettings, open_llm
 from clinical_agent.adapters.embedding import REVISION, LocalModelConfig, load_local_embedder
 from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
 from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
@@ -34,7 +49,7 @@ embedder = load_local_embedder(LocalModelConfig(
 ))
 with database_engine(DatabaseSettings()) as engine:
     retrieval = RetrievalService(embedder=embedder, retriever=PostgresRetriever(engine))
-    with deepseek_generator(DeepSeekSettings()) as generator:
+    with open_llm(LLMSettings()) as generator:
         service = ResearchService(retriever=retrieval, generator=generator)
         answer = service.answer(QuestionRequest(
             request_id=uuid4(), question="已导入研究报告了哪些局限？",
@@ -79,7 +94,7 @@ ResearchAnswer含request_id、status、claims、sources、limitations、retrieva
 输入错误使用Pydantic ValidationError。检索错误保持RetrievalError稳定码；生成/流程使用ResearchError：model_output_invalid、citation_invalid、generation_failed、generation_timeout、research_timeout、context_limit、research_failed。异常不包含原始上游body、凭据、问题或文献。失败与insufficient_evidence分开。
 
 ```powershell
-.venv/Scripts/python.exe -m pytest tests/unit/test_research.py tests/integration/test_deepseek.py -q
+.venv/Scripts/python.exe -m pytest tests/unit/test_research.py tests/integration/test_llm.py -q
 .venv/Scripts/python.exe -m pytest -q
 # 显式配置DeepSeek环境后，只发送测试中的人工合成段落；会产生一次模型请求费用。
 $env:CLINICAL_AGENT_TEST_EVIDENCE_DIR = '.artifacts/your-run'

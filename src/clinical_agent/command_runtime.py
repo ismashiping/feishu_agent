@@ -62,21 +62,23 @@ def open_research(model_dir: Path) -> Iterator[ResearchPort]:
         "transformers",
         "torch",
         "langgraph",
+        "langchain_core",
+        "langchain_openai",
         "langsmith",
         "httpx",
     )
-    from clinical_agent.adapters.deepseek import DeepSeekSettings, deepseek_generator
     from clinical_agent.adapters.embedding import LocalModelConfig, load_local_embedder
+    from clinical_agent.adapters.llm import LLMSettings, open_llm
     from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
     from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
     from clinical_agent.application.research import ResearchService
     from clinical_agent.application.retrieval import RetrievalService
 
     database = cast(Callable[[], DatabaseSettings], DatabaseSettings)()
-    llm = cast(Callable[[], DeepSeekSettings], DeepSeekSettings)()
+    llm = cast(Callable[[], LLMSettings], LLMSettings)()
     model = LocalModelConfig(snapshot_dir=model_dir)
     embedder = load_local_embedder(model)
     with database_engine(database) as engine:
         retrieval = RetrievalService(embedder=embedder, retriever=PostgresRetriever(engine))
-        with deepseek_generator(llm) as generator:
+        with open_llm(llm) as generator:
             yield ResearchService(retriever=retrieval, generator=generator)

@@ -2,6 +2,8 @@
 
 版本：0.2；制定：2026-10-26，验收：2026-10-27；关联 P1-T03；状态：本任务验收完成，Phase 1 整体未完成。依赖 [文献契约](p1-01-literature-contracts.md)、[MVP](../01-mvp.md)，实际过程见 [开发记录](../../development-plan.md)。
 
+阅读时点：本文保留本任务契约与验收范围，正文的“尚未/下一任务”属于该任务时点；当前仓库进度及规划统一见[开发计划](../../development-plan.md#phase-1-任务进度)。
+
 ## 1. 背景及目标
 
 安全读取本地 PubmedArticleSet，映射元数据、结构化摘要与定位，逐条区分 parsed/rejected，不访问 PubMed API。只处理 PubmedArticle，明确拒绝书籍/删除指令等其他顶层条目；不是 NLM 全 DTD 验证器或全量基线更新器。

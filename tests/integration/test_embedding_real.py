@@ -49,6 +49,7 @@ def _peak_memory_bytes():
     return counters.PeakWorkingSetSize
 
 
+@pytest.mark.usefixtures("release_model_memory")
 def test_fixed_e5_cpu_snapshot_tokenizer_chunk_and_vectors(tmp_path, monkeypatch):
     from clinical_agent.adapters.embedding import (
         EmbeddingError,

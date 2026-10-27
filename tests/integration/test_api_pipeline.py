@@ -1,4 +1,4 @@
-"""Opt-in actual Uvicorn TCP + E5 + PostgreSQL; explicitly stubbed DeepSeek HTTP."""
+"""Opt-in actual Uvicorn TCP + E5 + PostgreSQL; explicitly stubbed model API HTTP."""
 
 import json
 import os
@@ -14,11 +14,13 @@ import pytest
 pytestmark = [pytest.mark.integration, pytest.mark.database, pytest.mark.external]
 
 
+@pytest.mark.usefixtures("release_model_memory")
 def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch):
     import uvicorn
     from sqlalchemy import delete, func, select, text
 
-    from clinical_agent.adapters import deepseek, embedding
+    from clinical_agent.adapters import embedding
+    from clinical_agent.adapters import llm as llm_api
     from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
     from clinical_agent.adapters.postgres.models import ChunkRecord, DocumentRecord
     from clinical_agent.api import create_app
@@ -31,9 +33,9 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
         Path(__file__).resolve().parents[2] / "models/multilingual-e5-base" / embedding.REVISION
     )
     assert model_dir.is_dir()
-    monkeypatch.setenv("DEEPSEEK_API_KEY", "synthetic-api-test-key")
-    monkeypatch.setenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
-    monkeypatch.setenv("DEEPSEEK_MODEL", "protocol-fixture")
+    monkeypatch.setenv("LLM_API_KEY", "synthetic-api-test-key")
+    monkeypatch.setenv("LLM_BASE_URL", "https://api.example.test/v1")
+    monkeypatch.setenv("LLM_MODEL", "protocol-fixture")
     connect = socket.socket.connect
 
     def loopback_only(sock, address):
@@ -77,9 +79,9 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
         )
 
     monkeypatch.setattr(
-        deepseek,
-        "deepseek_generator",
-        partial(deepseek.deepseek_generator, transport=httpx.MockTransport(handler)),
+        llm_api,
+        "open_llm",
+        partial(llm_api.open_llm, transport=httpx.MockTransport(handler)),
     )
     pdf_factory(
         tmp_path / "sample.pdf",
@@ -176,7 +178,7 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
                     "model_loads": len(loaded),
                     "embedding": "real fixed local E5 CPU",
                     "database": "real PostgreSQL/pgvector",
-                    "llm": "HTTPX MockTransport; NOT real DeepSeek",
+                    "llm": "HTTPX MockTransport; NOT real model API",
                     "ingestion_statuses": statuses,
                     "documents": documents,
                     "chunks": chunks,

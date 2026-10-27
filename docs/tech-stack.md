@@ -1,6 +1,21 @@
 # 技术选型与兼容性基线
 
+## 当前模型接入方式（2026-10-27 修订）
+
+LangGraph 负责 Agent 状态、节点与分支编排；LangChain 负责标准消息和模型调用。`adapters/llm.py` 中的 `LLMSettings` / `open_llm` 通过通用 `ChatOpenAI` 装配模型，`LangChainAnswerGenerator` 使用 `BaseChatModel.invoke`，领域层独立核验引用。DeepSeek 仅是配置示例中的 API 服务商，不存在供应商专属模块、类型、依赖或业务分支。
+
+显式设置 `LLM_BASE_URL`、`LLM_API_KEY`、`LLM_MODEL`，三项均必填；可选 `LLM_MAX_TOKENS` 默认 1500。旧供应商变量不再读取。URL 可含 `/v1` 或网关路径前缀；远端使用 HTTPS，本地回环可使用 HTTP；禁止 URL 内嵌凭据、查询参数或 fragment。应用不自动读取 `.env`。部署时 API 和飞书共享 Compose 的三项通用模型配置。
+
+调用关系：入口 → `ResearchService` / LangGraph → `AnswerGenerator` → `LangChainAnswerGenerator` → LangChain `ChatOpenAI` → 配置的模型 API URL。服务需兼容 OpenAI Chat Completions 的标准消息、JSON mode、`max_tokens` 与非流式响应；不使用供应商推理扩展字段。HTTPX 仅负责受限传输，保留超时、响应上限、无重试及资源关闭。
+
+直接依赖固定为 `langchain-core==1.7.0` 与 `langchain-openai==1.7.3`。[调整 SPEC](specs/tasks/langchain-model-boundary.md)。以下按任务日期保留的直连协议与真实调用结果属于迁移前历史证据，不代表新实现已执行在线验收。
+
+
+
+
 核查日期：2026-10-26（Asia/Shanghai）。原调研任务：P0-03；P0-07a 补充实际环境差异。调研解析与实际运行证据分开记录。
+
+当前采用仓库固定的CPython3.12.16、uv.lock与已声明的基础依赖及ml/db/rag/api/dedup extras。P1-01–16已交付；SDK及生产装配/Compose已验收。P1-17阶段技术验收与教材已交付，医学人工审核待完成。下列P1实施更新与第1–7节原P0-03调研均按各自日期阅读，旧包计数/“未安装”不能当作当前环境状态；以pyproject.toml、uv.lock、[开发计划](development-plan.md#phase-1-任务进度)及实际代码为准。
 
 P1-02 实施更新：已复核并安装 pypdf 6.21.2 基础包（Python>=3.9、BSD-3-Clause、2026-10-21 发布），正式声明精确锁定，环境从 25 增至 26 包；未安装 crypto/image/OCR extras，也未引入第二套 PDF 解析器。版本/平台兼容由 Python 3.12.15 的真实合成 PDF 测试验证，运行与解析预算见 [P1-02 SPEC](specs/tasks/p1-02-pdf-parsing.md)。原调研表中其他 Phase 1 包仍是候选，不是已安装依赖。
 
@@ -26,7 +41,7 @@ P1-11实施更新（2026-10-27）：api可选extra精确固定FastAPI0.162.0、U
 
 采用轻量模块化 Python 单体，入口适配器共享应用服务；先以同步业务服务及受限并发完成 MVP，再按 Phase 2 需求引入后台任务状态。文献与证据持久化采用 PostgreSQL + pgvector，模型推理使用成熟库，外部服务通过可替换适配器接入。
 
-推荐项目解释器 **CPython 3.12.16**，正式项目兼容范围先限制为 `>=3.12,<3.13`；本次依赖解析目标为 3.12，尚未安装该解释器、执行该补丁版或创建 `.venv`。官方发布页确认 3.12.16 已于 2026-10-25 发布；3.12 系列处于安全维护阶段，选择它是兼顾本次 wheel 可用性和成熟生态的工程判断，不是长期不升级的承诺。后续定期重核 3.13/3.14。[Python 3.12.16](https://www.python.org/downloads/release/python-31216/)、[生命周期](https://devguide.python.org/versions/)。
+P0-03原推荐解释器为**CPython 3.12.16**；P0-07a已修订实际开发环境为3.12.15（见上文），正式项目兼容范围先限制为 `>=3.12,<3.13`；本次依赖解析目标为 3.12，尚未安装该解释器、执行该补丁版或创建 `.venv`。官方发布页确认 3.12.16 已于 2026-10-25 发布；3.12 系列处于安全维护阶段，选择它是兼顾本次 wheel 可用性和成熟生态的工程判断，不是长期不升级的承诺。后续定期重核 3.13/3.14。[Python 3.12.16](https://www.python.org/downloads/release/python-31216/)、[生命周期](https://devguide.python.org/versions/)。
 
 本机指定 `medical-agent` 是 Python 3.10.21，另有默认 Python 3.14.7；uv 已安装解释器清单仅发现这两者。保留原环境作为工具引导环境，不升级或清理其中的包。项目使用 uv 管理自己的 `.venv`、`pyproject.toml` 和 `uv.lock`，具体创建留 P0-07。Python 3.12 当前官方安全发行不提供常规 Windows 安装器；uv 使用独立发行构建，3.12.16 构建的实际可取得性需在环境任务核实，不能根据官网源码发行假定已可安装。[uv Python 管理](https://docs.astral.sh/uv/concepts/python-versions/)。
 
@@ -49,7 +64,7 @@ P1-11实施更新（2026-10-27）：api可选extra精确固定FastAPI0.162.0、U
 | pypdf / Phase 1 | MVP 有文字层 PDF 的按页提取、页码定位、元数据读取；纯 Python、成熟 API | PyMuPDF 更适合性能和复杂版面需求，但本次 PyPI 最新已到 2.0，不能按参考项目旧 API 盲目迁移；先不引入两套解析器。扫描件明确返回需要 OCR，MVP 不做 OCR |
 | sentence-transformers / Phase 1 ML 可选组 | 加载成熟 embedding 模型、批量编码、归一化 | 托管 embedding 简化本地推理但引入网络及数据流向；不自写模型推理框架。CPU 吞吐、模型效果、内存必须实测 |
 | PyTorch + Transformers / Phase 1 ML 可选组 | 本地推理底座及匹配模型 tokenizer | 暂不增加 ONNX/OpenVINO 双运行时。CPU 为默认目标；CUDA、驱动及 GPU 镜像作为单独变体验收 |
-| LangGraph / Phase 1 必要分支起 | 检索、证据不足分支、生成及基础引用标识检查的状态编排；后续 PICO/在线检索按阶段扩展 | 简单无分支步骤保留普通函数；不创建多 Agent 人格或重复状态机。LangChain 顶层包不列直接依赖，但 LangGraph 会传递引入 langchain-core |
+| LangGraph / Phase 1 必要分支起 | 检索、证据不足分支、生成及基础引用标识检查的状态编排；后续 PICO/在线检索按阶段扩展 | 简单无分支步骤保留普通函数；不创建多 Agent 人格或重复状态机。LangChain 标准模型和工具接口由 langchain-core 提供，供应商使用官方集成包 |
 | lark-oapi / Phase 1 | 官方长连接、事件解析与消息 API；只进入 src/feishu 适配层 | 不自写 WebSocket。webhook 不作为默认，因为用户指定长连接；SDK 自持事件循环，建议独立 feishu_bot 进程/Compose 服务 |
 | ThreadPoolExecutor + 有界接纳 / Phase 1 | SDK 回调只校验、去重、提交任务；工作线程调用共享应用服务 | max_workers 只限制线程数，不自动限制提交队列；用标准库 Semaphore 等对在途任务限额，满载快速失败并释放占位。超时 Future 不会杀死正在执行的线程，要靠外部调用超时和总期限 |
 | HTTPX / Phase 1 外部 HTTP；Phase 4 PubMed | 连接池、明确超时、同步/异步客户端和 MockTransport；复用一个成熟 HTTP 层 | requests 缺少原生异步；不用本机 httpx2 自动替换 SDK 所需 httpx。连接重试不覆盖 HTTP 429/503，状态重试与总期限在对应任务选成熟工具或 SDK 能力 |
@@ -106,7 +121,7 @@ P1-11实施更新（2026-10-27）：api可选extra精确固定FastAPI0.162.0、U
 - SQLAlchemy 2.1.6 要求 Python >=3.11；Alembic 1.20.1 要求 SQLAlchemy >=2.0。本次采用当前 2.1 API 文档，不混用旧 Query 风格作为新实现。
 - sentence-transformers 6.2.0 要求 transformers >=5,<6、torch >=2.2；候选组合满足这些约束，仍需真实模型 smoke test。
 - lark-oapi 1.7.5 声明 `websockets>=11,<16` 及 `httpx>=0.24,<1`；本次解析为 websockets 15.0.1 和 httpx 0.28.1。共享环境的 websockets 16 不可直接复用。
-- 不直接引入 LangChain 顶层包或 langchain-community；LangGraph 传递依赖的 langchain-core 在本次解析为 1.7.0，不声称完全没有 LangChain 依赖。
+- 直接声明 langchain-core==1.7.0 与 langchain-openai==1.7.3；模型统一通过 LangChain 标准接口调用，不需要额外引入未使用的 langchain 顶层包或 langchain-community。
 
 ## 4. 数据库、缓存与部署基线
 
@@ -128,7 +143,7 @@ P1-04（2026-10-27）重新核查上述 E5 作者模型卡与 [Transformers toke
 
 P1-05 将 E5 模型/tokenizer 固定为提交 d128750597153bb5987e10b1c3493a34e5a4502a；使用模型官方的前缀、归一化和 CPU 推理，实际维度 768、512 token。选该模型以维持中英检索候选的一致性，暂不增加第二套模型/ONNX 运行时。权重约 1.11 GB，SHA256 与官方仓库一致，九份运行文件哈希记录在 [模型 manifest](research/p1-05-model-manifest.json)。本地 manifest 是完整性记录，不能充当签名认证；运行期间不要修改快照。最终真实离线复验加载 25.5s、分块与推理 5.5s、峰值工作集约 1.83 GiB（首轮加载 112.8s），不能据此保证任意机器/文本的吞吐。SDK 已按当前版本使用 get_embedding_dimension，消除了旧方法改名警告。模型医学适用性与生产资源配置尚待评估。[操作及复现](local-embedding.md)、[范围与门槛](specs/tasks/p1-05-local-embedding.md)。
 
-LLM 供应商和模型尚未由用户指定，当前只确定可替换的生成端口、显式配置与超时要求，不虚构可用模型名。Phase 1 对应任务在具体服务明确后选择其成熟 SDK、核查版本并加入锁文件；当前不为展示功能加入多家供应商 SDK，也不实现通用模型客户端框架。该待决项不阻碍 Phase 0 离线测试骨架。
+当前通过 LangChain 通用 ChatOpenAI 兼容接口调用配置的模型 API；模型配置显式提供，当前验收记录为deepseek-chat别名、实际响应deepseek-flash。供应商选型已解决，不能继续列为待用户指定。此记录不保证远端别名固定；真实模型及医学质量边界见[基础RAG](basic-rag.md)。DeepSeek 只作供应商，模型标准接口由 LangChain 提供。
 
 PubMed 来源选官方 E-utilities；离线导入与 Phase 4 实时检索分开。NCBI Books 使用指南本次访问遇到浏览器校验，未将该页面内容标成已读；已读取 NCBI API 概览和 Biopython 官方 Entrez 文档。后者确认 3/10 请求每秒及内置重试；进入 Phase 4 前再次核查 NCBI 当前规则、email/tool 标识、多进程限流、日期过滤与重试预算，不进行本次真实文献检索。
 
@@ -154,10 +169,21 @@ PubMed 来源选官方 E-utilities；离线导入与 Phase 4 实时检索分开�
 
 发现 PyPI 默认 Linux torch 会引入 nvidia CUDA 依赖后，追加官方 CPU 索引探测，使用相同 `ml.in` 加 `--torch-backend cpu`，单独输出 `ml-cpu-py312-<平台>.txt`。两项均成功：Windows 102 包、Linux 100 包，torch 均为 2.14.1+cpu、无 nvidia-* 依赖；8 项合计全部解析成功。CPU 输出仍需配合正确来源索引安装，不能仅凭文本清单假定能从 PyPI 下载 CPU wheel。详细记录见 [P0-03 执行记录](research/p0-03-validation.md)。正式项目应通过明确的 PyTorch CPU 索引映射选择构建，而不是给所有包开放不受限的多索引混合。[uv 官方 PyTorch 指南](https://docs.astral.sh/uv/guides/integration/pytorch/)。
 
-## 7. 未验证项与下一步
+## 7. P0-03时点的未验证项与下一步（历史记录）
+
+本节保留原调研收尾，不是当前待办。当前已完成和仍待验收的项目见[开发计划](development-plan.md#phase-1-任务进度)，不重新执行P0-04。
 
 本次完成的是官方来源核查、精确候选约束和元数据级解析。没有 pytest 应用测试，也没有 RED/GREEN；未实现产品功能，不能声称 Phase 0 工程验收完成。
 
 后续验收必须包括：独立 Python 3.12 环境安装、正式锁文件、import smoke test；FastAPI 生命周期；真实 PostgreSQL 扩展/外键/事务/向量距离；Redis 原子去重与故障路径；模型维度/分词/效果/CPU内存；飞书 SDK 回调、在途上限与真实长连接；PubMed 官方接口限流；具体 LLM 端点及超时。容器镜像 digest、Python 构建来源和模型 revision 都必须落地记录。
 
 P0-03 不自动进入下一任务。后续 P0-04 编写总体 SPEC 和 Phase 0–9 概要，将本次选择、待决项及验证门槛转成分阶段验收；正式架构、测试策略与实现仍按任务顺序推进。
+
+
+## P1-13 实施更新（2026-10-27）
+
+[官方PyPI redis8.1.0](https://pypi.org/pypi/redis/8.1.0/json)核查Requires-Python>=3.10、MIT；加入dedup可选extra，正式锁104包/实际安装102包，既有包版本保持。工厂使用redis-py连接池，1秒连接/读超时、16连接、Retry(NoBackoff(),0)，避免默认自动重试影响不确定写入语义。单键Lua+Redis TIME提供有限owner租约，没有自建连接池/重试系统。
+
+本次隔离验收复用本机已有Redis7.4.11镜像，digest与12项真实测试见[去重说明](feishu-dedup.md)；不是将原Redis8容器候选宣称为已部署。实现只使用基础SET NX PX/Lua/TTL。服务绑定loopback、测试后零残留键并停止；没有外部业务/生产Compose改动，Python构建重核/升级前置要求仍待实际外部业务启用前闭环。
+
+P1-17安全构建更新（2026-10-27）：官方standalone20261026已提供3.12.16，SHA256验证后在独立候选及正式环境复验；Dockerfile同步3.12.16。uv旧内置清单最高3.12.15不等于官方无构建。前述“升级待闭环”是历史记录，当前结果与保留问题见[阶段报告](phase1-acceptance.md)。

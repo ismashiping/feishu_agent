@@ -1,8 +1,23 @@
 # Clinical Literature Research Agent 架构设计
 
-版本：0.1；日期：2026-10-26（Asia/Shanghai）；任务：P0-05。
+## 当前模型接入方式（2026-10-27 修订）
 
-状态：架构设计基线。P0-05 制定时没有产品代码；P0-07a–d 已建立最小包、隔离环境、显式配置、日志、本地 runtime/CLI 及相应测试；P0-07e 完成 Windows 干净环境/wheel 验证，P0-08 完成学习材料与阶段验收。尚无应用服务或容器；本文其余代码路径、服务名和调用边界是后续实施目标，当前进度以开发计划为准。
+LangGraph 负责 Agent 状态、节点与分支编排；LangChain 负责标准消息和模型调用。`adapters/llm.py` 中的 `LLMSettings` / `open_llm` 通过通用 `ChatOpenAI` 装配模型，`LangChainAnswerGenerator` 使用 `BaseChatModel.invoke`，领域层独立核验引用。DeepSeek 仅是配置示例中的 API 服务商，不存在供应商专属模块、类型、依赖或业务分支。
+
+显式设置 `LLM_BASE_URL`、`LLM_API_KEY`、`LLM_MODEL`，三项均必填；可选 `LLM_MAX_TOKENS` 默认 1500。旧供应商变量不再读取。URL 可含 `/v1` 或网关路径前缀；远端使用 HTTPS，本地回环可使用 HTTP；禁止 URL 内嵌凭据、查询参数或 fragment。应用不自动读取 `.env`。部署时 API 和飞书共享 Compose 的三项通用模型配置。
+
+调用关系：入口 → `ResearchService` / LangGraph → `AnswerGenerator` → `LangChainAnswerGenerator` → LangChain `ChatOpenAI` → 配置的模型 API URL。服务需兼容 OpenAI Chat Completions 的标准消息、JSON mode、`max_tokens` 与非流式响应；不使用供应商推理扩展字段。HTTPX 仅负责受限传输，保留超时、响应上限、无重试及资源关闭。
+
+直接依赖固定为 `langchain-core==1.7.0` 与 `langchain-openai==1.7.3`。[调整 SPEC](specs/tasks/langchain-model-boundary.md)。以下按任务日期保留的直连协议与真实调用结果属于迁移前历史证据，不代表新实现已执行在线验收。
+
+
+
+
+版本：0.2；更新：2026-10-27（Asia/Shanghai）；原设计任务：P0-05。
+
+状态：Phase0与P1-01–15已按各任务范围验收；P1-16已实现第五模块main.py、官方SDK长连接适配、鉴权/共享资源生命周期与API/feishu_bot/Redis的Compose入口。离线与真实SDK收发通过，共享镜像/隔离Compose启动关闭已验收，边界按开发计划单列，Phase1未整体验收。当前任务与剩余规划见[开发计划](development-plan.md#phase-1-任务进度)。
+
+下列P1更新段落是各任务交付时的历史快照，“尚未/待实现”只针对该时点。正文的Phase 0目录图与未来阶段/飞书流程图仍是相应范围的设计，不代表所有图中模块均已落地。实际业务装配位于command_runtime.py、api_runtime.py和feishu/main.py；bootstrap.py只提供本地配置、日志及关联上下文。
 
 P1-01 更新：已新增 domain/__init__.py 与 domain/models.py，仅实现六个文献/证据相关 DTO；应用服务、解析器、数据库、问答及飞书仍是后续设计目标。DTO 详细契约见 [P1-01 SPEC](specs/tasks/p1-01-literature-contracts.md)。
 
@@ -40,7 +55,7 @@ P1-11更新：api.py提供延迟工厂、受控ASGI请求边界和明确HTTP DTO
 
 ```mermaid
 flowchart TD
-    CLI[CLI 入口] --> BOOT[显式装配 bootstrap]
+    CLI[CLI 入口] --> BOOT[业务装配 command_runtime / api_runtime]
     API[FastAPI 入口] --> BOOT
     BOT[飞书入口 main] --> BOOT
     BOT --> FEISHU[事件 / 去重 / 有界工作池 / 发送]
@@ -58,7 +73,7 @@ flowchart TD
     FEISHU --> SDK[官方 SDK / Redis]
 ```
 
-图中箭头表示代码依赖或调用目标，不是网络拓扑。bootstrap 负责选择和注入具体实现；应用服务不读取全局客户端。domain 不依赖 application、适配器、入口或 SDK；application 不依赖 SQLAlchemy、lark_oapi 或 HTTP 客户端实现。LangGraph 是 application/research.py 内必要工作流依赖，纯引用和文本规则不依赖它。
+图中箭头表示代码依赖或调用目标，不是网络拓扑。入口业务runtime负责选择和注入具体实现；应用服务不读取全局客户端。domain 不依赖 application、适配器、入口或 SDK；application 不依赖 SQLAlchemy、lark_oapi 或 HTTP 客户端实现。LangGraph 是 application/research.py 内必要工作流依赖，纯引用和文本规则不依赖它。
 
 不建立接口基类 → 抽象仓储 → 具体仓储 → Service → Factory 多层链路。边界使用少量 typing.Protocol 或简单 callable，具体适配器可结构化满足接口，不必继承；普通业务函数直接调用。
 
@@ -66,7 +81,7 @@ flowchart TD
 
 ### 3.1 当前目录事实
 
-P0-05 设计时仅有项目规则、调研和 SPEC。现有 Phase 0 六模块、domain 两模块及 adapters 三模块，共十一个源文件、十个测试文件；已有 PDF/XML 适配，无应用用例/数据库/模型工作流。AGENTS.md.txt、PROJECT.md.txt 保留原文件名；正式锁与 docs/research/dependencies/ 的研究解析结果分开。
+当前源码包含clinical_agent的领域DTO/应用服务/适配器、CLI与API及各自业务runtime，并包含feishu/__init__.py与events.py。实际文件以src/、tests/及[任务表](development-plan.md#phase-1-任务进度)为准。原先“十一个源文件、十个测试文件”是P1-03时点，不能作为当前目录统计。AGENTS.md.txt、PROJECT.md.txt保留原文件名；正式锁与docs/research/dependencies/的历史研究解析结果分开。
 
 ### 3.2 Phase 0 最小工程目标
 
@@ -102,13 +117,13 @@ clinical_agent/
     └── integration/                  # CLI 与装配的离线集成
 ```
 
-`src` 是源码根，不是 import 名称；核心导入为 `clinical_agent.*`。项目发行名建议 `clinical-literature-agent`，CLI 脚本建议 `clinical-agent = clinical_agent.cli:main`，模块入口为 `python -m clinical_agent`；这些尚未注册，须由 P0-06 定义测试再落地。Phase 0 的 --help 与本地自检不需要数据库 URL、LLM 或飞书密钥。
+`src` 是源码根，不是 import 名称；核心导入为 `clinical_agent.*`。当前发行名为`clinical-literature-agent`，已注册CLI脚本`clinical-agent = clinical_agent.cli:main`，模块入口为`python -m clinical_agent`；已通过实际安装入口测试。Phase 0 的 --help 与本地自检不需要数据库 URL、LLM 或飞书密钥。
 
 bootstrap 在 Phase 0 只装配实际存在的配置/日志与本地运行上下文；不创建假的 ResearchService 或模拟“医学答案”。测试文件的具体命名和参数由 P0-06 决定，目录存在本身不算工程验收。
 
 ### 3.3 Phase 1 按需求新增的目录
 
-以下是 MVP 范围的设计目标，包含前述 Phase 0 文件；所有包目录届时添加必要 __init__.py。不预建 Phase 2–9 的模块。
+以下保留P0-05的MVP目录设计，包含前述Phase 0文件；其中ports.py未独立创建，Protocol已放在实际消费者处，CLI/API实际装配模块见第4.1节，飞书仅events.py已落地。所有实际包目录具有必要__init__.py。不预建 Phase 2–9 的模块。
 
 ```text
 src/
@@ -165,9 +180,9 @@ tests/
 | domain/citations.py | 生成 claims + 本次证据映射 → 校验结果/引用来源 | 外部全文核验、生成新 PMID/DOI、临床可靠性打分 |
 | application/ingestion.py | ImportRequest → 逐项 IngestionResult | 持有整批事务、直接 SQL、调用飞书 |
 | application/research.py | QuestionRequest → ResearchAnswer 或明确错误 | 字符串拼接各入口回复、模型元数据自由补全 |
-| application/ports.py | 以业务 DTO 描述外部能力 | 框架/SDK 类型透传、全功能插件注册平台 |
+| application/{ingestion,retrieval,research}.py中的Protocol | 在实际消费者处以业务DTO描述外部能力；没有独立ports.py | 框架/SDK类型透传、全功能插件注册平台 |
 | adapters/* | 外部库数据/异常 → 业务 DTO/可识别错误 | 决定医学结论或绕过引用规则 |
-| bootstrap.py | 明确配置 + 运行模式 → 资源及已装配服务 | 定义临床规则、导入所有入口、启动后自动迁移 |
+| bootstrap.py；command_runtime.py；api_runtime.py | 分别为本地上下文、CLI业务装配和API业务装配/有界执行 | 定义临床规则、自动迁移 |
 | cli.py / api.py | 入口校验/上下文 → 调用同一用例 → 输出 | 第二套 RAG 或持久化逻辑 |
 
 ### 4.2 Phase 1 所需的少量能力契约
@@ -194,12 +209,12 @@ SDK 客户端、数据库 Session、SQLAlchemy Model 和 LangGraph 内部对象�
 | --- | --- | --- |
 | domain | domain 内必要 DTO/纯规则 | application、adapters、bootstrap、入口、feishu |
 | application | domain、application 内小范围协作 | adapters、bootstrap、cli/api、feishu |
-| adapters | domain、application/ports | bootstrap、cli/api、feishu |
+| adapters | domain、application内实际消费者Protocol | bootstrap、cli/api、feishu |
 | bootstrap | config/logging_config、domain/application/adapters | cli、api、feishu（避免装配入口循环） |
 | cli/api | config、bootstrap、domain/application | 不直接构造 SQL 或自行生成答案 |
 | feishu | 五模块协作、config、bootstrap、domain/application | core 反向依赖 feishu；从 events 直接写文献库 |
 
-配置与日志工具只使用标准库及其选定依赖，不反向依赖业务模块。feishu/main.py 组装 SDK 自有资源并调用核心 bootstrap；bootstrap 不 import feishu。API 工厂消费 bootstrap 提供的 runtime，bootstrap 不 import API 工厂。runtime 使用普通对象/上下文管理，不构建自定义 DI 容器。
+配置与日志工具只使用标准库及其选定依赖，不反向依赖业务模块。未来feishu/main.py组装SDK资源并复用业务服务；核心代码不反向import feishu。当前API工厂消费api_runtime提供的业务runtime，CLI消费command_runtime；bootstrap不import入口。runtime 使用普通对象/上下文管理，不构建自定义 DI 容器。
 
 ## 5. 数据、ORM 与可追溯性
 
@@ -314,6 +329,8 @@ research.py 在启动装配时编译必要 LangGraph，单次请求创建独立�
 原文只作为证据数据传给模型，不能赋予工具权限；MVP 不向回答生成节点开放任意工具执行。实际上下文长度、证据可用性规则、消息/回答长度预算由 Phase 1 任务明确；达到长度上限要保留结论与引用映射，不盲目截断引用列表。复杂质量/冲突评价不进入该 MVP 图。
 
 ## 8. 飞书入口、并发与去重数据流
+
+P1-12已实现`src/feishu/events.py`及轻量包入口：解码字典→消息DTO、纯文本/自身/会话过滤和去重身份选择。[契约说明](feishu-events.md)。P1-13已实现独立的src/feishu/dedup.py，使用Redis单键Lua与服务端时间提供原子占位、owner校验、有限续租及完成/释放；见[去重说明](feishu-dedup.md)。P1-14已实现worker.py：标准线程池有界接纳、去重联动、共享ResearchService及非阻塞发送交接端口；详见[分派说明](feishu-worker.md)。默认90秒研究/15秒发送预留及5秒裕量要求显式至少110秒租期，不创建续租调度线程。P1-15已实现sender.py：完整来源/局限渲染、双层UTF-8字节预算、单线程有界队列、owner/deadline复查与sent/failed/unknown租约处理；[发送说明](feishu-sender.md)。官方消息REST适配借用已有httpx及有期限token提供者，离线协议测试通过；main.py、SDK对象适配/长连接、生产鉴权/生命周期及真实租户收发留P1-16。
 
 ### 8.1 五个模块的职责
 
@@ -476,3 +493,8 @@ P0-06 将 P0-T01–07 转为实际任务 SPEC 和测试命令，先覆盖包导�
 | Phase 2 之后的任务恢复、阈值、更新及评价策略 | 所属阶段进入前细化，不在 Phase 0 实现 |
 
 本设计任务 DoD：目录和模块边界明确、核心数据流及异常路径有责任人、与现有 SPEC 一致、进度记录实际核查结果；不以设计完成代替工程验收。P0-06 策略、P0-07a–e 最小骨架/Windows 环境/wheel 及 P0-08 学习/独立验收均已完成，Phase 0 结论见 [阶段报告](phase0-acceptance.md)。未开始后续业务模块。
+
+
+## P1-16 运行时装配
+
+main.py复用open_research、RedisDeduplicator、Sender和Dispatcher，不改核心研究/去重/发送规则。Receiver显式映射SDK字段；鉴权以单次有期限HTTP调用提供token，不新增缓存。SDK1.7.5私有生命周期兼容点、发现请求超时、信号/后台错误处理和排空顺序集中在该入口；升级须复验。Dockerfile以正式锁安装共用镜像，Compose显式profiles启用API/机器人；不自动迁移/下载模型。详见[运行说明](feishu-runtime.md)与[SPEC](specs/tasks/p1-16-feishu-runtime.md)。

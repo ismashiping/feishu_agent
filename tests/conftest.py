@@ -163,3 +163,15 @@ def pdf_factory():
         return path
 
     return make
+
+
+@pytest.fixture
+def release_model_memory(monkeypatch):
+    """Release completed-test graph/ASGI/model cycles before the next real model load."""
+    import gc
+
+    gc.collect()
+    yield
+    # Test-local cached loaders can own a model until their patches are restored.
+    monkeypatch.undo()
+    gc.collect()

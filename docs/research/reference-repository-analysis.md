@@ -1,5 +1,7 @@
 # Phase 0 / P0-02：ClinicalAgent 参考仓库分析
 
+历史范围：本文记录Phase 0对应任务/教材时点，旧测试数、模块数及“下一任务”不表示当前状态。当前进度见[任务表](../development-plan.md#phase-1-任务进度)；在当前仓库跑全量测试须安装ml/db/rag/api四个extras，基础doctor示例仍无需这些业务依赖。
+
 日期：2026-10-26（Asia/Shanghai）。本任务已完成；Phase 0 尚未完成。
 
 ## 1. 任务约定与验收方法

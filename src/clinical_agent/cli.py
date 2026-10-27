@@ -187,7 +187,7 @@ def main(
     ingest.add_argument("--request-id")
     ask = commands.add_parser(
         "ask",
-        help="Local RAG; sends retrieved excerpts to configured DeepSeek.",
+        help="Local RAG; sends retrieved excerpts to configured model API.",
         allow_abbrev=False,
     )
     ask.add_argument("--question", required=True)

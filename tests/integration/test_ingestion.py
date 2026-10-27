@@ -312,6 +312,7 @@ def test_actual_pdf_and_xml_application_chain_uses_no_db_connection_until_store(
 
 
 @pytest.mark.external
+@pytest.mark.usefixtures("release_model_memory")
 def test_real_pdf_e5_postgres_end_to_end(store, tmp_path, pdf_factory, monkeypatch):
     import socket
 

@@ -1,5 +1,7 @@
 # Phase 0 最小工程任务 SPEC
 
+历史范围：本文记录Phase 0对应任务/教材时点，旧测试数、模块数及“下一任务”不表示当前状态。当前进度见[任务表](../../development-plan.md#phase-1-任务进度)；在当前仓库跑全量测试须安装ml/db/rag/api四个extras，基础doctor示例仍无需这些业务依赖。
+
 版本：0.7；日期：2026-10-26；制定任务：P0-06；状态：P0-07a–d 已取得 RED/GREEN；P0-07e Windows 干净环境/wheel/回归与 P0-08 学习/独立验收均完成。结论见 [阶段报告](../../phase0-acceptance.md)，过程见开发计划。
 
 P0-07a 环境修订：uv 0.13.5 无 CPython 3.12.16 Windows 下载；官方 standalone 最新发行 20261021 仅提供 3.12.15。当前开发环境显式固定 3.12.15，保留 >=3.12,<3.13 范围；原 3.12.16 准备失败不算 RED。3.12.16 安全修订的构建升级仍待后续核查，不能把 3.12.15 离线骨架验证扩大成外部服务/部署验证。[官方发行](https://github.com/astral-sh/python-build-standalone/releases/tag/20261021)。

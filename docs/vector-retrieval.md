@@ -1,6 +1,6 @@
 # 基础向量检索（P1-08）
 
-当前提供Python查询服务与内部EvidenceHit DTO，不生成医学回答，也没有检索CLI/API/飞书入口。[详细SPEC](specs/tasks/p1-08-vector-retrieval.md)、[开发记录](development-plan.md)。
+本页说明P1-08的Python查询服务与内部EvidenceHit DTO；该服务自身不生成回答，当前已被[基础RAG](basic-rag.md)、[CLI](cli.md)及[API](api.md)复用。飞书运行时尚未接通。[详细SPEC](specs/tasks/p1-08-vector-retrieval.md)、[开发记录](development-plan.md)。
 
 ## 调用方式
 

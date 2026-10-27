@@ -2,6 +2,8 @@
 
 状态：2026-10-27 按本任务范围验收完成；13目标单元、47真实数据库测试、397默认回归通过。先冻结SPEC再执行RED/GREEN，证据见 [开发记录](../../development-plan.md)。依赖P1-01–05；仅schema、连接构造与迁移，不实现入库服务或宣称Phase1完成。
 
+阅读时点：本文保留本任务契约与验收范围，正文的“尚未/下一任务”属于该任务时点；当前仓库进度及规划统一见[开发计划](../../development-plan.md#phase-1-任务进度)。
+
 ## 1. 背景及目标
 
 建立文献、来源单元、证据及已验证 E5 向量的 PostgreSQL 存储契约。使用 SQLAlchemy 2.x、Alembic 和官方 pgvector Python 类型，真实 PostgreSQL 验收，不用 SQLite/Mock 代替。

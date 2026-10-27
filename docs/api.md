@@ -1,6 +1,6 @@
 # FastAPI入口（P1-11）
 
-API复用已有IngestionService、RetrievalService和ResearchService，不改变当前基础RAG编排。CLI保留原有行为；飞书尚未接入。[任务SPEC](specs/tasks/p1-11-fastapi.md)、[执行记录](development-plan.md)。
+API复用已有IngestionService、RetrievalService和ResearchService，不改变当前基础RAG编排。CLI保留原有行为；飞书已完成[纯事件过滤](feishu-events.md)，尚未接入业务运行时。[任务SPEC](specs/tasks/p1-11-fastapi.md)、[执行记录](development-plan.md)。
 
 ## 安装与启动
 
@@ -16,7 +16,7 @@ $env:CLINICAL_AGENT_API_MAX_IN_FLIGHT = '2'
     --limit-concurrency 8 --timeout-graceful-shutdown 130 --no-access-log
 ```
 
-先按[数据库](postgres.md)、[模型](local-embedding.md)说明准备固定E5资产、数据库及迁移，并显式设置数据库环境变量。API完整运行还需DEEPSEEK_API_KEY、DEEPSEEK_BASE_URL、DEEPSEEK_MODEL；具体供应商及别名边界见[RAG说明](basic-rag.md)。密钥不要写入命令行、共享脚本或请求体。应用不自动加载.env；本示例不使用Uvicorn的--env-file。
+先按[数据库](postgres.md)、[模型](local-embedding.md)说明准备固定E5资产、数据库及迁移，并显式设置数据库环境变量。API完整运行还需LLM_API_KEY、LLM_BASE_URL、LLM_MODEL；具体供应商及别名边界见[RAG说明](basic-rag.md)。密钥不要写入命令行、共享脚本或请求体。应用不自动加载.env；本示例不使用Uvicorn的--env-file。
 
 api extra精确包含FastAPI0.162.0、Uvicorn0.54.0及HTTPX0.28.1。使用最小发行，未安装standard CLI全家桶或遥测导出器；正式uv.lock保存传递依赖。纯API契约测试可安装api extra并注入业务替身，真实服务需要四个extras。普通CLI help/doctor及api模块导入在11包基础环境仍可运行。
 
@@ -48,7 +48,7 @@ paper.pdf必须预先放在服务端固定import_root内。XML导入将source_ty
 
 问答只支持scope=local，使用现有top_k/阈值/来源范围/文献ID过滤契约。body不接受request_id；可通过单个X-Request-ID UUID关联请求，不提供时自动生成。响应header及业务JSON保持相同ID；非法/重复ID返回400并生成安全错误ID，不回显原值。
 
-ask接口会把问题和命中片段发送给配置的DeepSeek服务，并产生供应商调用费用；应确认文献适合发送。输出保留claims.kind、关联chunk_id、实际使用的可信sources、定位和limitations。没有原文依据的医疗语义不会因结构校验而得到自动事实保证，不能省略来源和局限后作为个体诊疗结论。
+ask接口会把问题和命中片段发送给配置的模型 API 服务，并产生供应商调用费用；应确认文献适合发送。输出保留claims.kind、关联chunk_id、实际使用的可信sources、定位和limitations。没有原文依据的医疗语义不会因结构校验而得到自动事实保证，不能省略来源和局限后作为个体诊疗结论。
 
 ## 状态与错误
 

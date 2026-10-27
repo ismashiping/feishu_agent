@@ -131,13 +131,15 @@ def open_api_runtime(settings: ApiSettings) -> Iterator[ServiceBundle]:
         "transformers",
         "torch",
         "langgraph",
+        "langchain_core",
+        "langchain_openai",
         "langsmith",
         "httpx",
     ):
         if find_spec(name) is None:
             raise ModuleNotFoundError("Optional dependency unavailable", name=name)
-    from clinical_agent.adapters.deepseek import DeepSeekSettings, deepseek_generator
     from clinical_agent.adapters.embedding import LocalModelConfig, load_local_embedder
+    from clinical_agent.adapters.llm import LLMSettings, open_llm
     from clinical_agent.adapters.offline import OfflineReader
     from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
     from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
@@ -147,7 +149,7 @@ def open_api_runtime(settings: ApiSettings) -> Iterator[ServiceBundle]:
     from clinical_agent.application.retrieval import RetrievalService
 
     database = cast(Callable[[], DatabaseSettings], DatabaseSettings)()
-    llm = cast(Callable[[], DeepSeekSettings], DeepSeekSettings)()
+    llm = cast(Callable[[], LLMSettings], LLMSettings)()
     model = LocalModelConfig(snapshot_dir=settings.model_dir)
     embedder = load_local_embedder(model)
     with database_engine(database) as engine:
@@ -157,7 +159,7 @@ def open_api_runtime(settings: ApiSettings) -> Iterator[ServiceBundle]:
             store=PostgresStore(engine),
         )
         retrieval = RetrievalService(embedder=embedder, retriever=PostgresRetriever(engine))
-        with deepseek_generator(llm) as generator:
+        with open_llm(llm) as generator:
             yield ServiceBundle(
                 ingestion=ingestion,
                 research=ResearchService(retriever=retrieval, generator=generator),

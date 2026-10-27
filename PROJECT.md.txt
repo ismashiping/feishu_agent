@@ -2,7 +2,9 @@
 
 ## 项目目标
 
-从零构建一个基于 RAG + LangGraph + PubMed + 飞书机器人的医学文献检索与循证问答系统。
+从零构建一个基于 RAG + LangGraph + LangChain + PubMed + 飞书机器人的医学文献检索与循证问答系统。
+
+框架职责：LangGraph 负责 Agent 编排；LangChain 负责标准化模型调用及通用 Agent 工具接口；DeepSeek 仅作为底层模型供应商。业务与领域规则不依赖供应商协议，模型通过 LangChain 通用 ChatOpenAI 兼容接口接入。现有非 Agent 外部 SDK 保留在适配器边界。
 
 参考项目：
 
@@ -79,8 +81,10 @@ https://github.com/ismashiping/clinicalagent
 
 ## 当前开发状态
 
-当前阶段：Phase 0
+当前阶段：Phase 1（MVP）；Phase 0 已按 Windows 本地骨架范围验收完成。
 
-当前任务：项目初始化、参考仓库分析、架构与 SPEC 设计。
+已完成任务：P1-01–16，覆盖离线解析/入库、Embedding/向量检索、基础 RAG、CLI、FastAPI、飞书纯事件过滤、Redis 原子消息去重及有界任务分派/共享研究服务复用、文本渲染与受限发送。
 
-尚未开始 Phase 1 业务代码开发。
+当前任务P1-16已按冻结范围验收：官方SDK真实收发、Linux共享镜像、隔离Compose迁移/API/机器人启动与关闭通过。P1-17技术验收与六份学习材料已交付，真实研究闭环及Python3.12.16升级证据见docs/phase1-acceptance.md；医学人工审查按用户选择待完成，Phase1尚未整体验收。验收证据见docs/development-plan.md。
+
+飞书长连接入口、生产鉴权装配与隔离容器运行已验收；真实完整研究链路及 Phase 1 完整验收/学习文档尚未完成。任务状态与证据统一见 docs/development-plan.md 顶部；阶段需求和验收场景见 docs/specs/01-mvp.md。P1-xx 为开发任务，P1-Fxx 为功能需求，P1-Txx 为验收场景，编号不是一一对应。

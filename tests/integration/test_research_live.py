@@ -1,4 +1,4 @@
-"""Opt-in paid DeepSeek smoke: only explicit synthetic evidence leaves this process."""
+"""Opt-in paid model API smoke: only explicit synthetic evidence leaves this process."""
 
 import json
 import os
@@ -11,8 +11,8 @@ import pytest
 pytestmark = [pytest.mark.integration, pytest.mark.external]
 
 
-def test_real_deepseek_synthetic_evidence(source_factory, prepared_factory):
-    from clinical_agent.adapters.deepseek import DeepSeekSettings, deepseek_generator
+def test_real_model_api_synthetic_evidence(source_factory, prepared_factory):
+    from clinical_agent.adapters.llm import LLMSettings, open_llm
     from clinical_agent.application.research import ResearchService
     from clinical_agent.domain.research import QuestionRequest
     from clinical_agent.domain.retrieval import (
@@ -23,7 +23,7 @@ def test_real_deepseek_synthetic_evidence(source_factory, prepared_factory):
     )
 
     # Missing configuration is a failed opt-in test, never a passing skip.
-    settings = DeepSeekSettings()
+    settings = LLMSettings()
     text = (
         "This is a fictional teaching example, not clinical evidence. "
         "The simulated study included 12 invented participants and had no control group. "
@@ -64,13 +64,13 @@ def test_real_deepseek_synthetic_evidence(source_factory, prepared_factory):
 
     class RecordingTransport(httpx.HTTPTransport):
         def handle_request(self, request):
-            assert request.url.host == "api.deepseek.com"
+            assert request.url.host == httpx.URL(settings.base_url).host
             response = super().handle_request(request)
             response_headers.update(response.headers)
             response.stream = RecordingStream(response.stream)
             return response
 
-    with deepseek_generator(
+    with open_llm(
         settings, transport=RecordingTransport(retries=0, trust_env=False)
     ) as generator:
         answer = ResearchService(retriever=SyntheticRetriever(), generator=generator).answer(
