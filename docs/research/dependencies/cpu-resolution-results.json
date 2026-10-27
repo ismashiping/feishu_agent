@@ -1,0 +1,16 @@
+[
+  {
+    "Group": "ml-cpu",
+    "Python": "3.12",
+    "Platform": "x86_64-pc-windows-msvc",
+    "ExitCode": 0,
+    "Output": "docs/research/dependencies/ml-cpu-py312-windows.txt"
+  },
+  {
+    "Group": "ml-cpu",
+    "Python": "3.12",
+    "Platform": "x86_64-manylinux_2_28",
+    "ExitCode": 0,
+    "Output": "docs/research/dependencies/ml-cpu-py312-linux.txt"
+  }
+]

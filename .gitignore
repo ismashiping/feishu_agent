@@ -1,0 +1,27 @@
+# Local dependency research cache; never source or a lockfile.
+.research-cache/
+
+# Isolated tools, interpreter, environments and generated artifacts.
+.tools/
+.venv/
+.artifacts/
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Local credentials and runtime data; keep small test fixtures trackable.
+.env
+.env.*
+!.env.example
+data/
+models/
+logs/

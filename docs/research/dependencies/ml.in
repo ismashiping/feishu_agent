@@ -1,0 +1,5 @@
+# CPU/GPU runtime and model smoke tests remain separate acceptance gates.
+-r phase1.in
+sentence-transformers==6.2.0
+torch==2.14.1
+transformers==5.20.2
