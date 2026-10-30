@@ -1,0 +1,26 @@
+{
+  "status": "pending_human_review",
+  "reviewer": null,
+  "reviewed_at": null,
+  "thresholds_status": "pending_independent_medical_review",
+  "cases": [
+    {
+      "id": "blood-pressure",
+      "relevance": null,
+      "methods": null,
+      "similarity": null,
+      "candidate_gaps": null,
+      "claim_support": null,
+      "unsupported_novelty": null
+    },
+    {
+      "id": "sepsis",
+      "relevance": null,
+      "methods": null,
+      "similarity": null,
+      "candidate_gaps": null,
+      "claim_support": null,
+      "unsupported_novelty": null
+    }
+  ]
+}

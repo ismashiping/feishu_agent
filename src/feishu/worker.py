@@ -1,5 +1,6 @@
 """Bounded research admission and explicit delivery handoff; no SDK or resource factory."""
 
+import logging
 from collections.abc import Callable
 from concurrent.futures import Future, ThreadPoolExecutor
 from dataclasses import dataclass
@@ -12,7 +13,9 @@ from pydantic import Field, StrictInt
 
 from clinical_agent.command_runtime import ResearchPort
 from clinical_agent.domain.models import DTO
-from clinical_agent.domain.research import QuestionRequest, ResearchAnswer
+from clinical_agent.domain.report import ReportResult, ResearchReport
+from clinical_agent.domain.research import QuestionRequest, ResearchAnswer, ResearchError
+from clinical_agent.domain.retrieval import RetrievalError
 from feishu.dedup import AcquireResult, DedupPolicy, Identity, Lease, OperationResult
 from feishu.events import MessageEnvelope
 
@@ -36,7 +39,7 @@ class Delivery:
     envelope: MessageEnvelope
     lease: Lease
     deadline: float
-    answer: ResearchAnswer | None = None
+    answer: ResearchAnswer | ResearchReport | None = None
     error_code: Literal["research_failed"] | None = None
 
 
@@ -149,16 +152,34 @@ class Dispatcher:
         stopped = self._guard(lease, deadline)
         if stopped is not None:
             return stopped
-        answer = None
+        answer: ResearchAnswer | ResearchReport | None = None
         error_code: Literal["research_failed"] | None = None
         try:
-            request = QuestionRequest(question=envelope.text, request_id=envelope.request_id)
-            answer = ResearchAnswer.model_validate(self._research.answer(request)).model_copy(
-                deep=True
-            )
+            is_report = envelope.text.startswith("/report ")
+            text = envelope.text[len("/report ") :] if is_report else envelope.text
+            request = QuestionRequest(question=text, request_id=envelope.request_id, scope="hybrid")
+            if is_report:
+                answer = ReportResult.model_validate(
+                    self._research.report(request)
+                ).report.model_copy(deep=True)
+            else:
+                result = self._research.respond(request)
+                result_type = (
+                    ResearchReport if isinstance(result, ResearchReport) else ResearchAnswer
+                )
+                answer = result_type.model_validate(result).model_copy(deep=True)
             if answer.request_id != envelope.request_id:
                 raise ValueError("Mismatched request")
-        except Exception:
+        except Exception as error:
+            logging.getLogger(__name__).warning(
+                "feishu_research_failed",
+                extra={
+                    "request_id": str(envelope.request_id),
+                    "error_code": error.code
+                    if isinstance(error, (ResearchError, RetrievalError))
+                    else "research_failed",
+                },
+            )
             answer, error_code = None, "research_failed"
         stopped = self._guard(lease, deadline)
         if stopped is not None:

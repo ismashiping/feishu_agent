@@ -1,0 +1,8 @@
+{
+  "snapshot_only": true,
+  "characters": 10372,
+  "without_new_metadata": 9771,
+  "metadata_overhead": 601,
+  "limit": 24000,
+  "plan_and_provenance_not_measured": true
+}

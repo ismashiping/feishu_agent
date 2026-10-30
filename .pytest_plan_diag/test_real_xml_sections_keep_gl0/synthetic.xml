@@ -1,0 +1,5 @@
+<PubmedArticleSet><PubmedArticle><MedlineCitation><PMID>123</PMID>
+    <Article><ArticleTitle>Fixture</ArticleTitle><Abstract>
+    <AbstractText Label="BACKGROUND">中文α🙂</AbstractText>
+    <AbstractText Label="RESULTS">Result text long enough.</AbstractText>
+    </Abstract></Article></MedlineCitation></PubmedArticle></PubmedArticleSet>

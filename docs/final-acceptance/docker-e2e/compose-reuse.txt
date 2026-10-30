@@ -1,0 +1,3 @@
+ Container clinical-agent-e2e-postgres-1 Running 
+ Container clinical-agent-e2e-postgres-1 Waiting 
+ Container clinical-agent-e2e-postgres-1 Healthy 

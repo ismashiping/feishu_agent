@@ -1,5 +1,7 @@
 # PostgreSQL 与 pgvector：本地模型和迁移
 
+Phase5新增迁移head=p501_0003：chunks.search_vector为固定simple配置的STORED生成列，索引ix_chunks_search_vector为GIN。复用原表与证据身份，不覆盖原迁移。生产必须显式upgrade head，新装配不会create_all或自动升级。原p107_0002仍保留，其元数据迁移历史不改写。真实升降级/回填/无漂移与既有数据库回归见[Phase5记录](phase5-acceptance.md)。当前检索用法见[向量与混合检索](vector-retrieval.md)。
+
 P1-06 只提供 ORM、连接构造、Alembic 和本地基础设施；还没有文献导入服务、DTO 映射、检索或问答命令。[任务 SPEC](specs/tasks/p1-06-postgres-schema.md)、[实际验收记录](development-plan.md)。
 
 P1-07当前补充：Python离线入库服务/DTO映射已实现，操作见 [入库说明](offline-ingestion.md)。最新head=p107_0002，增加nullable ingestion_metadata；既有P106行不伪造解析信息，读作legacy并拒绝当合法重复。上文P106是历史交付范围；当前已有[P1-08检索](vector-retrieval.md)、[基础RAG](basic-rag.md)、[CLI](cli.md)及[API](api.md)。

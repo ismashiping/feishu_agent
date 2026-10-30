@@ -87,7 +87,11 @@ def test_question_contract_correlation_and_empty_success(setup_api):
         response = client.post(
             "/v1/questions",
             headers={"X-Request-ID": ID},
-            json={"question": "  中文问题  ", "options": {"top_k": 3, "min_similarity": 0.6}},
+            json={
+                "scope": "local",
+                "question": "  中文问题  ",
+                "options": {"top_k": 3, "min_similarity": 0.6},
+            },
         )
     assert response.status_code == 200
     assert response.headers["x-request-id"] == response.json()["request_id"] == ID
@@ -99,14 +103,14 @@ def test_question_contract_correlation_and_empty_success(setup_api):
 @pytest.mark.parametrize(
     "data",
     [
-        {"question": " "},
-        {"question": "x" * 4001},
-        {"question": 123},
-        {"question": "private", "scope": "online"},
-        {"question": "private", "options": {"top_k": 0}},
-        {"question": "private", "options": {"min_similarity": "nan"}},
-        {"question": "private", "api_key": "secret-value"},
-        {"question": "private", "request_id": ID},
+        {"scope": "local", "question": " "},
+        {"scope": "local", "question": "x" * 4001},
+        {"scope": "local", "question": 123},
+        {"question": "private", "scope": "unavailable_scope"},
+        {"scope": "local", "question": "private", "options": {"top_k": 0}},
+        {"scope": "local", "question": "private", "options": {"min_similarity": "nan"}},
+        {"scope": "local", "question": "private", "api_key": "secret-value"},
+        {"scope": "local", "question": "private", "request_id": ID},
     ],
 )
 def test_invalid_inputs_do_not_echo_private_values(setup_api, data):
@@ -217,7 +221,9 @@ def test_error_mapping_never_publishes_raw_exception(setup_api, fault, status):
 
     services.research.answer = fail
     with TestClient(app) as client:
-        response = client.post("/v1/questions", json={"question": "private-question"})
+        response = client.post(
+            "/v1/questions", json={"scope": "local", "question": "private-question"}
+        )
     assert response.status_code == status
     assert "private" not in response.text
     assert response.json()["error_code"] == ("internal_error" if fault == "unknown" else fault)
@@ -265,7 +271,7 @@ def test_full_answer_source_fields_preserved(setup_api, source_factory, prepared
 
     services.research.answer = answer
     with TestClient(app) as client:
-        response = client.post("/v1/questions", json={"question": "synthetic"})
+        response = client.post("/v1/questions", json={"scope": "local", "question": "synthetic"})
     assert response.status_code == 200
     assert response.json()["claims"][0]["kind"] == "uncertainty"
     assert response.json()["sources"][0]["content_scope"] == "abstract"
@@ -287,17 +293,22 @@ def test_busy_rejects_without_blocking_health_and_recovers(setup_api):
 
     services.research.answer = blocking
     with TestClient(app) as client, ThreadPoolExecutor(max_workers=1) as pool:
-        first = pool.submit(client.post, "/v1/questions", json={"question": "first"})
+        first = pool.submit(
+            client.post, "/v1/questions", json={"scope": "local", "question": "first"}
+        )
         try:
             assert started.wait(5)
             assert client.get("/health/live").status_code == 200
-            response = client.post("/v1/questions", json={"question": "second"})
+            response = client.post("/v1/questions", json={"scope": "local", "question": "second"})
             assert response.status_code == 503 and response.json()["error_code"] == "busy"
             assert response.headers["retry-after"] == "1"
         finally:
             release.set()
         assert first.result(5).status_code == 200
-        assert client.post("/v1/questions", json={"question": "third"}).status_code == 200
+        assert (
+            client.post("/v1/questions", json={"scope": "local", "question": "third"}).status_code
+            == 200
+        )
 
 
 def test_wrong_answer_id_is_internal_error(setup_api):
@@ -313,7 +324,7 @@ def test_wrong_answer_id_is_internal_error(setup_api):
 
     services.research.answer = wrong
     with TestClient(app) as client:
-        response = client.post("/v1/questions", json={"question": "private"})
+        response = client.post("/v1/questions", json={"scope": "local", "question": "private"})
     assert response.status_code == 500 and response.json()["error_code"] == "internal_error"
 
 
@@ -415,7 +426,7 @@ async def test_without_lifespan_is_not_ready(setup_api):
     ) as client:
         assert (await client.get("/health/live")).status_code == 200
         assert (await client.get("/health/ready")).status_code == 503
-        response = await client.post("/v1/questions", json={"question": "test"})
+        response = await client.post("/v1/questions", json={"scope": "local", "question": "test"})
         assert response.status_code == 503 and response.json()["error_code"] == "not_ready"
     assert events == [] and services.research.calls == []
 

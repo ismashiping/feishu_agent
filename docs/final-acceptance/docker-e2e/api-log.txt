@@ -1,0 +1,14 @@
+api-1  | INFO:     Started server process [7]
+api-1  | INFO:     Waiting for application startup.
+api-1  | ERROR:    Traceback (most recent call last):
+api-1  |   File "/app/.venv/lib/python3.12/site-packages/starlette/routing.py", line 661, in lifespan
+api-1  |     async with self.lifespan_context(app) as maybe_state:
+api-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+api-1  |   File "/usr/local/lib/python3.12/contextlib.py", line 210, in __aenter__
+api-1  |     return await anext(self.gen)
+api-1  |            ^^^^^^^^^^^^^^^^^^^^^
+api-1  |   File "/app/src/clinical_agent/api.py", line 190, in lifespan
+api-1  |     raise RuntimeError("startup_failed") from None
+api-1  | RuntimeError: startup_failed
+api-1  | 
+api-1  | ERROR:    Application startup failed. Exiting.

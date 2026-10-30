@@ -1,0 +1,24 @@
+{
+  "increment": "MA-01",
+  "mode": "offline_compatibility_not_medical_efficacy",
+  "targeted_tests": {
+    "passed": 258,
+    "seconds": 25.99,
+    "log": ".artifacts/ma01-tests.txt"
+  },
+  "frozen_planning_responses": {
+    "expected_valid": 2,
+    "expected_rejected": 2,
+    "behavior_preserved": true
+  },
+  "frozen_scout_cases": {
+    "cases": 2,
+    "source_records": 4,
+    "identity_hash_order_preserved": true
+  },
+  "new_model_calls": 0,
+  "new_network_calls": 0,
+  "baseline_manifest_sha256": "d026f6da4d416d4d9bbe1218b99d04d55672b465dc9822b3c04cef51cdc88b9a",
+  "fresh_end_to_end_improvement": "not_evaluated",
+  "medical_quality": "not_evaluated"
+}

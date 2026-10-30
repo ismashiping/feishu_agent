@@ -70,9 +70,7 @@ def test_real_model_api_synthetic_evidence(source_factory, prepared_factory):
             response.stream = RecordingStream(response.stream)
             return response
 
-    with open_llm(
-        settings, transport=RecordingTransport(retries=0, trust_env=False)
-    ) as generator:
+    with open_llm(settings, transport=RecordingTransport(retries=0, trust_env=False)) as generator:
         answer = ResearchService(retriever=SyntheticRetriever(), generator=generator).answer(
             QuestionRequest(
                 request_id=uuid4(), question="这个虚构教学样例有什么局限？不要推断真实治疗效果。"

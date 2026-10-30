@@ -1,0 +1,52 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.update
+#1 transferring dockerfile: 355B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/clinical-literature-agent:oa-stage3-20261029
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 150B 0.0s done
+#3 DONE 0.0s
+
+#4 [1/4] FROM docker.io/library/clinical-literature-agent:oa-stage3-20261029@sha256:714bd8c9bc3e1e935d479a91872efedebb8f8e45c6f37baa491f0ebca1299dd1
+#4 resolve docker.io/library/clinical-literature-agent:oa-stage3-20261029@sha256:714bd8c9bc3e1e935d479a91872efedebb8f8e45c6f37baa491f0ebca1299dd1 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 21.23kB 0.0s done
+#5 DONE 0.1s
+
+#6 [2/4] WORKDIR /app
+#6 CACHED
+
+#7 [3/4] COPY src ./src
+#7 DONE 0.1s
+
+#8 [4/4] RUN uv pip install --offline --no-deps --python /app/.venv/bin/python     --reinstall-package clinical-literature-agent .
+#8 1.003 Resolved 1 package in 3ms
+#8 1.010    Building clinical-literature-agent @ file:///app
+#8 4.469       Built clinical-literature-agent @ file:///app
+#8 4.487 Prepared 1 package in 3.48s
+#8 4.503 Uninstalled 1 package in 16ms
+#8 4.530 Installed 1 package in 26ms
+#8 4.530  ~ clinical-literature-agent==0.1.0 (from file:///app)
+#8 DONE 4.6s
+
+#9 exporting to image
+#9 exporting layers
+#9 exporting layers 0.3s done
+#9 exporting manifest sha256:a0f891962841f7ef7699ef0d92c24ffa4ebf8663783902424236e923066dfc6d 0.0s done
+#9 exporting config sha256:b3a3cf4741a8211037533e3d3466ad7692a909b9b4b350f54f38db8431fea905 0.0s done
+#9 exporting attestation manifest sha256:5ed403981c10cc0dcada770759cba9189b90af02645452d71f1f988b75065ae7 0.0s done
+#9 exporting manifest list sha256:5716f71637269738600dc0fb27d5372d783c9b3a6251be3f2dee883ff532bf0e
+#9 exporting manifest list sha256:5716f71637269738600dc0fb27d5372d783c9b3a6251be3f2dee883ff532bf0e 0.0s done
+#9 naming to docker.io/library/clinical-literature-agent:local done
+#9 unpacking to docker.io/library/clinical-literature-agent:local
+#9 unpacking to docker.io/library/clinical-literature-agent:local 0.2s done
+#9 DONE 0.7s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/wz91002m3c49yxjoq3okma1nd

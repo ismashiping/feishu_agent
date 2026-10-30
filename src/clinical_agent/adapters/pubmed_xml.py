@@ -7,9 +7,9 @@ from hashlib import sha256
 from io import BytesIO
 from pathlib import Path
 from time import monotonic
-from typing import TypedDict
+from typing import TYPE_CHECKING, TypedDict
 from uuid import UUID
-from xml.etree.ElementTree import Element, ParseError
+from xml.etree.ElementTree import Element, ParseError, tostring
 
 # defusedxml 0.7.1 has no typing marker; isolate only these external imports.
 import defusedxml  # type: ignore[import-untyped]
@@ -29,6 +29,9 @@ from clinical_agent.domain.models import (
     PubmedXmlEntry,
     SourceMetadata,
 )
+
+if TYPE_CHECKING:
+    from clinical_agent.domain.pubmed import PubMedRecord
 
 
 class PubmedXmlLimits(DTO):
@@ -120,7 +123,9 @@ def _publication_date(element: Element | None) -> PublicationDate:
         raise _RejectedRecord("pubmed_invalid_date") from None
 
 
-def _map_record(record: Element, max_characters: int) -> tuple[_Citation, list[AbstractSourceUnit]]:
+def _map_record(
+    record: Element, max_characters: int, *, allow_no_abstract: bool = False
+) -> tuple[_Citation, list[AbstractSourceUnit]]:
     if record.tag != "PubmedArticle":
         raise _RejectedRecord("pubmed_unsupported_record")
     primary_ids = record.findall("MedlineCitation/PMID")
@@ -183,7 +188,7 @@ def _map_record(record: Element, max_characters: int) -> tuple[_Citation, list[A
             )
         )
         offset = end + 2
-    if not units:
+    if not units and not allow_no_abstract:
         raise _RejectedRecord("pubmed_no_abstract")
     return _Citation(
         pmid=pmid,
@@ -320,3 +325,67 @@ def parse_pubmed_xml(
         pmids.add(citation["pmid"])
     check_deadline()
     return PubmedXmlBatch(source=source, entries=entries, parser_version=defusedxml.__version__)
+
+
+def parse_pubmed_response(
+    snapshot: bytes, *, fetched_at: datetime, check_deadline: Callable[[], None] | None = None
+) -> list["PubMedRecord"]:
+    """Reuse offline field rules without rejecting genuine metadata-only records."""
+    from clinical_agent.domain.pubmed import PubMedRecord
+    from clinical_agent.domain.research import ResearchError
+
+    limits = PubmedXmlLimits(max_records=20, max_file_bytes=5 * 1024 * 1024)
+    deadline = monotonic() + limits.max_seconds
+
+    def check() -> None:
+        if check_deadline is not None:
+            check_deadline()
+        if monotonic() >= deadline:
+            raise ResearchError("pubmed_timeout")
+
+    try:
+        if len(snapshot) > limits.max_file_bytes:
+            raise ValueError("Response too large")
+        root = _read_tree(snapshot, limits, check)
+        results: list[PubMedRecord] = []
+        seen: set[str] = set()
+        for record in root:
+            check()
+            citation, units = _map_record(
+                record, limits.max_abstract_characters, allow_no_abstract=True
+            )
+            pmid = citation["pmid"]
+            if pmid in seen:
+                raise ValueError("Duplicate response identity")
+            seen.add(pmid)
+            normalized = tostring(record, encoding="unicode")
+            publication_types = [
+                _text(item)
+                for item in record.findall(
+                    "MedlineCitation/Article/PublicationTypeList/PublicationType"
+                )
+                if _text(item)
+            ]
+            notices = [
+                f"{item.get('RefType', 'unknown')}:{_text(item.find('PMID'))}"
+                for item in record.findall(
+                    "MedlineCitation/CommentsCorrectionsList/CommentsCorrections"
+                )
+            ]
+            results.append(
+                PubMedRecord(
+                    **citation,
+                    source_units=units,
+                    publication_types=publication_types,
+                    notices=notices,
+                    source_url=f"https://pubmed.ncbi.nlm.nih.gov/{pmid}/",
+                    content_scope="abstract" if units else "metadata_only",
+                    snapshot_xml=normalized,
+                    content_hash=sha256(normalized.encode()).hexdigest(),
+                )
+            )
+        return results
+    except ResearchError:
+        raise
+    except Exception:
+        raise ResearchError("pubmed_invalid") from None

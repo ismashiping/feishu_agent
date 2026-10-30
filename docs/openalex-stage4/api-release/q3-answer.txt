@@ -1,0 +1,67 @@
+总体回答
+现有证据显示，MedSAM与nnU-Net的核心区别在于设计定位：MedSAM是以大规模多模态医学图像预训练、通过提示（如边界框）实现通用分割的基础模型；nnU-Net是自配置的U-Net框架，针对每个数据集自动配置架构、预处理与训练推理流程。两者在具体任务上的优劣并不固定，取决于任务、输入表示与自动化策略。 [1] [2] [3]
+
+设计定位与训练方式
+MedSAM在包含1,570,263个图像-掩码对、覆盖10种成像模态和30余种癌症类型的大规模医学图像数据集上开发，目标是实现跨模态、跨任务的通用医学图像分割。 [1]
+
+nnU-Net被描述为基于2D和3D原生U-Net的稳健、自配置框架，其出发点是去除多余网络设计，聚焦于影响性能与泛化性的架构、预处理、训练和推理选择，并在不允许逐数据集手动调整的条件下于医学分割十项全能挑战中评估。 [2]
+
+提示与输入机制
+MedSAM原始论文全文方法部分说明，为将边界框提示纳入模型，作者把边界框转换为二值掩码并与图像拼接作为模型输入；该功能原本由nnU-Net在级联流程中支持，即用二值掩码作为额外通道指定目标位置。这表明两者在提示/定位信息的输入方式上存在交集，但MedSAM将其作为通用提示接口使用。 [1]
+
+泛化性与外部验证
+MedSAM原始论文报告，在四项代表性任务上，任务专用U-Net（用nnU-Net实现）在内部验证集上常取得良好结果，但在外部验证集上性能明显下降；而MedSAM未经额外微调直接应用于验证集，在内部和外部验证集上表现一致。 [1]
+
+MedSAM摘要称其在86个内部验证任务和60个外部验证任务上较模态专用专家模型具有更好的准确性和稳健性。 [1]
+
+具体任务中的比较
+在CT骨转移瘤2D分割中，同一研究在可比条件下比较了nnU-Net、微调DINOv3和无提示MedSAM适配版本：留出测试集Dice分别为0.6849、0.4480和0.6280，归一化Hausdorff距离分别为0.0473、0.1019和0.1008，nnU-Net在该任务上表现更强。 [4]
+
+在心脏磁共振弹性成像左心室心肌分割中，最佳nnU-Net模型（全平均归一化幅度图）Dice为0.82±0.04；最佳MedSAM结果为半自动微调加强ROI平滑变体，Dice为0.82±0.02，两者均达到读者间一致性水平（读者间Dice 0.79±0.03）。全自动MedSAM变体表现较低（autoprompt 0.68±0.09，box regression 0.71±0.08）。 [3]
+
+在食管鳞癌CT病灶分割的多中心研究中，基线nnU-Net内部/外部Dice为72.45%/69.18%，MedSAM为71.26%/68.34%；该研究的主要对象是经原型对比边界优化增强的SAM-Med3D（76.23%/73.57%），nnU-Net与MedSAM仅作为对照方法。 [5]
+
+差异总结
+推断：综合来看，两者的差异主要体现在：MedSAM强调大规模多模态预训练与提示驱动的通用性，nnU-Net强调针对数据集的自动配置与稳健基线性能；在具体任务中，nnU-Net在骨转移瘤分割中占优，在心脏MRE分割中与半自动微调MedSAM相当，在食管鳞癌分割中两者接近。 [1] [2] [4] [3] [5]
+
+证据局限
+不确定：现有证据未提供两种模型在推理效率、训练数据需求或计算成本方面的直接比较数据，这些维度在所提供的段落中未被报告。 [4] [3] [5]
+
+参考文献
+[1] Segment anything in medical images（2024）
+DOI：10.1038/s41467-024-44824-z
+https://doi.org/10.1038/s41467-024-44824-z
+https://openalex.org/W4391109864
+全文证据：Methods / Training protocol and experimental setting；https://openalex.org/W4391109864
+全文证据：Methods / Training protocol and experimental setting；https://openalex.org/W4391109864
+[2] nnU-Net: Self-adapting Framework for U-Net-Based Medical Image Segmentation（2018）
+DOI：10.48550/arxiv.1809.10486
+https://doi.org/10.48550/arxiv.1809.10486
+https://openalex.org/W2893299523
+[3] Toward self-contained cardiac magnetic resonance elastography: Deep learning-based segmentation of the left ventricular myocardium（2026）
+DOI：10.1016/j.mri.2026.110768
+https://doi.org/10.1016/j.mri.2026.110768
+https://openalex.org/W7201983585
+[4] Comparison of Foundation Models MedSAM and DINOv3 with the nnU-Net Framework for Bone Metastasis Segmentation in Computed Tomography Scans（2026）
+DOI：10.3390/ai7060181
+https://doi.org/10.3390/ai7060181
+https://openalex.org/W7162083801
+[5] PD05.07. Enhancing SAM-Med3D with Prototype-Contrast Boundary Optimization for Esophageal Squamous Cell Carcinoma Segmentation（2026）
+DOI：10.1093/dote/doag077.110
+https://doi.org/10.1093/dote/doag077.110
+https://openalex.org/W7203898154
+证据范围：摘要（未阅读全文） [2] [3] [4] [5]
+证据范围：已获取并引用的全文段落 [1]
+
+局限与范围
+证据主要来自摘要，仅MedSAM原始论文有部分全文方法段落。 [1] [2] [3]
+该段落为方法描述，未直接比较两种模型的提示机制性能。 [1]
+该比较为作者自报结果，外部验证集来自同模态或同分割目标的新数据集。 [1]
+摘要层面结论，未提供逐任务数值。 [1]
+单一任务、单一数据集（88例患者），各模型使用各自原生输入分辨率和训练计划。 [4]
+样本为16名健康男性志愿者，非病变人群。 [3]
+摘要未报告nnU-Net与MedSAM的HD95等完整指标，且两者均非该研究优化对象。 [5]
+各研究任务、人群、输入表示和验证设置不同，不能据此得出普遍优劣结论。 [1] [2] [4] [3] [5]
+仅基于所提供摘要与部分全文，不能推断文献整体缺失这些信息。 [4] [3] [5]
+本次检索未完整完成，结论仅限所列文献，不代表领域全貌。
+本次使用在线 OpenAlex及本地来源；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

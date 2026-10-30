@@ -1,0 +1,12 @@
+[
+  {
+    "id": "blood-pressure",
+    "idea": "在无糖尿病的高心血管风险成人中，比较强化与标准降压目标的心血管获益和急性肾损伤风险。",
+    "query": "SPRINT intensive standard blood pressure randomized acute kidney injury"
+  },
+  {
+    "id": "sepsis",
+    "idea": "在成人脓毒症患者中，比较早期乳酸清除率与SOFA评分预测短期死亡风险的方法及局限。",
+    "query": "sepsis lactate clearance SOFA mortality cohort"
+  }
+]

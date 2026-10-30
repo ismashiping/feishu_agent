@@ -1,0 +1,5 @@
+{
+  "base_image": "sha256:714bd8c9bc3e1e935d479a91872efedebb8f8e45c6f37baa491f0ebca1299dd1",
+  "tag": "clinical-literature-agent:oa-stage3-20261029",
+  "reason": "Reuse unchanged locked dependencies; project wheel rebuilt offline"
+}

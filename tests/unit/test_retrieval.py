@@ -39,7 +39,7 @@ def test_question_normalization_and_local_only():
 
     assert RetrievalRequest(question="  中文 query  ").question == "中文 query"
     with pytest.raises(ValidationError):
-        RetrievalRequest(question="query", scope="online")
+        RetrievalRequest(question="query", scope="unavailable_scope")
 
 
 @pytest.mark.parametrize(

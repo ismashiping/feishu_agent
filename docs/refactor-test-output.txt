@@ -1,0 +1,14 @@
+
+=================================== ERRORS ====================================
+___________ ERROR collecting tests/unit/test_research_quality_v2.py ___________
+tests\unit\test_research_quality_v2.py:23: in <module>
+    POLICY = json.loads(Path("tests/fixtures/answer_quality/policy.json").read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1028: in read_text
+    return f.read()
+           ^^^^^^^^
+E   UnicodeDecodeError: 'gbk' codec can't decode byte 0xaa in position 306: illegal multibyte sequence
+=========================== short test summary info ===========================
+ERROR tests/unit/test_research_quality_v2.py - UnicodeDecodeError: 'gbk' code...
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+122 deselected, 1 error in 4.06s

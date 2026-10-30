@@ -39,7 +39,7 @@ def engine():
             config.attributes["connection"] = connection
             command.upgrade(config, "head")
         with engine.connect() as connection:
-            assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "p107_0002"
+            assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "p804_0007"
         yield engine
 
 
@@ -97,7 +97,12 @@ def test_exact_distances_stable_ties_top_k_and_detached_hits(engine, seed):
     assert RetrievalResult.model_validate_json(result.model_dump_json()) == result
     limited = PostgresRetriever(engine).search(query(), RetrievalOptions(top_k=1))
     assert limited.hits[0].chunk.chunk_id.int == 10
-    assert '"vector":' not in result.model_dump_json()
+    assert all(
+        "vector" not in h.model_dump()
+        and "vector" not in h.chunk.model_dump()
+        and "vector" not in h.document.model_dump()
+        for h in result.hits
+    )
 
 
 @pytest.mark.parametrize("minimum,expected", [(1.0, [1]), (0.0, [1, 2]), (-1.0, [1, 2, 3])])
@@ -303,7 +308,12 @@ def test_actual_e5_query_and_document_vectors_return_traceable_hits(
     stored = store.load(ingested.entries[0].document_id)
     stored.source.parsed.validate_chunk(result.hits[0].chunk)
     assert result.hits[0].score_type == "cosine_similarity"
-    assert '"vector":' not in result.model_dump_json()
+    assert all(
+        "vector" not in h.model_dump()
+        and "vector" not in h.chunk.model_dump()
+        and "vector" not in h.document.model_dump()
+        for h in result.hits
+    )
     report = {
         "model_revision": REVISION,
         "dimension": result.embedding_info.dimension,

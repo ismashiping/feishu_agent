@@ -1,0 +1,163 @@
+[
+  {
+    "index": 1,
+    "question": "肝脏分割最新研究有哪些？",
+    "request_id": "c979ca58-1808-4271-9378-a487af2848b4",
+    "http_status": 200,
+    "status": "answered",
+    "sources": 5,
+    "claims": 9,
+    "fulltext_citations": 0,
+    "citation_identity_checked": true,
+    "warnings": [
+      "doi:10.1007/s44443-026-01362-6:fulltext_license_not_allowed",
+      "doi:10.1016/j.gande.2025.03.002:fulltext_license_not_allowed",
+      "doi:10.3390/diagnostics15070878:fulltext_budget",
+      "doi:10.1109/iceccme64568.2025.11277937:fulltext_budget",
+      "doi:10.1117/12.3095447:fulltext_budget"
+    ],
+    "search_status": "complete",
+    "evidence_gaps": [],
+    "date_from": "2024-10-29",
+    "date_to": "2026-10-29",
+    "dates": [
+      "2026-10-23",
+      "2025-03-05",
+      "2025-03-31",
+      "2025-10-16",
+      "2025-11-10"
+    ],
+    "seconds": 26.093
+  },
+  {
+    "index": 2,
+    "question": "肝脏肿瘤亚区分割最新进展有哪些？",
+    "request_id": "0b93e44d-b801-415a-8851-81ac960978ba",
+    "http_status": 200,
+    "status": "insufficient_evidence",
+    "sources": 0,
+    "claims": 0,
+    "fulltext_citations": 0,
+    "citation_identity_checked": true,
+    "warnings": [
+      "openalex_assessment_invalid"
+    ],
+    "search_status": "partial",
+    "evidence_gaps": [
+      "no_direct_evidence",
+      "latest advances",
+      "methods",
+      "results"
+    ],
+    "date_from": "2024-10-29",
+    "date_to": "2026-10-29",
+    "dates": [],
+    "seconds": 16.094
+  },
+  {
+    "index": 3,
+    "question": "MedSAM与nnU-Net有哪些区别？",
+    "request_id": "dc35e42e-ba95-4277-b2af-40c9392fd75f",
+    "http_status": 200,
+    "status": "answered",
+    "sources": 5,
+    "claims": 8,
+    "fulltext_citations": 0,
+    "citation_identity_checked": true,
+    "warnings": [
+      "openalex_assessment_invalid",
+      "doi:10.3390/ai7060181:fulltext_location_unsupported",
+      "doi:10.1016/j.mri.2026.110768:fulltext_location_unsupported",
+      "doi:10.1117/12.3044679:fulltext_budget",
+      "doi:10.1016/j.cmpb.2025.109035:fulltext_budget",
+      "doi:10.48550/arxiv.2506.20786:fulltext_budget"
+    ],
+    "search_status": "partial",
+    "evidence_gaps": [],
+    "date_from": "None",
+    "date_to": "None",
+    "dates": [
+      "2026-05-22",
+      "2026-08-08",
+      "2025-02-14",
+      "2025-08-28",
+      "2025-06-25"
+    ],
+    "seconds": 20.078
+  },
+  {
+    "index": 4,
+    "question": "最近三年MRI预测肝癌微血管侵犯有哪些研究？",
+    "request_id": "447357de-5c91-418e-9c83-de14f29a4943",
+    "http_status": 200,
+    "status": "answered",
+    "sources": 4,
+    "claims": 7,
+    "fulltext_citations": 0,
+    "citation_identity_checked": true,
+    "warnings": [
+      "openalex_assessment_invalid",
+      "doi:10.1186/s13244-025-02035-0:fulltext_url_not_allowed",
+      "doi:10.3389/fonc.2024.1371432:fulltext_license_not_allowed",
+      "doi:10.4240/wjgs.v16.i8.2546:fulltext_budget",
+      "doi:10.7150/jca.93712:fulltext_budget"
+    ],
+    "search_status": "partial",
+    "evidence_gaps": [],
+    "date_from": "2023-10-29",
+    "date_to": "2026-10-29",
+    "dates": [
+      "2025-07-03",
+      "2024-07-11",
+      "2024-08-16",
+      "2024-01-01"
+    ],
+    "seconds": 20.407
+  },
+  {
+    "index": 5,
+    "question": "肝脏肿瘤分割目前有哪些技术瓶颈？",
+    "request_id": "264fa278-0bc7-426c-b2e1-6f587ad1b66e",
+    "http_status": 200,
+    "status": "insufficient_evidence",
+    "sources": 0,
+    "claims": 0,
+    "fulltext_citations": 0,
+    "citation_identity_checked": true,
+    "warnings": [],
+    "search_status": "complete",
+    "evidence_gaps": [
+      "no_direct_evidence",
+      "future directions",
+      "limitations",
+      "open problems",
+      "technical bottlenecks"
+    ],
+    "date_from": "None",
+    "date_to": "None",
+    "dates": [],
+    "seconds": 17.765
+  },
+  {
+    "index": 6,
+    "question": "这篇2024年肝癌微血管侵犯双中心影像列线图研究采用了哪些CT和MRI采集方案？",
+    "request_id": "b77b86b3-97c4-4b2e-8557-33a91d1f121e",
+    "http_status": 200,
+    "status": "answered",
+    "sources": 1,
+    "claims": 5,
+    "fulltext_citations": 2,
+    "citation_identity_checked": true,
+    "warnings": [
+      "doi:10.1186/s12880-024-01206-7:fulltext_available"
+    ],
+    "search_status": "complete",
+    "evidence_gaps": [],
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31",
+    "dates": [
+      "2024-01-27"
+    ],
+    "seconds": 32.922
+  }
+]

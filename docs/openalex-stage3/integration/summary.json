@@ -1,0 +1,45 @@
+{
+  "source": "saved real licensed OAI response; HTTP verified separately",
+  "database": "clinical_agent_test_oa_stage3_20261029_1",
+  "revision": "oa3001_0009",
+  "vector_rows": 43,
+  "runs": [
+    {
+      "mode": "cold",
+      "seconds": 27.813,
+      "source_calls": 1,
+      "passage_embedding_calls": 1,
+      "passage_embedding_chunks": 43,
+      "query_embedding_calls": 1,
+      "passages": 2,
+      "warnings": [
+        "doi:10.1186/s12880-024-01206-7:fulltext_available"
+      ]
+    },
+    {
+      "mode": "warm",
+      "seconds": 0.086,
+      "source_calls": 1,
+      "passage_embedding_calls": 1,
+      "passage_embedding_chunks": 43,
+      "query_embedding_calls": 2,
+      "passages": 2,
+      "warnings": [
+        "doi:10.1186/s12880-024-01206-7:fulltext_available"
+      ]
+    },
+    {
+      "mode": "expired_same_content",
+      "seconds": 0.1,
+      "source_calls": 2,
+      "passage_embedding_calls": 1,
+      "passage_embedding_chunks": 43,
+      "query_embedding_calls": 3,
+      "passages": 2,
+      "warnings": [
+        "doi:10.1186/s12880-024-01206-7:fulltext_available"
+      ]
+    }
+  ],
+  "atomic_rollback_verified": true
+}

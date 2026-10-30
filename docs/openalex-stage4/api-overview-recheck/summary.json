@@ -1,0 +1,35 @@
+[
+  {
+    "index": 1,
+    "question": "肝脏分割最新研究有哪些？",
+    "request_id": "877ad7da-f46a-46c1-a7cb-9a14aa322d14",
+    "http_status": 200,
+    "status": "answered",
+    "sources": 5,
+    "claims": 6,
+    "fulltext_citations": 0,
+    "citation_identity_checked": true,
+    "warnings": [
+      "openalex_assessment_invalid",
+      "doi:10.1007/s44443-026-01362-6:fulltext_license_not_allowed",
+      "doi:10.5281/zenodo.21603405:fulltext_location_unsupported",
+      "doi:10.48084/etasr.9157:fulltext_url_not_allowed",
+      "doi:10.1016/j.gande.2025.03.002:fulltext_license_not_allowed",
+      "doi:10.3390/diagnostics15070878:fulltext_location_unsupported"
+    ],
+    "search_status": "partial",
+    "evidence_gaps": [
+      "limitations"
+    ],
+    "date_from": "2024-10-29",
+    "date_to": "2026-10-29",
+    "dates": [
+      "2026-10-23",
+      "2025-03-05",
+      "2025-03-31",
+      "2026-04-07",
+      "2025-02-02"
+    ],
+    "seconds": 28.297
+  }
+]

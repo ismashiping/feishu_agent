@@ -1,0 +1,7 @@
+{
+  "source_url": "https://pmc.ncbi.nlm.nih.gov/api/oai/v1/mh/?verb=GetRecord&identifier=oai:pubmedcentral.nih.gov:10821254&metadataPrefix=pmc",
+  "license": "cc-by",
+  "sha256": "b84cb18f1bbfeb733d26ce63a8a62b84047a2913f5e0558e26b255ae7b7fc7df",
+  "fetched_at": "2026-10-29T05:35:51.290895+00:00",
+  "units": 24
+}

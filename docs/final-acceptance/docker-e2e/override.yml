@@ -1,0 +1,18 @@
+services:
+  api:
+    environment:
+      PYTHONPATH: /app/src
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    volumes:
+      - E:/02_Projects/chatgpt_project/clinical_agent/src:/app/src:ro
+      - E:/02_Projects/chatgpt_project/clinical_agent/alembic:/app/alembic:ro
+      - E:/02_Projects/chatgpt_project/clinical_agent/docs/final-acceptance/docker-e2e:/app/audit
+    image: clinical-literature-agent:local
+  feishu_bot:
+    environment:
+      PYTHONPATH: /app/src
+      OMP_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    volumes:
+      - E:/02_Projects/chatgpt_project/clinical_agent/src:/app/src:ro

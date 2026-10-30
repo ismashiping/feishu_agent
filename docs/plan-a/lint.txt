@@ -1,0 +1,183 @@
+E501 Line too long (111 > 100)
+   --> src\clinical_agent\application\pico.py:125:101
+    |
+123 |             if isinstance(error, ValidationError):
+124 |                 # Never log error messages, input values, ctx or arbitrary JSON keys.
+125 |                 allowed = set(ExtractionDraft.model_fields) | {"text", "origin", "source_span", "start", "end"}
+    |                                                                                                     ^^^^^^^^^^^
+126 |                 diagnostic["fields"] = [
+127 |                     ".".join(str(k) for k in item["loc"] if isinstance(k, int) or k in allowed)
+    |
+
+E501 Line too long (230 > 100)
+  --> tests\unit\test_plan_a.py:13:101
+   |
+12 | …
+13 | …son','outcome']), ambiguities=[],blocking_ambiguities=[], terms=[dict(text=q,origin='user_text',source_span=dict(start=0,end=len(q)))])
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+E702 Multiple statements on one line (semicolon)
+  --> tests\unit\test_plan_a.py:17:48
+   |
+16 | class Extractor:
+17 |     def __init__(self, value): self.value=value; self.calls=0
+   |                                                ^
+18 |     def extract(self, request, **kw):
+19 |         self.calls+=1
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests\unit\test_plan_a.py:20:44
+   |
+18 |     def extract(self, request, **kw):
+19 |         self.calls+=1
+20 |         if isinstance(self.value,Exception): raise self.value
+   |                                            ^
+21 |         return self.value
+   |
+
+E501 Line too long (120 > 100)
+  --> tests\unit\test_plan_a.py:24:101
+   |
+24 | @pytest.mark.parametrize('failure,stage', [('json','json'),('schema','schema'),('span','span'),('provider','provider')])
+   |                                                                                                     ^^^^^^^^^^^^^^^^^^^^
+25 | def test_safe_failure_diagnostics(failure,stage,caplog):
+26 |     q='asthma breath analysis SECRET_DO_NOT_LOG'
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests\unit\test_plan_a.py:29:23
+   |
+27 |     data=draft(q)
+28 |     value=json.dumps(data)
+29 |     if failure=='json':value='SECRET_DO_NOT_LOG {'
+   |                       ^
+30 |     if failure=='schema':data['question_type']='SECRET_DO_NOT_LOG';value=json.dumps(data)
+31 |     if failure=='span':data['terms'][0]['source_span']['end']-=1;value=json.dumps(data)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests\unit\test_plan_a.py:30:25
+   |
+28 |     value=json.dumps(data)
+29 |     if failure=='json':value='SECRET_DO_NOT_LOG {'
+30 |     if failure=='schema':data['question_type']='SECRET_DO_NOT_LOG';value=json.dumps(data)
+   |                         ^
+31 |     if failure=='span':data['terms'][0]['source_span']['end']-=1;value=json.dumps(data)
+32 |     if failure=='provider':value=RuntimeError('SECRET_DO_NOT_LOG')
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> tests\unit\test_plan_a.py:30:67
+   |
+28 |     value=json.dumps(data)
+29 |     if failure=='json':value='SECRET_DO_NOT_LOG {'
+30 |     if failure=='schema':data['question_type']='SECRET_DO_NOT_LOG';value=json.dumps(data)
+   |                                                                   ^
+31 |     if failure=='span':data['terms'][0]['source_span']['end']-=1;value=json.dumps(data)
+32 |     if failure=='provider':value=RuntimeError('SECRET_DO_NOT_LOG')
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests\unit\test_plan_a.py:31:23
+   |
+29 |     if failure=='json':value='SECRET_DO_NOT_LOG {'
+30 |     if failure=='schema':data['question_type']='SECRET_DO_NOT_LOG';value=json.dumps(data)
+31 |     if failure=='span':data['terms'][0]['source_span']['end']-=1;value=json.dumps(data)
+   |                       ^
+32 |     if failure=='provider':value=RuntimeError('SECRET_DO_NOT_LOG')
+33 |     ex=Extractor(value)
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> tests\unit\test_plan_a.py:31:65
+   |
+29 |     if failure=='json':value='SECRET_DO_NOT_LOG {'
+30 |     if failure=='schema':data['question_type']='SECRET_DO_NOT_LOG';value=json.dumps(data)
+31 |     if failure=='span':data['terms'][0]['source_span']['end']-=1;value=json.dumps(data)
+   |                                                                 ^
+32 |     if failure=='provider':value=RuntimeError('SECRET_DO_NOT_LOG')
+33 |     ex=Extractor(value)
+   |
+
+E701 Multiple statements on one line (colon)
+  --> tests\unit\test_plan_a.py:32:27
+   |
+30 |     if failure=='schema':data['question_type']='SECRET_DO_NOT_LOG';value=json.dumps(data)
+31 |     if failure=='span':data['terms'][0]['source_span']['end']-=1;value=json.dumps(data)
+32 |     if failure=='provider':value=RuntimeError('SECRET_DO_NOT_LOG')
+   |                           ^
+33 |     ex=Extractor(value)
+34 |     with caplog.at_level(logging.WARNING),pytest.raises(ResearchError,match='extraction_failed'):
+   |
+
+E501 Line too long (129 > 100)
+  --> tests\unit\test_plan_a.py:41:93
+   |
+41 | @pytest.mark.parametrize('q', ['哮喘呼气分析','asthma breath analysis','哮喘 breath analysis','Parkinson disease gait analysis'])
+   |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+42 | def test_optional_mapping_cannot_silently_become_required(q):
+43 |     data=draft(q)
+   |
+
+E501 Line too long (113 > 100)
+  --> tests\unit\test_plan_a.py:44:101
+   |
+42 | def test_optional_mapping_cannot_silently_become_required(q):
+43 |     data=draft(q)
+44 |     data['concept_mappings']=[dict(source_text=q,english_terms=['optional method'],role='method',required=False)]
+   |                                                                                                     ^^^^^^^^^^^^^
+45 |     data['concept_groups']=[['optional method']]
+46 |     with pytest.raises(ResearchError,match='extraction_failed'):
+   |
+
+E501 Line too long (137 > 100)
+  --> tests\unit\test_plan_a.py:66:101
+   |
+64 | …, search
+65 | …
+66 | …lt':{'count':'0','idlist':[], 'warninglist':{'quotedphrasesnotfound':['x'*500]*25}}})
+   |                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+67 | …
+68 | …
+   |
+
+E501 Line too long (221 > 100)
+  --> tests\unit\test_plan_a.py:73:95
+   |
+73 | …inson disease gait analysis', [['Parkinson disease'],['gait analysis']]),('batch correction 方法综述',[['batch correction']])])
+   |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+74 | …
+75 | …
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> tests\unit\test_plan_a.py:76:18
+   |
+74 | def test_fixed_queries_keep_constraints_and_explicit_override(q,groups):
+75 |     from clinical_agent.domain.pubmed import PubMedOptions, PubMedSearchRequest
+76 |     data=draft(q);data['concept_groups']=groups
+   |                  ^
+77 |     plan=PicoPlanner(extractor=Extractor(json.dumps(data))).plan(ClassificationRequest(question=q))
+78 |     req=PubMedSearchRequest(question=q,query_plan=plan)
+   |
+
+E501 Line too long (101 > 100)
+  --> tests\unit\test_plan_a.py:79:101
+   |
+77 |     plan=PicoPlanner(extractor=Extractor(json.dumps(data))).plan(ClassificationRequest(question=q))
+78 |     req=PubMedSearchRequest(question=q,query_plan=plan)
+79 |     assert req.query_text()==' AND '.join('('+ ' OR '.join('"'+t+'"' for t in g)+')' for g in groups)
+   |                                                                                                     ^
+80 |     assert PubMedSearchRequest(question=q,query_plan=plan,options=PubMedOptions(query='user supplied query')).query_text()=='user supp…
+   |
+
+E501 Line too long (145 > 100)
+  --> tests\unit\test_plan_a.py:80:101
+   |
+78 | …
+79 | …in('"'+t+'"' for t in g)+')' for g in groups)
+80 | …n,options=PubMedOptions(query='user supplied query')).query_text()=='user supplied query'
+   |                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Found 22 errors (4 fixed, 18 remaining).

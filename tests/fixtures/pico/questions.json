@@ -1,0 +1,23 @@
+{
+  "version": "pico-cases-v1",
+  "cases": [
+    {
+      "id": "zh-intervention",
+      "question": "成人高血压患者使用低剂量阿司匹林相比安慰剂，5年内能否降低心血管事件？排除孕妇。",
+      "question_type": "intervention",
+      "pico": {"population": "成人高血压患者", "intervention": "低剂量阿司匹林", "comparison": "安慰剂", "outcome": "心血管事件"}
+    },
+    {
+      "id": "en-diagnosis",
+      "question": "In adults with suspected pulmonary embolism, how accurate is D-dimer testing?",
+      "question_type": "diagnosis",
+      "pico": {"population": "adults with suspected pulmonary embolism", "intervention": "D-dimer testing", "comparison": null, "outcome": null}
+    },
+    {
+      "id": "mixed-intervention",
+      "question": "成人 T2DM 患者使用 metformin 500 mg，12个月 HbA1c 如何变化？不包括妊娠。",
+      "question_type": "intervention",
+      "pico": {"population": "成人 T2DM 患者", "intervention": "metformin 500 mg", "comparison": null, "outcome": "HbA1c"}
+    }
+  ]
+}

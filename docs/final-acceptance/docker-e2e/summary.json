@@ -1,0 +1,159 @@
+{
+  "zh": {
+    "error": null,
+    "query": "(\"liver tumor\" OR \"liver neoplasm\" OR \"hepatic tumor\" OR \"hepatic neoplasm\" OR \"liver cancer\") AND (\"subregion segmentation\" OR \"subregion partitioning\" OR \"subregion division\" OR \"intratumoral subregion\" OR \"tumor subregion\")",
+    "translation": "(\"liver tumor\"[All Fields] OR \"liver neoplasm\"[All Fields] OR \"hepatic tumor\"[All Fields] OR \"hepatic neoplasm\"[All Fields] OR \"liver cancer\"[All Fields]) AND (\"subregion segmentation\"[All Fields] OR ((\"subregion\"[All Fields] OR \"subregional\"[All Fields] OR \"subregionally\"[All Fields] OR \"subregions\"[All Fields]) AND (\"partition\"[All Fields] OR \"partitioned\"[All Fields] OR \"partitioning\"[All Fields] OR \"partitionings\"[All Fields] OR \"partitions\"[All Fields])) OR ((\"subregion\"[All Fields] OR \"subregional\"[All Fields] OR \"subregionally\"[All Fields] OR \"subregions\"[All Fields]) AND (\"division\"[All Fields] OR \"divisions\"[All Fields])) OR \"intratumoral subregion\"[All Fields] OR \"tumor subregion\"[All Fields])",
+    "total": 3,
+    "pmids": [
+      "35576953",
+      "26819533",
+      "42321976"
+    ],
+    "truncated": false,
+    "llm_attempts": 2,
+    "usage": [
+      {
+        "input_tokens": 1868,
+        "output_tokens": 562,
+        "total_tokens": 2430,
+        "input_token_details": {
+          "cache_read": 128
+        },
+        "output_token_details": {}
+      },
+      {
+        "input_tokens": 3343,
+        "output_tokens": 782,
+        "total_tokens": 4125,
+        "input_token_details": {
+          "cache_read": 0
+        },
+        "output_token_details": {}
+      }
+    ],
+    "pubmed_http_attempts": 2,
+    "context_characters": 14136,
+    "claims": [
+      {
+        "text": "所检索到的三篇文献摘要均未涉及肝脏肿瘤内部亚区划分或肿瘤内亚区分割方法，因此无法从这些证据中识别代表性论文或归纳亚区划分方法。",
+        "kind": "uncertainty",
+        "evidence_chunk_ids": [
+          "3780bb95-0366-5863-8751-8f4c8803a13d",
+          "c10f77d8-5bce-5b0d-b28a-ea76b19ef584",
+          "932a0827-3643-56c8-828f-69a19cbe7a61"
+        ],
+        "limitations": [
+          "仅基于三篇摘要级证据，检索结果有限，不能据此断定PubMed中不存在相关研究。"
+        ],
+        "claim_id": "c1"
+      },
+      {
+        "text": "第一篇文献是一项系统综述，估计肝硬化患者中乙型肝炎病毒和丙型肝炎病毒的流行率，并按国家、WHO区域和联合国次区域进行汇总；其“subregion”指地理区域，而非肿瘤内部亚区。",
+        "kind": "evidence",
+        "evidence_chunk_ids": [
+          "3780bb95-0366-5863-8751-8f4c8803a13d"
+        ],
+        "limitations": [
+          "仅为摘要内容，未涉及影像或肿瘤内部分区方法。"
+        ],
+        "claim_id": "c2"
+      },
+      {
+        "text": "第二篇文献综述巴基斯坦丙型肝炎病毒流行率与基因型分布，其中提到某些地理次区域内基因型2a频率上升；此处的“sub-region”同样为地理概念，与肝脏肿瘤内部亚区划分无关。",
+        "kind": "evidence",
+        "evidence_chunk_ids": [
+          "c10f77d8-5bce-5b0d-b28a-ea76b19ef584"
+        ],
+        "limitations": [
+          "仅为摘要内容，未涉及肿瘤亚区划分。"
+        ],
+        "claim_id": "c3"
+      },
+      {
+        "text": "第三篇文献分析亚太地区MASH相关肝癌的疾病负担及不同国家与次区域间的差异，其“subregion”指地理次区域，不涉及肿瘤内部亚区划分方法。",
+        "kind": "evidence",
+        "evidence_chunk_ids": [
+          "932a0827-3643-56c8-828f-69a19cbe7a61"
+        ],
+        "limitations": [
+          "仅为摘要内容，未涉及影像组学或分割方法。"
+        ],
+        "claim_id": "c4"
+      },
+      {
+        "text": "上述文献与问题中的“肝脏肿瘤”和“亚区”存在词汇重叠，但“亚区”均指地理区域，属于词汇重叠而非直接证据，不能作为肝脏肿瘤内部亚区划分研究的依据。",
+        "kind": "inference",
+        "evidence_chunk_ids": [
+          "3780bb95-0366-5863-8751-8f4c8803a13d",
+          "c10f77d8-5bce-5b0d-b28a-ea76b19ef584",
+          "932a0827-3643-56c8-828f-69a19cbe7a61"
+        ],
+        "limitations": [
+          "该判断基于摘要文本的语义比对，未进行全文核查。"
+        ],
+        "claim_id": "c5"
+      },
+      {
+        "text": "由于本次检索仅返回3条记录且均为摘要级证据，证据不足以回答“有哪些代表性论文、采用了什么亚区划分方法”，需要针对影像模态、肿瘤类型和分割方法等概念重新构建检索策略。",
+        "kind": "uncertainty",
+        "evidence_chunk_ids": [
+          "3780bb95-0366-5863-8751-8f4c8803a13d",
+          "c10f77d8-5bce-5b0d-b28a-ea76b19ef584",
+          "932a0827-3643-56c8-828f-69a19cbe7a61"
+        ],
+        "limitations": [
+          "检索范围有限且未覆盖全文，不能据此得出阴性结论。"
+        ],
+        "claim_id": "c6"
+      }
+    ],
+    "sources": [
+      {
+        "pmid": "35576953",
+        "title": "Worldwide prevalence of hepatitis B virus and hepatitis C virus among patients with cirrhosis at country, region, and global levels: a systematic review."
+      },
+      {
+        "pmid": "26819533",
+        "title": "Hepatitis C virus prevalence and genotype distribution in Pakistan: Comprehensive review of recent data."
+      },
+      {
+        "pmid": "42321976",
+        "title": "Burden and Regional Disparities of MASH-Related Liver Cancer in the Asia-Pacific Region From 1990 to 2023."
+      }
+    ],
+    "limitations": [
+      "已按记录查询 PubMed；结果有查询、日期、数量和摘要范围限制，不保证检全或覆盖全部最新研究。",
+      "已检查引用标识与来源关联，尚未自动验证结论的医学语义支持关系，需人工复核。",
+      "本结果用于医学科研辅助，不用于个体诊断或治疗决策。",
+      "部分来源有更正/关联出版记录标记，需核查原文及来源状态。",
+      "部分来源仅包含摘要，不能视为已阅读全文。"
+    ],
+    "elapsed_seconds": 9.262610760999962
+  },
+  "en": {
+    "error": "extraction_failed",
+    "query": null,
+    "translation": null,
+    "total": null,
+    "pmids": null,
+    "truncated": null,
+    "llm_attempts": 1,
+    "usage": [
+      {
+        "input_tokens": 2616,
+        "output_tokens": 741,
+        "total_tokens": 3357,
+        "input_token_details": {
+          "cache_read": 384
+        },
+        "output_token_details": {}
+      }
+    ],
+    "pubmed_http_attempts": 0,
+    "context_characters": null,
+    "claims": null,
+    "sources": [],
+    "limitations": null,
+    "elapsed_seconds": 2.991360008000015
+  }
+}

@@ -1,0 +1,395 @@
+E501 Line too long (143 > 100)
+  --> src\clinical_agent\adapters\oa_fulltext.py:54:101
+   |
+52 | …
+53 | …or v in e.attrib.values()]
+54 | …org/(?:licenses/by/(?:2\.0|3\.0|4\.0)|publicdomain/zero/1\.0)/?", v) for v in licenses):
+   |                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+55 | …)
+56 | …
+   |
+
+E501 Line too long (261 > 100)
+  --> src\clinical_agent\adapters\oa_fulltext.py:79:101
+   |
+79 | …terials and methods|methodology|experiments|experimental results|results|discussion|limitations|conclusions?|references|acknowledg(?:e)?ments)(?:\s*[:.]\s*)?$", re.I)
+   |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+E501 Line too long (124 > 100)
+  --> src\clinical_agent\adapters\oa_fulltext.py:91:101
+   |
+89 |                                   max_total_characters=500000, max_seconds=10.0))
+90 |     first = parsed.source_units[0].text
+91 |     if not record.doi or record.doi.casefold() not in first.casefold() or normalized(record.title) not in normalized(first):
+   |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^
+92 |         raise ValueError("fulltext_identity_mismatch")
+93 |     pages = [(unit.page, unit.text.splitlines()) for unit in parsed.source_units]
+   |
+
+E501 Line too long (110 > 100)
+  --> src\clinical_agent\adapters\oa_fulltext.py:94:101
+   |
+92 |         raise ValueError("fulltext_identity_mismatch")
+93 |     pages = [(unit.page, unit.text.splitlines()) for unit in parsed.source_units]
+94 |     counts = Counter(line.strip() for _, lines in pages for line in set(lines[:2]+lines[-2:]) if line.strip())
+   |                                                                                                     ^^^^^^^^^^
+95 |     repeated = {line for line, count in counts.items() if count >= max(3, len(pages)*0.6)}
+96 |     section, offset, units = "UNKNOWN", 0, []
+   |
+
+B023 Function definition does not bind loop variable `content`
+   --> src\clinical_agent\adapters\oa_fulltext.py:102:30
+    |
+100 |         def flush():
+101 |             nonlocal offset
+102 |             text = "\n".join(content).strip()
+    |                              ^^^^^^^
+103 |             content.clear()
+104 |             if text:
+    |
+
+B023 Function definition does not bind loop variable `content`
+   --> src\clinical_agent\adapters\oa_fulltext.py:103:13
+    |
+101 |             nonlocal offset
+102 |             text = "\n".join(content).strip()
+103 |             content.clear()
+    |             ^^^^^^^
+104 |             if text:
+105 |                 units.append(FulltextUnit(section=section, text=text, start=offset, page=page))
+    |
+
+B023 Function definition does not bind loop variable `section`
+   --> src\clinical_agent\adapters\oa_fulltext.py:105:51
+    |
+103 |             content.clear()
+104 |             if text:
+105 |                 units.append(FulltextUnit(section=section, text=text, start=offset, page=page))
+    |                                                   ^^^^^^^
+106 |                 offset += len(text) + 2
+    |
+
+B023 Function definition does not bind loop variable `page`
+   --> src\clinical_agent\adapters\oa_fulltext.py:105:90
+    |
+103 |             content.clear()
+104 |             if text:
+105 |                 units.append(FulltextUnit(section=section, text=text, start=offset, page=page))
+    |                                                                                          ^^^^
+106 |                 offset += len(text) + 2
+    |
+
+E501 Line too long (102 > 100)
+   --> src\clinical_agent\adapters\oa_fulltext.py:134:101
+    |
+132 |             count[0] += 1
+133 |             with self.client.stream("GET", url, timeout=min(5.0, deadline-monotonic()),
+134 |                     headers={"Accept-Encoding": "gzip, deflate"}, follow_redirects=False) as response:
+    |                                                                                                     ^^
+135 |                 if response.status_code in {301, 302, 303, 307, 308}:
+136 |                     url = urljoin(url, response.headers["location"])
+    |
+
+E501 Line too long (108 > 100)
+   --> src\clinical_agent\adapters\oa_fulltext.py:150:101
+    |
+148 |         locations = [record.best_oa_location] if record.best_oa_location else []
+149 |         locations += record.locations
+150 |         eligible = [loc for loc in locations if loc.get("is_oa") is True and loc.get("license") in LICENSES]
+    |                                                                                                     ^^^^^^^^
+151 |         if not eligible:
+152 |             raise ValueError("fulltext_license_not_allowed")
+    |
+
+E501 Line too long (103 > 100)
+  --> src\clinical_agent\adapters\postgres\fulltext.py:41:101
+   |
+39 |             )
+40 |             connection.execute(
+41 |                 text(f"DELETE FROM {self.vector_table} WHERE {self.key_column}=:pmid"), dict(pmid=pmid)
+   |                                                                                                     ^^^
+42 |             )
+43 |             connection.execute(
+   |
+
+E501 Line too long (114 > 100)
+   --> src\clinical_agent\api_runtime.py:177:101
+    |
+175 |             embedder=embedder, retriever=postgres_retriever, hybrid_retriever=postgres_retriever
+176 |         )
+177 |         with open_llm(llm) as generator, open_openalex() as openalex, httpx.Client(trust_env=False) as pmc_client:
+    |                                                                                                     ^^^^^^^^^^^^^^
+178 |             yield ServiceBundle(
+179 |                 ingestion=ingestion,
+    |
+
+E501 Line too long (115 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:39:101
+   |
+37 |             payload = service.oa_store.load(key, SIGNATURE)
+38 |             if payload is None:
+39 |                 license_name, url, raw, units = service.oa_source.fetch_record(record, acquisition_deadline, count)
+   |                                                                                                     ^^^^^^^^^^^^^^^
+40 |                 digest = sha256(raw).hexdigest()
+41 |                 if not service.oa_store.reuse_content(key, SIGNATURE, digest):
+   |
+
+E501 Line too long (113 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:43:101
+   |
+41 |                 if not service.oa_store.reuse_content(key, SIGNATURE, digest):
+42 |                     representation = [u.model_dump() for u in units]
+43 |                     representation_hash = sha256(json.dumps(representation, sort_keys=True).encode()).hexdigest()
+   |                                                                                                     ^^^^^^^^^^^^^
+44 |                     chunks = []
+45 |                     splitter = SentenceSplitter(chunk_size=300, chunk_overlap=30,
+   |
+
+E501 Line too long (111 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:46:101
+   |
+44 |                     chunks = []
+45 |                     splitter = SentenceSplitter(chunk_size=300, chunk_overlap=30,
+46 |                         tokenizer=lambda s: list(range(service.embedder.count_tokens(s))) if s.strip() else [],
+   |                                                                                                     ^^^^^^^^^^^
+47 |                         include_metadata=False)
+48 |                     for unit in units:
+   |
+
+E501 Line too long (136 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:49:101
+   |
+47 | …         include_metadata=False)
+48 | …     for unit in units:
+49 | …         if unit.section.split(" / ")[0].casefold() in {"references", "abstract", "acknowledgments", "acknowledgements"}:
+   |                                                                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+50 | …             continue
+51 | …         cursor = 0
+   |
+
+E501 Line too long (123 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:59:101
+   |
+57 | …                     cursor = position + len(text)
+58 | …                     start = unit.start + position
+59 | …                     passage = FulltextPassage(chunk_id=uuid5(NAMESPACE_URL, f"{key}:{digest}:{start}:{SIGNATURE}"),
+   |                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^
+60 | …                         paper_key=key, openalex_id=record.openalex_id, title=record.title, doi=record.doi,
+61 | …                         section=unit.section, page=unit.page, start=start, end=start+len(text), text=text,
+   |
+
+E501 Line too long (114 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:60:101
+   |
+58 | …                     start = unit.start + position
+59 | …                     passage = FulltextPassage(chunk_id=uuid5(NAMESPACE_URL, f"{key}:{digest}:{start}:{SIGNATURE}"),
+60 | …                         paper_key=key, openalex_id=record.openalex_id, title=record.title, doi=record.doi,
+   |                                                                                               ^^^^^^^^^^^^^^
+61 | …                         section=unit.section, page=unit.page, start=start, end=start+len(text), text=text,
+62 | …                         content_hash=digest, representation_hash=representation_hash,
+   |
+
+E501 Line too long (114 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:61:101
+   |
+59 | …                     passage = FulltextPassage(chunk_id=uuid5(NAMESPACE_URL, f"{key}:{digest}:{start}:{SIGNATURE}"),
+60 | …                         paper_key=key, openalex_id=record.openalex_id, title=record.title, doi=record.doi,
+61 | …                         section=unit.section, page=unit.page, start=start, end=start+len(text), text=text,
+   |                                                                                               ^^^^^^^^^^^^^^
+62 | …                         content_hash=digest, representation_hash=representation_hash,
+63 | …                         source_url=url, license=license_name)
+   |
+
+E501 Line too long (109 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:69:101
+   |
+67 |                     if not chunks:
+68 |                         raise ValueError("fulltext_empty")
+69 |                     vectors = service.embedder.embed_passages([c["text"] for c in chunks], deadline=deadline)
+   |                                                                                                     ^^^^^^^^^
+70 |                     if service.clock() >= deadline:
+71 |                         raise ValueError("fulltext_timeout")
+   |
+
+E501 Line too long (106 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:73:101
+   |
+71 |                         raise ValueError("fulltext_timeout")
+72 |                     payload = {"paper_key": key, "passages": chunks, "content_hash": digest,
+73 |                                "source_units": representation, "representation_hash": representation_hash}
+   |                                                                                                     ^^^^^^
+74 |                     service.oa_store.publish(key, SIGNATURE, payload, vectors)
+75 |                 else:
+   |
+
+E501 Line too long (130 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:80:101
+   |
+78 |                 raise ValueError("fulltext_cache_identity_mismatch")
+79 |             units = [FulltextUnit.model_validate(u) for u in payload["source_units"]]
+80 |             if sha256(json.dumps(payload["source_units"], sort_keys=True).encode()).hexdigest() != payload["representation_hash"]:
+   |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+81 |                 raise ValueError("fulltext_cache_representation_mismatch")
+82 |             if query is None:
+   |
+
+E501 Line too long (108 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:84:101
+   |
+82 | …     if query is None:
+83 | …         query = service.embedder.embed_query(question).vector
+84 | …     candidates = [FulltextPassage.model_validate(p) for p in service.oa_store.search(key, query, 8)]
+   |                                                                                               ^^^^^^^^
+85 | …     for passage in candidates:
+86 | …         if passage.paper_key != key or passage.content_hash != payload["content_hash"] or passage.representation_hash != payload["re…
+   |
+
+E501 Line too long (160 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:86:101
+   |
+84 | …p in service.oa_store.search(key, query, 8)]
+85 | …
+86 | …ash != payload["content_hash"] or passage.representation_hash != payload["representation_hash"]:
+   |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+87 | …smatch")
+88 | …ction == u.section and passage.start >= u.start
+   |
+
+E501 Line too long (111 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:88:101
+   |
+86 | …     if passage.paper_key != key or passage.content_hash != payload["content_hash"] or passage.representation_hash != payload["repres…
+87 | …         raise ValueError("fulltext_cache_identity_mismatch")
+88 | …     if not any(passage.page == u.page and passage.section == u.section and passage.start >= u.start
+   |                                                                                           ^^^^^^^^^^^
+89 | …                and passage.end <= u.start+len(u.text) and u.text[passage.start-u.start:passage.end-u.start] == passage.text for u in…
+90 | …         raise ValueError("fulltext_cache_location_mismatch")
+   |
+
+E501 Line too long (152 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:89:101
+   |
+87 | …y_mismatch")
+88 | …e.section == u.section and passage.start >= u.start
+89 | …text) and u.text[passage.start-u.start:passage.end-u.start] == passage.text for u in units):
+   |                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+90 | …n_mismatch")
+91 | …
+   |
+
+E501 Line too long (150 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:94:101
+   |
+92 | …_sent if provenance else "")
+93 | …ery.casefold())) - {"and", "not", "the"}
+94 | …mbda i: (-len(terms & set(re.findall(r"[a-zA-Z]{3,}", candidates[i].text.casefold()))), i))
+   |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+95 | …xical, 1)}
+96 | …ambda i: (-(1/(60+i+1)+1/(60+lex_rank[i])), i))
+   |
+
+E501 Line too long (106 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:96:101
+   |
+94 | …     lexical = sorted(range(len(candidates)), key=lambda i: (-len(terms & set(re.findall(r"[a-zA-Z]{3,}", candidates[i].text.casefold…
+95 | …     lex_rank = {i: rank for rank, i in enumerate(lexical, 1)}
+96 | …     ordering = sorted(range(len(candidates)), key=lambda i: (-(1/(60+i+1)+1/(60+lex_rank[i])), i))
+   |                                                                                               ^^^^^^
+97 | …     if service.clock() >= deadline:
+98 | …         raise ValueError("fulltext_timeout")
+   |
+
+E501 Line too long (114 > 100)
+   --> src\clinical_agent\command_runtime.py:117:101
+    |
+115 |             embedder=embedder, retriever=postgres_retriever, hybrid_retriever=postgres_retriever
+116 |         )
+117 |         with open_llm(llm) as generator, open_openalex() as openalex, httpx.Client(trust_env=False) as pmc_client:
+    |                                                                                                     ^^^^^^^^^^^^^^
+118 |             yield ResearchService(
+119 |                 fulltext=FulltextService(
+    |
+
+E501 Line too long (130 > 100)
+   --> src\clinical_agent\domain\retrieval.py:235:101
+    |
+233 |     def validate_provenance(self) -> Self:
+234 |         if len(self.fulltext) > 2 or any(
+235 |             (passage.paper_key != ("doi:" + self.document.doi if self.document.doi else self.document.openalex_record.openalex_id)
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+236 |              if self.document.source_type == "openalex" else passage.pmid != self.document.pmid)
+237 |             for passage in self.fulltext
+    |
+
+E501 Line too long (108 > 100)
+  --> tests\unit\test_oa_fulltext.py:28:101
+   |
+26 | <title-group><article-title>{title}</article-title></title-group>
+27 | <permissions><license xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://creativecommons.org/licenses/by/4.0/"/></permissi…
+28 | </article-meta></front><body><sec><title>Methods</title><p>Synthetic paragraph: we used a network.</p></sec>
+   |                                                                                                     ^^^^^^^^
+29 | <sec><title>Results</title><p>Synthetic result: this is not a scientific finding.</p></sec></body></article>'''.encode()
+   |
+
+E501 Line too long (120 > 100)
+  --> tests\unit\test_oa_fulltext.py:29:101
+   |
+27 | <permissions><license xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://creativecommons.org/licenses/by/4.0/"/></permissi…
+28 | </article-meta></front><body><sec><title>Methods</title><p>Synthetic paragraph: we used a network.</p></sec>
+29 | <sec><title>Results</title><p>Synthetic result: this is not a scientific finding.</p></sec></body></article>'''.encode()
+   |                                                                                                     ^^^^^^^^^^^^^^^^^^^^
+
+E501 Line too long (145 > 100)
+  --> tests\unit\test_oa_fulltext.py:51:101
+   |
+50 | …
+51 | …da r: httpx.Response(302, headers={"location": "https://127.0.0.1/private"}))) as client:
+   |                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+52 | …
+53 | …ww.nature.com/a.pdf", monotonic()+10, [0])
+   |
+
+E501 Line too long (107 > 100)
+  --> tests\unit\test_oa_fulltext.py:84:101
+   |
+82 |     hit = record_hit(r, datetime.now(UTC))
+83 |     retrieval = RetrievalResult(scope="online", options=RetrievalOptions(), embedding_info=None,
+84 |         hits=[hit], search_provenance={"endpoint": "https://api.openalex.org/works", "query_sent": "liver",
+   |                                                                                                     ^^^^^^^
+85 |         "fetched_at": datetime.now(UTC), "date_from": None, "date_to": None})
+   |
+
+E501 Line too long (108 > 100)
+   --> tests\unit\test_oa_fulltext.py:98:101
+    |
+ 96 |         def fetch_record(self, value, deadline, count):
+ 97 |             self.calls += 1
+ 98 |             return "CC BY", "https://pmc.ncbi.nlm.nih.gov/api/oai/v1/mh/", jats(), parse_jats(jats(), value)
+    |                                                                                                     ^^^^^^^^
+ 99 |
+100 |     source, store, embedder = Source(), Store(), Embedder()
+    |
+
+E501 Line too long (108 > 100)
+   --> tests\unit\test_oa_fulltext.py:109:101
+    |
+107 |     service.enrich("results", retrieval, deadline=monotonic()+30)
+108 |     assert source.calls == embedder.calls == 1
+109 |     answer = build_answer(QuestionRequest(request_id=uuid4(), question="methods", scope="online"), enriched,
+    |                                                                                                     ^^^^^^^^
+110 |         GenerationDraft(claims=[DraftClaim(text="Synthetic dataflow only.", kind="evidence", evidence_chunk_ids=[p.chunk_id], limitat…
+111 |     assert answer.sources[0].evidence[0].location.section == "Methods"
+    |
+
+E501 Line too long (176 > 100)
+   --> tests\unit\test_oa_fulltext.py:110:101
+    |
+108 | …
+109 | …methods", scope="online"), enriched,
+110 | ….", kind="evidence", evidence_chunk_ids=[p.chunk_id], limitations=[])]), generated_at=datetime.now(UTC))
+    |                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+111 | …
+112 | …
+    |
+
+Found 40 errors (3 fixed, 37 remaining).

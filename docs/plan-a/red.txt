@@ -1,0 +1,60 @@
+FFFFFFFFF                                                                [100%]
+================================== FAILURES ===================================
+__________________ test_safe_failure_diagnostics[json-json] ___________________
+tests\unit\test_plan_a.py:38: in test_safe_failure_diagnostics
+    assert any(getattr(r,'extraction_diagnostic',{}).get('stage')==stage for r in caplog.records)
+E   assert False
+E    +  where False = any(<generator object test_safe_failure_diagnostics.<locals>.<genexpr> at 0x000002213067E7A0>)
+________________ test_safe_failure_diagnostics[schema-schema] _________________
+tests\unit\test_plan_a.py:38: in test_safe_failure_diagnostics
+    assert any(getattr(r,'extraction_diagnostic',{}).get('stage')==stage for r in caplog.records)
+E   assert False
+E    +  where False = any(<generator object test_safe_failure_diagnostics.<locals>.<genexpr> at 0x000002213067EA70>)
+__________________ test_safe_failure_diagnostics[span-span] ___________________
+tests\unit\test_plan_a.py:38: in test_safe_failure_diagnostics
+    assert any(getattr(r,'extraction_diagnostic',{}).get('stage')==stage for r in caplog.records)
+E   assert False
+E    +  where False = any(<generator object test_safe_failure_diagnostics.<locals>.<genexpr> at 0x000002213067F100>)
+______________ test_safe_failure_diagnostics[provider-provider] _______________
+tests\unit\test_plan_a.py:38: in test_safe_failure_diagnostics
+    assert any(getattr(r,'extraction_diagnostic',{}).get('stage')==stage for r in caplog.records)
+E   assert False
+E    +  where False = any(<generator object test_safe_failure_diagnostics.<locals>.<genexpr> at 0x000002213067F5B0>)
+_ test_optional_mapping_cannot_silently_become_required[\u54ee\u5598\u547c\u6c14\u5206\u6790] _
+tests\unit\test_plan_a.py:46: in test_optional_mapping_cannot_silently_become_required
+    with pytest.raises(ResearchError,match='extraction_failed'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ResearchError
+_ test_optional_mapping_cannot_silently_become_required[asthma breath analysis] _
+tests\unit\test_plan_a.py:46: in test_optional_mapping_cannot_silently_become_required
+    with pytest.raises(ResearchError,match='extraction_failed'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ResearchError
+_ test_optional_mapping_cannot_silently_become_required[\u54ee\u5598 breath analysis] _
+tests\unit\test_plan_a.py:46: in test_optional_mapping_cannot_silently_become_required
+    with pytest.raises(ResearchError,match='extraction_failed'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ResearchError
+_ test_optional_mapping_cannot_silently_become_required[Parkinson disease gait analysis] _
+tests\unit\test_plan_a.py:46: in test_optional_mapping_cannot_silently_become_required
+    with pytest.raises(ResearchError,match='extraction_failed'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ResearchError
+____________________ test_actual_search_snapshot_statuses _____________________
+tests\unit\test_plan_a.py:56: in test_actual_search_snapshot_statuses
+    assert result.pmid_status('39752907')=='not_in_returned_set'
+           ^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pydantic\main.py:1105: in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E   AttributeError: 'PubMedSearchResult' object has no attribute 'pmid_status'
+=========================== short test summary info ===========================
+FAILED tests/unit/test_plan_a.py::test_safe_failure_diagnostics[json-json] - ...
+FAILED tests/unit/test_plan_a.py::test_safe_failure_diagnostics[schema-schema]
+FAILED tests/unit/test_plan_a.py::test_safe_failure_diagnostics[span-span] - ...
+FAILED tests/unit/test_plan_a.py::test_safe_failure_diagnostics[provider-provider]
+FAILED tests/unit/test_plan_a.py::test_optional_mapping_cannot_silently_become_required[\u54ee\u5598\u547c\u6c14\u5206\u6790]
+FAILED tests/unit/test_plan_a.py::test_optional_mapping_cannot_silently_become_required[asthma breath analysis]
+FAILED tests/unit/test_plan_a.py::test_optional_mapping_cannot_silently_become_required[\u54ee\u5598 breath analysis]
+FAILED tests/unit/test_plan_a.py::test_optional_mapping_cannot_silently_become_required[Parkinson disease gait analysis]
+FAILED tests/unit/test_plan_a.py::test_actual_search_snapshot_statuses - Attr...
+9 failed in 0.92s

@@ -1,0 +1,51 @@
+不确定：在本次检索到的证据中，可找到若干近期（2024年10月以后发表）的肝脏分割研究摘要，涵盖MRI、CT及病理肝脏分割；但证据仅为摘要层面，且检索结果被截断（共1779条中返回13条），因此不能据此完整列举该领域的最新研究。 [1] [2] [3] [4] [5]
+
+WavPAC-Net提出基于小波的混合CNN-Transformer编码器，结合小波域融合模块与置换轴向-通道特征增强模块，用于肝脏分割；在CirrMRI600+（T2加权MRI）上Dice为93.16%、IoU为88.45%、MCC为93.03%，计算量为19.88 GFLOPs，并在LiTS CT数据集上Dice为96.91%、IoU为94.32%、MCC为96.79%。 [1]
+
+RMA-Mamba采用视觉状态空间模型与反向Mamba注意力模块，针对病理肝脏（肝硬化及癌性肝脏）分割；在CirrMRI600+（T2加权MRI）上Dice为92.08%、mIoU为87.36%、召回率为92.96%，在LiTS CT上Dice为92.9%、mIoU为88.99%。 [4]
+
+推断：WavPAC-Net与RMA-Mamba均在CirrMRI600+和LiTS上报告了结果，但两者任务范围不同（前者为肝脏分割，后者为病理肝脏分割），且证据仅为各自摘要中的自报数值，不能据此直接判定两者优劣。 [1] [4]
+
+基于改进ResUNet的自动CT肝脏分割方法在3Dircadb数据集、128×128图像上报告Dice为93.08%、准确率98.57%、Jaccard指数87.12%、体积重叠误差12.87%、相对体积差14.91%。 [2]
+
+基于残差连接U-Net的方法在两组CT标注数据集上进行了四项实验，报告准确率范围为0.81至0.93，并强调预测可解释性。 [3]
+
+改进UNet（RR UNet）在解码器中引入循环注意力模块与残差跳跃连接，并结合BCE与Focal Loss混合损失，在LiTS2017上报告mIoU 95.8%、DSC 87.7%、精确率98.6%、召回率97.1%、ASSD 3.48mm。 [5]
+
+推断：上述研究的方法路线可归纳为：CNN/ResUNet类改进、CNN-Transformer混合架构、状态空间模型（Mamba）以及注意力与残差模块增强；但各研究使用不同数据集（CirrMRI600+、LiTS、3Dircadb）和不同指标，无法进行跨研究的定量汇总或性能排序。 [1] [2] [3] [4] [5]
+
+不确定：现有证据中未检索到针对特定影像模态或研究类型的限定性综述或系统评价；若需限定CT、MRI或特定方法类别的最新进展，本证据集不足以回答。 [1] [2] [3] [4] [5]
+
+参考文献
+[1] WavPAC-Net: a wavelet-based hybrid encoder network with permuted axial-channel feature enhancement for liver segmentation（2026）
+DOI：10.1007/s44443-026-01362-6
+https://openalex.org/W7223277402
+[2] Automated liver segmentation from CT images using modified ResUNet（2025）
+DOI：10.1016/j.gande.2025.03.002
+https://openalex.org/W4408220583
+[3] Explainable and Robust Deep Learning for Liver Segmentation Through U-Net Network（2025）
+DOI：10.3390/diagnostics15070878
+https://openalex.org/W4409039562
+[4] A Reverse Mamba Attention Network for Pathological Liver Segmentation（2025）
+DOI：10.1109/iceccme64568.2025.11277937
+https://openalex.org/W4417337617
+[5] Liver segmentation algorithm based on improved UNet（2025）
+DOI：10.1117/12.3095447
+https://openalex.org/W4416077158
+证据范围：摘要（未阅读全文） [1] [2] [3] [4] [5]
+
+局限与范围
+所有证据均为摘要，未附全文段落 [1] [2] [3] [4] [5]
+检索结果被截断，不能代表PubMed或该领域的全部研究 [1] [2] [3] [4] [5]
+结果来自摘要，未提供统计检验细节或外部验证 [1]
+结果来自摘要，未提供与基线模型的完整对比细节 [4]
+未提供统一实验设置下的直接比较 [1] [4]
+结果来自摘要，图像分辨率较低（128×128） [2]
+摘要仅给出准确率范围，未报告Dice等分割指标 [3]
+结果来自摘要，未提供与基线模型的完整统计比较 [5]
+数据集、预处理和评价指标不一致，不支持合并结果 [1] [2] [3] [4] [5]
+检索被截断，不能据此断定不存在相关综述 [1] [2] [3] [4] [5]
+已查询 OpenAlex，证据限于本次检索与已获取摘要，不保证检全。
+引用关联已核对；医学语义支持仍需人工复核。
+检索范围：OpenAlex 匹配 1779 条；本次返回 13 个候选；请求状态：complete。候选已截断，不代表全部相关研究。
+本次使用在线 OpenAlex及本地来源；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

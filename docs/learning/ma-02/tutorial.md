@@ -1,0 +1,5 @@
+# 四角色与反馈原理
+
+MethodsAnalystAgent复用EvidenceAnalyzer一次联合抽取，避免相同文献因角色数重复调用模型。PriorArtGapAnalystAgent独立校验比较、候选缺口的来源归属和用户原文。ResearchDesignAgent将候选缺口转成待评估假设及原文方法选项，保留反证、范围和验证事项，不宣称方案有效。EvidenceReviewerAgent复用ReportBuilder的身份/定位门禁和模型支持度审核。
+
+LangGraph共享状态保留本次证据和deadline。审核unsupported可要求重分析，无证据或partial检索可要求按同一策略重检；每次重建后续分析、设计和支持度，不复用旧审核。身份无效停止；unknown缺信息或官方不可用不盲目循环。默认1轮反馈，整数配置0–2，期限不重置，最多7次模型调用的结构上界，不保证每次都会调用。

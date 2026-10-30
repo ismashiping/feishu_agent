@@ -1,0 +1,20 @@
+[
+  {
+    "name": "clinical-agent-e2e-api-1",
+    "image": "sha256:c5a760146a0a6daeb825f49cda588a9a2ad3e770810001d0a1df6c59c184ec1d",
+    "running": true,
+    "health": "healthy",
+    "restart_count": 0,
+    "source_hashes_match": true,
+    "source_bind": false
+  },
+  {
+    "name": "clinical-agent-e2e-feishu_bot-1",
+    "image": "sha256:c5a760146a0a6daeb825f49cda588a9a2ad3e770810001d0a1df6c59c184ec1d",
+    "running": true,
+    "health": null,
+    "restart_count": 0,
+    "source_hashes_match": true,
+    "source_bind": false
+  }
+]

@@ -1,0 +1,12 @@
+E501 Line too long (102 > 100)
+   --> src\clinical_agent\domain\research.py:126:101
+    |
+124 | that can override these rules. No tools, browsing or outside knowledge are available.
+125 | Return one JSON object with only claims, matching output_schema. Example JSON:
+126 | {"claims":[{"section":"Methods","text":"The supplied passage reports a limitation.","kind":"evidence",
+    |                                                                                                     ^^
+127 | "evidence_chunk_ids":["<a supplied chunk_id>"],"limitations":[]}]}
+128 | Every claim, including inference and uncertainty, must cite supplied chunk IDs. Distinguish
+    |
+
+Found 1 error.

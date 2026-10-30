@@ -1,0 +1,25 @@
+unformatted: File would be reformatted
+   --> src\clinical_agent\adapters\embedding.py:323:62
+    |
+322 |             for start in range(0, len(texts), self._limits.batch_size):
+    -                 batch = ["passage: " + t for t in texts[start:start+self._limits.batch_size]]
+323 +                 batch = ["passage: " + t for t in texts[start : start + self._limits.batch_size]]
+324 |                 for passage in batch:
+    |
+
+unformatted: File would be reformatted
+   --> tests\unit\test_fulltext_rag.py:208:12
+    |
+207 | def test_headings_become_locators_instead_of_standalone_evidence():
+    -     raw = b'''<collection><document><id>PMC123</id><passage>
+208 +     raw = b"""<collection><document><id>PMC123</id><passage>
+209 | <infon key="section_type">METHODS</infon><infon key="type">title_2</infon>
+210 | <offset>0</offset><text>Clustering</text></passage>
+211 | <passage><infon key="section_type">METHODS</infon>
+212 | <infon key="type">paragraph</infon>
+    - <offset>20</offset><text>We used k-means.</text></passage></document></collection>'''
+213 + <offset>20</offset><text>We used k-means.</text></passage></document></collection>"""
+214 |     assert parse_bioc(raw, "PMC123") == [("METHODS / Clustering", 20, "We used k-means.")]
+    |
+
+2 files would be reformatted, 151 files already formatted

@@ -311,3 +311,18 @@ class LocalEmbedder:
                 except ValidationError:
                     raise EmbeddingError("embedding_output_invalid") from None
         return result
+
+    def embed_passages(self, texts: list[str], *, deadline: float) -> list[list[float]]:
+        """Reuse the loaded E5 model and passage prefix, within caller budget."""
+        if not texts or len(texts) > 128:
+            raise EmbeddingError("embedding_input_limit")
+        result = []
+        with self._operation() as local_deadline:
+            deadline = min(deadline, local_deadline)
+            for start in range(0, len(texts), self._limits.batch_size):
+                batch = ["passage: " + t for t in texts[start : start + self._limits.batch_size]]
+                for passage in batch:
+                    if self._count(passage, deadline) > 512:
+                        raise EmbeddingError("embedding_token_limit")
+                result.extend(self._encode(batch, deadline))
+        return result

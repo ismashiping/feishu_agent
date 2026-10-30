@@ -1,0 +1,36 @@
+{
+  "schema_isolated": true,
+  "generation": "deterministic test double",
+  "cases": [
+    {
+      "case": "abstract",
+      "status": "answered",
+      "seconds": 2.44,
+      "context_characters": 6625,
+      "passages": 0,
+      "sections": [],
+      "downloads": 0,
+      "passage_embedding_calls": 0,
+      "warnings": [
+        "source_governance_known_pmids"
+      ]
+    },
+    {
+      "case": "fulltext_cold",
+      "status": "answered",
+      "seconds": 9.64,
+      "context_characters": 6625,
+      "passages": 0,
+      "sections": [],
+      "downloads": 1,
+      "passage_embedding_calls": 0,
+      "warnings": [
+        "source_governance_known_pmids",
+        "17299597:fulltext_failed"
+      ]
+    }
+  ],
+  "status": "failed",
+  "error_type": "AssertionError",
+  "error": "Fulltext silently fell back: inspect warnings"
+}

@@ -1,0 +1,54 @@
+不确定：现有证据仅来自若干摘要，且各研究的分割任务、影像模态与评估设置不同，无法据此给出MedSAM与nnU-Net的普遍性优劣结论；只能按具体任务分别描述两者差异。 [1] [2] [3] [4] [5]
+
+在CT骨转移瘤2D切片分割中，nnU-Net的Dice为0.6849、归一化Hausdorff距离为0.0473，优于无提示MedSAM适配版的Dice 0.6280与NHD 0.1008；作者据此认为nnU-Net是稳健的强基线。 [1]
+
+在心脏磁共振弹性成像的左心室心肌分割中，最佳nnU-Net（全平均归一化幅值图像）Dice为0.82±0.04，最佳MedSAM（半自动微调加强ROI平滑）Dice为0.82±0.02，两者均达到阅片者间一致性水平；但全自动MedSAM变体较低（autoprompt 0.68±0.09，box regression 0.71±0.08）。 [2]
+
+在原发性中枢神经系统淋巴瘤（临床常规增强T1 MRI）及MSD-BraTS胶质瘤分割中，监督学习（nnU-Net）在两个数据集上均以较大幅度显著优于包括MedSAM在内的分割基础模型，作者认为任务专用模型仍不可替代。 [3]
+
+在神经肌肉疾病患者大腿MR的多类肌肉分割中，微调SAM的编码器/解码器配置在Moderate与Severe组略优于3D nnU-Net（DSC 0.886 vs 0.883、0.857 vs 0.850），Early组相当（0.925）；MedSAM未表现出相对SAM的优势，该摘要未报告MedSAM与nnU-Net的直接数值对比。 [4]
+
+在BraTS 2023胶质瘤数据上，给予极精确的边界框提示时SAM/SAM 2的Dice可达约0.89并超过nnU-Net，但作者指出实际中难以提供如此精确的提示，因此nnU-Net仍是主导的医学分割网络；微调后MedSAM等的点提示性能提升明显，但仍不及边界框提示或nnU-Net。 [5]
+
+推断：综合上述摘要，两者的差异主要体现在使用范式而非单一精度：nnU-Net为任务专用、全自动的自配置监督框架，在多数报告任务中作为强基线或占优；MedSAM为提示/基础模型，其表现高度依赖提示质量、是否微调及自动化程度（零样本、半自动、全自动变体差异明显）。 [1] [2] [3] [5]
+
+不确定：关于训练数据规模需求、推理速度/计算成本以及跨模态泛化能力的定量差异，所提供摘要中未找到直接比较数据。 [1] [2] [3] [4] [5]
+
+参考文献
+[1] Comparison of Foundation Models MedSAM and DINOv3 with the nnU-Net Framework for Bone Metastasis Segmentation in Computed Tomography Scans（2026）
+DOI：10.3390/ai7060181
+https://openalex.org/W7162083801
+[2] Toward self-contained cardiac magnetic resonance elastography: Deep learning-based segmentation of the left ventricular myocardium（2026）
+DOI：10.1016/j.mri.2026.110768
+https://openalex.org/W7201983585
+[3] Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI（2025）
+DOI：10.1117/12.3044679
+https://openalex.org/W4391673478
+[4] Exploring foundation models for multi-class muscle segmentation in MR images of neuromuscular disorders: A comparative analysis of accuracy and uncertainty（2025）
+DOI：10.1016/j.cmpb.2025.109035
+https://openalex.org/W4413770896
+[5] AI-Driven MRI-based Brain Tumour Segmentation Benchmarking（2025）
+DOI：10.48550/arxiv.2506.20786
+https://openalex.org/W4415164780
+证据范围：摘要（未阅读全文） [1] [2] [3] [4] [5]
+
+局限与范围
+所有证据均为摘要层面，未提供全文方法细节 [1] [2] [3] [4] [5]
+检索为部分结果，不能据此判断文献整体情况 [1] [2] [3] [4] [5]
+单一数据集（88例患者），仅摘要报告 [1]
+MedSAM为无提示适配版，非其全部使用方式 [1]
+仅16名健康男性志愿者，样本小 [2]
+MedSAM最佳结果依赖半自动与强ROI平滑，与nnU-Net的全自动流程不完全对等 [2]
+摘要未给出具体Dice数值与统计细节 [3]
+MedSAM与nnU-Net的直接比较数值未在摘要中给出 [4]
+76例患者，分组样本量未报告 [4]
+摘要未给出MedSAM与nnU-Net的具体Dice数值 [5]
+结论依赖提示质量设定 [5]
+该概括基于不同任务与不同评估设置的摘要，非头对头汇总分析 [1] [2] [3] [5]
+未涉及训练数据需求、推理效率等维度的直接证据 [1] [2] [3] [5]
+仅基于所提供摘要，不能推断这些维度在文献中无相关研究 [1] [2] [3] [4] [5]
+已查询 OpenAlex，证据限于本次检索与已获取摘要，不保证检全。
+引用关联已核对；医学语义支持仍需人工复核。
+本次部分检索或筛选未完成，证据范围有限。
+检索范围：OpenAlex 匹配 17474 条；本次返回 17 个候选；请求状态：partial。候选已截断，不代表全部相关研究。
+本次使用在线 OpenAlex及本地来源；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

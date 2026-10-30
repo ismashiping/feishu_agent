@@ -1,0 +1,13 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+______________ test_b_candidate_selection_and_document_diversity ______________
+
+    def test_b_candidate_selection_and_document_diversity():
+        from types import SimpleNamespace as S
+>       from clinical_agent.application.pubmed import select_candidates
+E       ImportError: cannot import name 'select_candidates' from 'clinical_agent.application.pubmed' (E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\application\pubmed.py)
+
+tests\unit\test_quality_phase2.py:36: ImportError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_quality_phase2.py::test_b_candidate_selection_and_document_diversity
+1 failed, 6 deselected in 0.51s

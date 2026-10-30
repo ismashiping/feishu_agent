@@ -1,0 +1,48 @@
+不确定：在本次检索到的证据中，可找到若干篇近期（2024–2026年检索窗口内）关于肝脏分割的摘要级研究，涵盖基于U-Net/FastAI、CNN-Transformer混合网络、细节增强多尺度融合网络以及3D深度卷积网络的方法；但所有证据均为摘要，未提供全文，且检索结果被截断，因此不能据此认为已覆盖该领域全部最新研究。 [1] [2] [3] [4]
+
+一项摘要报告提出基于U-Net深度学习架构并结合FastAI框架的肝脏图像分割方法，采用预处理与数据增强以改善泛化，并使用Dice相似系数和IoU作为评价指标；摘要称其相比传统分割技术取得更高的分割准确性和鲁棒性，但未给出具体数值。 [1]
+
+一项摘要提出WavPAC-Net，采用CNN-Transformer混合编码器（ConvNeXt-Small与Swin Transformer分支）、小波域融合模块和置换轴向-通道特征增强器，并在CirrMRI600+（T2加权MRI）上报告Dice 93.16%、IoU 88.45%、MCC 93.03%、计算复杂度19.88 GFLOPs，在LiTS CT数据集上报告Dice 96.91%、IoU 94.32%、MCC 96.79%。 [2]
+
+该摘要称WavPAC-Net在与20个先进分割模型的系统比较中，在分割准确性和边界保真度上具有统计学显著优势；此为作者报告，摘要未提供比较细节或统计方法。 [2]
+
+一项摘要提出DEMF-Net，通过细节增强卷积（DE Conv）和多尺度特征融合模块（MSFF）改进肝脏特征学习，并在LiTS17数据集上报告各项评价指标有显著提升，但摘要未给出具体数值。 [3]
+
+一项摘要提出基于3D深度卷积神经网络（3D-DCNN）的肝脏分割方法，结合中值/自适应滤波预处理、LBP与GLCM特征提取以及迭代区域生长（IRG），在腹部CT图像上评估，并称其优于Jaccard with JISTS-FCM、FCM和FCM-CSA等对比方法；摘要未报告具体数值。 [4]
+
+推断：从这些摘要可归纳出近期肝脏分割研究的两条技术路线：一是以U-Net/CNN为基础并引入混合Transformer或小波融合以兼顾长程依赖与细节（如WavPAC-Net），二是通过细节增强与多尺度特征融合改进CNN（如DEMF-Net）；但各研究使用不同数据集（CirrMRI600+ MRI、LiTS CT、LiTS17）和不同评价指标，无法据此进行跨研究的性能汇总或优劣判定。 [2] [3] [1]
+
+不确定：所提供证据中未发现关于这些方法外部验证、临床部署效果或与传统方法头对头定量比较的详细信息；这些细节在摘要中均未报告。 [1] [2] [3] [4]
+
+参考文献
+[1] Enhanced Liver Image Segmentation Using Custom Metric and Unet with FastAI（2026）
+DOI：10.32628/cseit26121326
+https://openalex.org/W7151377981
+[2] WavPAC-Net: a wavelet-based hybrid encoder network with permuted axial-channel feature enhancement for liver segmentation（2026）
+DOI：10.1007/s44443-026-01362-6
+https://openalex.org/W7223277402
+[3] Liver segmentation network based on detail enhancement and multi-scale feature fusion（2025）
+DOI：10.1038/s41598-024-78917-y
+https://openalex.org/W4406023087
+[4] Efficient Liver Segmentation using Advanced 3D-DCNN Algorithm on CT Images（2025）
+DOI：10.48084/etasr.9157
+https://openalex.org/W4407066570
+证据范围：摘要（未阅读全文） [1] [2] [3] [4]
+
+局限与范围
+仅摘要级证据，无全文 [1] [2] [3] [4]
+检索返回结果被截断（truncated），不能代表全部文献 [1] [2] [3] [4]
+摘要未报告具体性能数值 [1] [4]
+未说明所用数据集细节 [1]
+结果来自摘要，未经全文核验 [2]
+不同数据集（MRI与CT）结果不可直接合并比较 [2]
+比较细节与统计方法未在摘要中报告 [2]
+摘要未报告具体指标数值 [3]
+对比方法的具体设置未说明 [4]
+数据集与指标不一致，不支持合并结果或优越性结论 [2] [3] [1]
+仅基于摘要，全文可能包含此类信息 [1] [2] [3] [4]
+已查询 OpenAlex，证据限于本次检索与已获取摘要，不保证检全。
+引用关联已核对；医学语义支持仍需人工复核。
+证据尚未充分覆盖：limitations
+检索范围：OpenAlex 匹配 1788 条；本次返回 21 个候选；请求状态：complete。候选已截断，不代表全部相关研究。
+本次使用在线 OpenAlex及本地来源；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

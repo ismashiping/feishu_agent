@@ -1,0 +1,1 @@
+{"event": "feishu_connected", "level": "info", "timestamp": "2026-10-29T11:59:20.320810+00:00"}

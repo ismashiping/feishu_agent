@@ -1,0 +1,50 @@
+Overview
+在本次检索到的证据中，肝脏分割的最新研究主要围绕深度学习架构展开，涵盖混合CNN-Transformer编码器、改进的ResUNet、带残差连接的U-Net、FastAI实现的U-Net以及3D深度卷积网络等方向；这些研究均以CT或MRI图像上的肝脏区域分割为任务，但证据仅来自摘要，且未提供统一的比较基准。 [1] [2] [3] [4] [5]
+
+技术方向：混合CNN-Transformer
+WavPAC-Net提出一种基于小波的融合网络：混合CNN-Transformer编码器（ConvNeXt-Small分支捕捉肝实质纹理，Swin Transformer分支建模长程依赖），小波域融合模块将两分支特征分解为低频和高频子带并自适应加权融合，以及置换轴向-通道特征增强器进行跨维度细化。作者称其与20个先进分割模型的系统比较在分割精度和边界保真度上具有统计学显著优势。 [1]
+
+技术方向：残差U-Net类架构
+一项研究采用改进的Residual UNet进行肝脏自动分割，在3Dircadb数据集、128x128图像上报告Dice 93.08%、准确率98.57%、Jaccard指数87.12%、体积重叠误差12.87%和相对体积差14.91%。另一项研究采用带残差连接的U-Net以捕捉细粒度解剖细节，并在两个CT标注数据集上训练两个模型、共进行四组实验，报告准确率在0.81至0.93之间。 [2] [3]
+
+技术方向：U-Net+FastAI与3D-DCNN
+一项研究使用FastAI框架实现U-Net，结合预处理和数据增强，并引入Dice相似系数和IoU作为自定义评价指标，摘要称其相比传统分割技术提高了分割准确性和鲁棒性，但未给出具体数值。另一项研究提出基于3D深度卷积神经网络（3D-DCNN）的方法，包含中值滤波、自适应滤波、灰度转换、LBP与GLCM特征提取以及迭代区域生长，在MATLAB中实现，摘要称其优于Jaccard with JISTS-FCM、FCM和FCM-CSA等方法，但同样未报告具体指标数值。 [4] [5]
+
+性能比较
+推断：在可获得的定量结果中，WavPAC-Net在CirrMRI600+（T2加权MRI）上报告Dice 93.16%、IoU 88.45%、MCC 93.03%、计算复杂度19.88 GFLOPs，并在LiTS CT数据集上报告Dice 96.91%、IoU 94.32%、MCC 96.79%；改进ResUNet在3Dircadb上报告Dice 93.08%。由于数据集、模态和评价指标不同，这些数值不能用于跨研究推断某一方法更优。 [1] [2]
+
+局限与证据缺口
+不确定：现有证据未提供各方法在同一数据集上的直接头对头比较结果，也未报告外部验证、临床部署评估或失败案例分析；WavPAC-Net虽称与20个模型比较，但摘要未列出比较对象和统计细节。因此，关于哪种方法在肝脏分割中更优，当前证据不足以得出结论。 [1] [3] [5]
+
+参考文献
+[1] WavPAC-Net: a wavelet-based hybrid encoder network with permuted axial-channel feature enhancement for liver segmentation（2026）
+DOI：10.1007/s44443-026-01362-6
+https://doi.org/10.1007/s44443-026-01362-6
+https://openalex.org/W7223277402
+[2] Automated liver segmentation from CT images using modified ResUNet（2025）
+DOI：10.1016/j.gande.2025.03.002
+https://doi.org/10.1016/j.gande.2025.03.002
+https://openalex.org/W4408220583
+[3] Explainable and Robust Deep Learning for Liver Segmentation Through U-Net Network（2025）
+DOI：10.3390/diagnostics15070878
+https://doi.org/10.3390/diagnostics15070878
+https://openalex.org/W4409039562
+[4] Enhanced Liver Image Segmentation Using Custom Metric and Unet with FastAI（2026）
+DOI：10.5281/zenodo.21603405
+https://doi.org/10.5281/zenodo.21603405
+https://openalex.org/W7171294525
+[5] Efficient Liver Segmentation using Advanced 3D-DCNN Algorithm on CT Images（2025）
+DOI：10.48084/etasr.9157
+https://doi.org/10.48084/etasr.9157
+https://openalex.org/W4407066570
+证据范围：摘要（未阅读全文） [1] [2] [3] [4] [5]
+
+局限与范围
+所有证据均为摘要，未包含全文方法或结果细节。 [1] [2] [3] [4] [5]
+比较细节和统计检验方法仅在摘要中概述，未提供全文。 [1]
+两项研究的指标定义和数据集不同，不能直接合并或比较。 [2] [3]
+两项摘要均未提供可核对的定量结果。 [4] [5]
+跨数据集、跨模态的数值不具可比性，且均为摘要报告值。 [1] [2]
+该判断基于有限的摘要证据，不能排除未检索到的全文研究包含此类比较。 [1] [3] [5]
+本次检索未完整完成，结论仅限所列文献，不代表领域全貌。
+本次使用在线 OpenAlex及本地来源；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

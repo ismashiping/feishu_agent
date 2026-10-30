@@ -1,0 +1,9 @@
+{
+  "question": "Which CT and MRI scanners, sequences, and contrast agents were reported in the 2024 bi-centre study of a radiological feature-based nomogram for hepatocellular carcinoma microvascular invasion?",
+  "scope": "hybrid",
+  "openalex": {
+    "query": "Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram a bi-centre study",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  }
+}

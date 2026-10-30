@@ -67,5 +67,11 @@ def test_schema_has_nullable_legacy_metadata_and_incremental_revision():
     assert DocumentRecord.__table__.c.ingestion_metadata.nullable
     config = Config(str(Path(__file__).resolve().parents[2] / "alembic.ini"))
     scripts = ScriptDirectory.from_config(config)
-    assert scripts.get_current_head() == "p107_0002"
+    assert scripts.get_current_head() == "oa3001_0009"
+    assert scripts.get_revision("oa3001_0009").down_revision == "p1001_0008"
+    assert scripts.get_revision("p804_0007").down_revision == "p803_0006"
+    assert scripts.get_revision("p803_0006").down_revision == "p802_0005"
+    assert scripts.get_revision("p802_0005").down_revision == "p801_0004"
+    assert scripts.get_revision("p801_0004").down_revision == "p501_0003"
+    assert scripts.get_revision("p501_0003").down_revision == "p107_0002"
     assert scripts.get_revision("p107_0002").down_revision == "p106_0001"

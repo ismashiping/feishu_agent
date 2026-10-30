@@ -1,0 +1,67 @@
+{
+  "version": "phase9-synthetic-v1",
+  "kind": "synthetic_formula_fixture",
+  "cases": [
+    {
+      "case_id": "a",
+      "question": "Synthetic evidence question",
+      "evidence_scope": "evidence",
+      "relevant_chunk_ids": [
+        "a"
+      ],
+      "source_snapshots": {
+        "a": {
+          "source_id": "fixture:a",
+          "location": "abstract:1"
+        }
+      },
+      "expected_claims": [
+        "allowed"
+      ],
+      "forbidden_claims": [
+        "unsupported"
+      ],
+      "annotation_status": "reviewed",
+      "supported_by": {
+        "allowed": [
+          "a"
+        ]
+      }
+    },
+    {
+      "case_id": "b",
+      "question": "Synthetic model failure",
+      "evidence_scope": "evidence",
+      "relevant_chunk_ids": [
+        "b"
+      ],
+      "source_snapshots": {
+        "b": {
+          "source_id": "fixture:b",
+          "location": "abstract:1"
+        }
+      },
+      "expected_claims": [
+        "allowed"
+      ],
+      "forbidden_claims": [],
+      "annotation_status": "reviewed",
+      "supported_by": {
+        "allowed": [
+          "b"
+        ]
+      }
+    },
+    {
+      "case_id": "c",
+      "question": "Synthetic no evidence",
+      "evidence_scope": "no_evidence",
+      "relevant_chunk_ids": [],
+      "source_snapshots": {},
+      "expected_claims": [],
+      "forbidden_claims": [],
+      "annotation_status": "reviewed",
+      "supported_by": {}
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+____________________ test_d_report_has_explicit_audit_mode ____________________
+
+    def test_d_report_has_explicit_audit_mode():
+        import inspect
+        from clinical_agent.domain.report import render_report
+>       assert inspect.signature(render_report).parameters['include_audit'].default is False
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'include_audit'
+
+tests\unit\test_quality_phase2.py:62: KeyError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_quality_phase2.py::test_d_report_has_explicit_audit_mode
+1 failed, 8 deselected in 0.48s

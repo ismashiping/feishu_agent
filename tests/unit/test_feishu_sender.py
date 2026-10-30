@@ -154,11 +154,24 @@ def rig():
         assert sender.close(timeout_seconds=3)
 
 
-def test_render_preserves_claim_links_sources_and_limitations():
+def test_default_render_is_readable_and_preserves_citations():
     from feishu.sender import render_answer
 
     dto = answer(answered=True)
     text = render_answer(dto)
+    assert text.startswith("推断：合成结论 [1]")
+    for value in ["2024", "123456", dto.sources[0].source_url, "结论局限", "全局局限", "摘要"]:
+        assert value in text
+    for value in ["chunk=", "document=", "hash=", "本地检索：", "c1 "]:
+        assert value not in text
+    assert "<at" not in text
+
+
+def test_render_preserves_claim_links_sources_and_limitations():
+    from feishu.sender import render_answer
+
+    dto = answer(answered=True)
+    text = render_answer(dto, include_audit=True)
     source = dto.sources[0]
     for expected in [
         "合成结论",
@@ -198,7 +211,7 @@ def test_render_pdf_location_unknown_metadata_and_shared_numbering():
     source.publication_date = dict(precision="unknown")
     source.evidence[0].location = dict(kind="pdf_page", page=3, start=8, end=27)
     dto.claims.append(dto.claims[0].model_copy(update={"claim_id": "c2", "kind": "uncertainty"}))
-    text = render_answer(dto)
+    text = render_answer(dto, include_audit=True)
     assert "第3页" in text and "[8,27)" in text and "PDF文本层" in text
     assert "未知" in text and "不确定" in text and "None" not in text
     assert text.count("[1]") == 3
@@ -506,7 +519,7 @@ def test_dispatcher_sender_handoff_and_error_reply(fail):
     sender = Sender(dedup=dedup, transport=transport, clock=lambda: 0)
 
     class Service:
-        def answer(self, request):
+        def respond(self, request):
             if fail:
                 raise RuntimeError("private-secret")
             return answer(answered=True)
@@ -538,8 +551,10 @@ def test_multiple_sources_keep_stable_numbers_and_exact_locations():
     dto.sources.append(second)
     dto.claims[0].evidence_chunk_ids.insert(0, second.evidence[0].chunk_id)
     text = render_answer(dto)
-    assert f"[2] chunk={second.evidence[0].chunk_id}" in text
-    assert f"[1] chunk={dto.sources[0].evidence[0].chunk_id}" in text
+    assert "合成结论 [2] [1]" in text
+    audit = render_answer(dto, include_audit=True)
+    assert f"[2] chunk={second.evidence[0].chunk_id}" in audit
+    assert f"[1] chunk={dto.sources[0].evidence[0].chunk_id}" in audit
     assert "[2] Second synthetic source" in text and "全文来源" in text
 
 

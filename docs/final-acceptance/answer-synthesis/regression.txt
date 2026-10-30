@@ -1,0 +1,52 @@
+........................................................................ [  6%]
+........................................................................ [ 12%]
+........................................................................ [ 19%]
+.....................................................F.................. [ 25%]
+........................................................................ [ 32%]
+........................................................................ [ 38%]
+........................................................................ [ 45%]
+........................................................................ [ 51%]
+........................................................................ [ 57%]
+........................................................................ [ 64%]
+........................................................................ [ 70%]
+........................................................................ [ 77%]
+........................................................................ [ 83%]
+........................................................................ [ 90%]
+........................................................................ [ 96%]
+........................................                                 [100%]
+================================== FAILURES ===================================
+___ test_user_entry_default_is_hybrid_and_internal_request_stays_compatible ___
+
+    def test_user_entry_default_is_hybrid_and_internal_request_stays_compatible():
+        from clinical_agent.api_runtime import QuestionBody
+        from feishu.sender import render_answer
+    
+        assert QuestionBody(question=QUESTION).scope == "hybrid"
+        assert QuestionBody(question=QUESTION, scope="local").scope == "local"
+        assert QuestionRequest(question=QUESTION, request_id=uuid4()).scope == "local"
+        # CLI/worker default construction is also exercised by existing entrypoint regressions.
+        from clinical_agent.domain.research import ResearchAnswer
+    
+        text = render_answer(
+            ResearchAnswer(
+                request_id=uuid4(),
+                status="insufficient_evidence",
+                claims=[],
+                sources=[],
+                limitations=["No evidence"],
+                generated_at=__import__("datetime").datetime.now(__import__("datetime").UTC),
+            )
+        )
+>       assert "未执行在线 PubMed" in text
+E       AssertionError: assert '未执行在线 PubMed' in '本次检索证据不足，不代表不存在相关研究或证据证明无效。\n\n局限与范围\nNo evidence\n仅检索本地已导入文献，不保证覆盖最新或全部研究；用于科研辅助，不用于个体诊断或治疗决策。'
+
+tests\unit\test_exploratory_discovery.py:202: AssertionError
+============================== warnings summary ===============================
+tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[accepted-None]
+  E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\lark_oapi\ws\pb\google\protobuf\internal\well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/unit/test_exploratory_discovery.py::test_user_entry_default_is_hybrid_and_internal_request_stays_compatible
+1 failed, 1119 passed, 1 warning in 140.87s (0:02:20)

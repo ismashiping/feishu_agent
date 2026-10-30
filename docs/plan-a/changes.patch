@@ -1,0 +1,141 @@
+--- before/src/clinical_agent/application/pico.py
++++ after/src/clinical_agent/application/pico.py
+@@ -1,10 +1,14 @@
+ """One bounded extraction call, then deterministic provenance validation and planning."""
+ 
+ import json
++import logging
+ import math
+ from collections.abc import Callable
++from hashlib import sha256
+ from time import monotonic
+ from typing import Protocol
++
++from pydantic import ValidationError
+ 
+ from clinical_agent.domain.pico import (
+     ClassificationRequest,
+@@ -54,14 +58,30 @@
+             raise ResearchError("extraction_timeout")
+         budget = min(timeout_seconds, self._max_seconds)
+         deadline = self._clock() + budget
++        stage = "provider"
++        response_hash = None
+         try:
+             raw = self._extractor.extract(request.model_copy(deep=True), timeout_seconds=budget)
+             if self._clock() >= deadline:
+                 raise ResearchError("extraction_timeout")
++            stage = "response_size"
+             if not isinstance(raw, str) or len(raw.encode("utf-8")) > self._max_output_bytes:
+                 raise ValueError("Invalid extraction output size")
++            response_hash = sha256(raw.encode("utf-8")).hexdigest()
++            stage = "json"
+             data = json.loads(raw, object_pairs_hook=_unique, parse_constant=_invalid_constant)
++            stage = "schema"
+             draft = ExtractionDraft.model_validate(data)
++            stage = "span"
++            for field in [*draft.pico.fields(), *draft.terms]:
++                field.validate_source(request.question)
++            stage = "mapping"
++            for mapping in draft.concept_mappings:
++                if mapping.source_text not in request.question:
++                    raise ValueError("Invalid source mapping")
++                if not mapping.required and mapping.english_terms in draft.concept_groups:
++                    raise ValueError("Optional mapping used as mandatory group")
++            stage = "status"
+             status = "complete" if len(draft.pico.fields()) == 4 else "partial"
+             blocking = draft.blocking_ambiguities
+             if blocking == [] and not (
+@@ -81,6 +101,7 @@
+                     "blocking_ambiguities": blocking,
+                 }
+             )
++            stage = "plan"
+             return QueryPlan(
+                 original_question=request.question,
+                 structured_question=structured,
+@@ -98,6 +119,26 @@
+                 ],
+             )
+         except Exception as error:
++            diagnostic = {"stage": stage, "response_hash": response_hash}
++            if isinstance(error, ValidationError):
++                # Never log error messages, input values, ctx or arbitrary JSON keys.
++                allowed = set(ExtractionDraft.model_fields) | {
++                    "text",
++                    "origin",
++                    "source_span",
++                    "start",
++                    "end",
++                }
++                diagnostic["fields"] = [
++                    ".".join(str(k) for k in item["loc"] if isinstance(k, int) or k in allowed)
++                    for item in error.errors(include_input=False, include_context=False)[:10]
++                ]
++            logging.getLogger(__name__).warning(
++                "QueryPlan extraction rejected stage=%s response_hash=%s",
++                stage,
++                response_hash,
++                extra={"extraction_diagnostic": diagnostic},
++            )
+             code: ResearchCode = (
+                 "extraction_timeout"
+                 if (
+--- before/src/clinical_agent/domain/pubmed.py
++++ after/src/clinical_agent/domain/pubmed.py
+@@ -128,6 +128,22 @@
+     endpoint: Literal["https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"] = (
+         "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+     )
++    search_warnings: Annotated[list[str], Field(max_length=10)] = Field(default_factory=list)
++
++    def pmid_status(self, pmid: str) -> str:
++        """Only natural ESearch provenance; targeted fetches do not construct this DTO."""
++        if pmid in self.candidate_outcomes:
++            return self.candidate_outcomes[pmid]
++        if pmid in self.missing_pmids:
++            return "fetch_missing"
++        if self.fetched_pmids is not None and pmid in self.fetched_pmids:
++            return "fetched_selection_unknown"
++        if self.searched_pmids is None or self.status == "partial":
++            return "unknown"
++        if pmid in self.searched_pmids:
++            return "returned_fetch_unknown"
++        return "not_in_returned_set"
++
+     query_sent: str
+     query_translation: str | None
+     total_count: Annotated[int, Field(strict=True, ge=0)]
+--- before/src/clinical_agent/adapters/pubmed_online.py
++++ after/src/clinical_agent/adapters/pubmed_online.py
+@@ -200,6 +200,7 @@
+         query = request.query_text()
+         count = [0]
+         warnings: list[str] = request.planning_warnings()
++        search_warnings: list[str] = []
+         ids: list[str] = []
+         total: int | None = None
+         translation: str | None = None
+@@ -246,6 +247,14 @@
+                         warnings.append("search_count_changed")
+                     if result.get("warninglist"):
+                         warnings.append("official_search_warning")
++                        warning_data = result["warninglist"]
++                        if isinstance(warning_data, dict):
++                            for messages in warning_data.values():
++                                if isinstance(messages, list):
++                                    search_warnings.extend(
++                                        m[:300] for m in messages if isinstance(m, str)
++                                    )
++                                    search_warnings = search_warnings[:10]
+                 except Exception:
+                     raise ResearchError("pubmed_invalid") from None
+             except ResearchError:
+@@ -303,6 +312,7 @@
+         )
+         ordered = [records[i] for i in ids if i in records]
+         return PubMedSearchResult(
++            search_warnings=search_warnings,
+             searched_pmids=ids,
+             fetched_pmids=[r.pmid for r in ordered],
+             query_sent=query,

@@ -73,6 +73,7 @@ def test_research_assembly_closes_http_before_engine(monkeypatch, fail):
     with pytest.raises(RuntimeError) if fail else __import__("contextlib").nullcontext():
         with open_research(Path("model")) as service:
             assert isinstance(service, ResearchService)
+            assert service._planner is not None
             if fail:
                 raise RuntimeError("request failed")
     assert events == [

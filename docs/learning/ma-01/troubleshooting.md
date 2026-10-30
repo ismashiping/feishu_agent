@@ -1,0 +1,7 @@
+# 排错
+
+research_timeout来自共享deadline；角色不会另开更长预算。extraction_failed仍可能是模型原文区间不正确；retrieval_failed不能变为无证据。原scope/options返回不一致会拒绝。
+
+若Demo找不到文件，确认从完整仓库运行，evaluation/minimal-v1不能被删除。基线脚本退出1是既有系统未达医学/端到端门槛，不是证据损坏。
+
+角色字段不出现在用户报告是设计边界；需要观察执行顺序可在离线Demo或图状态查看agent_steps，不打印密钥或完整患者问题。当前没有方法/缺口/设计/审核Agent或返工循环，不应排查不存在的角色调用。

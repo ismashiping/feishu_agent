@@ -1,0 +1,10 @@
+{
+  "ready_status": 200,
+  "ready": {
+    "request_id": "ced458e3-86d3-4903-9ff1-b85fe7ef113e",
+    "status": "ok",
+    "scope": "runtime"
+  },
+  "openapi_status": 200,
+  "question_endpoint_present": true
+}

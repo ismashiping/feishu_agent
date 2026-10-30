@@ -1,0 +1,262 @@
+[
+  {
+    "question": "肝脏分割最新研究有哪些？",
+    "model": "deepseek-chat",
+    "error": "ResearchError",
+    "code": "extraction_failed",
+    "elapsed": 3.385022543996456
+  },
+  {
+    "question": "肝脏肿瘤亚区分割有哪些最新研究？",
+    "model": "deepseek-chat",
+    "plan": {
+      "concept_relations": [
+        {
+          "source_text": "肝脏肿瘤",
+          "english_term": "liver tumor",
+          "relation": "exact_synonym",
+          "concept_id": "c1",
+          "required": true,
+          "confidence": 0.95,
+          "verification": "candidate"
+        },
+        {
+          "source_text": "肝脏肿瘤",
+          "english_term": "hepatic neoplasm",
+          "relation": "exact_synonym",
+          "concept_id": "c1",
+          "required": true,
+          "confidence": 0.9,
+          "verification": "candidate"
+        },
+        {
+          "source_text": "肝脏肿瘤",
+          "english_term": "liver cancer",
+          "relation": "related_concept",
+          "concept_id": "c1",
+          "required": false,
+          "confidence": 0.7,
+          "verification": "candidate"
+        },
+        {
+          "source_text": "亚区分割",
+          "english_term": "subregion segmentation",
+          "relation": "exact_synonym",
+          "concept_id": "c2",
+          "required": true,
+          "confidence": 0.9,
+          "verification": "candidate"
+        },
+        {
+          "source_text": "亚区分割",
+          "english_term": "tumor subregion segmentation",
+          "relation": "exact_synonym",
+          "concept_id": "c2",
+          "required": true,
+          "confidence": 0.85,
+          "verification": "candidate"
+        },
+        {
+          "source_text": "亚区分割",
+          "english_term": "subregion delineation",
+          "relation": "related_concept",
+          "concept_id": "c2",
+          "required": false,
+          "confidence": 0.6,
+          "verification": "candidate"
+        }
+      ],
+      "research_intent": "discovery",
+      "concept_mappings": [
+        {
+          "source_text": "肝脏肿瘤",
+          "english_terms": [
+            "liver tumor",
+            "liver tumour",
+            "hepatic tumor",
+            "hepatic neoplasm",
+            "liver neoplasm",
+            "liver cancer"
+          ],
+          "role": "population",
+          "required": true
+        },
+        {
+          "source_text": "亚区分割",
+          "english_terms": [
+            "subregion segmentation",
+            "sub-region segmentation",
+            "tumor subregion segmentation",
+            "subregion delineation"
+          ],
+          "role": "topic",
+          "required": true
+        }
+      ],
+      "concept_groups": [
+        [
+          "liver tumor",
+          "liver tumour",
+          "hepatic tumor",
+          "hepatic neoplasm",
+          "liver neoplasm",
+          "liver cancer"
+        ],
+        [
+          "subregion segmentation",
+          "sub-region segmentation",
+          "tumor subregion segmentation",
+          "subregion delineation"
+        ]
+      ],
+      "version": "pico-v1",
+      "original_question": "肝脏肿瘤亚区分割有哪些最新研究？",
+      "structured_question": {
+        "question_type": "other",
+        "pico": {
+          "population": {
+            "text": "肝脏肿瘤",
+            "origin": "user_text",
+            "source_span": {
+              "start": 0,
+              "end": 4
+            }
+          },
+          "intervention": {
+            "text": "亚区分割",
+            "origin": "user_text",
+            "source_span": {
+              "start": 4,
+              "end": 8
+            }
+          },
+          "comparison": null,
+          "outcome": null
+        },
+        "ambiguities": [
+          "是否需要限定特定的分割方法（如深度学习、传统图像处理）？",
+          "是否需要限定特定的影像模态（如CT、MRI、超声）？",
+          "是否需要限定发表时间范围（如近3年、近5年）？"
+        ],
+        "extraction_status": "partial",
+        "blocking_ambiguities": []
+      },
+      "terms": [
+        {
+          "text": "肝脏肿瘤",
+          "origin": "user_text",
+          "source_span": {
+            "start": 0,
+            "end": 4
+          }
+        },
+        {
+          "text": "亚区分割",
+          "origin": "user_text",
+          "source_span": {
+            "start": 4,
+            "end": 8
+          }
+        },
+        {
+          "text": "最新研究",
+          "origin": "user_text",
+          "source_span": {
+            "start": 11,
+            "end": 15
+          }
+        },
+        {
+          "text": "liver tumor",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "hepatic neoplasm",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "subregion segmentation",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "sub-region segmentation",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "tumor subregion segmentation",
+          "origin": "query_expansion",
+          "source_span": null
+        }
+      ],
+      "preserved_constraints": [
+        {
+          "text": "肝脏肿瘤亚区分割有哪些最新研究？",
+          "origin": "user_text",
+          "source_span": {
+            "start": 0,
+            "end": 16
+          }
+        }
+      ],
+      "search_intent": "other"
+    },
+    "result": {
+      "trace_id": "8c5e8dd2-e909-428d-8bfc-79e79bc09936",
+      "query_rounds": [
+        {
+          "strategy": "direct",
+          "query": "(\"liver tumor\"[Title/Abstract] OR \"hepatic neoplasm\"[Title/Abstract]) AND (\"subregion segmentation\"[Title/Abstract] OR \"tumor subregion segmentation\"[Title/Abstract])",
+          "translation": "(\"liver tumor\"[Title/Abstract] OR \"hepatic neoplasm\"[Title/Abstract]) AND (\"subregion segmentation\"[Title/Abstract] OR \"tumor subregion segmentation\"[Title/Abstract])",
+          "warnings": [
+            "No items found."
+          ],
+          "total_count": 0,
+          "searched_pmids": [],
+          "fetched_pmids": [],
+          "http_attempts_cumulative": 1
+        },
+        {
+          "strategy": "related_narrower",
+          "query": "(\"liver tumor\"[Title/Abstract] OR \"hepatic neoplasm\"[Title/Abstract] OR \"liver cancer\"[Title/Abstract]) AND (\"subregion segmentation\"[Title/Abstract] OR \"tumor subregion segmentation\"[Title/Abstract] OR \"subregion delineation\"[Title/Abstract])",
+          "translation": "(\"liver tumor\"[Title/Abstract] OR \"hepatic neoplasm\"[Title/Abstract] OR \"liver cancer\"[Title/Abstract]) AND (\"subregion segmentation\"[Title/Abstract] OR \"tumor subregion segmentation\"[Title/Abstract] OR \"subregion delineation\"[Title/Abstract])",
+          "warnings": [
+            "No items found."
+          ],
+          "total_count": 0,
+          "searched_pmids": [],
+          "fetched_pmids": [],
+          "http_attempts_cumulative": 2
+        }
+      ],
+      "searched_pmids": [],
+      "fetched_pmids": [],
+      "candidate_outcomes": {},
+      "endpoint": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
+      "search_warnings": [
+        "No items found."
+      ],
+      "query_sent": "(\"liver tumor\"[Title/Abstract] OR \"hepatic neoplasm\"[Title/Abstract]) AND (\"subregion segmentation\"[Title/Abstract] OR \"tumor subregion segmentation\"[Title/Abstract])",
+      "query_translation": "(\"liver tumor\"[Title/Abstract] OR \"hepatic neoplasm\"[Title/Abstract]) AND (\"subregion segmentation\"[Title/Abstract] OR \"tumor subregion segmentation\"[Title/Abstract])",
+      "total_count": 0,
+      "requested_limit": 10,
+      "returned_count": 0,
+      "truncated": false,
+      "fetched_at": "2026-10-29T03:17:38.204879Z",
+      "date_from": null,
+      "date_to": null,
+      "date_field": "pdat",
+      "sort": "relevance",
+      "status": "complete",
+      "warnings": [
+        "official_search_warning"
+      ],
+      "missing_pmids": [],
+      "records": []
+    },
+    "elapsed": 5.1636887839995325
+  }
+]

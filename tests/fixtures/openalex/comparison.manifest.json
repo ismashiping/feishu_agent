@@ -1,0 +1,10 @@
+{
+  "endpoint": "https://api.openalex.org/works",
+  "params": {
+    "search": "MedSAM nnU-Net",
+    "per_page": 8
+  },
+  "fetched_at": "2026-10-29T04:17:17.698682+00:00",
+  "sha256": "34364cb0e2d44fb487fad805752e18e82d6d5adee3aaad5e3cfb72054b275215",
+  "kind": "real API response; relevance labels pending human review"
+}

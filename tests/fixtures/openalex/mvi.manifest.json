@@ -1,0 +1,10 @@
+{
+  "endpoint": "https://api.openalex.org/works",
+  "params": {
+    "search": "MRI hepatocellular carcinoma microvascular invasion prediction",
+    "per_page": 8
+  },
+  "fetched_at": "2026-10-29T04:17:18.974724+00:00",
+  "sha256": "355fd150dac16b69281f0f18db7c54c381131267d986071dbf4e70b94ff2d4d0",
+  "kind": "real API response; relevance labels pending human review"
+}

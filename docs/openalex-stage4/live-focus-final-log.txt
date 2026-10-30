@@ -1,0 +1,5 @@
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights:  41%|████      | 81/199 [00:00<00:00, 803.02it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 1201.72it/s]
+{"index": 5, "question": "肝脏肿瘤分割目前有哪些技术瓶颈？", "mode": "live", "fresh_discovery": true, "human_medical_signoff": "pending", "status": "answered", "sources": 1, "claims": 6, "fulltext_citations": 0, "sections": ["证据范围", "已报道的技术挑战", "代表性方法", "报告的性能", "证据缺口", "研究空白与方向"], "warnings": ["doi:10.1109/access57397.2023.10200900:fulltext_license_not_allowed"], "seconds": 28.525}

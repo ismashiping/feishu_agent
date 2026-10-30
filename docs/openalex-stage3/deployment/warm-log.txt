@@ -1,0 +1,2 @@
+{"mode": "warm-zh", "http": 200, "seconds": 17.375, "request_id": "be4bd1d9-5ebc-4781-a39a-b774e7e94262", "status": "answered", "fulltext_citations": 2, "warnings": ["doi:10.1186/s12880-024-01206-7:fulltext_available"], "sections": ["Methods / Patients", "Methods / Patients"]}
+{"mode": "warm-en", "http": 502, "seconds": 6.75, "request_id": "52ba2d7b-9c25-482c-afac-403171f602e4"}

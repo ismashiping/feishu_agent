@@ -1,0 +1,30 @@
+回放验证：使用此前冻结的OpenAlex候选和全文缓存，本次未执行在线文献发现。
+
+不确定：The attached fulltext methods only partially report the imaging equipment and protocols: CT acquisition and contrast administration are described, but specific CT scanner models, MRI scanner field strength/manufacturer, MRI sequences and MRI contrast agent details are not found in the supplied passages. [1]
+
+For CT, the study reports using multiple multislice spiral CT scanners (Methods / Image acquisition), without naming manufacturers or models in the supplied passage; detailed CT parameters are said to be in Table 1, which was not supplied. [1]
+
+The reported CT protocol covers scanning from the diaphragm roof to the iliac ridge, with plain, arterial (fluoroscopic trigger, 28–35 s), portal venous (70–80 s) and equilibrium (180 s) phases. [1]
+
+CT contrast was reported as a non-ionic iodide contrast (300 mg iodide per ml) at 1.5 ml (450 mg iodide) per kg body weight, flow rate 3.0–4.0 ml/s; the specific contrast agent brand is not named in the supplied passage. [1]
+
+MRI data were used only as an external testing cohort (Centre II, n = 71) alongside CT external testing (n = 90), and the supplied passages do not describe MRI scanner, sequences or contrast agent. [1]
+
+参考文献
+[1] Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram: a bi-centre study（2024）
+DOI：10.1186/s12880-024-01206-7
+https://openalex.org/W4391277958
+全文证据：Methods / Image acquisition；字符 [6451,6954)；https://openalex.org/W4391277958
+全文证据：Methods / Patients；字符 [5597,5965)；https://openalex.org/W4391277958
+证据范围：已获取并引用的全文段落 [1]
+
+局限与范围
+Only two fulltext chunks (Methods/Image acquisition and Methods/Patients) were supplied; other methods sections, including any MRI acquisition description and Table 1, were not available. [1]
+Scanner models and Table 1 parameters are not available in the supplied text. [1]
+Contrast agent product name not reported in the supplied text. [1]
+The abstract confirms MRI was used for external validation but does not provide acquisition details. [1]
+已查询 OpenAlex；证据限于实际引用的摘要或全文段落，不保证检全。
+引用关联已核对；医学语义支持仍需人工复核。
+本次部分检索或筛选未完成，证据范围有限。
+检索范围：OpenAlex 匹配 1655 条；本次返回 17 个候选；请求状态：partial。候选已截断，不代表全部相关研究。
+本次使用在线 OpenAlex；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

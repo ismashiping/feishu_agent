@@ -1,5 +1,7 @@
 # P1-16 飞书运行时与部署入口
 
+> 2026-10-30工作区变更：普通文本经respond执行单次规划，方向评估进入已有报告流程，比较/论文解释/定义/一般问答走回答流程；有阻断歧义先澄清。/report继续显式请求报告。代码未部署且待测试，详见[契约](specs/tasks/natural-intent-routing.md)。
+
 本任务新增第五个飞书模块 `src/feishu/main.py`，保留现有 events/dedup/worker/sender 的职责。实现和离线验收边界见 [任务SPEC](specs/tasks/p1-16-feishu-runtime.md)。Phase1尚未整体验收；真实租户收发和容器运行不能从默认pytest推导。
 
 ## 它解决什么问题
@@ -142,3 +144,7 @@ Docker直连Hub超时后，只读确认既有本机7890代理可访问官方regi
 最终应用镜像ID：sha256:013d6909cef814039ea1f610e5bd4f4c1f60fc65e683714d2bde603266e50a9c。证据docker-build-proxy.txt、python-base-pull.txt、redis-base-pull.txt、image-check.json、compose-accept-result.json、compose-accept-commands.json及compose-accept-api/feishu_bot.log。真实口令收发仍以此前live-external-published.txt的1 passed/34.38秒为准（研究为合成替身）；本次生产容器验证启动/连接/停止，不追加真实医学消息。
 
 P1-16任务内无阻塞，Phase1尚未整体验收。真实E5/PG/付费LLM完整研究链路、医学支持关系人工审查、解释器升级前置要求与phase-01六份学习文档仍归P1-17；未自动开始。原有未提交改动保留，未创建Git提交。
+
+## 探索型问题来源契约
+
+普通文本与/report共用修复后的Planner门禁；未提供完整PICO不自动阻断。飞书文本及/report默认hybrid，会使用本地与PubMed；没有新增scope消息命令。需要显式local/online时使用CLI/API参数；回复保留真实在线查询追溯。见[增量SPEC](specs/tasks/exploratory-discovery.md)。

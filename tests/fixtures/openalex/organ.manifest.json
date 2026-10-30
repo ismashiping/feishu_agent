@@ -1,0 +1,10 @@
+{
+  "endpoint": "https://api.openalex.org/works",
+  "params": {
+    "search": "liver segmentation",
+    "per_page": 8
+  },
+  "fetched_at": "2026-10-29T04:17:15.288377+00:00",
+  "sha256": "e9597b02eea4ba69e85b6c6c05078c379048bd7144f99f3f0874a8b299681fda",
+  "kind": "real API response; relevance labels pending human review"
+}

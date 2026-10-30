@@ -1,0 +1,15 @@
+{
+  "previous_image": "sha256:714bd8c9bc3e1e935d479a91872efedebb8f8e45c6f37baa491f0ebca1299dd1",
+  "built_image": "sha256:c5a760146a0a6daeb825f49cda588a9a2ad3e770810001d0a1df6c59c184ec1d",
+  "hashes": {
+    "clinical_agent/application/openalex.py": "89364f60f0bf9602b9ef9c83227b39251b97e5122fc0c82e95b0fb575ab29e6b",
+    "clinical_agent/application/oa_fulltext.py": "63afc87d3197408f9185338c30471cc43beec0915f11776df15621151a0df75f",
+    "clinical_agent/application/research.py": "406bab4822c743c070ea37b2fba8e3d08a93908626d1f7adb23a032eb6841636",
+    "clinical_agent/domain/research.py": "a57258033c346dc1d2d269db2e7d19624f4dbba39411592abd29b6966d21e358",
+    "clinical_agent/domain/retrieval.py": "3bb4cd830b60ba63410d0bb6243dd5d9880d6029469bbde8e386038b98dfbfc9",
+    "clinical_agent/domain/citations.py": "ac3cf23d703edd7abb6c33f72340bb394758c68acdbcd83530ffcf8b9fe0550c",
+    "clinical_agent/domain/openalex.py": "e15dc60035863719504264a81094cc4556b50267a951ec4b1d6e362ccfa89b82",
+    "feishu/sender.py": "95030628f94ff8e0f7c096b5e0e5808e98dccfbf56f63e79fe0ab07ef3680828"
+  },
+  "schema_changed": false
+}

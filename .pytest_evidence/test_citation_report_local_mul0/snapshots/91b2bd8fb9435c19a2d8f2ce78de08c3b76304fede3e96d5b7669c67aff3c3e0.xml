@@ -1,0 +1,23 @@
+<PubmedArticleSet><PubmedArticle><MedlineCitation><PMID>123</PMID><Article>
+    <Journal><Title>Fixture Journal</Title><JournalIssue><PubDate>
+    <Year>2020</Year><Month>Feb</Month></PubDate></JournalIssue></Journal>
+    <ArticleTitle>Synthetic <i>title</i></ArticleTitle><AuthorList><Author>
+    <CollectiveName>Study Group</CollectiveName></Author></AuthorList>
+    <Abstract><AbstractText Label="RESULTS">A <i>mixed</i> result.</AbstractText></Abstract><PublicationTypeList><PublicationType UI="D016449">
+    Randomized Controlled Trial</PublicationType></PublicationTypeList>
+    </Article><CommentsCorrectionsList><CommentsCorrections RefType="ErratumIn">
+    <PMID>456</PMID></CommentsCorrections></CommentsCorrectionsList>
+    </MedlineCitation><PubmedData><ArticleIdList>
+    <ArticleId IdType="pubmed">123</ArticleId></ArticleIdList>
+    </PubmedData></PubmedArticle><PubmedArticle><MedlineCitation><PMID>456</PMID><Article>
+    <Journal><Title>Fixture Journal</Title><JournalIssue><PubDate>
+    <Year>2020</Year><Month>Feb</Month></PubDate></JournalIssue></Journal>
+    <ArticleTitle>Synthetic <i>title</i></ArticleTitle><AuthorList><Author>
+    <CollectiveName>Study Group</CollectiveName></Author></AuthorList>
+    <Abstract><AbstractText Label="RESULTS">A <i>mixed</i> result.</AbstractText></Abstract><PublicationTypeList><PublicationType UI="D016449">
+    Randomized Controlled Trial</PublicationType></PublicationTypeList>
+    </Article><CommentsCorrectionsList><CommentsCorrections RefType="ErratumIn">
+    <PMID>456</PMID></CommentsCorrections></CommentsCorrectionsList>
+    </MedlineCitation><PubmedData><ArticleIdList>
+    <ArticleId IdType="pubmed">456</ArticleId></ArticleIdList>
+    </PubmedData></PubmedArticle></PubmedArticleSet>

@@ -1,0 +1,50 @@
+........................................................................ [  5%]
+........................................................................ [ 10%]
+........................................................................ [ 15%]
+........................................................................ [ 20%]
+........................................................................ [ 26%]
+........................................................................ [ 31%]
+........................................................................ [ 36%]
+........................................................................ [ 41%]
+........................................................................ [ 47%]
+........................................................................ [ 52%]
+........................................................................ [ 57%]
+........................................................................ [ 62%]
+.......................F................................................ [ 67%]
+........................................................................ [ 73%]
+........................................................................ [ 78%]
+........................................................................ [ 83%]
+........................................................................ [ 88%]
+........................................................................ [ 94%]
+........................................................................ [ 99%]
+..........                                                               [100%]
+================================== FAILURES ===================================
+______ test_schema_has_nullable_legacy_metadata_and_incremental_revision ______
+
+    def test_schema_has_nullable_legacy_metadata_and_incremental_revision():
+        from pathlib import Path
+    
+        from alembic.config import Config
+        from alembic.script import ScriptDirectory
+    
+        from clinical_agent.adapters.postgres.models import DocumentRecord
+    
+        assert DocumentRecord.__table__.c.ingestion_metadata.nullable
+        config = Config(str(Path(__file__).resolve().parents[2] / "alembic.ini"))
+        scripts = ScriptDirectory.from_config(config)
+>       assert scripts.get_current_head() == "p1001_0008"
+E       AssertionError: assert 'oa3001_0009' == 'p1001_0008'
+E         
+E         - p1001_0008
+E         + oa3001_0009
+
+tests\unit\test_ingestion_mapping.py:70: AssertionError
+============================== warnings summary ===============================
+tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[accepted-None]
+  E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\lark_oapi\ws\pb\google\protobuf\internal\well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/unit/test_ingestion_mapping.py::test_schema_has_nullable_legacy_metadata_and_incremental_revision
+1 failed, 1377 passed, 122 deselected, 1 warning in 170.32s (0:02:50)

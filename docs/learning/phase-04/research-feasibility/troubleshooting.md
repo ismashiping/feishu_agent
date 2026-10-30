@@ -1,0 +1,11 @@
+# 运行与排错
+
+Windows读取UTF-8 fixtures使用`python -X utf8 -m pytest`；默认GBK可能在收集阶段报UnicodeDecodeError，这不算测试通过或业务断言失败。
+
+出现研究处理失败：查feishu_research_failed的request_id/error_code。extraction_failed检查规划Schema诊断；model_output_invalid检查分析字段和真实引用；generation_timeout检查共享预算及供应商响应。不要记录密钥或用户文本到常规日志。
+
+无原论文候选：查看paper_target、identity_checks和日期约束；method_origin_supported只是基于元数据及模型原文判断，不能宣称人工验证。无命中不是不存在研究。
+
+报告unknown：确认数据/权限、基线、资源及独立验证条件。不能删除unknown或虚构指标让报告看起来完整。
+
+真实检查脚本scripts/research_refactor_live.py只做同容器调用和渲染，不发送飞书消息；该脚本成功不能替代用户实收确认。实际命令、失败及未验收范围以验收记录为准。

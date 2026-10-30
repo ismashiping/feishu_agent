@@ -1,5 +1,39 @@
 # 基础RAG与证据关联回答（P1-09）
 
+## Phase 5 本地混合检索（2026-10-28）
+
+默认mode=vector保留原行为；API的options增加mode=keyword|vector|hybrid、candidate_limit（默认50、1–100且不小于top_k）、keyword_query（可选ASCII文本）、date_from/date_to（成对ISO日期）。CLI对应 --retrieval-mode、--candidate-limit、--keyword-query、--local-date-from/--local-date-to。本地日期仅接纳完整出版日，未知/年/月精度条目明确排除，不补造日期。
+
+keyword不计算查询Embedding，hybrid计算一次原问题Embedding，再在同一PostgreSQL快照内取得FTS/向量候选并按chunk_id做RRF（k=60），同分UUID升序，不合并掉同文献不同片段。任何必需通道失败即报错，不静默降级；空通道为成功。非vector模式不支持非零min_similarity，不能用余弦阈值过滤RRF/FTS。
+
+FTS为simple ASCII词项匹配与精确PMID/DOI辅助查询，不是BM25或中文分词。中文问题可显式给英文keyword_query；不提供时keyword/hybrid返回retrieval_language_unsupported（API422），vector仍用既有多语言模型。
+
+结果ResearchAnswer增加local_retrieval_mode/strategy、local_channel_status和retrieval_warnings；Python RetrievalResult的hits还保留keyword_rank/vector_rank/fusion_score与score_type。分数不表示医学质量，引用仍来自原证据门禁。scope=hybrid表示本地与在线来源，options.mode=hybrid表示本地算法，两者独立；在线条目不参加本地RRF，PubMed日期仍使用pubmed对象设置。
+
+**现有数据库需显式 `alembic upgrade head` 到 p501_0003**：该迁移增加STORED search_vector与GIN，旧文献/片段/向量/ID保留，新写入自动更新。应用不会自动迁移；本次真实迁移测试仅在隔离测试库执行，没有改用户现有库。用法/范围见 [P5-01](specs/tasks/p5-01-hybrid-retrieval.md)、[学习导航](learning/phase-05/README.md)及[验收记录](phase5-acceptance.md)。以下历史说明按原时点阅读。
+
+## Phase 4 在线来源（2026-10-28）
+
+CLI `ask` 增加 `--scope local|online|hybrid`，API `POST /v1/questions` 接受同名 scope（默认local）及可选 pubmed 对象。pubmed 有 query、date_from/date_to（成对ISO日期）、date_field=pdat|edat、sort=relevance|pub_date、max_results（默认10，1–20）。CLI 对应 --pubmed-query、--date-from/--date-to、--date-field、--sort、--max-results。date_* 仅约束在线分支；online/hybrid 不支持本地 document_ids 或非零 min_similarity。
+
+正式装配仍复用现有 LLM/E5/数据库资源。online 不调用本地向量检索；hybrid 合并本地和PubMed来源、预留名额并去重，不是 Phase 5 的关键词/向量融合。飞书纯文本入口继续默认local，未新增消息语法；渲染器可显示带在线来源的共享结果。
+
+JSON 的 retrieval_scope 与实际请求一致，search_provenance 记录实际query/官方translation、时间、日期/排序、数量、截断、partial和缺失PMID。在线摘要保留真实官方URL/快照hash/字符定位与出版类型、更正关联。无摘要仅metadata_only，不能当claims证据；不自动入库、不代表全文或全部最新研究。仅本地回答的原有引用规则保留。
+
+可选环境 PUBMED_TOOL/PUBMED_EMAIL/PUBMED_API_KEY；基础公开小请求不要求key，部署时登记真实tool/contact。每进程串行/至少0.34秒间隔，总期限30秒，最多20条/8次HTTP尝试。不同进程不协调，启用在线检索的实例需限制为一个并考虑同IP其他工具配额。API 的 pubmed_failed/invalid/timeout 对应503/502/504；获取失败不伪装成完整零结果，partial明确显示。
+
+详情见 [P4-01 SPEC](specs/tasks/p4-01-pubmed-online.md)、[学习导航](learning/phase-04/README.md)及[验收记录](phase4-acceptance.md)。Phase 3 和更早验收记录按当时事实阅读，不当成当前仅local的限制。
+
+## Phase 3 PICO 接入（2026-10-28）
+
+正式共享装配默认先做一次 PICO 分类/抽取，复用 LLM_* 配置和现有模型连接，默认上限 20 秒并受研究总期限限制。每次普通问答会增加一次模型调用；即使本地没有证据也先执行规划。直接构造 ResearchService 不传 planner 时保持原行为，不代表正式入口会在规划失败后静默跳过。
+
+结果 JSON 新增 query_plan，保留原问题、分类、PICO、候选扩展词与原文区间。现有 QuestionRequest 先去首尾空白，区间相对 query_plan.original_question 的 Python 码点索引。检索/生成仍用原问题，未接入 PubMed 或新的关键词通道。
+
+status 新增 needs_clarification：仅 uncertain 且有具体歧义时返回，claims/sources 为空；补充问题后重新提交，无持久对话状态。缺 comparator 合法保留 null，不自动补造。规划错误为 extraction_failed/timeout，不能伪装成证据不足；API 对应 502/504，CLI 沿用错误 JSON/非零退出码，飞书显示澄清与 PICO。
+
+完整契约、阶段验收边界见 [P3-01 SPEC](specs/tasks/p3-01-pico.md)及[开发进度](development-plan.md)。真实模型三例未验收时不声称已证明 PICO 语言理解准确率；原有命令/历史验证按各自时点阅读。
+
 ## 当前模型接入方式（2026-10-27 修订）
 
 LangGraph 负责 Agent 状态、节点与分支编排；LangChain 负责标准消息和模型调用。`adapters/llm.py` 中的 `LLMSettings` / `open_llm` 通过通用 `ChatOpenAI` 装配模型，`LangChainAnswerGenerator` 使用 `BaseChatModel.invoke`，领域层独立核验引用。DeepSeek 仅是配置示例中的 API 服务商，不存在供应商专属模块、类型、依赖或业务分支。

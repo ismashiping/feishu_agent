@@ -1,0 +1,15 @@
+# 运行与排错
+
+新运行镜像必须按uv.lock安装rag依赖；旧容器可能没有llama-index，当前runtime会提前检查它。临时验收目录补装依赖不等于生产镜像已更新。
+
+新迁移是oa3001_0009，新增oa_fulltext_indexes与oa_fulltext_vectors，不重命名旧PMID表。迁移必须由操作者显式执行：先确认数据库目标，再 `alembic upgrade head`；服务不会自动迁移。首次交付只验证独立测试库，后续用户授权后已对clinical_agent_e2e业务库备份并升级，详见../../../openalex-stage3/deployment/acceptance.md。不要重复覆盖该备份。
+
+fulltext_license_not_allowed：本批次只接纳明确CC BY/CC0；不要把OA标志当许可。fulltext_url_not_allowed/location_unsupported：域名或来源类型不支持，保留摘要。fulltext_identity_mismatch：题名或DOI不符，不能用相似论文替代。fulltext_budget/timeout：如实记录，不发布半索引。缓存identity/representation/location错误：停止使用该缓存段落，排查签名和事务，不静默拼接。
+
+PDF只处理文本层，扫描件、复杂字体、两栏阅读顺序和表格都有限制；真实PLOS样例有字体解析告警，不能声称完整版面与全部特殊符号已核验。结构化表格不展平成粘连数字，表格专门证据尚未实现。原始PDF与JATS仍可通过manifest核对。
+
+tests/unit/test_oa_fulltext.py验证合成边界与真实fixture；scripts/oa_fulltext_integration.py验证真实E5和隔离库缓存；scripts/oa_fulltext_answer_check.py验证保存全文段落到真实模型和引用门禁，不冒称重新做了完整在线发现。结果与失败记录统一见验收文件。
+
+后续真实部署使用scripts/oa_stage3_deploy.py及scripts/oa_stage3_e2e.py：前者先备份再迁移/重建，后者通过实际API端口18080调用全链路。scope=hybrid表示本地与在线来源；options.mode=hybrid表示本地关键词与向量融合，两者不同。当前默认vector能处理中文；显式ASCII关键词模式的中文请求仍会被拒绝。
+
+本次飞书日志出现accepted→delivery unknown，但用户实际收到正常回答。unknown表示无法确认副作用，不是确定未发出；先向测试者核对，不能盲目重试造成重复。实收成功也不等于模型质量通过：本次飞书只有一篇摘要，API采集问题召回了Patients而未召回具体采集段。章节、引用、服务健康和研究结论质量必须分别核验。

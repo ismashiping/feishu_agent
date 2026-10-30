@@ -1,5 +1,39 @@
 # FastAPI入口（P1-11）
 
+## Phase 5 本地混合检索（2026-10-28）
+
+默认mode=vector保留原行为；API的options增加mode=keyword|vector|hybrid、candidate_limit（默认50、1–100且不小于top_k）、keyword_query（可选ASCII文本）、date_from/date_to（成对ISO日期）。CLI对应 --retrieval-mode、--candidate-limit、--keyword-query、--local-date-from/--local-date-to。本地日期仅接纳完整出版日，未知/年/月精度条目明确排除，不补造日期。
+
+keyword不计算查询Embedding，hybrid计算一次原问题Embedding，再在同一PostgreSQL快照内取得FTS/向量候选并按chunk_id做RRF（k=60），同分UUID升序，不合并掉同文献不同片段。任何必需通道失败即报错，不静默降级；空通道为成功。非vector模式不支持非零min_similarity，不能用余弦阈值过滤RRF/FTS。
+
+FTS为simple ASCII词项匹配与精确PMID/DOI辅助查询，不是BM25或中文分词。中文问题可显式给英文keyword_query；不提供时keyword/hybrid返回retrieval_language_unsupported（API422），vector仍用既有多语言模型。
+
+结果ResearchAnswer增加local_retrieval_mode/strategy、local_channel_status和retrieval_warnings；Python RetrievalResult的hits还保留keyword_rank/vector_rank/fusion_score与score_type。分数不表示医学质量，引用仍来自原证据门禁。scope=hybrid表示本地与在线来源，options.mode=hybrid表示本地算法，两者独立；在线条目不参加本地RRF，PubMed日期仍使用pubmed对象设置。
+
+**现有数据库需显式 `alembic upgrade head` 到 p501_0003**：该迁移增加STORED search_vector与GIN，旧文献/片段/向量/ID保留，新写入自动更新。应用不会自动迁移；本次真实迁移测试仅在隔离测试库执行，没有改用户现有库。用法/范围见 [P5-01](specs/tasks/p5-01-hybrid-retrieval.md)、[学习导航](learning/phase-05/README.md)及[验收记录](phase5-acceptance.md)。以下历史说明按原时点阅读。
+
+## Phase 4 在线来源（2026-10-28）
+
+CLI `ask` 增加 `--scope local|online|hybrid`，API `POST /v1/questions` 接受同名 scope（默认local）及可选 pubmed 对象。pubmed 有 query、date_from/date_to（成对ISO日期）、date_field=pdat|edat、sort=relevance|pub_date、max_results（默认10，1–20）。CLI 对应 --pubmed-query、--date-from/--date-to、--date-field、--sort、--max-results。date_* 仅约束在线分支；online/hybrid 不支持本地 document_ids 或非零 min_similarity。
+
+正式装配仍复用现有 LLM/E5/数据库资源。online 不调用本地向量检索；hybrid 合并本地和PubMed来源、预留名额并去重，不是 Phase 5 的关键词/向量融合。飞书纯文本入口继续默认local，未新增消息语法；渲染器可显示带在线来源的共享结果。
+
+JSON 的 retrieval_scope 与实际请求一致，search_provenance 记录实际query/官方translation、时间、日期/排序、数量、截断、partial和缺失PMID。在线摘要保留真实官方URL/快照hash/字符定位与出版类型、更正关联。无摘要仅metadata_only，不能当claims证据；不自动入库、不代表全文或全部最新研究。仅本地回答的原有引用规则保留。
+
+可选环境 PUBMED_TOOL/PUBMED_EMAIL/PUBMED_API_KEY；基础公开小请求不要求key，部署时登记真实tool/contact。每进程串行/至少0.34秒间隔，总期限30秒，最多20条/8次HTTP尝试。不同进程不协调，启用在线检索的实例需限制为一个并考虑同IP其他工具配额。API 的 pubmed_failed/invalid/timeout 对应503/502/504；获取失败不伪装成完整零结果，partial明确显示。
+
+详情见 [P4-01 SPEC](specs/tasks/p4-01-pubmed-online.md)、[学习导航](learning/phase-04/README.md)及[验收记录](phase4-acceptance.md)。Phase 3 和更早验收记录按当时事实阅读，不当成当前仅local的限制。
+
+## Phase 3 PICO 接入（2026-10-28）
+
+正式共享装配默认先做一次 PICO 分类/抽取，复用 LLM_* 配置和现有模型连接，默认上限 20 秒并受研究总期限限制。每次普通问答会增加一次模型调用；即使本地没有证据也先执行规划。直接构造 ResearchService 不传 planner 时保持原行为，不代表正式入口会在规划失败后静默跳过。
+
+结果 JSON 新增 query_plan，保留原问题、分类、PICO、候选扩展词与原文区间。现有 QuestionRequest 先去首尾空白，区间相对 query_plan.original_question 的 Python 码点索引。检索/生成仍用原问题，未接入 PubMed 或新的关键词通道。
+
+status 新增 needs_clarification：仅 uncertain 且有具体歧义时返回，claims/sources 为空；补充问题后重新提交，无持久对话状态。缺 comparator 合法保留 null，不自动补造。规划错误为 extraction_failed/timeout，不能伪装成证据不足；API 对应 502/504，CLI 沿用错误 JSON/非零退出码，飞书显示澄清与 PICO。
+
+完整契约、阶段验收边界见 [P3-01 SPEC](specs/tasks/p3-01-pico.md)及[开发进度](development-plan.md)。真实模型三例未验收时不声称已证明 PICO 语言理解准确率；原有命令/历史验证按各自时点阅读。
+
 API复用已有IngestionService、RetrievalService和ResearchService，不改变当前基础RAG编排。CLI保留原有行为；飞书已完成[纯事件过滤](feishu-events.md)，尚未接入业务运行时。[任务SPEC](specs/tasks/p1-11-fastapi.md)、[执行记录](development-plan.md)。
 
 ## 安装与启动
@@ -86,3 +120,15 @@ ready仅代表资源生命周期已装配，不在每次探针访问数据库/LL
 真实FastAPI与HTTPX TestClient覆盖接口/隐私/大小、满载、取消和生命周期。另用实际Uvicorn loopback TCP、固定E5 CPU及专用PostgreSQL完成PDF导入/重入、XML导入与引用问答，实际模型只加载一次；LLM明确为HTTPX MockTransport，没有发起真实DeepSeek付费请求。没有将前序独立真实LLM记录冒充本轮整链路验收。
 
 基础11包环境与api-only23包环境分别验证导入/CLI、真实生命周期/路由；未新建wheel或验证Linux、公网部署、生产性能、医学专家支持关系评审。Path.resolve逃逸测试使用明确解析替身，不声称Windows实际符号链接权限已验收。已撤销四节点修订保持撤销，Phase1飞书与完整阶段验收仍待后续任务。
+
+## Phase 6 证据分析
+
+`POST /v1/analyses` 复用 `/v1/questions` 请求结构，question 为科研想法，options/scope/pubmed 仍遵循既有校验。返回 AnalysisResult：研究方法、五维相似性、候选缺口、双侧比较、可信文献来源及检索追溯。澄清不检索；空结果不判创新；非法引文拒绝。普通 `/v1/questions` 保持原行为。本入口不是 Phase 7 报告。真实医学验收状态见 [阶段记录](phase6-acceptance.md)。
+
+## Phase 7 科研选题现状调研报告
+
+`POST /v1/reports` 与 questions 使用同样请求体，返回 `report`（结构化报告）及由该对象渲染的 `markdown`。question 是用户科研想法；无需手工传入分析。复用规划/检索/Phase6，核对来源快照与有PMID来源的官方元数据，再做逐项模型支持审核。status 为 verified/verification_incomplete/rejected，content_status 独立表达覆盖范围。verified 不代表医学正确或创新。原 questions/analyses 保持；实际验收及待审项见 [阶段记录](phase7-acceptance.md)。
+
+## 探索型发现增量
+
+问答、分析、报告请求共用Planner澄清决策，缺C/O/模态本身不再阻断新契约。请求scope默认hybrid；仅本地时显式提交`"scope":"local"`，仅在线可提交`"scope":"online"`。mode与scope独立。QueryPlan新增可选blocking_ambiguities，空列表表示非阻断，null兼容旧输出；响应仍保留原文、候选词与实际来源追溯。见[增量SPEC](specs/tasks/exploratory-discovery.md)。

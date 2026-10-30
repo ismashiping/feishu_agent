@@ -382,7 +382,7 @@ class _SafeFormatter(logging.Formatter):
             "level": record.levelname.lower(),
             "timestamp": datetime.fromtimestamp(record.created, UTC).isoformat(),
         }
-        for key in ("request_id", "status", "dedup_status"):
+        for key in ("request_id", "status", "dedup_status", "error_code"):
             value = getattr(record, key, None)
             if isinstance(value, str):
                 data[key] = value

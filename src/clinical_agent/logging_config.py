@@ -9,7 +9,22 @@ from structlog.typing import EventDict
 from clinical_agent.config import Settings
 
 _HANDLER_NAME = "clinical_agent.json"
-_CONTEXT_FIELDS = {"request_id", "app_env", "error_code", "exception_type"}
+# Diagnostic values are closed tokens produced by the planner, never payloads.
+_CONTEXT_FIELDS = {
+    "request_id",
+    "app_env",
+    "error_code",
+    "exception_type",
+    "stage",
+    "failure_kind",
+    "rule_code",
+    "field_paths",
+    "response_hash",
+    "evidence_stage",
+    "evidence_counts",
+    "model_id",
+    "finish_reason",
+}
 _ALLOWED_FIELDS = _CONTEXT_FIELDS | {"event", "level", "timestamp"}
 
 

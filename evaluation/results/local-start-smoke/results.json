@@ -1,0 +1,288 @@
+{
+  "dataset_version": "phase9-synthetic-v1",
+  "dataset_kind": "synthetic_formula_fixture",
+  "scope": "offline_replay",
+  "compatibility": "5e2ac2f0a699e3e5906ca8d5175ce29427f12bc38b781f72a3190ed196ac2566",
+  "observations_sha256": "2cf39e4969051c3e3f6c0ecc769186f4bf8285fc002a1738a95cf0135b7cbb54",
+  "metrics": {
+    "recall_at_k": {
+      "value": 0.5,
+      "numerator": 1.0,
+      "denominator": 2.0,
+      "status": "fail",
+      "threshold": {
+        "min": 0.8,
+        "max": 1
+      }
+    },
+    "mrr": {
+      "value": 0.25,
+      "numerator": 0.5,
+      "denominator": 2.0,
+      "status": "fail",
+      "threshold": {
+        "min": 0.8,
+        "max": 1
+      }
+    },
+    "identity_accuracy": {
+      "value": 0.5,
+      "numerator": 1.0,
+      "denominator": 2.0,
+      "status": "fail",
+      "threshold": {
+        "min": 1,
+        "max": 1
+      }
+    },
+    "location_accuracy": {
+      "value": 0.5,
+      "numerator": 1.0,
+      "denominator": 2.0,
+      "status": "fail",
+      "threshold": {
+        "min": 1,
+        "max": 1
+      }
+    },
+    "claim_support": {
+      "value": 0.0,
+      "numerator": 0.0,
+      "denominator": 2.0,
+      "status": "fail",
+      "threshold": {
+        "min": 1,
+        "max": 1
+      }
+    },
+    "citation_coverage": {
+      "value": 0.5,
+      "numerator": 1.0,
+      "denominator": 2.0,
+      "status": "fail",
+      "threshold": {
+        "min": 1,
+        "max": 1
+      }
+    },
+    "success_rate": {
+      "value": 0.6666666666666666,
+      "numerator": 2.0,
+      "denominator": 3.0,
+      "status": "fail",
+      "threshold": {
+        "min": 1,
+        "max": 1
+      }
+    },
+    "refusal_accuracy": {
+      "value": 1.0,
+      "numerator": 1.0,
+      "denominator": 1.0,
+      "status": "not_gated",
+      "threshold": null
+    },
+    "allowed_claim_recall": {
+      "value": 0.0,
+      "numerator": 0.0,
+      "denominator": 2.0,
+      "status": "fail",
+      "threshold": {
+        "min": 1,
+        "max": 1
+      }
+    },
+    "forbidden_claim_rate": {
+      "value": 0.5,
+      "numerator": 1.0,
+      "denominator": 2.0,
+      "status": "fail",
+      "threshold": {
+        "min": 0,
+        "max": 0
+      }
+    }
+  },
+  "counts": {
+    "success": 1,
+    "model_failure": 1,
+    "refusal": 1,
+    "correct_refusal": 1
+  },
+  "samples": [
+    {
+      "case_id": "a",
+      "observation": {
+        "case_id": "a",
+        "status": "success",
+        "retrieved_chunk_ids": [
+          "irrelevant",
+          "a"
+        ],
+        "claims": [
+          {
+            "claim_id": "unsupported",
+            "citations": [
+              {
+                "chunk_id": "a",
+                "source_id": "fixture:a",
+                "location": "abstract:1"
+              },
+              {
+                "chunk_id": "unknown",
+                "source_id": "fabricated",
+                "location": "none"
+              }
+            ]
+          },
+          {
+            "claim_id": "uncited",
+            "citations": []
+          }
+        ]
+      },
+      "citation_checks": [
+        {
+          "claim_id": "unsupported",
+          "citation": {
+            "chunk_id": "a",
+            "source_id": "fixture:a",
+            "location": "abstract:1"
+          },
+          "identity_valid": true,
+          "location_valid": true
+        },
+        {
+          "claim_id": "unsupported",
+          "citation": {
+            "chunk_id": "unknown",
+            "source_id": "fabricated",
+            "location": "none"
+          },
+          "identity_valid": false,
+          "location_valid": false
+        }
+      ],
+      "annotation_status": "reviewed"
+    },
+    {
+      "case_id": "b",
+      "observation": {
+        "case_id": "b",
+        "status": "model_failure",
+        "error": "synthetic timeout"
+      },
+      "citation_checks": [],
+      "annotation_status": "reviewed"
+    },
+    {
+      "case_id": "c",
+      "observation": {
+        "case_id": "c",
+        "status": "refusal"
+      },
+      "citation_checks": [],
+      "annotation_status": "reviewed"
+    }
+  ],
+  "comparison": {
+    "status": "not_requested",
+    "regression_failures": []
+  },
+  "offline_status": "fail",
+  "overall_status": "fail",
+  "unexecuted_scopes": [
+    "real_model",
+    "external",
+    "medical_review",
+    "service_load"
+  ],
+  "provenance": {
+    "python": "3.12.16",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel",
+    "git_head": "49e111072d2fc1ec5493a2122fb839e54557a40f",
+    "files": {
+      "src\\clinical_agent\\__init__.py": "e8e5f65bdffe5e0e1719ca4e4f86c237fc38458bfb4b375f752b9e73cba9b23b",
+      "src\\clinical_agent\\__main__.py": "1154e46fea2ce05f6107a4e6787f533d618383db80a93781193a9e18675b6317",
+      "src\\clinical_agent\\adapters\\__init__.py": "4422256a697109bf503187652c555ae6c9316f9dd2b741d96d23b20367f593bc",
+      "src\\clinical_agent\\adapters\\embedding.py": "e70d453c1d2210a1307320169bc9786d96c92ddd35de6d0b22960f3650f2c4fe",
+      "src\\clinical_agent\\adapters\\langchain_generation.py": "1322e0d151ad75845285985506e712083a4e306d92a6ded082b6d91675d438a2",
+      "src\\clinical_agent\\adapters\\llm.py": "75d5a7e019b47175c8c9fd393403c978cae0446caa64f692c84640bee4cfc5f5",
+      "src\\clinical_agent\\adapters\\offline.py": "2456845c0540eb066c7a8dda01b2147ca96fd63ec2a4856aab7b12b56b02f80b",
+      "src\\clinical_agent\\adapters\\pdf.py": "9c0eefc15cb71dadeb507302e22c7c0c23bb60472b16e28dec11558b4afad131",
+      "src\\clinical_agent\\adapters\\postgres\\__init__.py": "d4628846bb540a2c607e15237ab6cc4211eaa233dc04df0810db56fa3f2b5dc0",
+      "src\\clinical_agent\\adapters\\postgres\\connection.py": "9d88ff1446e8f113468f9ddd1669a00777c8515f49ecbac014c02f0432a2a004",
+      "src\\clinical_agent\\adapters\\postgres\\governance.py": "279de4caaadd2c6a4b7fdbc1ffbd90e260c09e75d114b77eeab178f1455a01aa",
+      "src\\clinical_agent\\adapters\\postgres\\maintenance.py": "c1dba4c5091dfc16b03a6039298a7a022ebf436f5b039635e56de26bb3c96e5d",
+      "src\\clinical_agent\\adapters\\postgres\\models.py": "9e4772e34c036c74a3bb9f9db9137d09708e1c5752a60c7db57fbd7ce06f9385",
+      "src\\clinical_agent\\adapters\\postgres\\online_publication.py": "341fc6816f8dc75695e7e1d5324ee2c84a2ab67e3d5ae2c647acfc731e399eb9",
+      "src\\clinical_agent\\adapters\\postgres\\rebuild.py": "c766a0d21ce0c963c501de2c1663684ee6c22510b857f64fd718638b413ba2a7",
+      "src\\clinical_agent\\adapters\\postgres\\retrieval.py": "a1774cb5180d655b0584364cccbf1e029c263b9088eff142b432f4db56c55768",
+      "src\\clinical_agent\\adapters\\postgres\\store.py": "779f3f637edbb1152a9fe15f775eb4132d0d79c221ae913be1e42f1ea78bebdc",
+      "src\\clinical_agent\\adapters\\postgres\\update_runs.py": "0402997c7c9f7952dec26f8e5d0b3b281ed2cacb2794b5f4acfccc06ad5ca7cd",
+      "src\\clinical_agent\\adapters\\postgres\\versions.py": "abab5f6f5b37636c799b9b5b9f0388b9023fce712ae96ec7f23fc5f9d5f6c5bb",
+      "src\\clinical_agent\\adapters\\pubmed_online.py": "0e39aa19f7436c4b8cd5f0db97c7c740e30c4f44480a7e7e43ef2dcde018397b",
+      "src\\clinical_agent\\adapters\\pubmed_xml.py": "006257d02618eceec78c36192837522fe622258869e7e63dd2c82d483e008725",
+      "src\\clinical_agent\\adapters\\report_snapshot.py": "afc17cd015a5fa6d8e4fba43e52765c7f6743da4de092fd5819dd1363bdd6ff0",
+      "src\\clinical_agent\\api.py": "e00331b5da1cf44520db39a4cc7175b01b63a99498ba43415f4e9feb8f7c8c64",
+      "src\\clinical_agent\\api_runtime.py": "6ffb1cced234a8e4ad9c0d61b032360774aa59096de0d75f543fd5ee88aa8824",
+      "src\\clinical_agent\\application\\__init__.py": "e160446b0b4c5135a315eef111d169e096d537ae75ab33af2dc6038e095e7447",
+      "src\\clinical_agent\\application\\agents.py": "7127101a15ef00923a404c55d1fb9e578683702dcc5c0f45bd9ef1353113439e",
+      "src\\clinical_agent\\application\\analysis.py": "a5fd46cc78dd878258d970d2d96210375e6962d052670ab265de9e72aa184038",
+      "src\\clinical_agent\\application\\evaluation.py": "acf8cf16c609834490edc146935aa96cb6e86296e696d33d8fb390f13358f6ff",
+      "src\\clinical_agent\\application\\ingestion.py": "7967e33c34e9a1e016f40be02cf7f0eaad622805d3be7a08749f2b611c3a9027",
+      "src\\clinical_agent\\application\\online_updates.py": "7adff0e11cae053fd66213e2dfa4f65354325431d3eff9dbda92211ac03c11c9",
+      "src\\clinical_agent\\application\\pico.py": "15b8f74a1bec9d0444eef0dc556b271a942ffe70b9ab1de79114e9ed4eae4f43",
+      "src\\clinical_agent\\application\\pubmed.py": "8d3066a77030e9fc5d2ce3c85fb8c2249363a09be4dbfd777249a0b5b8cf44e3",
+      "src\\clinical_agent\\application\\report.py": "190973597cf6596039573189ca2ae6f54c4630cb40b7a11c9f227df5dd0c8406",
+      "src\\clinical_agent\\application\\research.py": "6fd841fa81431f52bca633c2672aa811353f7d1a9ca2f78325b9b2410fb564de",
+      "src\\clinical_agent\\application\\retrieval.py": "e953e11283ecc783e96e942919d04ff59e07d86c55fa2c6ee77397f9d8c65f51",
+      "src\\clinical_agent\\application\\updates.py": "981f2b9ab5aeca556fd6283fffead56bfeaa9fff647c31180ea5a19c3968d773",
+      "src\\clinical_agent\\application\\workflow.py": "72249599794204d7dbd44223073353a49692655b9e98fc19ca557d47d496f928",
+      "src\\clinical_agent\\bootstrap.py": "00a7d28f6502ed2db7ecde16a7b92879ac4a1b4a7efc856316d643218f6a23a1",
+      "src\\clinical_agent\\cli.py": "374c58f50c9eb0ac82394c507fc1030bce2d7b63b4a38266061e0e4660c63806",
+      "src\\clinical_agent\\command_runtime.py": "44980ae92b7decb3220a3be43a4dc96173e7d7828ba0867fa1d7f3b722f47fa9",
+      "src\\clinical_agent\\config.py": "10c3cb58eae63aba10d60269d4ff4061321ae6d69ae30a7c17f53adbd57df8a6",
+      "src\\clinical_agent\\domain\\__init__.py": "4826c2cec3782c1bbaac82e0d22d49bc9785eaa3e2a428a6447c000a34c58849",
+      "src\\clinical_agent\\domain\\analysis.py": "1ca0ead10e2e9e65fb11b0baa339b664f2ae9af3fc33b8663662ec626fe2c346",
+      "src\\clinical_agent\\domain\\chunking.py": "d54c0e9e881476b53393034763589c1a3126419a96267a053b0ca62f8a5e4485",
+      "src\\clinical_agent\\domain\\citations.py": "baec50c9162257df8bca356b22fd7678670ad9df3b5c2ba858711a57451cb75f",
+      "src\\clinical_agent\\domain\\embedding.py": "a9fc47e0476496173795286c9c0c24b21c9f07364757c900bc366279743e189b",
+      "src\\clinical_agent\\domain\\governance.py": "a0a3aabdc04e8d42b940a4553f762a5a4e867a1692fc26dead57a2172b7120dd",
+      "src\\clinical_agent\\domain\\hybrid.py": "add12108bfe126ab29caa971efa128da18913efc13e34a1afa99f68d61ab85aa",
+      "src\\clinical_agent\\domain\\ingestion.py": "636d15a22649e24cdfc5c2790b0d08d303667eadedd1b07f0a5bb8f6b777d039",
+      "src\\clinical_agent\\domain\\maintenance.py": "56eb4f06b6d3b75539c1ec523d5c82a6eb1b9451d98b27fa40810baa89397e1b",
+      "src\\clinical_agent\\domain\\models.py": "dd35e16078699fa65798746621fe2fa51940956a49b111d55d6acf69a7748680",
+      "src\\clinical_agent\\domain\\pico.py": "3dca48e3a45b4ab19e7a8468ee49fa145202d6a5118bce6318379160f54159d7",
+      "src\\clinical_agent\\domain\\pubmed.py": "adcef9861bb4c9ae8aeb5056777f45742f3cfc0244c9367610fb4982b150665c",
+      "src\\clinical_agent\\domain\\report.py": "9750731e181c5d23ff23466a03a6015a15cc6cabdea75dcac69a4b0e2bcb7805",
+      "src\\clinical_agent\\domain\\research.py": "f6d7c43548df0d8028c0193bfd99dd9ded138607ab431d5df97deda4a8b72c5c",
+      "src\\clinical_agent\\domain\\retrieval.py": "f1e020b4cb2c431a96c9b3d8e278977ffbf412703f4603f8facea95e8f8f02b9",
+      "src\\clinical_agent\\domain\\updates.py": "3f4426d195740c9cb43be60bb9a3fcc0701d28e4b3a6792625efd3b3aaa2de7a",
+      "src\\clinical_agent\\logging_config.py": "456fbae8f76382177ccef9639d2456e2ce7e0a12df807ad6503748020751017b",
+      "src\\feishu\\__init__.py": "fde423bf67c049cb583c08c22d29f09336ea8936a9118faa36ae96299c0ebdd7",
+      "src\\feishu\\dedup.py": "e6ccbbeb1c08e4eae527a8e24f348b7abd9267168d6918c5b878b327fcc67258",
+      "src\\feishu\\events.py": "0a8886f9f24c1dc3fdaa81a38ab5f072c980303a88186c954be9a32544780000",
+      "src\\feishu\\main.py": "7a7d1cb594bc0393ef0b0502bca7b84034638403aa1676b4f8a907d42a70fa8a",
+      "src\\feishu\\sender.py": "a6a96bfc8f3e38ebe143db278377a0c383019e3c58e1ff867757b00be361d371",
+      "src\\feishu\\worker.py": "63ad5954fa91197e266522c3f659f1ea200bd8cdc63dc1b9597e97aff78681f3",
+      "scripts\\evaluate_phase9.py": "faaebe4b28317807f716dc3249bcb70e4ce0c58b7964eaac45560210659ca3bf",
+      "uv.lock": "0cec70729e64762a4606dd3375c42d5f6eb9373860fb65cacbf2e14f133721c0",
+      "pyproject.toml": "ead9d902ba6cfd95186349c0e2c20e05c383bc11d195d0a21b63ce5f59ea88f8"
+    },
+    "configuration": {
+      "retrieval": "frozen_replay",
+      "model_revision": "none",
+      "prompt": "none",
+      "seed": 0,
+      "temperature": 0
+    },
+    "input_files": {
+      "dataset.json": "9a311624be7ad5f045a9f3e12c43e34c54f36137592d8eae008d69398790a668",
+      "observations.json": "1d2fe279e6dbc3f6d0a8ec5389b8cf621958d1542db0241bbf055a518267c5b2",
+      "thresholds.json": "044b29e6d8e942ab5240e2483a727ce4e243bcda0fee723b9c629b368f14866b"
+    }
+  },
+  "run_id": "a8c7605ac68302922834"
+}

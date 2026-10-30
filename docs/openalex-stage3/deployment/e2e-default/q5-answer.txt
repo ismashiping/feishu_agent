@@ -1,0 +1,9 @@
+本次检索证据不足，不代表不存在相关研究或证据证明无效。
+
+局限与范围
+已查询 OpenAlex，证据限于本次检索与已获取摘要，不保证检全。
+引用关联已核对；医学语义支持仍需人工复核。
+证据尚未充分覆盖：no_direct_evidence、future directions、limitations、open problems、technical bottlenecks
+未检索到符合条件的证据，不代表证据证明无效。
+检索范围：OpenAlex 匹配 5478 条；本次返回 37 个候选；请求状态：complete。候选已截断，不代表全部相关研究。
+本次使用在线 OpenAlex及本地来源；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

@@ -1,0 +1,60 @@
+{
+  "started_at": "2026-10-27T19:27:26.823953+00:00",
+  "llm_config_present": {
+    "LLM_BASE_URL": false,
+    "LLM_API_KEY": false,
+    "LLM_MODEL": false
+  },
+  "paid_calls": 0,
+  "medical_review": "not_performed",
+  "end_to_end": "blocked_missing_current_llm_configuration_and_paid_authorization",
+  "pubmed": [
+    {
+      "id": "blood-pressure",
+      "status": "complete",
+      "pmids": [
+        "26551272",
+        "34010531"
+      ],
+      "checks": [
+        {
+          "pmid": "26551272",
+          "snapshot_hash_valid": true,
+          "official_identity_match": true
+        },
+        {
+          "pmid": "34010531",
+          "snapshot_hash_valid": true,
+          "official_identity_match": true
+        }
+      ],
+      "seconds": 3.22
+    },
+    {
+      "id": "sepsis",
+      "status": "complete",
+      "pmids": [
+        "39011361",
+        "42196888"
+      ],
+      "checks": [
+        {
+          "pmid": "39011361",
+          "snapshot_hash_valid": true,
+          "official_identity_match": true
+        },
+        {
+          "pmid": "42196888",
+          "snapshot_hash_valid": true,
+          "official_identity_match": true
+        }
+      ],
+      "seconds": 2.05
+    }
+  ],
+  "database": {
+    "status": "unavailable",
+    "error_type": "OperationalError"
+  },
+  "finished_at": "2026-10-27T19:27:38.713755+00:00"
+}

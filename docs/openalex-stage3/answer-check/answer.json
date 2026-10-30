@@ -1,0 +1,453 @@
+{
+  "local_retrieval_mode": "vector",
+  "local_retrieval_strategy": "vector-v1",
+  "retrieval_warnings": [
+    "doi:10.1186/s12880-024-01206-7:fulltext_available"
+  ],
+  "local_channel_status": null,
+  "request_id": "e379e0e6-d183-4d64-92c2-02df9ed3e766",
+  "status": "answered",
+  "query_plan": null,
+  "claims": [
+    {
+      "text": "The attached fulltext Methods/Image acquisition passage reports CT acquisition details but does not report MRI scanner, sequence or contrast-agent details, so the study's MRI protocol cannot be determined from the supplied evidence.",
+      "kind": "uncertainty",
+      "evidence_chunk_ids": [
+        "62ce590f-342a-56e7-a446-542fe99262c2",
+        "5eccabb4-10dd-5e8f-8e70-5b468a44d3e0"
+      ],
+      "limitations": [
+        "Only one fulltext methods passage (CT image acquisition) was supplied; MRI methods may exist in unsupplied sections."
+      ],
+      "claim_id": "c1"
+    },
+    {
+      "text": "For CT, the Methods/Image acquisition section states that liver CE-CT was performed using multiple multislice spiral CT scanners, without naming scanner manufacturers or models.",
+      "kind": "evidence",
+      "evidence_chunk_ids": [
+        "62ce590f-342a-56e7-a446-542fe99262c2"
+      ],
+      "limitations": [
+        "Scanner make/model not reported in the supplied passage; detailed parameters are referred to Table 1, which was not supplied."
+      ],
+      "claim_id": "c2"
+    },
+    {
+      "text": "The CT protocol comprised a plain scan plus arterial (fluoroscopic trigger, 28–35 s), portal vein (70–80 s) and equilibrium (180 s) phases, scanning from the diaphragm roof to the iliac ridge.",
+      "kind": "evidence",
+      "evidence_chunk_ids": [
+        "62ce590f-342a-56e7-a446-542fe99262c2"
+      ],
+      "limitations": [],
+      "claim_id": "c3"
+    },
+    {
+      "text": "The CT contrast agent is described only as a non-ionic iodide contrast at 300 mg iodide per ml, given at 1.5 ml (450 mg iodide) per kg body weight with a flow rate of 3.0–4.0 ml/s; no product name is reported.",
+      "kind": "evidence",
+      "evidence_chunk_ids": [
+        "62ce590f-342a-56e7-a446-542fe99262c2"
+      ],
+      "limitations": [
+        "Agent brand/name not found in the supplied passage."
+      ],
+      "claim_id": "c4"
+    },
+    {
+      "text": "The abstract indicates MRI images were used for external testing (n = 71) and that the model was verified with both CT and MRI, but it gives no MRI acquisition specifications.",
+      "kind": "evidence",
+      "evidence_chunk_ids": [
+        "5eccabb4-10dd-5e8f-8e70-5b468a44d3e0"
+      ],
+      "limitations": [
+        "Abstract-level statement only; MRI methods details not supplied."
+      ],
+      "claim_id": "c5"
+    },
+    {
+      "text": "The Background mentions dynamic contrast-enhanced MRI (DCE-MRI) and contrast-enhanced CT as general imaging techniques for HCC, but this is contextual discussion rather than a description of the study's own MRI protocol.",
+      "kind": "evidence",
+      "evidence_chunk_ids": [
+        "026c3af7-5c9e-551c-a78c-88a759aac8fe"
+      ],
+      "limitations": [
+        "Background text does not specify scanners, sequences or agents used in this study."
+      ],
+      "claim_id": "c6"
+    }
+  ],
+  "sources": [
+    {
+      "openalex_record": {
+        "openalex_id": "https://openalex.org/W4391277958",
+        "title": "Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram: a bi-centre study",
+        "authors": [
+          "Yuhui Deng",
+          "Dawei Yang",
+          "Xian-Zheng Tan",
+          "Hui Xu",
+          "Lixue Xu",
+          "A‐Hong Ren",
+          "Peng Liu",
+          "Zhenghan Yang"
+        ],
+        "doi": "10.1186/s12880-024-01206-7",
+        "journal": "BMC Medical Imaging",
+        "publication_date": {
+          "precision": "day",
+          "raw": "2024-01-27",
+          "year": 2024,
+          "month": 1,
+          "day": 27
+        },
+        "abstract": "PURPOSE: To develop a nomogram for preoperative assessment of microvascular invasion (MVI) in hepatocellular carcinoma (HCC) based on the radiological features of enhanced CT and to verify two imaging techniques (CT and MRI) in an external centre. METHOD: A total of 346 patients were retrospectively included (training, n = 185, CT images; external testing 1, n = 90, CT images; external testing 2, n = 71, MRI images), including 229 MVI-negative patients and 117 MVI-positive patients. The radiological features and clinical information of enhanced CT images were analysed, and the independent variables associated with MVI in HCC were determined by logistic regression analysis. Then, a nomogram prediction model was constructed. External validation was performed on CT (n = 90) and MRI (n = 71) images from another centre. RESULTS: Among the 23 radiological and clinical features, size, arterial peritumoral enhancement (APE), tumour margin and alpha-fetoprotein (AFP) were independent influencing factors for MVI in HCC. The nomogram integrating these risk factors had a good predictive effect, with AUC, specificity and sensitivity values of 0.834 (95% CI: 0.774-0.895), 75.0% and 83.5%, respectively. The AUC values of external verification based on CT and MRI image data were 0.794 (95% CI: 0.700-0.888) and 0.883 (95% CI: 0.807-0.959), respectively. No statistical difference in AUC values among training set and testing sets was found. CONCLUSION: The proposed nomogram prediction model for MVI in HCC has high accuracy, can be used with different imaging techniques, and has good clinical applicability.",
+        "abstract_status": "available",
+        "work_type": "article",
+        "is_retracted": false,
+        "open_access": {
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_url": "https://bmcmedimaging.biomedcentral.com/counter/pdf/10.1186/s12880-024-01206-7",
+          "any_repository_has_fulltext": true
+        },
+        "locations": [
+          {
+            "id": "doi:10.1186/s12880-024-01206-7",
+            "doi": "https://doi.org/10.1186/s12880-024-01206-7",
+            "is_oa": true,
+            "landing_page_url": "https://doi.org/10.1186/s12880-024-01206-7",
+            "pdf_url": "https://bmcmedimaging.biomedcentral.com/counter/pdf/10.1186/s12880-024-01206-7",
+            "source": {
+              "id": "https://openalex.org/S6505649",
+              "display_name": "BMC Medical Imaging",
+              "issn_l": "1471-2342",
+              "issn": [
+                "1471-2342"
+              ],
+              "is_oa": true,
+              "is_in_doaj": true,
+              "is_core": true,
+              "listed_in": [
+                "cwts-core",
+                "doaj",
+                "doyens",
+                "jufo-1",
+                "ki-jl-1",
+                "medline",
+                "norway-1",
+                "oarl",
+                "poland-70",
+                "russia-white-list-2",
+                "vabb-shw"
+              ],
+              "host_organization": "https://openalex.org/P4310320256",
+              "host_organization_name": "BioMed Central",
+              "host_organization_lineage": [
+                "https://openalex.org/P4310320256",
+                "https://openalex.org/P4310319965"
+              ],
+              "host_organization_lineage_names": [
+                "BioMed Central",
+                "Springer Nature"
+              ],
+              "type": "journal"
+            },
+            "license": "cc-by",
+            "license_id": "https://openalex.org/licenses/cc-by",
+            "version": "publishedVersion",
+            "is_accepted": true,
+            "is_published": true,
+            "raw_source_name": "BMC Medical Imaging",
+            "raw_type": "journal-article"
+          },
+          {
+            "id": "pmid:38281008",
+            "doi": null,
+            "is_oa": false,
+            "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/38281008",
+            "pdf_url": null,
+            "source": {
+              "id": "https://openalex.org/S4306525036",
+              "display_name": "PubMed",
+              "issn_l": null,
+              "issn": null,
+              "is_oa": false,
+              "is_in_doaj": false,
+              "is_core": false,
+              "listed_in": [],
+              "host_organization": "https://openalex.org/I1299303238",
+              "host_organization_name": "National Institutes of Health",
+              "host_organization_lineage": [
+                "https://openalex.org/I1299303238"
+              ],
+              "host_organization_lineage_names": [],
+              "type": "repository"
+            },
+            "license": null,
+            "license_id": null,
+            "version": "publishedVersion",
+            "is_accepted": true,
+            "is_published": true,
+            "raw_source_name": "BMC medical imaging",
+            "raw_type": "Journal Article"
+          },
+          {
+            "id": "pmh:oai:pubmedcentral.nih.gov:10821254",
+            "doi": null,
+            "is_oa": true,
+            "landing_page_url": "https://www.ncbi.nlm.nih.gov/pmc/articles/10821254",
+            "pdf_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10821254/pdf/12880_2024_Article_1206.pdf",
+            "source": {
+              "id": "https://openalex.org/S2764455111",
+              "display_name": "PubMed Central",
+              "issn_l": null,
+              "issn": null,
+              "is_oa": true,
+              "is_in_doaj": false,
+              "is_core": false,
+              "listed_in": [],
+              "host_organization": "https://openalex.org/I1299303238",
+              "host_organization_name": "National Institutes of Health",
+              "host_organization_lineage": [
+                "https://openalex.org/I1299303238"
+              ],
+              "host_organization_lineage_names": [],
+              "type": "repository"
+            },
+            "license": "cc-by",
+            "license_id": "https://openalex.org/licenses/cc-by",
+            "version": "submittedVersion",
+            "is_accepted": false,
+            "is_published": false,
+            "raw_source_name": "BMC Med Imaging",
+            "raw_type": "Text"
+          },
+          {
+            "id": "pmh:oai:doaj.org/article:a2527c36859c4332bdd1c0c6b86fb22f",
+            "doi": null,
+            "is_oa": true,
+            "landing_page_url": "https://doaj.org/article/a2527c36859c4332bdd1c0c6b86fb22f",
+            "pdf_url": null,
+            "source": {
+              "id": "https://openalex.org/S4306401280",
+              "display_name": "DOAJ (DOAJ: Directory of Open Access Journals)",
+              "issn_l": null,
+              "issn": null,
+              "is_oa": false,
+              "is_in_doaj": false,
+              "is_core": false,
+              "listed_in": [],
+              "host_organization": null,
+              "host_organization_name": null,
+              "host_organization_lineage": [],
+              "host_organization_lineage_names": [],
+              "type": "repository"
+            },
+            "license": "cc-by-sa",
+            "license_id": "https://openalex.org/licenses/cc-by-sa",
+            "version": "submittedVersion",
+            "is_accepted": false,
+            "is_published": false,
+            "raw_source_name": "BMC Medical Imaging, Vol 24, Iss 1, Pp 1-12 (2024)",
+            "raw_type": "article"
+          }
+        ],
+        "best_oa_location": {
+          "id": "doi:10.1186/s12880-024-01206-7",
+          "doi": "https://doi.org/10.1186/s12880-024-01206-7",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.1186/s12880-024-01206-7",
+          "pdf_url": "https://bmcmedimaging.biomedcentral.com/counter/pdf/10.1186/s12880-024-01206-7",
+          "source": {
+            "id": "https://openalex.org/S6505649",
+            "display_name": "BMC Medical Imaging",
+            "issn_l": "1471-2342",
+            "issn": [
+              "1471-2342"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "listed_in": [
+              "cwts-core",
+              "doaj",
+              "doyens",
+              "jufo-1",
+              "ki-jl-1",
+              "medline",
+              "norway-1",
+              "oarl",
+              "poland-70",
+              "russia-white-list-2",
+              "vabb-shw"
+            ],
+            "host_organization": "https://openalex.org/P4310320256",
+            "host_organization_name": "BioMed Central",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310320256",
+              "https://openalex.org/P4310319965"
+            ],
+            "host_organization_lineage_names": [
+              "BioMed Central",
+              "Springer Nature"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "BMC Medical Imaging",
+          "raw_type": "journal-article"
+        },
+        "snapshot_json": "{\"abstract_inverted_index\":{\"(95%\":[173,195,200],\"(AFP)\":[145],\"(APE),\":[140],\"(CT\":[30],\"(HCC)\":[15],\"(MVI)\":[11],\"(n\":[116,121],\"(training,\":[46],\"0.700-0.888)\":[197],\"0.774-0.895),\":[175],\"0.794\":[194],\"0.807-0.959),\":[202],\"0.834\":[172],\"0.883\":[199],\"1,\":[54],\"117\":[73],\"185,\":[49],\"2,\":[62],\"229\":[69],\"23\":[131],\"346\":[41],\"71)\":[123],\"71,\":[65],\"75.0%\":[176],\"83.5%,\":[178],\"90)\":[118],\"90,\":[57],\"=\":[48,56,64,117,122],\"A\":[38],\"AUC\":[181,208],\"AUC,\":[166],\"Among\":[129],\"CI:\":[174,196,201],\"CONCLUSION:\":[218],\"CT\":[23,50,58,84,115,188],\"External\":[110],\"HCC\":[96,227],\"HCC.\":[153],\"METHOD:\":[37],\"MRI\":[66,120,190],\"MRI)\":[32],\"MVI\":[94,151,225],\"MVI-negative\":[70],\"MVI-positive\":[74],\"No\":[204],\"PURPOSE:\":[0],\"RESULTS:\":[128],\"The\":[76,154,180,219],\"Then,\":[103],\"To\":[1],\"a\":[3,104,161],\"accuracy,\":[230],\"alpha-fetoprotein\":[144],\"among\":[210],\"an\":[34],\"analysed,\":[87],\"analysis.\":[102],\"and\":[24,31,72,79,88,119,133,143,168,177,189,198,213,238],\"another\":[126],\"applicability.\":[242],\"arterial\":[137],\"assessment\":[7],\"associated\":[92],\"based\":[16,186],\"be\":[232],\"by\":[99],\"can\":[231],\"carcinoma\":[14],\"centre.\":[36,127],\"clinical\":[80,134,241],\"constructed.\":[109],\"data\":[192],\"determined\":[98],\"develop\":[2],\"difference\":[206],\"different\":[235],\"effect,\":[164],\"enhanced\":[22,83],\"enhancement\":[139],\"external\":[35,52,60,184],\"factors\":[149,159],\"features\":[20,78],\"features,\":[135],\"for\":[5,150,224],\"found.\":[217],\"from\":[125],\"good\":[162,240],\"had\":[160],\"has\":[228,239],\"hepatocellular\":[13],\"high\":[229],\"image\":[191],\"images\":[85,124],\"images),\":[67],\"images;\":[51,59],\"imaging\":[28,236],\"in\":[12,33,95,152,207,226],\"included\":[45],\"including\":[68],\"independent\":[90,147],\"influencing\":[148],\"information\":[81],\"integrating\":[156],\"invasion\":[10],\"logistic\":[100],\"margin\":[142],\"microvascular\":[9],\"model\":[107,223],\"n\":[47,55,63],\"nomogram\":[4,105,155,221],\"of\":[8,21,40,82,171,183],\"on\":[17,114,187],\"patients\":[42,71],\"patients.\":[75],\"performed\":[113],\"peritumoral\":[138],\"prediction\":[106,222],\"predictive\":[163],\"preoperative\":[6],\"proposed\":[220],\"radiological\":[19,77,132],\"regression\":[101],\"respectively.\":[179,203],\"retrospectively\":[44],\"risk\":[158],\"sensitivity\":[169],\"set\":[212],\"sets\":[215],\"size,\":[136],\"specificity\":[167],\"statistical\":[205],\"techniques\":[29],\"techniques,\":[237],\"testing\":[53,61,214],\"the\":[18,89,130],\"these\":[157],\"to\":[25],\"total\":[39],\"training\":[211],\"tumour\":[141],\"two\":[27],\"used\":[233],\"validation\":[111],\"values\":[170,182,209],\"variables\":[91],\"verification\":[185],\"verify\":[26],\"was\":[108,112,216],\"were\":[43,86,97,146,193],\"with\":[93,165,234]},\"apc_list\":{\"currency\":\"USD\",\"value\":2990,\"value_usd\":2990},\"apc_paid\":{\"currency\":\"USD\",\"value\":2990,\"value_usd\":2990},\"authorships\":[{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I183519381\",\"https://openalex.org/I4210147433\"],\"raw_affiliation_string\":\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"},{\"institution_ids\":[\"https://openalex.org/I204983213\",\"https://openalex.org/I4210130714\"],\"raw_affiliation_string\":\"Medical Imaging Division, Heilongjiang Provincial Hospital, Harbin Institute of Technology, Zhongshan Road 82, Xiangfang District, Harbin, 150036, China\"}],\"author\":{\"display_name\":\"Yuhui Deng\",\"id\":\"https://openalex.org/A5053481841\",\"observed_orcids\":[\"https://orcid.org/0000-0002-6964-8791\"],\"orcid\":\"https://orcid.org/0000-0002-6964-8791\"},\"author_position\":\"first\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Capital Medical University\",\"id\":\"https://openalex.org/I183519381\",\"lineage\":[\"https://openalex.org/I183519381\"],\"ror\":\"https://ror.org/013xs5b60\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Harbin Institute of Technology\",\"id\":\"https://openalex.org/I204983213\",\"lineage\":[\"https://openalex.org/I204983213\"],\"ror\":\"https://ror.org/01yqg2h08\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Heilongjiang Provincial Hospital\",\"id\":\"https://openalex.org/I4210130714\",\"lineage\":[\"https://openalex.org/I4210130714\"],\"ror\":\"https://ror.org/03qrkhd32\",\"type\":\"healthcare\"},{\"country_code\":\"CN\",\"display_name\":\"Beijing Friendship Hospital\",\"id\":\"https://openalex.org/I4210147433\",\"lineage\":[\"https://openalex.org/I4210147433\"],\"ror\":\"https://ror.org/053qy4437\",\"type\":\"healthcare\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\",\"Medical Imaging Division, Heilongjiang Provincial Hospital, Harbin Institute of Technology, Zhongshan Road 82, Xiangfang District, Harbin, 150036, China\"],\"raw_author_name\":\"Yuhui Deng\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I183519381\",\"https://openalex.org/I4210147433\"],\"raw_affiliation_string\":\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"}],\"author\":{\"display_name\":\"Dawei Yang\",\"id\":\"https://openalex.org/A5000597263\",\"observed_orcids\":[\"https://orcid.org/0000-0002-1868-2746\"],\"orcid\":\"https://orcid.org/0000-0002-1868-2746\"},\"author_position\":\"middle\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Capital Medical University\",\"id\":\"https://openalex.org/I183519381\",\"lineage\":[\"https://openalex.org/I183519381\"],\"ror\":\"https://ror.org/013xs5b60\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Beijing Friendship Hospital\",\"id\":\"https://openalex.org/I4210147433\",\"lineage\":[\"https://openalex.org/I4210147433\"],\"ror\":\"https://ror.org/053qy4437\",\"type\":\"healthcare\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"],\"raw_author_name\":\"Dawei Yang\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I173759888\",\"https://openalex.org/I4210147389\"],\"raw_affiliation_string\":\"Department of Radiology, Hunan Provincial People's Hospital, the First Affiliated Hospital of Hunan Normal University, Changsha, 410005, China\"}],\"author\":{\"display_name\":\"Xian-Zheng Tan\",\"id\":\"https://openalex.org/A5031630872\",\"observed_orcids\":[\"https://orcid.org/0000-0001-9319-1237\"],\"orcid\":\"https://orcid.org/0000-0001-9319-1237\"},\"author_position\":\"middle\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Hunan Normal University\",\"id\":\"https://openalex.org/I173759888\",\"lineage\":[\"https://openalex.org/I173759888\"],\"ror\":\"https://ror.org/053w1zy07\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Hunan Provincial People's Hospital\",\"id\":\"https://openalex.org/I4210147389\",\"lineage\":[\"https://openalex.org/I4210147389\"],\"ror\":\"https://ror.org/03wwr4r78\",\"type\":\"healthcare\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Radiology, Hunan Provincial People's Hospital, the First Affiliated Hospital of Hunan Normal University, Changsha, 410005, China\"],\"raw_author_name\":\"Xianzheng Tan\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I183519381\",\"https://openalex.org/I4210147433\"],\"raw_affiliation_string\":\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"}],\"author\":{\"display_name\":\"Hui Xu\",\"id\":\"https://openalex.org/A5100756355\",\"observed_orcids\":[\"https://orcid.org/0000-0002-4236-3825\",\"https://orcid.org/0000-0003-1999-9806\"],\"orcid\":\"https://orcid.org/0000-0002-4236-3825\"},\"author_position\":\"middle\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Capital Medical University\",\"id\":\"https://openalex.org/I183519381\",\"lineage\":[\"https://openalex.org/I183519381\"],\"ror\":\"https://ror.org/013xs5b60\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Beijing Friendship Hospital\",\"id\":\"https://openalex.org/I4210147433\",\"lineage\":[\"https://openalex.org/I4210147433\"],\"ror\":\"https://ror.org/053qy4437\",\"type\":\"healthcare\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"],\"raw_author_name\":\"Hui Xu\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I183519381\",\"https://openalex.org/I4210147433\"],\"raw_affiliation_string\":\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"}],\"author\":{\"display_name\":\"Lixue Xu\",\"id\":\"https://openalex.org/A5058609041\",\"observed_orcids\":[\"https://orcid.org/0000-0002-7152-2741\"],\"orcid\":\"https://orcid.org/0000-0002-7152-2741\"},\"author_position\":\"middle\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Capital Medical University\",\"id\":\"https://openalex.org/I183519381\",\"lineage\":[\"https://openalex.org/I183519381\"],\"ror\":\"https://ror.org/013xs5b60\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Beijing Friendship Hospital\",\"id\":\"https://openalex.org/I4210147433\",\"lineage\":[\"https://openalex.org/I4210147433\"],\"ror\":\"https://ror.org/053qy4437\",\"type\":\"healthcare\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"],\"raw_author_name\":\"Lixue Xu\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I183519381\",\"https://openalex.org/I4210147433\"],\"raw_affiliation_string\":\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"}],\"author\":{\"display_name\":\"A‐Hong Ren\",\"id\":\"https://openalex.org/A5089962303\",\"observed_orcids\":[\"https://orcid.org/0000-0003-3189-8354\"],\"orcid\":\"https://orcid.org/0000-0003-3189-8354\"},\"author_position\":\"middle\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Capital Medical University\",\"id\":\"https://openalex.org/I183519381\",\"lineage\":[\"https://openalex.org/I183519381\"],\"ror\":\"https://ror.org/013xs5b60\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Beijing Friendship Hospital\",\"id\":\"https://openalex.org/I4210147433\",\"lineage\":[\"https://openalex.org/I4210147433\"],\"ror\":\"https://ror.org/053qy4437\",\"type\":\"healthcare\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"],\"raw_author_name\":\"Ahong Ren\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I173759888\",\"https://openalex.org/I4210147389\"],\"raw_affiliation_string\":\"Department of Radiology, Hunan Provincial People's Hospital, the First Affiliated Hospital of Hunan Normal University, Changsha, 410005, China. lpradiology@163.com\"},{\"institution_ids\":[\"https://openalex.org/I173759888\",\"https://openalex.org/I4210147389\"],\"raw_affiliation_string\":\"Department of Radiology, Hunan Provincial People's Hospital, the First Affiliated Hospital of Hunan Normal University, Changsha, 410005, China\"}],\"author\":{\"display_name\":\"Peng Liu\",\"id\":\"https://openalex.org/A5100346865\",\"observed_orcids\":[\"https://orcid.org/0000-0002-9023-2344\"],\"orcid\":\"https://orcid.org/0000-0002-9023-2344\"},\"author_position\":\"middle\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Hunan Normal University\",\"id\":\"https://openalex.org/I173759888\",\"lineage\":[\"https://openalex.org/I173759888\"],\"ror\":\"https://ror.org/053w1zy07\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Hunan Provincial People's Hospital\",\"id\":\"https://openalex.org/I4210147389\",\"lineage\":[\"https://openalex.org/I4210147389\"],\"ror\":\"https://ror.org/03wwr4r78\",\"type\":\"healthcare\"}],\"is_corresponding\":true,\"raw_affiliation_strings\":[\"Department of Radiology, Hunan Provincial People's Hospital, the First Affiliated Hospital of Hunan Normal University, Changsha, 410005, China. lpradiology@163.com\",\"Department of Radiology, Hunan Provincial People's Hospital, the First Affiliated Hospital of Hunan Normal University, Changsha, 410005, China\"],\"raw_author_name\":\"Peng Liu\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I183519381\",\"https://openalex.org/I4210147433\"],\"raw_affiliation_string\":\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China. yangzhenghan@vip.163.com\"},{\"institution_ids\":[\"https://openalex.org/I183519381\",\"https://openalex.org/I4210147433\"],\"raw_affiliation_string\":\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"}],\"author\":{\"display_name\":\"Zhenghan Yang\",\"id\":\"https://openalex.org/A5045874160\",\"observed_orcids\":[\"https://orcid.org/0000-0003-3986-1732\"],\"orcid\":\"https://orcid.org/0000-0003-3986-1732\"},\"author_position\":\"last\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Capital Medical University\",\"id\":\"https://openalex.org/I183519381\",\"lineage\":[\"https://openalex.org/I183519381\"],\"ror\":\"https://ror.org/013xs5b60\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Beijing Friendship Hospital\",\"id\":\"https://openalex.org/I4210147433\",\"lineage\":[\"https://openalex.org/I4210147433\"],\"ror\":\"https://ror.org/053qy4437\",\"type\":\"healthcare\"}],\"is_corresponding\":true,\"raw_affiliation_strings\":[\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China. yangzhenghan@vip.163.com\",\"Department of Radiology, Beijing Friendship Hospital, Capital Medical University, Yongan Road 95, West District, Beijing, 100050, China\"],\"raw_author_name\":\"Zhenghan Yang\",\"raw_orcid\":null}],\"awards\":[{\"display_name\":null,\"funder_award_id\":\"82202266\",\"funder_display_name\":\"National Natural Science Foundation of China\",\"funder_id\":\"https://openalex.org/F4320321001\",\"id\":\"https://openalex.org/G1200926489\"},{\"display_name\":null,\"funder_award_id\":\"82071876, 61871276,82202266\",\"funder_display_name\":\"National Natural Science Foundation of China\",\"funder_id\":\"https://openalex.org/F4320321001\",\"id\":\"https://openalex.org/G2076137887\"},{\"display_name\":null,\"funder_award_id\":\"82071876\",\"funder_display_name\":\"National Natural Science Foundation of China\",\"funder_id\":\"https://openalex.org/F4320321001\",\"id\":\"https://openalex.org/G7474567903\"},{\"display_name\":\"基于多参数磁共振深度表示学习及迁移学习的非酒精性脂肪肝病炎症、纤维化程度无创性评估研究\",\"funder_award_id\":\"61871276\",\"funder_display_name\":\"National Natural Science Foundation of China\",\"funder_id\":\"https://openalex.org/F4320321001\",\"id\":\"https://openalex.org/G7768725313\"},{\"display_name\":null,\"funder_award_id\":\"82372043\",\"funder_display_name\":\"National Natural Science Foundation of China\",\"funder_id\":\"https://openalex.org/F4320321001\",\"id\":\"https://openalex.org/G878930177\"}],\"best_oa_location\":{\"doi\":\"https://doi.org/10.1186/s12880-024-01206-7\",\"id\":\"doi:10.1186/s12880-024-01206-7\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.1186/s12880-024-01206-7\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://bmcmedimaging.biomedcentral.com/counter/pdf/10.1186/s12880-024-01206-7\",\"raw_source_name\":\"BMC Medical Imaging\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"BMC Medical Imaging\",\"host_organization\":\"https://openalex.org/P4310320256\",\"host_organization_lineage\":[\"https://openalex.org/P4310320256\",\"https://openalex.org/P4310319965\"],\"host_organization_lineage_names\":[\"BioMed Central\",\"Springer Nature\"],\"host_organization_name\":\"BioMed Central\",\"id\":\"https://openalex.org/S6505649\",\"is_core\":true,\"is_in_doaj\":true,\"is_oa\":true,\"issn\":[\"1471-2342\"],\"issn_l\":\"1471-2342\",\"listed_in\":[\"cwts-core\",\"doaj\",\"doyens\",\"jufo-1\",\"ki-jl-1\",\"medline\",\"norway-1\",\"oarl\",\"poland-70\",\"russia-white-list-2\",\"vabb-shw\"],\"type\":\"journal\"},\"version\":\"publishedVersion\"},\"biblio\":{\"first_page\":\"29\",\"issue\":\"1\",\"last_page\":\"29\",\"volume\":\"24\"},\"citation_normalized_percentile\":{\"is_in_top_10_percent\":false,\"is_in_top_1_percent\":false,\"value\":0.81578569},\"cited_by_count\":6,\"cited_by_percentile_year\":{\"max\":97,\"min\":89},\"concepts\":[{\"display_name\":\"Nomogram\",\"id\":\"https://openalex.org/C34626388\",\"level\":2,\"score\":0.9550706744194031,\"wikidata\":\"https://www.wikidata.org/wiki/Q721129\"},{\"display_name\":\"Medicine\",\"id\":\"https://openalex.org/C71924100\",\"level\":0,\"score\":0.8582276105880737,\"wikidata\":\"https://www.wikidata.org/wiki/Q11190\"},{\"display_name\":\"Hepatocellular carcinoma\",\"id\":\"https://openalex.org/C2778019345\",\"level\":2,\"score\":0.7284923791885376,\"wikidata\":\"https://www.wikidata.org/wiki/Q1148337\"},{\"display_name\":\"Radiological weapon\",\"id\":\"https://openalex.org/C190892606\",\"level\":2,\"score\":0.6724308729171753,\"wikidata\":\"https://www.wikidata.org/wiki/Q3512464\"},{\"display_name\":\"Radiology\",\"id\":\"https://openalex.org/C126838900\",\"level\":1,\"score\":0.6474371552467346,\"wikidata\":\"https://www.wikidata.org/wiki/Q77604\"},{\"display_name\":\"Logistic regression\",\"id\":\"https://openalex.org/C151956035\",\"level\":2,\"score\":0.6278536319732666,\"wikidata\":\"https://www.wikidata.org/wiki/Q1132755\"},{\"display_name\":\"Nuclear medicine\",\"id\":\"https://openalex.org/C2989005\",\"level\":1,\"score\":0.4176831543445587,\"wikidata\":\"https://www.wikidata.org/wiki/Q214963\"},{\"display_name\":\"Internal medicine\",\"id\":\"https://openalex.org/C126322002\",\"level\":1,\"score\":0.17385414242744446,\"wikidata\":\"https://www.wikidata.org/wiki/Q11180\"}],\"content_urls\":{\"grobid_xml\":\"https://content.openalex.org/works/W4391277958.grobid-xml\",\"pdf\":\"https://content.openalex.org/works/W4391277958.pdf\"},\"corresponding_author_ids\":[\"https://openalex.org/A5045874160\",\"https://openalex.org/A5100346865\"],\"corresponding_institution_ids\":[\"https://openalex.org/I173759888\",\"https://openalex.org/I183519381\",\"https://openalex.org/I4210147389\",\"https://openalex.org/I4210147433\"],\"countries_distinct_count\":1,\"counts_by_year\":[{\"cited_by_count\":2,\"year\":2026},{\"cited_by_count\":3,\"year\":2025},{\"cited_by_count\":1,\"year\":2024}],\"created_date\":\"2024-01-28T00:00:00\",\"display_name\":\"Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram: a bi-centre study\",\"doi\":\"https://doi.org/10.1186/s12880-024-01206-7\",\"funders\":[{\"display_name\":\"National Natural Science Foundation of China\",\"id\":\"https://openalex.org/F4320321001\",\"ror\":\"https://ror.org/01h0zpd94\"},{\"display_name\":\"Beijing Municipal Administration of Hospitals\",\"id\":\"https://openalex.org/F4320325911\",\"ror\":\"https://ror.org/04baakq55\"}],\"fwci\":1.569,\"has_content\":{\"grobid_xml\":true,\"pdf\":true},\"has_fulltext\":true,\"id\":\"https://openalex.org/W4391277958\",\"ids\":{\"doi\":\"https://doi.org/10.1186/s12880-024-01206-7\",\"openalex\":\"https://openalex.org/W4391277958\",\"pmcid\":\"https://www.ncbi.nlm.nih.gov/pmc/articles/10821254\",\"pmid\":\"https://pubmed.ncbi.nlm.nih.gov/38281008\"},\"indexed_in\":[\"crossref\",\"doaj\",\"pubmed\"],\"institutions\":[],\"institutions_distinct_count\":6,\"is_paratext\":false,\"is_retracted\":false,\"is_xpac\":false,\"keywords\":[{\"display_name\":\"hepatocellular carcinoma\",\"id\":\"https://openalex.org/keywords/hepatocellular-carcinoma\",\"score\":0.9869999885559082},{\"display_name\":\"microvascular invasion\",\"id\":\"https://openalex.org/keywords/microvascular-invasion\",\"score\":1.0},{\"display_name\":\"preoperative assessment\",\"id\":\"https://openalex.org/keywords/preoperative-assessment\",\"score\":0.6430000066757202},{\"display_name\":\"nomogram\",\"id\":\"https://openalex.org/keywords/nomogram\",\"score\":0.8730000257492065},{\"display_name\":\"contrast-enhanced CT\",\"id\":\"https://openalex.org/keywords/contrast-enhanced-computed-tomography\",\"score\":0.7329999804496765},{\"display_name\":\"magnetic resonance imaging\",\"id\":\"https://openalex.org/keywords/magnetic-resonance-imaging\",\"score\":0.8149999976158142},{\"display_name\":\"tumor margin\",\"id\":\"https://openalex.org/keywords/tumor-margin\",\"score\":0.8489999771118164},{\"display_name\":\"alpha-fetoprotein\",\"id\":\"https://openalex.org/keywords/alpha-fetoprotein\",\"score\":0.9900000095367432},{\"display_name\":\"tumor size\",\"id\":\"https://openalex.org/keywords/tumor-size\",\"score\":0.7710000276565552},{\"display_name\":\"risk prediction model\",\"id\":\"https://openalex.org/keywords/risk-prediction-model\",\"score\":0.609000027179718}],\"language\":\"en\",\"locations\":[{\"doi\":\"https://doi.org/10.1186/s12880-024-01206-7\",\"id\":\"doi:10.1186/s12880-024-01206-7\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.1186/s12880-024-01206-7\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://bmcmedimaging.biomedcentral.com/counter/pdf/10.1186/s12880-024-01206-7\",\"raw_source_name\":\"BMC Medical Imaging\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"BMC Medical Imaging\",\"host_organization\":\"https://openalex.org/P4310320256\",\"host_organization_lineage\":[\"https://openalex.org/P4310320256\",\"https://openalex.org/P4310319965\"],\"host_organization_lineage_names\":[\"BioMed Central\",\"Springer Nature\"],\"host_organization_name\":\"BioMed Central\",\"id\":\"https://openalex.org/S6505649\",\"is_core\":true,\"is_in_doaj\":true,\"is_oa\":true,\"issn\":[\"1471-2342\"],\"issn_l\":\"1471-2342\",\"listed_in\":[\"cwts-core\",\"doaj\",\"doyens\",\"jufo-1\",\"ki-jl-1\",\"medline\",\"norway-1\",\"oarl\",\"poland-70\",\"russia-white-list-2\",\"vabb-shw\"],\"type\":\"journal\"},\"version\":\"publishedVersion\"},{\"doi\":null,\"id\":\"pmid:38281008\",\"is_accepted\":true,\"is_oa\":false,\"is_published\":true,\"landing_page_url\":\"https://pubmed.ncbi.nlm.nih.gov/38281008\",\"license\":null,\"license_id\":null,\"pdf_url\":null,\"raw_source_name\":\"BMC medical imaging\",\"raw_type\":\"Journal Article\",\"source\":{\"display_name\":\"PubMed\",\"host_organization\":\"https://openalex.org/I1299303238\",\"host_organization_lineage\":[\"https://openalex.org/I1299303238\"],\"host_organization_lineage_names\":[],\"host_organization_name\":\"National Institutes of Health\",\"id\":\"https://openalex.org/S4306525036\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":false,\"issn\":null,\"issn_l\":null,\"listed_in\":[],\"type\":\"repository\"},\"version\":\"publishedVersion\"},{\"doi\":null,\"id\":\"pmh:oai:pubmedcentral.nih.gov:10821254\",\"is_accepted\":false,\"is_oa\":true,\"is_published\":false,\"landing_page_url\":\"https://www.ncbi.nlm.nih.gov/pmc/articles/10821254\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://pmc.ncbi.nlm.nih.gov/articles/PMC10821254/pdf/12880_2024_Article_1206.pdf\",\"raw_source_name\":\"BMC Med Imaging\",\"raw_type\":\"Text\",\"source\":{\"display_name\":\"PubMed Central\",\"host_organization\":\"https://openalex.org/I1299303238\",\"host_organization_lineage\":[\"https://openalex.org/I1299303238\"],\"host_organization_lineage_names\":[],\"host_organization_name\":\"National Institutes of Health\",\"id\":\"https://openalex.org/S2764455111\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":true,\"issn\":null,\"issn_l\":null,\"listed_in\":[],\"type\":\"repository\"},\"version\":\"submittedVersion\"},{\"doi\":null,\"id\":\"pmh:oai:doaj.org/article:a2527c36859c4332bdd1c0c6b86fb22f\",\"is_accepted\":false,\"is_oa\":true,\"is_published\":false,\"landing_page_url\":\"https://doaj.org/article/a2527c36859c4332bdd1c0c6b86fb22f\",\"license\":\"cc-by-sa\",\"license_id\":\"https://openalex.org/licenses/cc-by-sa\",\"pdf_url\":null,\"raw_source_name\":\"BMC Medical Imaging, Vol 24, Iss 1, Pp 1-12 (2024)\",\"raw_type\":\"article\",\"source\":{\"display_name\":\"DOAJ (DOAJ: Directory of Open Access Journals)\",\"host_organization\":null,\"host_organization_lineage\":[],\"host_organization_lineage_names\":[],\"host_organization_name\":null,\"id\":\"https://openalex.org/S4306401280\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":false,\"issn\":null,\"issn_l\":null,\"listed_in\":[],\"type\":\"repository\"},\"version\":\"submittedVersion\"}],\"locations_count\":4,\"mesh\":[{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Carcinoma, Hepatocellular\",\"descriptor_ui\":\"D006528\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Humans\",\"descriptor_ui\":\"D006801\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Humans\",\"descriptor_ui\":\"D006801\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Humans\",\"descriptor_ui\":\"D006801\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Humans\",\"descriptor_ui\":\"D006801\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Humans\",\"descriptor_ui\":\"D006801\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Humans\",\"descriptor_ui\":\"D006801\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Humans\",\"descriptor_ui\":\"D006801\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"blood supply\",\"qualifier_ui\":\"Q000098\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Liver Neoplasms\",\"descriptor_ui\":\"D008113\",\"is_major_topic\":true,\"qualifier_name\":\"surgery\",\"qualifier_ui\":\"Q000601\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"diagnostic imaging\",\"qualifier_ui\":\"Q000000981\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"pathology\",\"qualifier_ui\":\"Q000473\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"pathology\",\"qualifier_ui\":\"Q000473\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"pathology\",\"qualifier_ui\":\"Q000473\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"pathology\",\"qualifier_ui\":\"Q000473\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"pathology\",\"qualifier_ui\":\"Q000473\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"pathology\",\"qualifier_ui\":\"Q000473\"},{\"descriptor_name\":\"Neoplasm Invasiveness\",\"descriptor_ui\":\"D009361\",\"is_major_topic\":false,\"qualifier_name\":\"pathology\",\"qualifier_ui\":\"Q000473\"},{\"descriptor_name\":\"Retrospective Studies\",\"descriptor_ui\":\"D012189\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Retrospective Studies\",\"descriptor_ui\":\"D012189\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Retrospective Studies\",\"descriptor_ui\":\"D012189\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Retrospective Studies\",\"descriptor_ui\":\"D012189\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Retrospective Studies\",\"descriptor_ui\":\"D012189\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Retrospective Studies\",\"descriptor_ui\":\"D012189\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Retrospective Studies\",\"descriptor_ui\":\"D012189\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Nomograms\",\"descriptor_ui\":\"D049451\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Nomograms\",\"descriptor_ui\":\"D049451\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Nomograms\",\"descriptor_ui\":\"D049451\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Nomograms\",\"descriptor_ui\":\"D049451\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Nomograms\",\"descriptor_ui\":\"D049451\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Nomograms\",\"descriptor_ui\":\"D049451\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null},{\"descriptor_name\":\"Nomograms\",\"descriptor_ui\":\"D049451\",\"is_major_topic\":false,\"qualifier_name\":null,\"qualifier_ui\":null}],\"open_access\":{\"any_repository_has_fulltext\":true,\"is_oa\":true,\"oa_status\":\"gold\",\"oa_url\":\"https://bmcmedimaging.biomedcentral.com/counter/pdf/10.1186/s12880-024-01206-7\"},\"primary_location\":{\"doi\":\"https://doi.org/10.1186/s12880-024-01206-7\",\"id\":\"doi:10.1186/s12880-024-01206-7\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.1186/s12880-024-01206-7\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://bmcmedimaging.biomedcentral.com/counter/pdf/10.1186/s12880-024-01206-7\",\"raw_source_name\":\"BMC Medical Imaging\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"BMC Medical Imaging\",\"host_organization\":\"https://openalex.org/P4310320256\",\"host_organization_lineage\":[\"https://openalex.org/P4310320256\",\"https://openalex.org/P4310319965\"],\"host_organization_lineage_names\":[\"BioMed Central\",\"Springer Nature\"],\"host_organization_name\":\"BioMed Central\",\"id\":\"https://openalex.org/S6505649\",\"is_core\":true,\"is_in_doaj\":true,\"is_oa\":true,\"issn\":[\"1471-2342\"],\"issn_l\":\"1471-2342\",\"listed_in\":[\"cwts-core\",\"doaj\",\"doyens\",\"jufo-1\",\"ki-jl-1\",\"medline\",\"norway-1\",\"oarl\",\"poland-70\",\"russia-white-list-2\",\"vabb-shw\"],\"type\":\"journal\"},\"version\":\"publishedVersion\"},\"primary_topic\":{\"display_name\":\"Hepatocellular Carcinoma Treatment and Prognosis\",\"domain\":{\"display_name\":\"Health Sciences\",\"id\":\"https://openalex.org/domains/4\"},\"field\":{\"display_name\":\"Medicine\",\"id\":\"https://openalex.org/fields/27\"},\"id\":\"https://openalex.org/T10073\",\"score\":0.9990000128746033,\"subfield\":{\"display_name\":\"Hepatology\",\"id\":\"https://openalex.org/subfields/2721\"}},\"publication_date\":\"2024-01-27\",\"publication_year\":2024,\"referenced_works\":[\"https://openalex.org/W1972961777\",\"https://openalex.org/W1995610707\",\"https://openalex.org/W1996913198\",\"https://openalex.org/W2000307707\",\"https://openalex.org/W2006888687\",\"https://openalex.org/W2007463346\",\"https://openalex.org/W2016044522\",\"https://openalex.org/W2039529710\",\"https://openalex.org/W2045030989\",\"https://openalex.org/W2050250466\",\"https://openalex.org/W2053328167\",\"https://openalex.org/W2063771321\",\"https://openalex.org/W2065818679\",\"https://openalex.org/W2072554662\",\"https://openalex.org/W2120579447\",\"https://openalex.org/W2121735629\",\"https://openalex.org/W2153505392\",\"https://openalex.org/W2191988973\",\"https://openalex.org/W2274340399\",\"https://openalex.org/W2592093096\",\"https://openalex.org/W2758866955\",\"https://openalex.org/W2810701945\",\"https://openalex.org/W2889739438\",\"https://openalex.org/W2903051249\",\"https://openalex.org/W2920811896\",\"https://openalex.org/W3023419453\",\"https://openalex.org/W3029669855\",\"https://openalex.org/W3088147813\",\"https://openalex.org/W3128161927\",\"https://openalex.org/W3137212477\",\"https://openalex.org/W3161027661\",\"https://openalex.org/W3196397756\",\"https://openalex.org/W4205155008\",\"https://openalex.org/W4307374341\"],\"referenced_works_count\":34,\"related_works\":[\"https://openalex.org/W4396801921\",\"https://openalex.org/W3154545662\",\"https://openalex.org/W2912413191\",\"https://openalex.org/W3176523722\",\"https://openalex.org/W4205652045\",\"https://openalex.org/W2980958375\",\"https://openalex.org/W4313340318\",\"https://openalex.org/W4417040358\",\"https://openalex.org/W4310849124\",\"https://openalex.org/W4409348335\"],\"relevance_score\":95.685524,\"study_designs\":[{\"display_name\":\"Observational Study\",\"id\":\"https://openalex.org/study-designs/observational-study\"}],\"sustainable_development_goals\":[{\"display_name\":\"Good health and well-being\",\"id\":\"https://metadata.un.org/sdg/3\",\"score\":0.9940000176429749}],\"sustainable_development_goals_aurora\":[{\"display_name\":\"Good health and well-being\",\"id\":\"https://metadata.un.org/sdg/3\",\"score\":0.6899999976158142}],\"title\":\"Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram: a bi-centre study\",\"topics\":[{\"display_name\":\"Hepatocellular Carcinoma Treatment and Prognosis\",\"domain\":{\"display_name\":\"Health Sciences\",\"id\":\"https://openalex.org/domains/4\"},\"field\":{\"display_name\":\"Medicine\",\"id\":\"https://openalex.org/fields/27\"},\"id\":\"https://openalex.org/T10073\",\"score\":0.9990000128746033,\"subfield\":{\"display_name\":\"Hepatology\",\"id\":\"https://openalex.org/subfields/2721\"}},{\"display_name\":\"Radiomics and Machine Learning in Medical Imaging\",\"domain\":{\"display_name\":\"Health Sciences\",\"id\":\"https://openalex.org/domains/4\"},\"field\":{\"display_name\":\"Medicine\",\"id\":\"https://openalex.org/fields/27\"},\"id\":\"https://openalex.org/T12422\",\"score\":0.00039999998989515007,\"subfield\":{\"display_name\":\"Radiology, Nuclear Medicine and Imaging\",\"id\":\"https://openalex.org/subfields/2741\"}},{\"display_name\":\"MRI in cancer diagnosis\",\"domain\":{\"display_name\":\"Health Sciences\",\"id\":\"https://openalex.org/domains/4\"},\"field\":{\"display_name\":\"Medicine\",\"id\":\"https://openalex.org/fields/27\"},\"id\":\"https://openalex.org/T11885\",\"score\":9.999999747378752e-05,\"subfield\":{\"display_name\":\"Radiology, Nuclear Medicine and Imaging\",\"id\":\"https://openalex.org/subfields/2741\"}}],\"type\":\"article\",\"updated_date\":\"2026-10-28T10:33:24.094632\",\"volume\":null}",
+        "content_hash": "8ed1281a0d866245b3202ad9319767419177fc27d68b2da5d2dd44a2deed02fb"
+      },
+      "governance": {
+        "status": "unreviewed",
+        "event_id": null,
+        "evidence": null
+      },
+      "snapshot_xml": null,
+      "publication_types": [
+        "article"
+      ],
+      "source_notices": [],
+      "document_id": "b1d2d40f-aefc-58e7-bcaa-1e9ae77ab71a",
+      "title": "Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram: a bi-centre study",
+      "title_origin": "openalex_metadata",
+      "authors": [
+        "Yuhui Deng",
+        "Dawei Yang",
+        "Xian-Zheng Tan",
+        "Hui Xu",
+        "Lixue Xu",
+        "A‐Hong Ren",
+        "Peng Liu",
+        "Zhenghan Yang"
+      ],
+      "publication_date": {
+        "precision": "day",
+        "raw": "2024-01-27",
+        "year": 2024,
+        "month": 1,
+        "day": 27
+      },
+      "journal": "BMC Medical Imaging",
+      "doi": "10.1186/s12880-024-01206-7",
+      "pmid": null,
+      "source_type": "openalex",
+      "source_url": "https://openalex.org/W4391277958",
+      "content_hash": "8ed1281a0d866245b3202ad9319767419177fc27d68b2da5d2dd44a2deed02fb",
+      "content_scope": "abstract",
+      "evidence": [
+        {
+          "fulltext": [
+            {
+              "chunk_id": "62ce590f-342a-56e7-a446-542fe99262c2",
+              "pmid": null,
+              "pmcid": null,
+              "paper_key": "doi:10.1186/s12880-024-01206-7",
+              "openalex_id": "https://openalex.org/W4391277958",
+              "page": null,
+              "representation_hash": "a3f112250f6e9e1677847f3ec83c9452d7defd01d6fe1fde48b20b2af1f4075a",
+              "title": "Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram: a bi-centre study",
+              "doi": "10.1186/s12880-024-01206-7",
+              "section": "Methods / Image acquisition",
+              "start": 6451,
+              "end": 6954,
+              "text": "CE-CT scanning of the liver was performed using multiple multislice spiral CT scanners. Scan from the roof of the diaphragm to the iliac ridge. It includes plain scan, arterial stage (fluoroscopic trigger, 28 ~ 35 s), portal vein stage (70-80 s) and equilibrium stage (180 s). All patients received a non-ionic iodide contrast (300 mg of iodide per ml) at a dose of 1.5 ml (450 mg of iodide) per kg of body weight with a flow rate of 3.0–4.0 ml/s. Detailed imaging parameters of CT are shown in Table 1.",
+              "content_hash": "b84cb18f1bbfeb733d26ce63a8a62b84047a2913f5e0558e26b255ae7b7fc7df",
+              "source_url": "https://pmc.ncbi.nlm.nih.gov/api/oai/v1/mh/?verb=GetRecord&identifier=oai:pubmedcentral.nih.gov:10821254&metadataPrefix=pmc",
+              "license": "cc-by",
+              "content_scope": "fulltext"
+            }
+          ],
+          "chunk_id": "62ce590f-342a-56e7-a446-542fe99262c2",
+          "text": "CE-CT scanning of the liver was performed using multiple multislice spiral CT scanners. Scan from the roof of the diaphragm to the iliac ridge. It includes plain scan, arterial stage (fluoroscopic trigger, 28 ~ 35 s), portal vein stage (70-80 s) and equilibrium stage (180 s). All patients received a non-ionic iodide contrast (300 mg of iodide per ml) at a dose of 1.5 ml (450 mg of iodide) per kg of body weight with a flow rate of 3.0–4.0 ml/s. Detailed imaging parameters of CT are shown in Table 1.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Methods / Image acquisition",
+            "start": 6451,
+            "end": 6954
+          }
+        },
+        {
+          "fulltext": [],
+          "chunk_id": "5eccabb4-10dd-5e8f-8e70-5b468a44d3e0",
+          "text": "PURPOSE: To develop a nomogram for preoperative assessment of microvascular invasion (MVI) in hepatocellular carcinoma (HCC) based on the radiological features of enhanced CT and to verify two imaging techniques (CT and MRI) in an external centre. METHOD: A total of 346 patients were retrospectively included (training, n = 185, CT images; external testing 1, n = 90, CT images; external testing 2, n = 71, MRI images), including 229 MVI-negative patients and 117 MVI-positive patients. The radiological features and clinical information of enhanced CT images were analysed, and the independent variables associated with MVI in HCC were determined by logistic regression analysis. Then, a nomogram prediction model was constructed. External validation was performed on CT (n = 90) and MRI (n = 71) images from another centre. RESULTS: Among the 23 radiological and clinical features, size, arterial peritumoral enhancement (APE), tumour margin and alpha-fetoprotein (AFP) were independent influencing factors for MVI in HCC. The nomogram integrating these risk factors had a good predictive effect, with AUC, specificity and sensitivity values of 0.834 (95% CI: 0.774-0.895), 75.0% and 83.5%, respectively. The AUC values of external verification based on CT and MRI image data were 0.794 (95% CI: 0.700-0.888) and 0.883 (95% CI: 0.807-0.959), respectively. No statistical difference in AUC values among training set and testing sets was found. CONCLUSION: The proposed nomogram prediction model for MVI in HCC has high accuracy, can be used with different imaging techniques, and has good clinical applicability.",
+          "location": {
+            "kind": "abstract",
+            "page": null,
+            "section": null,
+            "start": 0,
+            "end": 1614
+          }
+        },
+        {
+          "fulltext": [
+            {
+              "chunk_id": "026c3af7-5c9e-551c-a78c-88a759aac8fe",
+              "pmid": null,
+              "pmcid": null,
+              "paper_key": "doi:10.1186/s12880-024-01206-7",
+              "openalex_id": "https://openalex.org/W4391277958",
+              "page": null,
+              "representation_hash": "a3f112250f6e9e1677847f3ec83c9452d7defd01d6fe1fde48b20b2af1f4075a",
+              "title": "Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram: a bi-centre study",
+              "doi": "10.1186/s12880-024-01206-7",
+              "section": "Background",
+              "start": 2282,
+              "end": 3397,
+              "text": "In practise, dynamic contrast-enhanced MRI (DCE-MRI) and contrast-enhanced CT (CE-CT) remain the most valuable techniques in the detection and diagnosis of HCC in cirrhosis. Dynamic contrast enhancement technique can capture the enhancement characteristics of tumors at different periods, which is conducive to the diagnosis and differential diagnosis of liver tumors. In addition, dynamic techniques such as perfusion CT and MRI can quantify perfusion of hepatocellular carcinoma, which is currently an important means to evaluate the effectiveness of sorafenib therapy [14–16]. All of these can be used as a supplement to conventional imaging to guide diagnosis and treatment. Meanwhile, the recognition of imaging features on DCE-MRI or CE-CT is not challenging for radiologists and experienced surgeons. Previous studies have revealed that imaging features such as tumour margins, tumour size, tumour capsule, intratumoural artery, and arterial peritumoral enhancement were correlated with the status of MVI in HCC, [17–21] and these features could be well captured on DCE-MRI or CE-CT. For example, Ling et al.",
+              "content_hash": "b84cb18f1bbfeb733d26ce63a8a62b84047a2913f5e0558e26b255ae7b7fc7df",
+              "source_url": "https://pmc.ncbi.nlm.nih.gov/api/oai/v1/mh/?verb=GetRecord&identifier=oai:pubmedcentral.nih.gov:10821254&metadataPrefix=pmc",
+              "license": "cc-by",
+              "content_scope": "fulltext"
+            }
+          ],
+          "chunk_id": "026c3af7-5c9e-551c-a78c-88a759aac8fe",
+          "text": "In practise, dynamic contrast-enhanced MRI (DCE-MRI) and contrast-enhanced CT (CE-CT) remain the most valuable techniques in the detection and diagnosis of HCC in cirrhosis. Dynamic contrast enhancement technique can capture the enhancement characteristics of tumors at different periods, which is conducive to the diagnosis and differential diagnosis of liver tumors. In addition, dynamic techniques such as perfusion CT and MRI can quantify perfusion of hepatocellular carcinoma, which is currently an important means to evaluate the effectiveness of sorafenib therapy [14–16]. All of these can be used as a supplement to conventional imaging to guide diagnosis and treatment. Meanwhile, the recognition of imaging features on DCE-MRI or CE-CT is not challenging for radiologists and experienced surgeons. Previous studies have revealed that imaging features such as tumour margins, tumour size, tumour capsule, intratumoural artery, and arterial peritumoral enhancement were correlated with the status of MVI in HCC, [17–21] and these features could be well captured on DCE-MRI or CE-CT. For example, Ling et al.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Background",
+            "start": 2282,
+            "end": 3397
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "已查询 OpenAlex；证据限于实际引用的摘要或全文段落，不保证检全。",
+    "已检查引用标识与来源关联，尚未自动验证结论的医学语义支持关系，需人工复核。",
+    "本结果用于医学科研辅助，不用于个体诊断或治疗决策。"
+  ],
+  "retrieval_scope": "online",
+  "search_provenance": {
+    "endpoint": "https://api.openalex.org/works",
+    "query_sent": "MRI microvascular invasion prediction methods",
+    "query_translation": null,
+    "total_count": 0,
+    "returned_count": 0,
+    "requested_limit": 40,
+    "truncated": false,
+    "fetched_at": "2026-10-29T11:15:23.446330Z",
+    "date_from": null,
+    "date_to": null,
+    "date_field": "publication_date",
+    "sort": "mixed",
+    "status": "complete",
+    "warnings": [],
+    "query_rounds": [],
+    "candidate_outcomes": {},
+    "assessments": [],
+    "evidence_gaps": [],
+    "http_attempts": 0,
+    "screening_calls": 0,
+    "records": []
+  },
+  "generated_at": "2026-10-29T11:21:11.325532Z"
+}

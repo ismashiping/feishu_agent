@@ -1,0 +1,18 @@
+[
+  {
+    "index": 5,
+    "question": "肝脏肿瘤分割目前有哪些技术瓶颈？",
+    "mode": "live",
+    "fresh_discovery": true,
+    "human_medical_signoff": "pending",
+    "status": "insufficient_evidence",
+    "sources": 0,
+    "claims": 0,
+    "fulltext_citations": 0,
+    "sections": [],
+    "warnings": [
+      "openalex_assessment_invalid"
+    ],
+    "seconds": 26.281
+  }
+]

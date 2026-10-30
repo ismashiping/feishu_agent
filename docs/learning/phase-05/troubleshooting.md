@@ -1,0 +1,13 @@
+# 排错和边界
+
+retrieval_language_unsupported：keyword/hybrid的实际检索文本含非ASCII；可使用vector或显式给英文keyword_query。不要自动删除中文词来取得成功。
+
+retrieval_failed：必需通道/索引列/数据库不可用；先确认已显式升级p501_0003。retrieval_timeout包括剩余预算耗尽及PostgreSQL语句取消。retrieval_corrupt是来源、片段、模型或融合身份不一致，不将这些状态写成无证据。
+
+关键词空结果仍是ok，所有必需通道成功才返回；当前degraded固定false，尚无复杂降级。默认vector模式不因FTS通道为空而变化。
+
+日期范围仅过滤完整出版日。排除年/月/unknown是明确保守策略，输出warnings说明，不补成1月1日。source hybrid中本地与PubMed各有日期字段，需分别指定。
+
+不要把scope=hybrid与options.mode=hybrid混淆：前者是本地/在线来源，后者是本地关键词/向量算法。在线来源不参加本地RRF，PubMed并没有被悄悄写入FTS索引。
+
+真实数据库测试使用隔离资源并验证迁移；Fake不能证明PostgreSQL/GIN工作。固定合成向量只验证数学排序，不能证明真实医学召回更好。原Phase1/3人工及模型缺口继续保留，本阶段不新增付费模型调用或Phase6分析。

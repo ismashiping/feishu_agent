@@ -1,0 +1,58 @@
+不确定：现有证据只能部分回答MedSAM与nnU-Net的区别：检索到的均为摘要级证据，且比较结果高度依赖具体任务、数据模态与提示/自动化设置，尚无跨任务一致的结论。 [1] [2] [3] [4] [5]
+
+方法定位不同：nnU-Net是自配置的监督式分割流程，而MedSAM是分割基础模型，在比较中常以零样本、半自动、微调或自动提示等不同配置被评估。 [1] [2] [3]
+
+在CT骨转移瘤2D切片分割中，nnU-Net的Dice为0.6849、归一化Hausdorff距离为0.0473，优于无提示MedSAM适配版的Dice 0.6280与NHD 0.1008。 [1]
+
+在心脏磁共振弹性成像左心室心肌分割中，最佳nnU-Net（全平均归一化幅值图像）Dice为0.82±0.04，最佳MedSAM（半自动微调加强ROI平滑）Dice为0.82±0.02，二者均达到阅片者间一致性水平（阅片者间Dice 0.79±0.03）。 [2]
+
+同一心脏MRE研究中，MedSAM的完全自动化变体表现较低：自动提示Dice 0.68±0.09，框回归Dice 0.71±0.08，说明MedSAM结果对自动化策略与提示质量敏感。 [2]
+
+在原发性中枢神经系统淋巴瘤及MSD-BraTS胶质瘤分割中，监督学习（nnU-Net）在两个数据集上均以较大幅度显著优于包括MedSAM在内的分割基础模型。 [3]
+
+在BraTS 2023胶质瘤零样本推理中，当提供极精确的边界框提示时，SAM/SAM 2的Dice可达约0.894/0.893并超过nnU-Net，但作者认为提供高精度提示不切实际，因此nnU-Net仍是主导的医学分割网络；微调后点提示性能提升明显，但仍未超过边界框或nnU-Net。 [5]
+
+在神经肌肉疾病大腿MR多类肌肉分割中，微调SAM的编码器/解码器在Moderate与Severe脂肪浸润组略优于3D nnU-Net（DSC 0.886 vs 0.883；0.857 vs 0.850），Early组相当（0.925），而MedSAM未显示相对SAM的优势。 [4]
+
+不确定性量化方面，上述肌肉分割研究中SAM在Moderate与Severe组的校准优于nnU-Net（ECE 3.6% vs 5.1%；3.3% vs 7.1%），提示基础模型在可靠性指标上可能具有条件性优势。 [4]
+
+推断：综合来看，nnU-Net在无提示或提示不可靠的复杂任务中表现稳健，而MedSAM的表现取决于是否提供提示、是否微调以及自动化程度；因此二者差异不能简单归结为某一方普遍更优。 [1] [2] [3] [5] [4]
+
+不确定：关于训练数据需求、推理效率与部署成本的定量差异，所提供摘要中未找到可直接支持的数据。 [1] [2] [3] [4] [5]
+
+参考文献
+[1] Comparison of Foundation Models MedSAM and DINOv3 with the nnU-Net Framework for Bone Metastasis Segmentation in Computed Tomography Scans（2026）
+DOI：10.3390/ai7060181
+https://doi.org/10.3390/ai7060181
+https://openalex.org/W7162083801
+[2] Toward self-contained cardiac magnetic resonance elastography: Deep learning-based segmentation of the left ventricular myocardium（2026）
+DOI：10.1016/j.mri.2026.110768
+https://doi.org/10.1016/j.mri.2026.110768
+https://openalex.org/W7201983585
+[3] Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI（2025）
+DOI：10.1117/12.3044679
+https://doi.org/10.1117/12.3044679
+https://openalex.org/W4391673478
+[4] Exploring foundation models for multi-class muscle segmentation in MR images of neuromuscular disorders: A comparative analysis of accuracy and uncertainty（2025）
+DOI：10.1016/j.cmpb.2025.109035
+https://doi.org/10.1016/j.cmpb.2025.109035
+https://openalex.org/W4413770896
+[5] AI-Driven MRI-based Brain Tumour Segmentation Benchmarking（2025）
+DOI：10.48550/arxiv.2506.20786
+https://doi.org/10.48550/arxiv.2506.20786
+https://openalex.org/W4415164780
+证据范围：摘要（未阅读全文） [1] [2] [3] [4] [5]
+
+局限与范围
+所有证据均为摘要，未提供全文方法或结果细节。 [1] [2] [3] [4] [5]
+单一数据集（88例患者、11,006对图像-标注），2D切片级任务，模型使用各自原生输入分辨率与训练计划。 [1]
+仅16名健康男性志愿者，样本小。 [2]
+小样本、单一模态。 [2]
+摘要未给出具体Dice数值与统计细节。 [3]
+该结论主要针对SAM/SAM 2，MedSAM仅为被比较模型之一，摘要未单列MedSAM数值。 [5]
+76例患者，分组样本量未在摘要中报告；MedSAM与nnU-Net的直接数值对比未在摘要中给出。 [4]
+仅单一数据集与单一不确定性度量组合（ECE、NLL）。 [4]
+基于摘要级、跨不同任务与模态的间接综合，非头对头汇总分析。 [1] [2] [3] [5] [4]
+仅摘要级证据，不能据此断定全文未报告这些指标。 [1] [2] [3] [4] [5]
+本次检索未完整完成，结论仅限所列文献，不代表领域全貌。
+本次使用在线 OpenAlex；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

@@ -1,0 +1,72 @@
+[
+  {
+    "fixture": "organ.json",
+    "id": "https://openalex.org/W2627007876",
+    "title_quote": "Liver segmentation: indications, techniques and future directions",
+    "publication_date": "2017-06-14",
+    "engineering_review": "direct_topic_but_outside_latest_window",
+    "reason": "2017年，不能充当2026-10-29最新24个月证据。",
+    "independent_medical_review": "pending",
+    "label_origin": "post-implementation engineering inspection; not independent gold labels"
+  },
+  {
+    "fixture": "subregion.json",
+    "id": "https://openalex.org/W2592329056",
+    "title_quote": "Automatic Liver and Tumor Segmentation of CT and MRI Volumes using Cascaded Fully Convolutional Neural Networks",
+    "publication_date": "2017-02-20",
+    "engineering_review": "different_task",
+    "reason": "肝脏与肿瘤整体分割，不等同肿瘤内部亚区。",
+    "independent_medical_review": "pending",
+    "label_origin": "post-implementation engineering inspection; not independent gold labels"
+  },
+  {
+    "fixture": "subregion.json",
+    "id": "https://openalex.org/W1641498739",
+    "title_quote": "The Multimodal Brain Tumor Image Segmentation Benchmark (BRATS)",
+    "publication_date": "2014-12-04",
+    "engineering_review": "different_population",
+    "reason": "脑肿瘤基准，不是肝脏肿瘤。",
+    "independent_medical_review": "pending",
+    "label_origin": "post-implementation engineering inspection; not independent gold labels"
+  },
+  {
+    "fixture": "comparison.json",
+    "id": "https://openalex.org/W7162083801",
+    "title_quote": "Comparison of Foundation Models MedSAM and DINOv3 with the nnU-Net Framework for Bone Metastasis Segmentation in Computed Tomography Scans",
+    "publication_date": "2026-05-22",
+    "engineering_review": "comparison_candidate",
+    "reason": "题名明确比较两种方法，实验结论仍需逐句核查。",
+    "independent_medical_review": "pending",
+    "label_origin": "post-implementation engineering inspection; not independent gold labels"
+  },
+  {
+    "fixture": "mvi.json",
+    "id": "https://openalex.org/W4220808684",
+    "title_quote": "Multiparametric MRI-based radiomics for the prediction of microvascular invasion in hepatocellular carcinoma",
+    "publication_date": "2022-03-30",
+    "engineering_review": "direct_topic_but_outside_three_year_window",
+    "reason": "2022年，早于2023-10-29。",
+    "independent_medical_review": "pending",
+    "label_origin": "post-implementation engineering inspection; not independent gold labels"
+  },
+  {
+    "fixture": "bottlenecks.json",
+    "id": "https://openalex.org/W2910094941",
+    "title_quote": "The Liver Tumor Segmentation Benchmark (LiTS)",
+    "publication_date": "2022-11-17",
+    "engineering_review": "benchmark_candidate",
+    "reason": "可作为分割基准候选，具体瓶颈须有摘要或全文支持。",
+    "independent_medical_review": "pending",
+    "label_origin": "post-implementation engineering inspection; not independent gold labels"
+  },
+  {
+    "fixture": "holdout.json",
+    "id": "https://openalex.org/W1884191083",
+    "title_quote": "Brain tumor segmentation with Deep Neural Networks",
+    "publication_date": "2016-05-21",
+    "engineering_review": "holdout_domain_candidate",
+    "reason": "脑肿瘤分割，验证通用契约；不是肝脏问题的直接证据。",
+    "independent_medical_review": "pending",
+    "label_origin": "post-implementation engineering inspection; not independent gold labels"
+  }
+]

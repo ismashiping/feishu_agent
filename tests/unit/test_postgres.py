@@ -89,7 +89,18 @@ def test_postgres_ddl_and_metadata_are_distinct_from_dtos():
 
     from clinical_agent.adapters.postgres.models import Base, ChunkRecord, DocumentRecord
 
-    assert set(Base.metadata.tables) == {"documents", "chunks"}
+    assert set(Base.metadata.tables) == {
+        "documents",
+        "chunks",
+        "document_versions",
+        "update_cursors",
+        "update_runs",
+        "source_aliases",
+        "source_status_events",
+        "source_states",
+        "online_update_batches",
+        "rebuild_runs",
+    }
     assert not issubclass(DocumentRecord, BaseModel)
     assert not issubclass(ChunkRecord, BaseModel)
     document = DocumentRecord.__table__

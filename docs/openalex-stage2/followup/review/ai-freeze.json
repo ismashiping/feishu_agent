@@ -1,0 +1,8 @@
+{
+  "items_sha256": "6ecca074b98b5b3cc9157d54162a7aa268a9572de74631b56a4b3a0183016847",
+  "decisions_sha256": "140f3a2d9ea2ab9a5e2ba44610a92074e3092b1e6d365f157ce12b05d5b387f8",
+  "status": "AI review frozen before new comparison to model decisions",
+  "independent_human_review": false,
+  "reviewer": "same development agent",
+  "human_signoff_modified": false
+}

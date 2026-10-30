@@ -1,5 +1,9 @@
 # SPEC 01：离线知识库、基础 RAG 与飞书 MVP
 
+## 后续路线说明（2026-10-28）
+
+本阶段历史验收标准、任务编号与结果保留。P1-01–16 按任务范围已验收，P1-17 技术/教材已交付，医学人工签署待完成；不将 Phase 1 标完整验收。通用模型 API 迁移后的真实模型/容器未重新验收，旧证据不自动迁移。依用户新路线，Phase 3 可复用当前技术基线开始，Phase 2、8、9 延期至 Phase 7 后。后续按[开发计划](../development-plan.md)先明确阶段 SPEC/验收测试、阶段末集中执行，历史逐任务 TDD 不作为新增功能的执行要求。本次不启动功能开发。
+
 框架职责修订（2026-10-27）：LangGraph 负责 Agent 编排，LangChain 负责标准化模型调用及通用 Agent 工具接口，DeepSeek 只作底层模型供应商。当前生成使用供应商无关 LangChainAnswerGenerator 与通过配置 URL 接入的通用 ChatOpenAI；数据库/解析/飞书 SDK 不强行包装为模型工具。详见[调整 SPEC](tasks/langchain-model-boundary.md)。
 
 版本：0.19；状态：Phase1进行中，P1-01–16已实现离线入库、基础向量检索、RAG工作流/证据关联回答、CLI、FastAPI、飞书纯事件过滤、独立Redis原子去重、有界研究分派及文本渲染/受限发送；P1-16官方SDK/鉴权/生产装配与隔离Compose运行已验收，P1-17技术验收/学习文档已交付，医学人工审查待完成，Phase1整体仍未验收。见[阶段报告](../phase1-acceptance.md)和[P1-17 SPEC](tasks/p1-17-mvp-acceptance.md)。详细规则见 [P1-01](tasks/p1-01-literature-contracts.md)、[P1-02](tasks/p1-02-pdf-parsing.md)、[P1-03](tasks/p1-03-pubmed-xml.md)、[P1-04](tasks/p1-04-source-chunking.md)、[P1-05](tasks/p1-05-local-embedding.md)、[P1-06](tasks/p1-06-postgres-schema.md)、[P1-07](tasks/p1-07-offline-ingestion.md)、[P1-08](tasks/p1-08-vector-retrieval.md)、[P1-09](tasks/p1-09-basic-rag.md)、[P1-10](tasks/p1-10-cli-entrypoints.md)、[P1-11](tasks/p1-11-fastapi.md)、[P1-12](tasks/p1-12-feishu-events.md)、[P1-13](tasks/p1-13-redis-dedup.md)、[P1-14](tasks/p1-14-feishu-worker.md)、[P1-15](tasks/p1-15-feishu-sender.md)、[P1-16](tasks/p1-16-feishu-runtime.md)。

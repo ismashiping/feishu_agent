@@ -1,0 +1,5 @@
+  current_database  | migration_table 
+--------------------+-----------------
+ clinical_agent_e2e | 
+(1 row)
+

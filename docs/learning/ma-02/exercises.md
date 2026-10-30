@@ -1,0 +1,7 @@
+# 练习与Demo
+
+运行README的合成Demo。test_feedback_reanalysis_rebuilds_report模拟第一轮unsupported、第二轮supported，检查分析和审核各2次。test_feedback_exhaustion_does_not_publish模拟持续unsupported，最终仍拒绝。
+
+修改练习：轮数设置0，确认只执行一次；设置True或3应拒绝。独立练习：令第一次检索为空、第二次有依据，确认重新构建全部分析和引用，而非给旧结论换引用。身份错误必须立即停止，不可通过循环删掉坏引用。
+
+测试仅证明编排行为，不能代替医学人工审查或真实模型端到端。单次会话不新增测试要求，本轮在增量末集中执行。

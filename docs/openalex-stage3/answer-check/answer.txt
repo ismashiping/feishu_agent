@@ -1,0 +1,30 @@
+不确定：The attached fulltext Methods/Image acquisition passage reports CT acquisition details but does not report MRI scanner, sequence or contrast-agent details, so the study's MRI protocol cannot be determined from the supplied evidence. [1]
+
+For CT, the Methods/Image acquisition section states that liver CE-CT was performed using multiple multislice spiral CT scanners, without naming scanner manufacturers or models. [1]
+
+The CT protocol comprised a plain scan plus arterial (fluoroscopic trigger, 28–35 s), portal vein (70–80 s) and equilibrium (180 s) phases, scanning from the diaphragm roof to the iliac ridge. [1]
+
+The CT contrast agent is described only as a non-ionic iodide contrast at 300 mg iodide per ml, given at 1.5 ml (450 mg iodide) per kg body weight with a flow rate of 3.0–4.0 ml/s; no product name is reported. [1]
+
+The abstract indicates MRI images were used for external testing (n = 71) and that the model was verified with both CT and MRI, but it gives no MRI acquisition specifications. [1]
+
+The Background mentions dynamic contrast-enhanced MRI (DCE-MRI) and contrast-enhanced CT as general imaging techniques for HCC, but this is contextual discussion rather than a description of the study's own MRI protocol. [1]
+
+参考文献
+[1] Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram: a bi-centre study（2024）
+DOI：10.1186/s12880-024-01206-7
+https://openalex.org/W4391277958
+全文证据：Methods / Image acquisition；字符 [6451,6954)；https://openalex.org/W4391277958
+全文证据：Background；字符 [2282,3397)；https://openalex.org/W4391277958
+证据范围：已获取并引用的全文段落 [1]
+
+局限与范围
+Only one fulltext methods passage (CT image acquisition) was supplied; MRI methods may exist in unsupplied sections. [1]
+Scanner make/model not reported in the supplied passage; detailed parameters are referred to Table 1, which was not supplied. [1]
+Agent brand/name not found in the supplied passage. [1]
+Abstract-level statement only; MRI methods details not supplied. [1]
+Background text does not specify scanners, sequences or agents used in this study. [1]
+已查询 OpenAlex；证据限于实际引用的摘要或全文段落，不保证检全。
+引用关联已核对；医学语义支持仍需人工复核。
+检索范围：OpenAlex 匹配 0 条；本次返回 0 个候选；请求状态：complete。候选未截断，但不保证检全。
+本次使用在线 OpenAlex；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

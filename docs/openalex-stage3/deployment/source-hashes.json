@@ -1,0 +1,8 @@
+{
+  "adapters/oa_fulltext.py": "28a1d1a4b0b4c8f1a33d9aa5f25dd0cad38ac9b547dbee4b2f530591308cba53",
+  "application/oa_fulltext.py": "10e386508616f314c3b72b0bdfbd0d4d321bf733de97d6721fae0e9654fe23ae",
+  "application/fulltext.py": "f5dd3a5f2cf0437e228dba79e7cabc844fb9dd19d86b1457d7adb9449a2c851e",
+  "api_runtime.py": "87bc6cc338e179566f4f39ce74b6daef25f65c5561e2b2007fc80962c31ef93c",
+  "command_runtime.py": "840aaa13b0397fa82bbcdc628f306625ba5bbd48bde54c96c30a0075b06ddbd0",
+  "domain/citations.py": "b6cb6f6d82a6faa540e720daeb8ea0a485e80fa1e8d85c1002ac48fdef5440e0"
+}

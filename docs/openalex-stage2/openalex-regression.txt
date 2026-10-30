@@ -1,0 +1,88 @@
+........................................................................ [  5%]
+........................................................................ [ 10%]
+.....F.................................................................. [ 15%]
+........................................................................ [ 21%]
+........................................................................ [ 26%]
+........................................................................ [ 31%]
+........................................................................ [ 37%]
+........................................................................ [ 42%]
+........................................................................ [ 47%]
+........................................................................ [ 53%]
+........................................................................ [ 58%]
+........................................................................ [ 63%]
+........................................................................ [ 69%]
+........................................................................ [ 74%]
+........................................................................ [ 79%]
+........................................................................ [ 84%]
+........................................................................ [ 90%]
+........................................................................ [ 95%]
+............................................................             [100%]
+================================== FAILURES ===================================
+_____________ test_online_cli_api_and_feishu_render_empty_search ______________
+
+tmp_path = WindowsPath('E:/02_Projects/chatgpt_project/clinical_agent/.pytest_openalex_regression/test_online_cli_api_and_feishu0')
+capsys = <_pytest.capture.CaptureFixture object at 0x00000197A7E6EE10>
+
+    def test_online_cli_api_and_feishu_render_empty_search(tmp_path, capsys):
+        import json
+        from contextlib import contextmanager
+    
+        import httpx
+        from fastapi.testclient import TestClient
+    
+        from clinical_agent.adapters.pubmed_online import PubMedClient, PubMedSettings
+        from clinical_agent.api import create_app
+        from clinical_agent.api_runtime import ApiSettings, ServiceBundle
+        from clinical_agent.application.pubmed import PubMedRetrievalService
+        from clinical_agent.application.research import ResearchService
+        from clinical_agent.cli import main
+        from clinical_agent.domain.research import ResearchAnswer
+        from feishu.sender import render_answer
+    
+        @contextmanager
+        def service(model_dir=None):
+            with httpx.Client(
+                transport=httpx.MockTransport(
+                    lambda request: httpx.Response(
+                        200, json={"esearchresult": {"count": "0", "idlist": []}}
+                    )
+                )
+            ) as session:
+                yield ResearchService(
+                    retriever=object(),
+                    generator=object(),
+                    online_retriever=PubMedRetrievalService(PubMedClient(session, PubMedSettings())),
+                )
+    
+>       assert (
+            main(
+                [
+                    "ask",
+                    "--model-dir",
+                    ".",
+                    "--question",
+                    "q",
+                    "--scope",
+                    "online",
+                    "--pubmed-query",
+                    "aspirin[Title]",
+                ],
+                research_factory=service,
+            )
+            == 0
+        )
+E       AssertionError: assert 2 == 0
+E        +  where 2 = <function main at 0x00000197A556DF80>(['ask', '--model-dir', '.', '--question', 'q', '--scope', ...], research_factory=<function test_online_cli_api_and_feishu_render_empty_search.<locals>.service at 0x00000197A7E2CEA0>)
+
+tests\integration\test_pubmed_online.py:136: AssertionError
+---------------------------- Captured stderr call -----------------------------
+{"request_id": "1dcd44a5-6757-431c-82d1-10d22c7d0695", "error_code": "invalid_arguments"}
+============================== warnings summary ===============================
+tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[accepted-None]
+  E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\lark_oapi\ws\pb\google\protobuf\internal\well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/integration/test_pubmed_online.py::test_online_cli_api_and_feishu_render_empty_search
+1 failed, 1355 passed, 122 deselected, 1 warning in 166.89s (0:02:46)

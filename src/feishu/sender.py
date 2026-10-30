@@ -13,7 +13,10 @@ from urllib.parse import urlsplit
 
 from pydantic import Field, StrictInt
 
+from clinical_agent.domain.citations import BASE_LIMITATIONS
 from clinical_agent.domain.models import DTO
+from clinical_agent.domain.openalex import OpenAlexProvenance
+from clinical_agent.domain.report import ResearchReport, render_report
 from clinical_agent.domain.research import ResearchAnswer
 from feishu.dedup import Lease, OperationResult
 from feishu.events import MessageEnvelope
@@ -66,10 +69,190 @@ def _safe_url(value: str | None) -> str | None:
     return None
 
 
-def render_answer(answer: ResearchAnswer) -> str:
+def _readable_answer_lines(answer: ResearchAnswer) -> list[str]:
+    openalex = isinstance(answer.search_provenance, OpenAlexProvenance)
+    online_source = (
+        "OpenAlex" if isinstance(answer.search_provenance, OpenAlexProvenance) else "PubMed"
+    )
+    numbers = {
+        evidence.chunk_id: number
+        for number, source in enumerate(answer.sources, 1)
+        for evidence in source.evidence
+    }
+    lines: list[str] = []
+    if answer.status == "needs_clarification":
+        lines.append("本次尚未执行检索；需澄清以下信息：")
+        if answer.query_plan:
+            question = answer.query_plan.structured_question
+            lines.extend(
+                _plain(item) for item in question.blocking_ambiguities or question.ambiguities
+            )
+    elif answer.status == "insufficient_evidence":
+        lines.append("本次检索证据不足，不代表不存在相关研究或证据证明无效。")
+    caveats: dict[str, list[int]] = {}
+    section = None
+    for claim in answer.claims:
+        if claim.section and claim.section != section:
+            lines.append(_plain(claim.section))
+            section = claim.section
+        refs = " ".join(
+            f"[{n}]" for n in dict.fromkeys(numbers[k] for k in claim.evidence_chunk_ids)
+        )
+        label = {"evidence": "", "inference": "推断：", "uncertainty": "不确定："}[claim.kind]
+        lines.append(f"{label}{_plain(claim.text)} {refs}".rstrip())
+        for item in claim.limitations:
+            linked = caveats.setdefault(item, [])
+            linked.extend(numbers[k] for k in claim.evidence_chunk_ids if numbers[k] not in linked)
+        lines.append("")
+    if answer.sources:
+        lines.append("参考文献")
+    scopes = {
+        "abstract": "摘要（未阅读全文）",
+        "extracted_text": "PDF文本层（完整性未验证）",
+        "full_text": "全文来源",
+    }
+    for number, source in enumerate(answer.sources, 1):
+        date = str(source.publication_date.year or source.publication_date.raw or "年份未知")
+        lines.append(f"[{number}] {_plain(source.title)}（{_plain(date)}）")
+        metadata = []
+        if source.pmid:
+            metadata.append(f"PMID：{source.pmid}")
+        if source.doi:
+            metadata.append(f"DOI：{_plain(source.doi)}")
+        if metadata:
+            lines.append("；".join(metadata))
+        if openalex and source.doi:
+            doi_url = _safe_url("https://doi.org/" + source.doi)
+            if doi_url:
+                lines.append(doi_url)
+        url = _safe_url(source.source_url)
+        if url:
+            lines.append(_plain(url))
+        if source.source_notices:
+            lines.append("来源关联标记：" + _plain("、".join(source.source_notices)))
+        for evidence in source.evidence:
+            for passage in evidence.fulltext:
+                lines.append(
+                    f"全文证据：{_plain(passage.section)}；"
+                    + ("" if openalex else f"字符 [{passage.start},{passage.end})；")
+                    + f"{_plain(passage.pmcid or passage.openalex_id or '来源未知')}"
+                    + (f"；第{passage.page}页" if passage.page else "")
+                )
+        if source.content_scope != "abstract":
+            for evidence in source.evidence:
+                loc = evidence.location
+                page = f"第{loc.page}页；" if loc.page else ""
+                section = f"{_plain(loc.section)}；" if loc.section else ""
+                lines.append(f"定位：{page}{section}字符 [{loc.start},{loc.end})")
+    for scope, label in scopes.items():
+        refs = " ".join(
+            f"[{n}]"
+            for n, source in enumerate(answer.sources, 1)
+            if source.content_scope == scope
+            and not any(e.location.kind == "fulltext" for e in source.evidence)
+        )
+        if refs:
+            lines.append(f"证据范围：{label} {refs}")
+    fulltext_refs = " ".join(
+        f"[{n}]"
+        for n, source in enumerate(answer.sources, 1)
+        if any(e.location.kind == "fulltext" for e in source.evidence)
+    )
+    if fulltext_refs:
+        lines.append(f"证据范围：已获取并引用的全文段落 {fulltext_refs}")
+    # Only exact, known system notices are consolidated; never fuzzy-match medical caveats.
+    covered = {
+        BASE_LIMITATIONS[0],
+        BASE_LIMITATIONS[2],
+        "部分来源仅包含摘要，不能视为已阅读全文。",
+        "部分来源为PDF文本层提取，未验证版面、表格或全文完整性。",
+    }
+    if openalex:
+        covered.update(
+            {
+                BASE_LIMITATIONS[1],
+                "已查询 OpenAlex，证据限于本次检索与已获取摘要，不保证检全。",
+                "已查询 OpenAlex；证据限于实际引用的摘要或全文段落，不保证检全。",
+                "本次部分检索或筛选未完成，证据范围有限。",
+                "证据尚未充分覆盖：" + "、".join(answer.search_provenance.evidence_gaps),
+            }
+        )
+    if answer.retrieval_scope != "local":
+        online_scope = (
+            "已按记录查询 PubMed；结果有查询、日期、数量和摘要范围限制，"
+            "不保证检全或覆盖全部最新研究。"
+        )
+        covered.update(
+            {online_scope, online_scope + " PubMed候选已截断，本次未发现不能解释为不存在相关研究。"}
+        )
+    for item in answer.limitations:
+        if item not in covered:
+            caveats.setdefault(item, [])
+    if caveats:
+        lines.extend(["", "局限与范围"])
+        for item, linked_numbers in caveats.items():
+            text = (
+                "引用关联已核对；医学语义支持仍需人工复核。"
+                if item == BASE_LIMITATIONS[1]
+                else _plain(item)
+            )
+            lines.append(
+                text + (" " + " ".join(f"[{n}]" for n in linked_numbers) if linked_numbers else "")
+            )
+    if answer.status != "needs_clarification":
+        search = answer.search_provenance
+        if search and not openalex:
+            lines.append(
+                f"检索范围：{online_source} 匹配 {search.total_count} 条；"
+                f"本次返回 {search.returned_count} 个候选；请求状态：{search.status}。"
+                + (
+                    "候选已截断，不代表全部相关研究。"
+                    if search.truncated
+                    else "候选未截断，但不保证检全。"
+                )
+            )
+        if openalex and search.status == "partial":
+            lines.append("本次检索未完整完成，结论仅限所列文献，不代表领域全貌。")
+        lines.append(
+            "未执行在线 PubMed 检索。" + DISCLAIMER
+            if answer.retrieval_scope == "local"
+            else f"本次使用在线 {online_source}"
+            + ("及本地来源" if answer.retrieval_scope == "hybrid" else "")
+            + "；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。"
+        )
+    return lines
+
+
+def render_answer(answer: ResearchAnswer, *, include_audit: bool = False) -> str:
     """Keep complete claims/citations or replace the entire result; never slice evidence."""
     answer = ResearchAnswer.model_validate(answer)
-    lines = [DISCLAIMER]
+    online_source = (
+        "OpenAlex" if isinstance(answer.search_provenance, OpenAlexProvenance) else "PubMed"
+    )
+    lines = (
+        [DISCLAIMER]
+        if answer.retrieval_scope == "local"
+        else [
+            f"本次使用在线 {online_source}"
+            + ("及本地来源" if answer.retrieval_scope == "hybrid" else "")
+            + "；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。"
+        ]
+    )
+    if answer.status == "needs_clarification":
+        lines = ["本次尚未执行检索；需先确认关键研究主题或约束。"]
+    elif answer.retrieval_scope == "local":
+        lines.append("来源范围：local（仅本地；未执行在线 PubMed 检索）。")
+    if answer.retrieval_scope != "online":
+        lines.append(
+            f"本地检索：{answer.local_retrieval_mode}；策略：{answer.local_retrieval_strategy}"
+        )
+    if answer.search_provenance is not None:
+        search = answer.search_provenance
+        lines.append(
+            f"检索：{_plain(search.query_sent)}；时间：{search.fetched_at.isoformat()}；"
+            f"状态：{search.status}；返回 {search.returned_count}/{search.total_count}；"
+            f"截断：{search.truncated}"
+        )
     numbers = {
         evidence.chunk_id: number
         for number, source in enumerate(answer.sources, 1)
@@ -81,6 +264,24 @@ def render_answer(answer: ResearchAnswer) -> str:
         "extracted_text": "PDF文本层（完整性未验证）",
         "full_text": "全文来源",
     }
+    if answer.query_plan is not None:
+        structured = answer.query_plan.structured_question
+        lines.append(f"问题分类：{structured.question_type}")
+        if answer.status == "needs_clarification":
+            lines.append("需澄清：请补充以下信息后重新提问。")
+        for label, pico_value in [
+            ("P 人群", structured.pico.population),
+            ("I 干预/检测", structured.pico.intervention),
+            ("C 对照", structured.pico.comparison),
+            ("O 结局", structured.pico.outcome),
+        ]:
+            lines.append(f"{label}：{_plain(pico_value.text) if pico_value else '未提供'}")
+        for term in answer.query_plan.terms:
+            if term.origin == "query_expansion":
+                lines.append(f"候选检索扩展：{_plain(term.text)}")
+        questions = structured.blocking_ambiguities or structured.ambiguities
+        label = "需澄清" if answer.status == "needs_clarification" else "可选细化"
+        lines.extend(f"{label}：{_plain(item)}" for item in questions[:2])
     if answer.status == "insufficient_evidence":
         lines.append("证据不足：未检索到符合条件的证据，不代表证据证明无效。")
     for claim in answer.claims:
@@ -106,13 +307,17 @@ def render_answer(answer: ResearchAnswer) -> str:
         ]:
             if value:
                 lines.append(f"{label}：{_plain(value)}")
+        if source.publication_types:
+            lines.append("出版类型：" + _plain("、".join(source.publication_types)))
+        if source.source_notices:
+            lines.append("来源关联标记：" + _plain("、".join(source.source_notices)))
         for evidence in source.evidence:
             loc = evidence.location
             position = f"第{loc.page}页" if loc.kind == "pdf_page" else "摘要"
             section = f" {_plain(loc.section)}" if loc.section else ""
             lines.append(f"chunk={evidence.chunk_id} {position}{section} [{loc.start},{loc.end})")
     lines.extend(f"局限：{_plain(item)}" for item in answer.limitations)
-    text = "\n".join(lines)
+    text = "\n".join(lines if include_audit else _readable_answer_lines(answer))
     content = text_content(text)
     # content is itself a JSON string in the outer request. Quotes/backslashes
     # expand twice; reserve the maximum validated chat ID for the create route.
@@ -124,8 +329,22 @@ def render_answer(answer: ResearchAnswer) -> str:
     return (
         text
         if len(content.encode("utf-8")) <= MAX_CONTENT_BYTES and len(body) <= MAX_BODY_BYTES
-        else TOO_LONG
+        else (
+            TOO_LONG
+            if answer.retrieval_scope == "local"
+            else f"结果过长，未展示结论及引用。请缩小范围后重试；本次已按记录查询 {online_source}。"
+        )
     )
+
+
+def split_report_text(text: str) -> list[str]:
+    """Preserve every character, escape Feishu mentions, bound all parts before sending."""
+    text = _plain(text)
+    # 2000 codepoints bounds worst-case 4-byte Unicode and JSON escaping twice.
+    parts = [text[i : i + 2000] for i in range(0, len(text), 2000)] or [""]
+    if len(parts) > 32:
+        raise ValueError("Report exceeds bounded message count; use CLI/API export")
+    return [f"科研调研报告（{i}/{len(parts)}）\n{part}" for i, part in enumerate(parts, 1)]
 
 
 class SenderPolicy(DTO):
@@ -231,7 +450,7 @@ class _Item:
     envelope: MessageEnvelope
     deadline: float
     lease: Lease | None = None
-    answer: ResearchAnswer | None = None
+    answer: ResearchAnswer | ResearchReport | None = None
     code: NoticeCode | None = None
 
 
@@ -280,7 +499,11 @@ class Sender:
                 raise ValueError
             answer = None
             if delivery.answer is not None:
-                answer = ResearchAnswer.model_validate(delivery.answer).model_copy(deep=True)
+                answer = (
+                    ResearchReport.model_validate(delivery.answer)
+                    if isinstance(delivery.answer, ResearchReport)
+                    else ResearchAnswer.model_validate(delivery.answer)
+                ).model_copy(deep=True)
                 if answer.request_id != envelope.request_id:
                     raise ValueError
             elif delivery.error_code != "research_failed":
@@ -313,7 +536,11 @@ class Sender:
         if status is None:
             try:
                 text = (
-                    render_answer(item.answer)
+                    (
+                        render_report(item.answer)
+                        if isinstance(item.answer, ResearchReport)
+                        else render_answer(item.answer)
+                    )
                     if item.answer is not None
                     else NOTICE[item.code or "research_failed"]
                 )
@@ -322,12 +549,34 @@ class Sender:
             status = self._guard(item)
             if status is None:
                 try:
-                    status = self._transport.send(
-                        item.envelope,
-                        text,
-                        deadline=min(item.deadline, self._clock() + self.policy.send_ms / 1000),
-                        guard=lambda: self._guard(item),
-                    )
+                    try:
+                        parts = (
+                            split_report_text(text)
+                            if isinstance(item.answer, ResearchReport)
+                            else [text]
+                        )
+                    except ValueError:
+                        parts = [
+                            "报告过长，未发送任何报告内容或引用。"
+                            "请缩小检索范围，或使用 CLI/API 获取完整报告。"
+                        ]
+                    for index, part in enumerate(parts):
+                        status = (
+                            self._guard(item) if isinstance(item.answer, ResearchReport) else None
+                        )
+                        if status is None:
+                            status = self._transport.send(
+                                item.envelope,
+                                part,
+                                deadline=min(
+                                    item.deadline, self._clock() + self.policy.send_ms / 1000
+                                ),
+                                guard=lambda: self._guard(item),
+                            )
+                        if status != "sent":
+                            if index:
+                                status = "unknown"
+                            break
                     if status not in get_args(SendStatus):
                         status = "unknown"
                 except Exception:

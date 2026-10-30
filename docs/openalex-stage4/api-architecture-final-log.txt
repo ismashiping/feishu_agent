@@ -1,0 +1,1 @@
+{"index": 3, "question": "MedSAM与nnU-Net有哪些区别？", "request_id": "1405fbdc-0109-48ab-b750-c1d1cfc6801c", "http_status": 502, "status": "http_error", "error": "extraction_failed", "seconds": 4.063}

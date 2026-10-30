@@ -32,7 +32,7 @@ def engine():
             config.attributes["connection"] = connection
             command.upgrade(config, "head")
         with engine.connect() as connection:
-            assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "p107_0002"
+            assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "p804_0007"
         yield engine
 
 

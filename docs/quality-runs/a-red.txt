@@ -1,0 +1,42 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+_______ test_a_mapping_same_query[\u54ee\u5598\u547c\u6c14\u5206\u6790] _______
+tests\unit\test_quality_phase2.py:21: in test_a_mapping_same_query
+    p = plan(question, [['asthma'], ['breath analysis']], research_intent='discovery',
+tests\unit\test_quality_phase2.py:17: in plan
+    ))).plan(ClassificationRequest(question=question))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\pico.py:108: in plan
+    raise ResearchError(code) from None
+E   clinical_agent.domain.research.ResearchError: extraction_failed
+______________ test_a_mapping_same_query[asthma breath analysis] ______________
+tests\unit\test_quality_phase2.py:21: in test_a_mapping_same_query
+    p = plan(question, [['asthma'], ['breath analysis']], research_intent='discovery',
+tests\unit\test_quality_phase2.py:17: in plan
+    ))).plan(ClassificationRequest(question=question))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\pico.py:108: in plan
+    raise ResearchError(code) from None
+E   clinical_agent.domain.research.ResearchError: extraction_failed
+___________ test_a_mapping_same_query[\u54ee\u5598 breath analysis] ___________
+tests\unit\test_quality_phase2.py:21: in test_a_mapping_same_query
+    p = plan(question, [['asthma'], ['breath analysis']], research_intent='discovery',
+tests\unit\test_quality_phase2.py:17: in plan
+    ))).plan(ClassificationRequest(question=question))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\pico.py:108: in plan
+    raise ResearchError(code) from None
+E   clinical_agent.domain.research.ResearchError: extraction_failed
+____________________ test_a_legacy_is_explicitly_degraded _____________________
+tests\unit\test_quality_phase2.py:29: in test_a_legacy_is_explicitly_degraded
+    assert req.planning_warnings() == ['legacy_terms_without_concept_relationships']
+           ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pydantic\main.py:1105: in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E   AttributeError: 'PubMedSearchRequest' object has no attribute 'planning_warnings'
+=========================== short test summary info ===========================
+FAILED tests/unit/test_quality_phase2.py::test_a_mapping_same_query[\u54ee\u5598\u547c\u6c14\u5206\u6790]
+FAILED tests/unit/test_quality_phase2.py::test_a_mapping_same_query[asthma breath analysis]
+FAILED tests/unit/test_quality_phase2.py::test_a_mapping_same_query[\u54ee\u5598 breath analysis]
+FAILED tests/unit/test_quality_phase2.py::test_a_legacy_is_explicitly_degraded
+4 failed in 0.99s

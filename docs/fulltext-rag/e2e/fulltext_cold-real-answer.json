@@ -1,0 +1,232 @@
+{
+  "local_retrieval_mode": "vector",
+  "local_retrieval_strategy": "vector-v1",
+  "retrieval_warnings": [],
+  "local_channel_status": null,
+  "request_id": "656827a3-08ee-4e41-b0fd-4e19b6d268a9",
+  "status": "answered",
+  "query_plan": null,
+  "claims": [
+    {
+      "text": "该研究提出以“表型复杂度”（对适应度有贡献的遗传上不相关表型性状数目）作为复杂度指标，并利用连接种群平衡适应度（漂移负荷）与表型复杂度的模型，用病毒进化实验结果比较噬菌体ΦX174与水疱性口炎病毒的表型复杂度；摘要未报告具体估计数值、验证统计方法或局限。",
+      "kind": "evidence",
+      "evidence_chunk_ids": [
+        "2ef35cf6-1d79-54e2-ac5b-39b327efcc5f"
+      ],
+      "limitations": [
+        "仅摘要层面，具体方法与数值需见全文"
+      ],
+      "claim_id": "c1"
+    },
+    {
+      "text": "全文方法层面：作者将最大似然估计器应用于ΦX174和VSV的实验种群适应度估计，并用似然比检验定义95%置信区间；结果报告ΦX174的ne/Q=45（42–49）、fref=1.245（1.23–1.26），VSV的ne/Q=10（8–12）、fref=1.98（1.94–2.05），且因两种病毒均未发现适应度面曲率的强信号而假定Q约为1。",
+      "kind": "evidence",
+      "evidence_chunk_ids": [
+        "8e539ac7-db57-57be-b85f-f1807357b6b0"
+      ],
+      "limitations": [
+        "Q≈1为基于未发现曲率信号的假定，而非直接测定",
+        "fref的参照基准不同：ΦX174相对祖先病毒，VSV相对参考株"
+      ],
+      "claim_id": "c2"
+    },
+    {
+      "text": "全文讨论部分自述的局限是：观察目前仅限两种病毒，需在更多生物中评估漂移负荷与表型复杂度后才能得出进一步结论。",
+      "kind": "evidence",
+      "evidence_chunk_ids": [
+        "1ec958cc-a08d-5053-b291-9f314f41f18a"
+      ],
+      "limitations": [
+        "样本仅两种病毒，外推性受限"
+      ],
+      "claim_id": "c3"
+    },
+    {
+      "text": "关于验证，全文证据仅显示以实验适应度数据配合最大似然估计与似然比检验置信区间来检验模型预测的一致性；是否另有独立实验验证或交叉验证，所给段落未报告，属未找到。",
+      "kind": "uncertainty",
+      "evidence_chunk_ids": [
+        "8e539ac7-db57-57be-b85f-f1807357b6b0",
+        "1ec958cc-a08d-5053-b291-9f314f41f18a"
+      ],
+      "limitations": [
+        "仅基于所提供段落，未覆盖全文其他部分"
+      ],
+      "claim_id": "c4"
+    }
+  ],
+  "sources": [
+    {
+      "governance": {
+        "status": "unreviewed",
+        "event_id": null,
+        "evidence": null
+      },
+      "snapshot_xml": "<PubmedArticle><MedlineCitation Status=\"MEDLINE\" Owner=\"NLM\" IndexingMethod=\"Manual\"><PMID Version=\"1\">17299597</PMID><DateCompleted><Year>2010</Year><Month>03</Month><Day>26</Day></DateCompleted><DateRevised><Year>2018</Year><Month>11</Month><Day>13</Day></DateRevised><Article PubModel=\"Electronic\"><Journal><ISSN IssnType=\"Electronic\">1932-6203</ISSN><JournalIssue CitedMedium=\"Internet\"><Volume>2</Volume><Issue>2</Issue><PubDate><Year>2007</Year><Month>Feb</Month><Day>14</Day></PubDate></JournalIssue><Title>PloS one</Title><ISOAbbreviation>PLoS One</ISOAbbreviation></Journal><ArticleTitle>Quantifying organismal complexity using a population genetic approach.</ArticleTitle><Pagination><StartPage>e217</StartPage><MedlinePgn>e217</MedlinePgn></Pagination><ELocationID EIdType=\"pii\" ValidYN=\"Y\">e217</ELocationID><Abstract><AbstractText Label=\"BACKGROUND\" NlmCategory=\"BACKGROUND\">Various definitions of biological complexity have been proposed: the number of genes, cell types, or metabolic processes within an organism. As knowledge of biological systems has increased, it has become apparent that these metrics are often incongruent.</AbstractText><AbstractText Label=\"METHODOLOGY\" NlmCategory=\"METHODS\">Here we propose an alternative complexity metric based on the number of genetically uncorrelated phenotypic traits contributing to an organism's fitness. This metric, phenotypic complexity, is more objective than previous suggestions, as complexity is measured from a fundamental biological perspective, that of natural selection. We utilize a model linking the equilibrium fitness (drift load) of a population to phenotypic complexity. We then use results from viral evolution experiments to compare the phenotypic complexities of two viruses, the bacteriophage X174 and vesicular stomatitis virus, and to illustrate the consistency of our approach and its applicability.</AbstractText><AbstractText Label=\"CONCLUSIONS/SIGNIFICANCE\" NlmCategory=\"CONCLUSIONS\">Because Darwinian evolution through natural selection is the fundamental element unifying all biological organisms, we propose that our metric of complexity is potentially a more relevant metric than others, based on the count of artificially defined set of objects.</AbstractText></Abstract><AuthorList CompleteYN=\"Y\"><Author ValidYN=\"Y\"><LastName>Tenaillon</LastName><ForeName>Olivier</ForeName><Initials>O</Initials><AffiliationInfo><Affiliation>Institut National de la Santé et de la Recherche Médicale (INSERM) U722, Faculté de Médecine Xavier Bichat, Université Denis Diderot-Paris VII, Paris, France. Olivier.Tenaillon@bichat.inserm.fr</Affiliation></AffiliationInfo></Author><Author ValidYN=\"Y\"><LastName>Silander</LastName><ForeName>Olin K</ForeName><Initials>OK</Initials></Author><Author ValidYN=\"Y\"><LastName>Uzan</LastName><ForeName>Jean-Philippe</ForeName><Initials>JP</Initials></Author><Author ValidYN=\"Y\"><LastName>Chao</LastName><ForeName>Lin</ForeName><Initials>L</Initials></Author></AuthorList><Language>eng</Language><PublicationTypeList><PublicationType UI=\"D016428\">Journal Article</PublicationType><PublicationType UI=\"D052061\">Research Support, N.I.H., Extramural</PublicationType><PublicationType UI=\"D013485\">Research Support, Non-U.S. Gov't</PublicationType></PublicationTypeList><ArticleDate DateType=\"Electronic\"><Year>2007</Year><Month>02</Month><Day>14</Day></ArticleDate></Article><MedlineJournalInfo><Country>United States</Country><MedlineTA>PLoS One</MedlineTA><NlmUniqueID>101285081</NlmUniqueID><ISSNLinking>1932-6203</ISSNLinking></MedlineJournalInfo><CitationSubset>IM</CitationSubset><MeshHeadingList><MeshHeading><DescriptorName UI=\"D010584\" MajorTopicYN=\"N\">Bacteriophage phi X 174</DescriptorName><QualifierName UI=\"Q000235\" MajorTopicYN=\"Y\">genetics</QualifierName></MeshHeading><MeshHeading><DescriptorName UI=\"D004777\" MajorTopicYN=\"N\">Environment</DescriptorName></MeshHeading><MeshHeading><DescriptorName UI=\"D004926\" MajorTopicYN=\"N\">Escherichia coli</DescriptorName><QualifierName UI=\"Q000821\" MajorTopicYN=\"N\">virology</QualifierName></MeshHeading><MeshHeading><DescriptorName UI=\"D019143\" MajorTopicYN=\"N\">Evolution, Molecular</DescriptorName></MeshHeading><MeshHeading><DescriptorName UI=\"D040961\" MajorTopicYN=\"N\">Genetic Drift</DescriptorName></MeshHeading><MeshHeading><DescriptorName UI=\"D056084\" MajorTopicYN=\"N\">Genetic Fitness</DescriptorName><QualifierName UI=\"Q000235\" MajorTopicYN=\"Y\">genetics</QualifierName></MeshHeading><MeshHeading><DescriptorName UI=\"D005828\" MajorTopicYN=\"Y\">Genetics, Population</DescriptorName></MeshHeading><MeshHeading><DescriptorName UI=\"D016013\" MajorTopicYN=\"N\">Likelihood Functions</DescriptorName></MeshHeading><MeshHeading><DescriptorName UI=\"D008954\" MajorTopicYN=\"N\">Models, Biological</DescriptorName></MeshHeading><MeshHeading><DescriptorName UI=\"D010641\" MajorTopicYN=\"Y\">Phenotype</DescriptorName></MeshHeading><MeshHeading><DescriptorName UI=\"D012641\" MajorTopicYN=\"Y\">Selection, Genetic</DescriptorName></MeshHeading><MeshHeading><DescriptorName UI=\"D014721\" MajorTopicYN=\"N\">Vesicular stomatitis Indiana virus</DescriptorName><QualifierName UI=\"Q000235\" MajorTopicYN=\"Y\">genetics</QualifierName></MeshHeading></MeshHeadingList><CoiStatement><b>Competing Interests: </b>The authors have declared that no competing interests exist.</CoiStatement></MedlineCitation><PubmedData><History><PubMedPubDate PubStatus=\"received\"><Year>2006</Year><Month>10</Month><Day>26</Day></PubMedPubDate><PubMedPubDate PubStatus=\"accepted\"><Year>2007</Year><Month>1</Month><Day>25</Day></PubMedPubDate><PubMedPubDate PubStatus=\"pubmed\"><Year>2007</Year><Month>2</Month><Day>15</Day><Hour>9</Hour><Minute>0</Minute></PubMedPubDate><PubMedPubDate PubStatus=\"medline\"><Year>2007</Year><Month>2</Month><Day>15</Day><Hour>9</Hour><Minute>1</Minute></PubMedPubDate><PubMedPubDate PubStatus=\"entrez\"><Year>2007</Year><Month>2</Month><Day>15</Day><Hour>9</Hour><Minute>0</Minute></PubMedPubDate><PubMedPubDate PubStatus=\"pmc-release\"><Year>2007</Year><Month>2</Month><Day>14</Day></PubMedPubDate></History><PublicationStatus>epublish</PublicationStatus><ArticleIdList><ArticleId IdType=\"pubmed\">17299597</ArticleId><ArticleId IdType=\"pmc\">PMC1790863</ArticleId><ArticleId IdType=\"doi\">10.1371/journal.pone.0000217</ArticleId></ArticleIdList><ReferenceList><Reference><Citation>McShea DW. Metazoan complexity and evolution: Is there a trend? Perspective. Evolution. 1996;50:477–492.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">28568940</ArticleId></ArticleIdList></Reference><Reference><Citation>Szathmary E, Jordan F, Pal C. Molecular biology and evolution - Can genes explain biological complexity? Science. 2001;292:1315–1316.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">11360989</ArticleId></ArticleIdList></Reference><Reference><Citation>Carroll SB. Chance and necessity: the evolution of morphological complexity and diversity. Nature. 2001;409:1102–1109.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">11234024</ArticleId></ArticleIdList></Reference><Reference><Citation>Adami C. What is complexity? Bioessays. 2002;24:1085–1094.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">12447974</ArticleId></ArticleIdList></Reference><Reference><Citation>Adami C, Ofria C, Collier TC. Evolution of biological complexity. Proceedings of the National Academy of Sciences of the United States of America. 2000;97:4463–4468.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC18257</ArticleId><ArticleId IdType=\"pubmed\">10781045</ArticleId></ArticleIdList></Reference><Reference><Citation>Orr HA. Adaptation and the cost of complexity. Evolution. 2000;54:13–20.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">10937178</ArticleId></ArticleIdList></Reference><Reference><Citation>Whitlock MC, Griswold CK, Peters AD. Compensating for the meltdown: The critical effective size of a population with deleterious and compensatory mutations. Annales Zoologici Fennici. 2003;40:169–183.</Citation></Reference><Reference><Citation>Welch JJ, Waxman D. Modularity and the cost of complexity. Evolution. 2003;57:1723–1734.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">14503615</ArticleId></ArticleIdList></Reference><Reference><Citation>Hartl DL, Taubes CH. Towards a theory of evolutionary adaptation. Genetica. 1998;103:525–533.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">9720296</ArticleId></ArticleIdList></Reference><Reference><Citation>Poon A, Otto SP. Compensating for our load of mutations: Freezing the meltdown of small populations. Evolution. 2000;54:1467–1479.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">11108576</ArticleId></ArticleIdList></Reference><Reference><Citation>Fisher RA. The Genetical Theory of Natural Selection. Oxford: Clarendon Press; 1930. p. 318 p.</Citation></Reference><Reference><Citation>Burch CL, Chao L. Evolution by small steps and rugged landscapes in the RNA virus phi 6. Genetics. 1999;151:921–927.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1460516</ArticleId><ArticleId IdType=\"pubmed\">10049911</ArticleId></ArticleIdList></Reference><Reference><Citation>Estes S, Phillips PC, Denver DR, Thomas WK, Lynch M. Mutation accumulation in populations of varying size: The distribution of mutational effects for fitness correlates in Caenorhabditis elegans. Genetics. 2004;166:1269–1279.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1470770</ArticleId><ArticleId IdType=\"pubmed\">15082546</ArticleId></ArticleIdList></Reference><Reference><Citation>Silander OK, Tenaillon O, Chao L. Understanding the evolutionary fate of finite size populations: The dynamics of mutational effects. PloS Biology. 2007;In press</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1845161</ArticleId><ArticleId IdType=\"pubmed\">17407380</ArticleId></ArticleIdList></Reference><Reference><Citation>Wagner GP, Gabriel W. Quantitative Variation in Finite Parthenogenetic Populations - What Stops Mullers Ratchet in the Absence of Recombination. Evolution. 1990;44:715–731.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">28567981</ArticleId></ArticleIdList></Reference><Reference><Citation>Sella G, Hirsh AE. The application of statistical physics to evolutionary biology. Proceedings of the National Academy of Sciences of the United States of America. 2005;102:9541–9546.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1172247</ArticleId><ArticleId IdType=\"pubmed\">15980155</ArticleId></ArticleIdList></Reference><Reference><Citation>Burch CL, Chao L. Epistasis and Its Relationship to Canalization in the RNA Virus Phi-6. Genetics. 2004;167:559–567.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1470902</ArticleId><ArticleId IdType=\"pubmed\">15238511</ArticleId></ArticleIdList></Reference><Reference><Citation>Bonhoeffer S, Chappey C, Parkin NT, Whitcomb JM, Petropoulos CJ. Evidence for positive epistasis in HIV-1. Science. 2004;306:1547–1550.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">15567861</ArticleId></ArticleIdList></Reference><Reference><Citation>Sanjuan R, Moya A, Elena SF. The contribution of epistasis to the archistectureof fitness in an RNA virus. Proceedings of the National Academy of Sciences of the United States of America. 2004;101:15376–15379.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC524436</ArticleId><ArticleId IdType=\"pubmed\">15492220</ArticleId></ArticleIdList></Reference><Reference><Citation>Elena SF, Lenski RE. Test of synergistic interactions among deleterious mutations in bacteria. Nature. 1997;390:395–398.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">9389477</ArticleId></ArticleIdList></Reference><Reference><Citation>Martin G, Lenormand T. A general multivariate extension of Fisher's geometrical model and the distribution of mutation fitness effects across species. Evolution. 2006;60:893–907.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">16817531</ArticleId></ArticleIdList></Reference><Reference><Citation>Novella IS, Elena SF, Moya A, Domingo E, Holland JJ. Size of Genetic Bottlenecks Leading to Virus Fitness Loss Is Determined by Mean Initial Population Fitness. Journal of Virology. 1995;69:2869–2872.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC188983</ArticleId><ArticleId IdType=\"pubmed\">7707510</ArticleId></ArticleIdList></Reference><Reference><Citation>Wagner GP, Altenberg L. Perspective: Complex adaptations and the evolution of evolvability. Evolution. 1996;50:967–976.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">28565291</ArticleId></ArticleIdList></Reference><Reference><Citation>Bull JJ, Badgett MR, Wichman HA, Huelsenbeck JP, Hillis DM, et al. Exceptional convergent evolution in a virus. Genetics. 1997;147:1497–1507.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1208326</ArticleId><ArticleId IdType=\"pubmed\">9409816</ArticleId></ArticleIdList></Reference><Reference><Citation>Fong SS, Joyce AR, Palsson BO. Parallel adaptive evolution cultures of Escherichia coli lead to convergent growth phenotypes with different gene expression states. Genome Research. 2005;15:1365–1372.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1240078</ArticleId><ArticleId IdType=\"pubmed\">16204189</ArticleId></ArticleIdList></Reference><Reference><Citation>Fong SS, Palsson BO. Metabolic gene-deletion strains of Escherichia coli evolve to computationally predicted growth phenotypes. Nature Genetics. 2004;36:1056–1058.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">15448692</ArticleId></ArticleIdList></Reference><Reference><Citation>Woods R, Schneider D, Winkworth CL, Riley MA, Lenski RE. Tests of parallel molecular evolution in a long-term experiment with Escherichia coli. Proceedings of the National Academy of Sciences of the United States of America. 2006;103:9107–9112.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1482574</ArticleId><ArticleId IdType=\"pubmed\">16751270</ArticleId></ArticleIdList></Reference><Reference><Citation>Travisano M, Mongold JA, Bennett AF, Lenski RE. Experimental Tests of the Roles of Adaptation, Chance, and History in Evolution. Science. 1995;267:87–90.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">7809610</ArticleId></ArticleIdList></Reference><Reference><Citation>Schrag SJ, Perrot V, Levin BR. Adaptation to the fitness costs of antibiotic resistance in Escherichia coli. Proceedings of the Royal Society of London Series B-Biological Sciences. 1997;264:1287–1291.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1688596</ArticleId><ArticleId IdType=\"pubmed\">9332013</ArticleId></ArticleIdList></Reference><Reference><Citation>Reynolds MG. Compensatory evolution in rifampin-resistant Escherichia coli. Genetics. 2000;156:1471–1481.</Citation><ArticleIdList><ArticleId IdType=\"pmc\">PMC1461348</ArticleId><ArticleId IdType=\"pubmed\">11102350</ArticleId></ArticleIdList></Reference><Reference><Citation>Shlomai J, Polder L, Arai K, Kornberg A. Replication of Phi-X174 DNA with Purified Enzymes .1. Conversion of Viral-DNA to a Supercoiled, Biologically-Active Duplex. Journal of Biological Chemistry. 1981;256:5233–5238.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">6262323</ArticleId></ArticleIdList></Reference><Reference><Citation>Bose S, Mathur M, Bates P, Joshi N, Banerjee AK. Requirement for cyclophilin A for the replication of vesicular stomatitis virus New Jersey serotype. Journal of General Virology. 2003;84:1687–1699.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">12810862</ArticleId></ArticleIdList></Reference><Reference><Citation>Pearson H. What is a gene? Nature. 2006;441:398–401.</Citation><ArticleIdList><ArticleId IdType=\"pubmed\">16724031</ArticleId></ArticleIdList></Reference></ReferenceList></PubmedData></PubmedArticle>",
+      "publication_types": [
+        "Journal Article",
+        "Research Support, N.I.H., Extramural",
+        "Research Support, Non-U.S. Gov't"
+      ],
+      "source_notices": [],
+      "document_id": "d49fe35e-3709-5517-8f47-ece7e256e9cc",
+      "title": "Quantifying organismal complexity using a population genetic approach.",
+      "title_origin": "pubmed_metadata",
+      "authors": [
+        "Olivier Tenaillon",
+        "Olin K Silander",
+        "Jean-Philippe Uzan",
+        "Lin Chao"
+      ],
+      "publication_date": {
+        "precision": "day",
+        "raw": "2007 Feb 14",
+        "year": 2007,
+        "month": 2,
+        "day": 14
+      },
+      "journal": "PloS one",
+      "doi": "10.1371/journal.pone.0000217",
+      "pmid": "17299597",
+      "source_type": "pubmed",
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/17299597/",
+      "content_hash": "5fd90940d5330386ac1e29e6a37c50c8d805ae754bdcb2983f18702a5bc07cad",
+      "content_scope": "abstract",
+      "evidence": [
+        {
+          "fulltext": [
+            {
+              "chunk_id": "8e539ac7-db57-57be-b85f-f1807357b6b0",
+              "pmid": "17299597",
+              "pmcid": "PMC1790863",
+              "title": "Quantifying organismal complexity using a population genetic approach.",
+              "doi": "10.1371/journal.pone.0000217",
+              "section": "RESULTS / Estimates of Phenotypic Complexity for VSV and ΦX174",
+              "start": 19764,
+              "end": 20414,
+              "text": "We applied the maximum likelihood estimator to the experimental estimates of population fitness for ΦX174 and VSV, and using a likelihood ratio test we defined 95% confidence intervals (CI), which we list here in parentheses. For ΦX174 we found ne/Q = 45 (42−49), and fref = 1.245 (1.23−1.26), whereas for VSV we found ne/Q = 10 (8−12) and fref = 1.98 (1.94−2.05) ( Fig. 3 ). In both of these cases, fref is calculated per generation relative to the ancestral virus for ΦX174 and relative to a reference strain for VSV. As no strong signature of curvature in the fitness surface has been found for either virus, we assume that Q is approximately one.",
+              "content_hash": "8e48fab87c903d9d90f9466e1b69937afc82a179db7ecf0024a598a52afad332",
+              "source_url": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC1790863/unicode",
+              "license": "CC BY",
+              "content_scope": "fulltext"
+            },
+            {
+              "chunk_id": "1ec958cc-a08d-5053-b291-9f314f41f18a",
+              "pmid": "17299597",
+              "pmcid": "PMC1790863",
+              "title": "Quantifying organismal complexity using a population genetic approach.",
+              "doi": "10.1371/journal.pone.0000217",
+              "section": "DISCUSS / Viral Estimates of Phenotypic Complexity",
+              "start": 33701,
+              "end": 34143,
+              "text": "Although our observations are currently limited to two viral species, it is clear that from both a qualitative level (i.e. population size-dependent fitness equilibria), and a quantitative level (that the number of phenotypic dimensions are reasonable) that the predictions from FGM theory are borne out. An assessment of drift load and phenotypic complexity in a greater number of organisms is needed before further conclusions can be drawn.",
+              "content_hash": "8e48fab87c903d9d90f9466e1b69937afc82a179db7ecf0024a598a52afad332",
+              "source_url": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC1790863/unicode",
+              "license": "CC BY",
+              "content_scope": "fulltext"
+            }
+          ],
+          "chunk_id": "2ef35cf6-1d79-54e2-ac5b-39b327efcc5f",
+          "text": "Various definitions of biological complexity have been proposed: the number of genes, cell types, or metabolic processes within an organism. As knowledge of biological systems has increased, it has become apparent that these metrics are often incongruent.\n\nHere we propose an alternative complexity metric based on the number of genetically uncorrelated phenotypic traits contributing to an organism's fitness. This metric, phenotypic complexity, is more objective than previous suggestions, as complexity is measured from a fundamental biological perspective, that of natural selection. We utilize a model linking the equilibrium fitness (drift load) of a population to phenotypic complexity. We then use results from viral evolution experiments to compare the phenotypic complexities of two viruses, the bacteriophage X174 and vesicular stomatitis virus, and to illustrate the consistency of our approach and its applicability.\n\nBecause Darwinian evolution through natural selection is the fundamental element unifying all biological organisms, we propose that our metric of complexity is potentially a more relevant metric than others, based on the count of artificially defined set of objects.",
+          "location": {
+            "kind": "abstract",
+            "page": null,
+            "section": null,
+            "start": 0,
+            "end": 1197
+          }
+        },
+        {
+          "fulltext": [
+            {
+              "chunk_id": "8e539ac7-db57-57be-b85f-f1807357b6b0",
+              "pmid": "17299597",
+              "pmcid": "PMC1790863",
+              "title": "Quantifying organismal complexity using a population genetic approach.",
+              "doi": "10.1371/journal.pone.0000217",
+              "section": "RESULTS / Estimates of Phenotypic Complexity for VSV and ΦX174",
+              "start": 19764,
+              "end": 20414,
+              "text": "We applied the maximum likelihood estimator to the experimental estimates of population fitness for ΦX174 and VSV, and using a likelihood ratio test we defined 95% confidence intervals (CI), which we list here in parentheses. For ΦX174 we found ne/Q = 45 (42−49), and fref = 1.245 (1.23−1.26), whereas for VSV we found ne/Q = 10 (8−12) and fref = 1.98 (1.94−2.05) ( Fig. 3 ). In both of these cases, fref is calculated per generation relative to the ancestral virus for ΦX174 and relative to a reference strain for VSV. As no strong signature of curvature in the fitness surface has been found for either virus, we assume that Q is approximately one.",
+              "content_hash": "8e48fab87c903d9d90f9466e1b69937afc82a179db7ecf0024a598a52afad332",
+              "source_url": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC1790863/unicode",
+              "license": "CC BY",
+              "content_scope": "fulltext"
+            }
+          ],
+          "chunk_id": "8e539ac7-db57-57be-b85f-f1807357b6b0",
+          "text": "We applied the maximum likelihood estimator to the experimental estimates of population fitness for ΦX174 and VSV, and using a likelihood ratio test we defined 95% confidence intervals (CI), which we list here in parentheses. For ΦX174 we found ne/Q = 45 (42−49), and fref = 1.245 (1.23−1.26), whereas for VSV we found ne/Q = 10 (8−12) and fref = 1.98 (1.94−2.05) ( Fig. 3 ). In both of these cases, fref is calculated per generation relative to the ancestral virus for ΦX174 and relative to a reference strain for VSV. As no strong signature of curvature in the fitness surface has been found for either virus, we assume that Q is approximately one.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "RESULTS / Estimates of Phenotypic Complexity for VSV and ΦX174",
+            "start": 19764,
+            "end": 20414
+          }
+        },
+        {
+          "fulltext": [
+            {
+              "chunk_id": "1ec958cc-a08d-5053-b291-9f314f41f18a",
+              "pmid": "17299597",
+              "pmcid": "PMC1790863",
+              "title": "Quantifying organismal complexity using a population genetic approach.",
+              "doi": "10.1371/journal.pone.0000217",
+              "section": "DISCUSS / Viral Estimates of Phenotypic Complexity",
+              "start": 33701,
+              "end": 34143,
+              "text": "Although our observations are currently limited to two viral species, it is clear that from both a qualitative level (i.e. population size-dependent fitness equilibria), and a quantitative level (that the number of phenotypic dimensions are reasonable) that the predictions from FGM theory are borne out. An assessment of drift load and phenotypic complexity in a greater number of organisms is needed before further conclusions can be drawn.",
+              "content_hash": "8e48fab87c903d9d90f9466e1b69937afc82a179db7ecf0024a598a52afad332",
+              "source_url": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC1790863/unicode",
+              "license": "CC BY",
+              "content_scope": "fulltext"
+            }
+          ],
+          "chunk_id": "1ec958cc-a08d-5053-b291-9f314f41f18a",
+          "text": "Although our observations are currently limited to two viral species, it is clear that from both a qualitative level (i.e. population size-dependent fitness equilibria), and a quantitative level (that the number of phenotypic dimensions are reasonable) that the predictions from FGM theory are borne out. An assessment of drift load and phenotypic complexity in a greater number of organisms is needed before further conclusions can be drawn.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "DISCUSS / Viral Estimates of Phenotypic Complexity",
+            "start": 33701,
+            "end": 34143
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "已按记录查询 PubMed；结果有查询、日期、数量和摘要范围限制，不保证检全或覆盖全部最新研究。",
+    "已检查引用标识与来源关联，尚未自动验证结论的医学语义支持关系，需人工复核。",
+    "本结果用于医学科研辅助，不用于个体诊断或治疗决策。",
+    "部分来源仅包含摘要，不能视为已阅读全文。"
+  ],
+  "retrieval_scope": "online",
+  "search_provenance": {
+    "searched_pmids": [
+      "17299597"
+    ],
+    "fetched_pmids": [
+      "17299597"
+    ],
+    "candidate_outcomes": {
+      "17299597": "cited"
+    },
+    "endpoint": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
+    "search_warnings": [],
+    "query_sent": "17299597[PMID]",
+    "query_translation": "17299597[UID]",
+    "total_count": 1,
+    "requested_limit": 1,
+    "returned_count": 1,
+    "truncated": false,
+    "fetched_at": "2026-10-29T02:38:17.122278Z",
+    "date_from": null,
+    "date_to": null,
+    "date_field": "pdat",
+    "sort": "relevance",
+    "status": "complete",
+    "warnings": [],
+    "missing_pmids": []
+  },
+  "generated_at": "2026-10-29T02:39:10.468713Z"
+}

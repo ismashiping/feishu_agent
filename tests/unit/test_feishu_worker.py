@@ -14,6 +14,7 @@ from clinical_agent.domain.research import QuestionRequest
 from clinical_agent.domain.retrieval import RetrievalResult, retrieval_embedding_info
 from feishu.dedup import AcquireResult, DedupPolicy, Lease
 from feishu.events import MessageEnvelope
+from tests.unit.test_evidence_analysis import case as case
 
 
 def envelope(index=1):
@@ -33,7 +34,41 @@ def answer(request):
     result = RetrievalResult(
         options=request.options, embedding_info=retrieval_embedding_info(), hits=[]
     )
+    if request.scope == "hybrid":
+        from clinical_agent.application.pubmed import merge_sources
+
+        result = merge_sources(result, EmptyOnline().retrieve(request))
     return build_answer(request, result, None, generated_at=datetime(2026, 10, 27, tzinfo=UTC))
+
+
+class EmptyOnline:
+    """Explicit no-network online channel for worker/real-graph contract tests."""
+
+    def retrieve(self, request, **kwargs):
+        from clinical_agent.domain.pubmed import SearchProvenance
+
+        return RetrievalResult(
+            scope="online",
+            options=request.options,
+            embedding_info=None,
+            hits=[],
+            search_provenance=SearchProvenance(
+                query_sent=request.question,
+                query_translation=None,
+                total_count=0,
+                requested_limit=10,
+                returned_count=0,
+                truncated=False,
+                fetched_at=datetime(2026, 10, 27, tzinfo=UTC),
+                date_from=None,
+                date_to=None,
+                date_field="pdat",
+                sort="relevance",
+                status="complete",
+                warnings=[],
+                missing_pmids=[],
+            ),
+        )
 
 
 class Dedup:
@@ -69,6 +104,9 @@ class Dedup:
 
 
 class Service:
+    def respond(self, request):
+        return self.answer(request)
+
     def __init__(self):
         self.requests = []
         self.entered, self.finish = Event(), Event()
@@ -292,8 +330,15 @@ def test_real_graph_reused_with_independent_request_state():
         def generate(self, *args, **kwargs):
             raise AssertionError("empty retrieval must not generate")
 
+    from clinical_agent.application.pico import PicoPlanner
+    from tests.unit.test_intent_routing import Extractor
+
     service = ResearchService(
-        retriever=Retriever(), generator=Generator(), now=lambda: datetime(2026, 10, 27, tzinfo=UTC)
+        planner=PicoPlanner(extractor=Extractor("question_answer")),
+        online_retriever=EmptyOnline(),
+        retriever=Retriever(),
+        generator=Generator(),
+        now=lambda: datetime(2026, 10, 27, tzinfo=UTC),
     )
     graph = service._graph
     sink = Sink()
@@ -304,7 +349,9 @@ def test_real_graph_reused_with_independent_request_state():
         assert [f.result(3).status for f in futures] == ["queued", "queued"]
         for delivery in sink.deliveries:
             request = QuestionRequest(
-                question=delivery.envelope.text, request_id=delivery.envelope.request_id
+                question=delivery.envelope.text,
+                request_id=delivery.envelope.request_id,
+                scope="hybrid",
             )
             assert delivery.answer == service.answer(request)
         assert service._graph is graph
@@ -449,8 +496,15 @@ def test_real_graph_generation_keeps_evidence_for_each_message(prepared_factory)
                 }
             )
 
+    from clinical_agent.application.pico import PicoPlanner
+    from tests.unit.test_intent_routing import Extractor
+
     service = ResearchService(
-        retriever=Retriever(), generator=Generator(), now=lambda: datetime(2026, 10, 27, tzinfo=UTC)
+        planner=PicoPlanner(extractor=Extractor("question_answer")),
+        online_retriever=EmptyOnline(),
+        retriever=Retriever(),
+        generator=Generator(),
+        now=lambda: datetime(2026, 10, 27, tzinfo=UTC),
     )
     sink = Sink()
     worker = Dispatcher(research=service, dedup=Dedup(), sink=sink)
@@ -461,7 +515,9 @@ def test_real_graph_generation_keeps_evidence_for_each_message(prepared_factory)
         assert [t.future.result(3).status for t in tasks] == ["queued", "queued"]
         for delivery in sink.deliveries:
             request = QuestionRequest(
-                question=delivery.envelope.text, request_id=delivery.envelope.request_id
+                question=delivery.envelope.text,
+                request_id=delivery.envelope.request_id,
+                scope="hybrid",
             )
             assert delivery.answer == service.answer(request)
             assert delivery.answer.claims[0].text == delivery.envelope.text
@@ -475,3 +531,61 @@ def test_handoff_carries_bounded_sender_deadline(setup_worker):
     worker._clock = lambda: 100.0
     assert worker.submit(envelope()).future.result(3).status == "queued"
     assert sink.deliveries[0].deadline == 115.0
+
+
+@pytest.mark.parametrize("code", ["extraction_failed", "generation_timeout", None])
+def test_research_failure_logs_safe_code(setup_worker, caplog, code):
+    import logging
+
+    from clinical_agent.domain.research import ResearchError
+    from feishu.main import _SafeFormatter
+
+    worker, service, _, sink = setup_worker
+
+    def fail(request):
+        if code:
+            raise ResearchError(code)
+        raise RuntimeError("private-secret-question")
+
+    service.answer = fail
+    with caplog.at_level(logging.WARNING, logger="feishu.worker"):
+        message = envelope()
+        worker.submit(message).future.result(timeout=5)
+    record = next(r for r in caplog.records if r.msg == "feishu_research_failed")
+    data = json.loads(_SafeFormatter().format(record))
+    assert data["request_id"] == str(message.request_id)
+    assert data["error_code"] == (code or "research_failed")
+    assert "private-secret" not in json.dumps(data)
+    assert sink.deliveries[0].error_code == "research_failed"
+
+
+@pytest.mark.parametrize("explicit", [False, True])
+def test_report_delivery_uses_selected_entry(setup_worker, case, explicit):
+    from clinical_agent.domain.report import ReportResult
+    from tests.unit.test_feedback_agents import service as report_service
+
+    worker, research, _, sink = setup_worker
+    message = envelope()
+    if explicit:
+        message.text = "/report test direction"
+    svc, _, _, _ = report_service(case, ["supported"])
+    request = case[0].model_copy(update={"request_id": message.request_id})
+    result = svc.report(request).report
+    calls = []
+
+    def respond(request):
+        calls.append(("respond", request.question))
+        return result
+
+    def report(request):
+        calls.append(("report", request.question))
+        return ReportResult(report=result, markdown="synthetic")
+
+    research.respond, research.report = respond, report
+    worker.submit(message).future.result(timeout=5)
+    assert (
+        calls == [("report", "test direction")]
+        if explicit
+        else calls == [("respond", message.text)]
+    )
+    assert sink.deliveries[0].answer == result

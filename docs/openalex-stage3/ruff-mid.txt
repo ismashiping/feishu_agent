@@ -1,0 +1,29 @@
+E501 Line too long (129 > 100)
+   --> scripts\oa_fulltext_integration.py:146:101
+    |
+144 |             "revision": revision,
+145 |             "vector_rows": rows,
+146 |             "max_chunk_tokens": max(model.count_tokens("passage: "+p["text"]) for p in payload["passages"]) if payload else None,
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+147 |             "runs": runs,
+148 |             "atomic_rollback_verified": rollback_verified,
+    |
+
+E501 Line too long (143 > 100)
+   --> tests\unit\test_oa_fulltext.py:117:101
+    |
+116 | …s():
+117 | …d a network.<table-wrap><table><tr><td>123</td><td>456</td></tr></table></table-wrap>")
+    |                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+118 | …text
+    |
+
+E501 Line too long (126 > 100)
+   --> tests\unit\test_oa_fulltext.py:131:101
+    |
+129 |         "MRI sequences used a contrast agent.",
+130 |     ]]
+131 |     assert rerank_passages(candidates, "Which CT scanners and MRI sequences and contrast agents were used?") == candidates[2:]
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Found 4 errors (1 fixed, 3 remaining).

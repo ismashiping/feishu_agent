@@ -1,0 +1,22 @@
+[
+  {
+    "event": "feishu_connected",
+    "level": "info",
+    "timestamp": "2026-10-29T11:59:20.320810+00:00"
+  },
+  {
+    "event": "feishu_admission",
+    "level": "info",
+    "timestamp": "2026-10-29T12:09:29.491929+00:00",
+    "request_id": "2f70d261-f2db-59bc-9cc8-eccb865d14f5",
+    "status": "accepted"
+  },
+  {
+    "event": "feishu_delivery",
+    "level": "info",
+    "timestamp": "2026-10-29T12:09:59.120997+00:00",
+    "request_id": "2f70d261-f2db-59bc-9cc8-eccb865d14f5",
+    "status": "unknown",
+    "dedup_status": "untouched"
+  }
+]

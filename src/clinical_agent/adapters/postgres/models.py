@@ -1,6 +1,6 @@
 """PostgreSQL schema declarations; schema evolution belongs to Alembic."""
 
-from datetime import datetime
+from datetime import UTC, datetime
 from uuid import UUID
 
 from pgvector.sqlalchemy import VECTOR
@@ -10,11 +10,13 @@ from sqlalchemy import (
     Computed,
     DateTime,
     ForeignKeyConstraint,
+    Index,
     Integer,
     Text,
     UniqueConstraint,
+    text,
 )
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.dialects.postgresql import JSONB, TSVECTOR
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -86,6 +88,7 @@ class DocumentRecord(Base):
 class ChunkRecord(Base):
     __tablename__ = "chunks"
     __table_args__ = (
+        Index("ix_chunks_search_vector", "search_vector", postgresql_using="gin"),
         ForeignKeyConstraint(
             ["document_id", "source_type"],
             ["documents.document_id", "documents.source_type"],
@@ -143,4 +146,105 @@ class ChunkRecord(Base):
     token_count: Mapped[int] = mapped_column(Integer)
     max_tokens: Mapped[int] = mapped_column(Integer)
     chunking_policy: Mapped[dict[str, object]] = mapped_column(JSONB)
+    search_vector: Mapped[str] = mapped_column(
+        TSVECTOR, Computed("to_tsvector('simple'::regconfig, text)", persisted=True)
+    )
     embedding: Mapped[list[float]] = mapped_column(VECTOR(768))
+
+
+class DocumentVersionRecord(Base):
+    __tablename__ = "document_versions"
+    __table_args__ = (
+        ForeignKeyConstraint(["document_id"], ["documents.document_id"], ondelete="RESTRICT"),
+        Index(
+            "uq_document_versions_active",
+            "document_id",
+            unique=True,
+            postgresql_where=text("is_active"),
+        ),
+    )
+    version_id: Mapped[UUID] = mapped_column(primary_key=True)
+    document_id: Mapped[UUID]
+    fingerprint: Mapped[str] = mapped_column(Text)
+    prepared: Mapped[dict[str, object]] = mapped_column(JSONB)
+    is_active: Mapped[bool] = mapped_column(Boolean)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(UTC)
+    )
+
+
+class UpdateCursorRecord(Base):
+    __tablename__ = "update_cursors"
+    batch_id: Mapped[str] = mapped_column(Text, primary_key=True)
+    scope_hash: Mapped[str] = mapped_column(Text)
+    position: Mapped[int] = mapped_column(Integer)
+
+
+class UpdateRunRecord(Base):
+    __tablename__ = "update_runs"
+    run_id: Mapped[UUID] = mapped_column(primary_key=True)
+    batch_id: Mapped[str] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(Text)
+    result: Mapped[dict[str, object]] = mapped_column(JSONB)
+
+
+class SourceAliasRecord(Base):
+    __tablename__ = "source_aliases"
+    namespace: Mapped[str] = mapped_column(Text, primary_key=True)
+    value: Mapped[str] = mapped_column(Text, primary_key=True)
+    document_id: Mapped[UUID] = mapped_column(primary_key=True)
+    evidence: Mapped[dict[str, object]] = mapped_column(JSONB)
+    __table_args__ = (
+        ForeignKeyConstraint(["document_id"], ["documents.document_id"], ondelete="RESTRICT"),
+        CheckConstraint("namespace IN ('pmid','doi','pdf_sha256')", name="ck_alias_namespace"),
+    )
+
+
+class SourceStatusEventRecord(Base):
+    __tablename__ = "source_status_events"
+    event_id: Mapped[UUID] = mapped_column(primary_key=True)
+    document_id: Mapped[UUID]
+    request: Mapped[dict[str, object]] = mapped_column(JSONB)
+    recorded_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=lambda: datetime.now(UTC)
+    )
+    __table_args__ = (
+        ForeignKeyConstraint(["document_id"], ["documents.document_id"], ondelete="RESTRICT"),
+        UniqueConstraint("document_id", "event_id", name="uq_source_event_document"),
+    )
+
+
+class SourceStateRecord(Base):
+    __tablename__ = "source_states"
+    document_id: Mapped[UUID] = mapped_column(primary_key=True)
+    event_id: Mapped[UUID]
+    status: Mapped[str] = mapped_column(Text)
+    evidence: Mapped[dict[str, object]] = mapped_column(JSONB)
+    __table_args__ = (
+        ForeignKeyConstraint(
+            ["document_id", "event_id"],
+            ["source_status_events.document_id", "source_status_events.event_id"],
+            ondelete="RESTRICT",
+        ),
+        CheckConstraint(
+            "status IN ('normal','corrected','retracted','withdrawn','expression_of_concern')",
+            name="ck_source_status",
+        ),
+    )
+
+
+class OnlineUpdateBatchRecord(Base):
+    __tablename__ = "online_update_batches"
+    batch_id: Mapped[str] = mapped_column(Text, primary_key=True)
+    scope_hash: Mapped[str] = mapped_column(Text)
+    snapshot: Mapped[dict[str, object]] = mapped_column(JSONB)
+    result: Mapped[dict[str, object]] = mapped_column(JSONB)
+
+
+class RebuildRunRecord(Base):
+    __tablename__ = "rebuild_runs"
+    run_id: Mapped[UUID] = mapped_column(primary_key=True)
+    status: Mapped[str] = mapped_column(Text)
+    source_signature: Mapped[str] = mapped_column(Text)
+    payload: Mapped[dict[str, object]] = mapped_column(JSONB)
+    evaluation_status: Mapped[str] = mapped_column(Text)

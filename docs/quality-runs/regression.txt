@@ -1,0 +1,32 @@
+........................................................................ [  6%]
+........................................................................ [ 13%]
+........................................................................ [ 19%]
+........................................................................ [ 26%]
+........................................................................ [ 32%]
+........................................................................ [ 39%]
+........................................................................ [ 46%]
+........................................................................ [ 52%]
+......................................................F................. [ 59%]
+........................................................................ [ 65%]
+........................................................................ [ 72%]
+........................................................................ [ 79%]
+........................................................................ [ 85%]
+........................................................................ [ 92%]
+........................................................................ [ 98%]
+.............                                                            [100%]
+================================== FAILURES ===================================
+_ test_partial_mixed_sources_dates_and_keyword_notes_fit_existing_answer_contract _
+tests\unit\test_hybrid_retrieval.py:320: in test_partial_mixed_sources_dates_and_keyword_notes_fit_existing_answer_contract
+    answer = build_answer(
+src\clinical_agent\domain\citations.py:180: in build_answer
+    raise ResearchError("citation_invalid") from None
+E   clinical_agent.domain.research.ResearchError: citation_invalid
+============================== warnings summary ===============================
+tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[accepted-None]
+  E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\lark_oapi\ws\pb\google\protobuf\internal\well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/unit/test_hybrid_retrieval.py::test_partial_mixed_sources_dates_and_keyword_notes_fit_existing_answer_contract
+1 failed, 1092 passed, 1 warning in 100.68s (0:01:40)

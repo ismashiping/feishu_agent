@@ -1,0 +1,44 @@
+不确定：在提供的证据集中，可以找到若干项基于MRI预测肝细胞癌（HCC）微血管侵犯（MVI）的研究，但检索为部分结果（共1591条，仅返回18条），因此无法据此完整列举最近三年该领域的全部研究。 [1] [2] [3] [4]
+
+一项多中心研究基于5个中心546例HCC患者的回顾性数据，构建了临床-影像模型和深度学习模型，其中基于对抗网络的深度学习（AD-DL）模型在内部测试集AUC为0.793，外部测试集1为0.801，外部测试集2为0.773，并报告MVI预测与早期无复发生存相关（p=0.048）。 [1]
+
+一项研究纳入168例经病理确诊的HCC患者（训练集116例、验证集52例），结合术前MRI与血浆miRNA构建放射基因组列线图，验证集中AUC为0.900（95% CI 0.808–0.992），敏感度0.970、特异度0.722、准确度0.884、F1为0.916，并报告其优于任何单一因素模型。 [2]
+
+一项研究纳入255例肿瘤＜3 cm的HCC患者，在T1加权平扫MR图像上标注肿瘤并构建三层人工神经网络，采用bagging策略对50个分类器结果投票，报告AUC为0.79，并发现肿瘤球形度与MVI显著相关（P＜0.01），而甲胎蛋白和肿瘤体积与MVI无显著相关。 [3]
+
+一项研究分析420例HCC患者（MVI 140例、非MVI 280例）的6个序列MRI，经跨序列配准预处理后用深度神经网络分割肿瘤，再融合影像组学与临床特征构建预测模型，报告最高AUC为0.794±0.033，在3–5 cm肿瘤组AUC达0.860±0.065。 [4]
+
+推断：这些研究在方法上可分为三类：纯深度学习/神经网络模型（AD-DL、ANN、深度神经网络分割+影像组学）、影像组学与临床特征融合模型，以及结合MRI与miRNA等分子标志物的放射基因组列线图；各研究报告的AUC范围约为0.77–0.90，但人群、肿瘤大小、验证设置不同，不能直接横向比较或合并。 [1] [2] [3] [4]
+
+不确定：所提供证据均为摘要，未包含各研究的具体MRI序列细节、完整建模流程、外部验证的独立中心信息或统计不确定性等全文内容，这些细节在本次证据中未找到。 [1] [2] [3] [4]
+
+参考文献
+[1] Interpretable and generalizable deep learning model for preoperative assessment of microvascular invasion and outcome in hepatocellular carcinoma based on MRI: a multicenter study（2025）
+DOI：10.1186/s13244-025-02035-0
+https://openalex.org/W4411983168
+[2] Radiogenomics nomogram based on MRI and microRNAs to predict microvascular invasion of hepatocellular carcinoma（2024）
+DOI：10.3389/fonc.2024.1371432
+https://openalex.org/W4400572427
+[3] Preoperative prediction of hepatocellular carcinoma microvascular invasion based on magnetic resonance imaging feature extraction artificial neural network（2024）
+DOI：10.4240/wjgs.v16.i8.2546
+https://openalex.org/W4401649139
+[4] Deep Neural Network and Radiomics-based Magnetic Resonance Imaging System for Predicting Microvascular Invasion in Hepatocellular Carcinoma（2024）
+DOI：10.7150/jca.93712
+https://openalex.org/W4403545531
+证据范围：摘要（未阅读全文） [1] [2] [3] [4]
+
+局限与范围
+检索被截断，仅返回部分记录，不能据此判断PubMed或该领域研究的总体数量。 [1] [2] [3] [4]
+所有证据均为摘要层面，未附全文。 [1] [2] [3] [4]
+仅为摘要报告，未提供各外部测试集样本量等细节。 [1]
+验证集仅52例，样本量较小。 [2]
+仅为摘要报告。 [2] [3]
+仅针对＜3 cm的小肿瘤，结论不能外推至其他肿瘤大小。 [3]
+仅为摘要报告，未说明验证方式（内部或外部）。 [4]
+AUC差异可能反映人群、肿瘤大小和验证方式不同，而非模型优劣。 [1] [2] [3] [4]
+未附全文，无法核实摘要之外的细节。 [1] [2] [3] [4]
+已查询 OpenAlex，证据限于本次检索与已获取摘要，不保证检全。
+引用关联已核对；医学语义支持仍需人工复核。
+本次部分检索或筛选未完成，证据范围有限。
+检索范围：OpenAlex 匹配 1591 条；本次返回 18 个候选；请求状态：partial。候选已截断，不代表全部相关研究。
+本次使用在线 OpenAlex及本地来源；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

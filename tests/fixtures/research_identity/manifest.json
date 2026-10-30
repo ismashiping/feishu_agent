@@ -1,0 +1,16 @@
+{
+  "sha256": "e214042454eb7570dbb114f53512360506021a4902e4d74626ea78ee5616a66c",
+  "reviewer": "AI engineering review",
+  "human_signoff": null,
+  "collected_from": "existing repository snapshots; no new OpenAlex retrieval",
+  "unet_bibliography": {
+    "title": "U-Net: Convolutional Networks for Biomedical Image Segmentation",
+    "arxiv": "1505.04597",
+    "publisher_doi": "10.1007/978-3-319-24574-4_28",
+    "sources": [
+      "https://lmb.informatik.uni-freiburg.de/people/ronneber/u-net/",
+      "https://arxiv.org/abs/1505.04597"
+    ],
+    "scope": "Bibliographic cross-check only; no fulltext imported"
+  }
+}

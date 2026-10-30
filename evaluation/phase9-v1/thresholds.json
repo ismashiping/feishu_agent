@@ -1,0 +1,53 @@
+{
+  "k": 2,
+  "configuration": {
+    "retrieval": "frozen_replay",
+    "model_revision": "none",
+    "prompt": "none",
+    "seed": 0,
+    "temperature": 0
+  },
+  "metrics": {
+    "recall_at_k": {
+      "min": 0.8,
+      "max": 1
+    },
+    "mrr": {
+      "min": 0.8,
+      "max": 1
+    },
+    "identity_accuracy": {
+      "min": 1,
+      "max": 1
+    },
+    "location_accuracy": {
+      "min": 1,
+      "max": 1
+    },
+    "claim_support": {
+      "min": 1,
+      "max": 1
+    },
+    "citation_coverage": {
+      "min": 1,
+      "max": 1
+    },
+    "success_rate": {
+      "min": 1,
+      "max": 1
+    },
+    "allowed_claim_recall": {
+      "min": 1,
+      "max": 1
+    },
+    "forbidden_claim_rate": {
+      "min": 0,
+      "max": 0
+    }
+  },
+  "regression_tolerance": {
+    "recall_at_k": 0,
+    "mrr": 0,
+    "identity_accuracy": 0
+  }
+}

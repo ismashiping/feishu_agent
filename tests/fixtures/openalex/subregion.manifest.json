@@ -1,0 +1,10 @@
+{
+  "endpoint": "https://api.openalex.org/works",
+  "params": {
+    "search": "liver tumor subregion segmentation",
+    "per_page": 8
+  },
+  "fetched_at": "2026-10-29T04:17:16.512646+00:00",
+  "sha256": "7d9ece6812f517191d4dbd58e453475d91100f92dcf11202809aa444498d015a",
+  "kind": "real API response; relevance labels pending human review"
+}

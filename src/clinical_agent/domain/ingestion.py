@@ -214,14 +214,25 @@ def equivalent_content(one: PreparedIngestion, two: PreparedIngestion) -> bool:
 
 
 class StoreResult(DTO):
-    status: Literal["imported", "already_present", "needs_update", "conflict"]
+    status: Literal[
+        "imported", "already_present", "needs_update", "conflict", "updated", "metadata_updated"
+    ]
     document_id: UUID
     chunk_count: PositiveInteger
 
 
 class IngestionResult(DTO):
     index: PositiveInteger
-    status: Literal["imported", "already_present", "needs_update", "conflict", "rejected", "failed"]
+    status: Literal[
+        "imported",
+        "already_present",
+        "needs_update",
+        "conflict",
+        "updated",
+        "metadata_updated",
+        "rejected",
+        "failed",
+    ]
     document_id: UUID | None
     chunk_count: NonnegativeInteger
     error_code: OperationCode | PubmedRejectionCode | None

@@ -67,7 +67,7 @@ def test_question_requires_id_and_local_scope():
     with pytest.raises(ValidationError):
         QuestionRequest(question="question")
     with pytest.raises(ValidationError):
-        QuestionRequest(request_id=uuid4(), question="question", scope="online")
+        QuestionRequest(request_id=uuid4(), question="question", scope="unavailable_scope")
     assert QuestionRequest(request_id=uuid4(), question="  中文  ").question == "中文"
 
 
@@ -147,8 +147,13 @@ def test_answer_uses_only_cited_trusted_metadata(setup_rag):
     assert source.evidence[0].location == evidence.hits[0].chunk.location
     assert ResearchAnswer.model_validate_json(answer.model_dump_json()) == answer
     payload = answer.model_dump_json()
-    for forbidden in ("source_uri", "embedding_info", "file:///", "vector"):
+    for forbidden in ("source_uri", "embedding_info", "file:///"):
         assert forbidden not in payload
+    assert all(
+        "vector" not in source.model_dump()
+        and all("vector" not in item.model_dump() for item in source.evidence)
+        for source in answer.sources
+    )
     assert len(answer.limitations) >= 3
 
 

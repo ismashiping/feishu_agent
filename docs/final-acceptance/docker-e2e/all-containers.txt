@@ -1,0 +1,1 @@
+9c92ff7c8f34 clinical-agent-e2e-postgres-1 pgvector/pgvector:0.8.7-pg16

@@ -1,0 +1,1 @@
+{"review_items": 106, "ai_counts": {"irrelevant": 19, "direct": 34, "partial": 36, "uncertain": 17}, "identity_quote_hash_checks": "passed", "independent_expert_review": "pending"}

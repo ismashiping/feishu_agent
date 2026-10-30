@@ -1,0 +1,395 @@
+[
+  {
+    "question": "肝脏分割最新研究有哪些？",
+    "candidate_count": 29,
+    "ai_label_counts": {
+      "irrelevant": 1,
+      "direct": 14,
+      "uncertain": 9,
+      "partial": 5
+    },
+    "selected_count": 5,
+    "selected_ai_counts": {
+      "direct": 5
+    },
+    "selected_review": [
+      {
+        "id": "https://openalex.org/W7151377981",
+        "title": "Enhanced Liver Image Segmentation Using Custom Metric and Unet with FastAI",
+        "ai_directness": "direct",
+        "reason": "U-Net/FastAI用于肝脏分割；摘要未列数据规模和量化性能，不能补造。",
+        "quality_flags": [
+          "duplicate_or_version_candidate"
+        ],
+        "review_id": "26aa8a15cc0a5706"
+      },
+      {
+        "id": "https://openalex.org/W7171294525",
+        "title": "Enhanced Liver Image Segmentation Using Custom Metric and Unet with FastAI",
+        "ai_directness": "direct",
+        "reason": "与另一OpenAlex条目的标题和摘要相同，但DOI不同；暂不认定独立代表性研究，需版本归并核查。",
+        "quality_flags": [
+          "duplicate_or_version_candidate"
+        ],
+        "review_id": "2ef65729126a3ad3"
+      },
+      {
+        "id": "https://openalex.org/W7223277402",
+        "title": "WavPAC-Net: a wavelet-based hybrid encoder network with permuted axial-channel feature enhancement for liver segmentation",
+        "ai_directness": "direct",
+        "reason": "肝实质分割的混合编码与小波融合研究，摘要列出MRI和CT各自结果；不能跨数据集排名。",
+        "quality_flags": [],
+        "review_id": "0d9b8d185e221a57"
+      },
+      {
+        "id": "https://openalex.org/W4406023087",
+        "title": "Liver segmentation network based on detail enhancement and multi-scale feature fusion",
+        "ai_directness": "direct",
+        "reason": "DEMF-Net针对肝脏CT分割，摘要有方法但未报具体性能数值。",
+        "quality_flags": [],
+        "review_id": "3853f3b85c308cbb"
+      },
+      {
+        "id": "https://openalex.org/W4407066570",
+        "title": "Efficient Liver Segmentation using Advanced 3D-DCNN Algorithm on CT Images",
+        "ai_directness": "direct",
+        "reason": "肝脏CT分割方法，包含后续肿瘤应用；摘要未报告具体指标值或详细实验划分。",
+        "quality_flags": [],
+        "review_id": "44ba081c26c594f5"
+      }
+    ],
+    "disagreements": [
+      {
+        "review_id": "5d0bf887ba79ffba",
+        "id": "https://openalex.org/W7223299967",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "CT切片Tumor/No-Tumor分类，不是像素或体素分割。"
+      },
+      {
+        "review_id": "79f8bc81529f13b4",
+        "id": "https://openalex.org/W7223390742",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "肝移植AI临床流程综述，并非肝脏分割技术进展的直接研究。"
+      },
+      {
+        "review_id": "8044406d2ca51466",
+        "id": "https://openalex.org/W7223473254",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "自主超声机器人采集与测量，不是肝脏分割算法验证。"
+      },
+      {
+        "review_id": "99d7c31a90495762",
+        "id": "https://openalex.org/W7223178318",
+        "model_label": "partial",
+        "ai_label": "direct",
+        "ai_reason": "OpenSwissHCC公开MRI数据资源含全肝和病灶分割，可作为数据方向进展；不是新分割模型性能研究。"
+      },
+      {
+        "review_id": "c091f1207a34b5c3",
+        "id": "https://openalex.org/W4405950841",
+        "model_label": "partial",
+        "ai_label": "uncertain",
+        "ai_reason": "所谓摘要只含肝脏生理解剖背景，没有分割方法或实验，疑似误提取内容。"
+      }
+    ],
+    "unselected_ai_direct": [
+      "1ea66f97280117f2",
+      "7b899fb6d1af2cbc",
+      "8042ca232f75ac7e",
+      "86ebfc2af9c626f2",
+      "8eabd72b84128e38",
+      "99d7c31a90495762",
+      "e89a5e35a26e0b35",
+      "ed7e35a517746e8f",
+      "fd22bd028fc90059"
+    ]
+  },
+  {
+    "question": "肝脏肿瘤亚区分割最新进展有哪些？",
+    "candidate_count": 10,
+    "ai_label_counts": {
+      "partial": 4,
+      "uncertain": 1,
+      "irrelevant": 5
+    },
+    "selected_count": 0,
+    "selected_ai_counts": {},
+    "selected_review": [],
+    "disagreements": [
+      {
+        "review_id": "0a1950fb64e76c5e",
+        "id": "https://openalex.org/W7202383786",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "LiTS等基准报告器官或肿瘤整体分割，没有肝肿瘤内部亚区划分验证。"
+      },
+      {
+        "review_id": "c68410ee75e80d60",
+        "id": "https://openalex.org/W7154888239",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "泛肿瘤分割/分类方法综述，未确认肝内亚区任务，只可作宽泛背景。"
+      }
+    ],
+    "unselected_ai_direct": []
+  },
+  {
+    "question": "MedSAM与nnU-Net有哪些区别？",
+    "candidate_count": 20,
+    "ai_label_counts": {
+      "direct": 9,
+      "partial": 8,
+      "uncertain": 1,
+      "irrelevant": 2
+    },
+    "selected_count": 5,
+    "selected_ai_counts": {
+      "direct": 5
+    },
+    "selected_review": [
+      {
+        "id": "https://openalex.org/W7162083801",
+        "title": "Comparison of Foundation Models MedSAM and DINOv3 with the nnU-Net Framework for Bone Metastasis Segmentation in Computed Tomography Scans",
+        "ai_directness": "direct",
+        "reason": "同一骨转移CT任务比较MedSAM/DINOv3/nnU-Net；输入分辨率与训练日程不同，不能称完全受控架构对比。",
+        "quality_flags": [],
+        "review_id": "cd463abe20310de6"
+      },
+      {
+        "id": "https://openalex.org/W7201983585",
+        "title": "Toward self-contained cardiac magnetic resonance elastography: Deep learning-based segmentation of the left ventricular myocardium",
+        "ai_directness": "direct",
+        "reason": "在同一心脏MRE任务比较nnU-Net与多种MedSAM配置，展示提示与自动化条件的影响。",
+        "quality_flags": [],
+        "review_id": "6a1beea13742163a"
+      },
+      {
+        "id": "https://openalex.org/W4391673478",
+        "title": "Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI",
+        "ai_directness": "direct",
+        "reason": "同任务比较SAM/MedSAM/UniverSeg与nnU-Net；摘要仅定性优势，不能补充数值。",
+        "quality_flags": [],
+        "review_id": "ecf1d3e74cc25cfb"
+      },
+      {
+        "id": "https://openalex.org/W4415164780",
+        "title": "AI-Driven MRI-based Brain Tumour Segmentation Benchmarking",
+        "ai_directness": "direct",
+        "reason": "在相同BraTS数据和不同提示精度下比较含MedSAM与nnU-Net的方法，适合分析提示与自动化条件。",
+        "quality_flags": [],
+        "review_id": "df6f1c5db9c9b716"
+      },
+      {
+        "id": "https://openalex.org/W4403602943",
+        "title": "Necessity and impact of specialization of large foundation model for medical segmentation tasks",
+        "ai_directness": "direct",
+        "reason": "比较现成MedSAM/LiteMedSAM、框提示与任务微调，并以nnU-Net基准验证适用条件。",
+        "quality_flags": [],
+        "review_id": "1ca2942faca25d28"
+      }
+    ],
+    "disagreements": [
+      {
+        "review_id": "19019f9e1205770a",
+        "id": "https://openalex.org/W4411249069",
+        "model_label": "partial",
+        "ai_label": "direct",
+        "ai_reason": "MedSAM提供肺部空间先验增强nnUNet，能说明互补用法；不是独立MedSAM与nnU-Net公平性能对决。"
+      },
+      {
+        "review_id": "3ccbb7663d3e61cf",
+        "id": "https://openalex.org/W4411415077",
+        "model_label": "partial",
+        "ai_label": "direct",
+        "ai_reason": "用MedSAM/MedSAM2特征增强nnUNet；摘要增益重点为MedSAM2，不能归给MedSAM第一版。"
+      },
+      {
+        "review_id": "a3bbc33331509b95",
+        "id": "https://openalex.org/W4407628689",
+        "model_label": "partial",
+        "ai_label": "direct",
+        "ai_reason": "肛周MRI同队列比较MedSAM、nnU-Net及融合模型，可分析互补性但不能泛化全领域优越性。"
+      },
+      {
+        "review_id": "a99cadffdd511b35",
+        "id": "https://openalex.org/W7222820936",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "nnU-Net仅作ROI工具，下游为胶质瘤分型；元数据日期2026-11-01晚于复核日，需核实在线发表/期次日期。"
+      }
+    ],
+    "unselected_ai_direct": [
+      "0805b525c84d0d6f",
+      "19019f9e1205770a",
+      "3ccbb7663d3e61cf",
+      "a3bbc33331509b95"
+    ]
+  },
+  {
+    "question": "最近三年MRI预测肝癌微血管侵犯有哪些研究？",
+    "candidate_count": 20,
+    "ai_label_counts": {
+      "direct": 8,
+      "partial": 9,
+      "uncertain": 3
+    },
+    "selected_count": 5,
+    "selected_ai_counts": {
+      "direct": 5
+    },
+    "selected_review": [
+      {
+        "id": "https://openalex.org/W7223351447",
+        "title": "Preoperative prediction of HCC microvascular invasion by multimodel peritumoral diffusion MRI",
+        "ai_directness": "direct",
+        "reason": "70例HCC的瘤内/瘤周多模型DWI预测MVI；前瞻性入组不等于已有独立外部验证。",
+        "quality_flags": [],
+        "review_id": "5a3577e33e1b8d7d"
+      },
+      {
+        "id": "https://openalex.org/W4411983168",
+        "title": "Interpretable and generalizable deep learning model for preoperative assessment of microvascular invasion and outcome in hepatocellular carcinoma based on MRI: a multicenter study",
+        "ai_directness": "direct",
+        "reason": "HCC的MRI术前MVI预测，含五中心开发和独立外部测试；性能须按测试集分别表述。",
+        "quality_flags": [],
+        "review_id": "2b7133e203c3dc32"
+      },
+      {
+        "id": "https://openalex.org/W4400572427",
+        "title": "Radiogenomics nomogram based on MRI and microRNAs to predict microvascular invasion of hepatocellular carcinoma",
+        "ai_directness": "direct",
+        "reason": "MRI加miRNA影像基因组学预测HCC MVI，不能称纯MRI模型或跨数据集比较AUC。",
+        "quality_flags": [],
+        "review_id": "faab712407f25acc"
+      },
+      {
+        "id": "https://openalex.org/W4401649139",
+        "title": "Preoperative prediction of hepatocellular carcinoma microvascular invasion based on magnetic resonance imaging feature extraction artificial neural network",
+        "ai_directness": "direct",
+        "reason": "HCC T1 MRI特征ANN预测病理MVI，摘要明确目标与验证指标。",
+        "quality_flags": [],
+        "review_id": "c09a1e878b87c6c4"
+      },
+      {
+        "id": "https://openalex.org/W4403545531",
+        "title": "Deep Neural Network and Radiomics-based Magnetic Resonance Imaging System for Predicting Microvascular Invasion in Hepatocellular Carcinoma",
+        "ai_directness": "direct",
+        "reason": "MRI六序列配准、肿瘤分割后结合影像组学与临床特征预测MVI，符合问题。",
+        "quality_flags": [],
+        "review_id": "c40580c00a9effcf"
+      }
+    ],
+    "disagreements": [
+      {
+        "review_id": "5629e5ca410878e1",
+        "id": "https://openalex.org/W4391277958",
+        "model_label": "partial",
+        "ai_label": "direct",
+        "ai_reason": "CT训练但明确包含71例MRI外部验证，属于MRI相关MVI证据；不能误写成纯MRI开发模型。"
+      },
+      {
+        "review_id": "8ab6a20ec147406b",
+        "id": "https://openalex.org/W4411583354",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "为肝内胆管癌而非冻结意图中的HCC；若用户肝癌含多病理需另行澄清，不能混同HCC证据。"
+      },
+      {
+        "review_id": "c1ede8f76563ce61",
+        "id": "https://openalex.org/W7223287013",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "终点为HCC与胆管癌鉴别诊断，并非MVI预测。"
+      },
+      {
+        "review_id": "e34bc5e3f404f30b",
+        "id": "https://openalex.org/W7223299967",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "CT切片肿瘤有无分类，不是MRI-MVI预测。"
+      }
+    ],
+    "unselected_ai_direct": [
+      "5629e5ca410878e1",
+      "574fcf7b2f16c7ea",
+      "67f83c4dfdac0812"
+    ]
+  },
+  {
+    "question": "肝脏肿瘤分割目前有哪些技术瓶颈？",
+    "candidate_count": 27,
+    "ai_label_counts": {
+      "irrelevant": 11,
+      "partial": 10,
+      "uncertain": 3,
+      "direct": 3
+    },
+    "selected_count": 2,
+    "selected_ai_counts": {
+      "direct": 2
+    },
+    "selected_review": [
+      {
+        "id": "https://openalex.org/W4385626371",
+        "title": "Automatic segmentation and classification of the liver tumor using deep learning algorithms",
+        "ai_directness": "direct",
+        "reason": "明确提出肝肿瘤分割中的噪声、边界不清和异质性问题；仅可作为该研究陈述的挑战。",
+        "quality_flags": [],
+        "review_id": "7c36eccc4d2a62a9"
+      },
+      {
+        "id": "https://openalex.org/W2354493653",
+        "title": "A combination segmentation for liver tumors based on CT images",
+        "ai_directness": "direct",
+        "reason": "明确提到肝肿瘤与周围组织粘连时的局限；2010年证据只支持历史问题，不能单独证明2026年现状。",
+        "quality_flags": [
+          "historical_evidence_not_current"
+        ],
+        "review_id": "633616f1844a1f13"
+      }
+    ],
+    "disagreements": [
+      {
+        "review_id": "0c8ae245dbf9e0a5",
+        "id": "https://openalex.org/W2040797241",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "研究RFA后肿瘤覆盖和坏死配准，未直接评估分割技术瓶颈。"
+      },
+      {
+        "review_id": "86e2b151b419b75b",
+        "id": "https://openalex.org/W4281666884",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "对已分割肝脏做良恶性分类，不是肝肿瘤分割瓶颈评估。"
+      },
+      {
+        "review_id": "d442afe590118df7",
+        "id": "https://openalex.org/W1972072326",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "肝肿瘤消融针路径优化，未直接评估分割瓶颈。"
+      },
+      {
+        "review_id": "ea0e6397c05e4b39",
+        "id": "https://openalex.org/W2039107711",
+        "model_label": "partial",
+        "ai_label": "direct",
+        "ai_reason": "直接比较肝肿瘤2D/3D IWS与人工轮廓，提示边界模糊和交互选择问题；2008年证据不能独立代表当前现状。"
+      },
+      {
+        "review_id": "ebff606de34304c8",
+        "id": "https://openalex.org/W7223460276",
+        "model_label": "irrelevant",
+        "ai_label": "partial",
+        "ai_reason": "肝SBRT呼吸门控与剂量学比较，未直接评价肿瘤分割误差或算法瓶颈。"
+      }
+    ],
+    "unselected_ai_direct": [
+      "ea0e6397c05e4b39"
+    ]
+  }
+]

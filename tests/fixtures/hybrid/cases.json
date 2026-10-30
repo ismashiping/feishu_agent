@@ -1,0 +1,1 @@
+{"version":"hybrid-cases-v1","query":"aspirin","top_k":2,"documents":[{"id":1,"text":"aspirin trial","vector":[0.6,0.8],"relevant":true},{"id":2,"text":"analgesic outcomes","vector":[1.0,0.0],"relevant":false},{"id":3,"text":"metformin cohort","vector":[0.0,1.0],"relevant":false}],"expected":{"keyword":[1],"vector":[2,1],"hybrid":[1,2]}}

@@ -1,0 +1,19 @@
+{
+  "question": "肝脏分割最新研究有哪些？",
+  "scope": "hybrid",
+  "fulltext_enrichment": "disabled for this isolated instance",
+  "human_medical_review": "pending",
+  "feishu_send": "not executed",
+  "status": "answered",
+  "source_count": 4,
+  "source_types": [
+    "openalex",
+    "openalex",
+    "openalex",
+    "openalex"
+  ],
+  "retrieval_scope": "hybrid",
+  "provenance_endpoint": "https://api.openalex.org/works",
+  "warnings": [],
+  "elapsed_seconds": 79.094
+}

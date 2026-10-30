@@ -1,0 +1,15 @@
+ Container clinical-agent-e2e-postgres-1 Running 
+ Volume clinical-agent-e2e_incoming_data Creating 
+ Volume clinical-agent-e2e_incoming_data Creating 
+ Volume clinical-agent-e2e_snapshot_data Creating 
+ Volume clinical-agent-e2e_snapshot_data Creating 
+ Volume clinical-agent-e2e_snapshot_data Created 
+ Volume clinical-agent-e2e_snapshot_data Created 
+ Volume clinical-agent-e2e_incoming_data Created 
+ Volume clinical-agent-e2e_incoming_data Created 
+ Container clinical-agent-e2e-api-1 Creating 
+ Container clinical-agent-e2e-api-1 Created 
+ Container clinical-agent-e2e-postgres-1 Waiting 
+ Container clinical-agent-e2e-postgres-1 Healthy 
+ Container clinical-agent-e2e-api-1 Starting 
+Error response from daemon: ports are not available: exposing port TCP 127.0.0.1:8000 -> 127.0.0.1:0: listen tcp4 127.0.0.1:8000: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.

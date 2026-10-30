@@ -1,0 +1,61 @@
+总体结论
+MedSAM与nnU-Net的核心区别在于设计定位：MedSAM是以157万余图像-掩码对、10种影像模态训练的可提示通用医学分割基础模型，目标是用单一模型跨模态、跨任务分割；nnU-Net是自配置的监督式分割框架，按数据集自动配置网络架构，通常针对特定任务或模态训练。两者在具体任务上的优劣并不固定：骨转移瘤CT切片分割中nnU-Net的Dice（0.6849）高于无提示MedSAM（0.6280），脑淋巴瘤MRI分割中监督式nnU-Net显著优于包括MedSAM在内的基础模型；而心脏MRE左心室心肌分割中，最佳nnU-Net（0.82±0.04）与半自动微调MedSAM（0.82±0.02）达到相近水平。 [1] [2] [3] [4]
+
+架构与输入方式
+MedSAM以图像加提示（如边界框）作为输入，其原始方法将边界框转换为二值掩码并与图像拼接作为模型输入；该做法源自nnU-Net级联流程中以二值掩码作为额外通道指定目标位置的功能。nnU-Net则根据数据集属性自动配置网络架构，在MedSAM论文中作为U-Net专家模型的实现框架使用。 [1]
+
+训练策略
+MedSAM在大规模多模态医学数据上预训练，评估时可直接应用于验证集而无需额外微调；nnU-Net类专家模型则按模态或任务分别训练。在心脏MRE研究中，nnU-Net使用多种输入表示和训练策略训练，MedSAM则被评估于零样本、半自动、微调、自动提示和框回归等多种配置，说明MedSAM可通过微调或提示策略适配具体任务。 [1] [4]
+
+泛化能力
+MedSAM论文报告，任务特定U-Net在内部验证集上常表现良好，但在外部验证集上性能明显下降，而MedSAM在内部和外部验证集上表现一致；该论文在86个内部验证任务和60个外部验证任务上评估，称MedSAM在准确性和稳健性上优于按模态训练的专家模型。 [1]
+
+性能比较
+在骨转移瘤CT切片分割中，nnU-Net的Dice为0.6849、归一化Hausdorff距离为0.0473，优于无提示MedSAM（Dice 0.6280，NHD 0.1008）；作者认为nnU-Net在有限标注数据下仍是稳健的强基线。在脑淋巴瘤临床常规MRI及MSD-BraTS胶质瘤分割中，监督学习（nnU-Net）在两个数据集上均以较大幅度显著优于包括MedSAM在内的分割基础模型。 [2] [3]
+
+提示质量的影响
+在BraTS 2023胶质瘤数据集上，当提供极精确的边界框提示时，SAM和SAM 2的Dice可达0.894和0.893，超过nnU-Net；但作者指出实际中难以提供高精度提示，因此nnU-Net仍是主导的医学分割网络。对MedSAM等进行微调后点提示性能明显提升，但仍未超过边界框提示或nnU-Net。 [5]
+
+适用场景
+推断：综合现有证据，nnU-Net更适合有标注数据、任务明确的监督式分割，并在多项任务中作为强基线；MedSAM的优势在于跨模态通用性和无需任务特定训练即可应用，但其性能依赖提示质量或微调策略，全自动配置下可能低于nnU-Net。 [2] [3] [4] [5]
+
+证据局限
+不确定：现有证据中，MedSAM与nnU-Net的直接比较多来自摘要级研究，且各研究的任务、数据规模和评估设置不同；未检索到在统一条件下系统比较两者架构、训练成本和部署需求的完整全文证据。 [2] [3] [4] [5]
+
+参考文献
+[1] Segment anything in medical images（2024）
+DOI：10.1038/s41467-024-44824-z
+https://doi.org/10.1038/s41467-024-44824-z
+https://openalex.org/W4391109864
+全文证据：Methods / Training protocol and experimental setting；https://openalex.org/W4391109864
+全文证据：Methods / Training protocol and experimental setting；https://openalex.org/W4391109864
+[2] Comparison of Foundation Models MedSAM and DINOv3 with the nnU-Net Framework for Bone Metastasis Segmentation in Computed Tomography Scans（2026）
+DOI：10.3390/ai7060181
+https://doi.org/10.3390/ai7060181
+https://openalex.org/W7162083801
+[3] Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI（2025）
+DOI：10.1117/12.3044679
+https://doi.org/10.1117/12.3044679
+https://openalex.org/W4391673478
+[4] Toward self-contained cardiac magnetic resonance elastography: Deep learning-based segmentation of the left ventricular myocardium（2026）
+DOI：10.1016/j.mri.2026.110768
+https://doi.org/10.1016/j.mri.2026.110768
+https://openalex.org/W7201983585
+[5] AI-Driven MRI-based Brain Tumour Segmentation Benchmarking（2025）
+DOI：10.48550/arxiv.2506.20786
+https://doi.org/10.48550/arxiv.2506.20786
+https://openalex.org/W4415164780
+证据范围：摘要（未阅读全文） [2] [3] [4] [5]
+证据范围：已获取并引用的全文段落 [1]
+
+局限与范围
+各比较研究的人群、影像模态、任务和评估设置不同，不能据此得出总体优劣结论。 [1] [2] [3] [4]
+该段为MedSAM论文的方法描述，未提供nnU-Net自身架构的完整细节。 [1]
+心脏MRE研究样本为16名健康男性志愿者，规模小。 [1] [4]
+上述泛化优势为MedSAM原论文自报结果，比较对象为按模态训练的U-Net专家模型，而非所有nnU-Net配置。 [1]
+两项均为摘要级证据，未提供完整的分层结果和统计细节。 [2] [3]
+该研究为摘要级证据，MedSAM的具体Dice数值未在摘要中给出。 [5]
+该归纳基于有限数量的摘要级比较研究，未覆盖所有影像模态和任务。 [2] [3] [4] [5]
+检索为部分结果，不能据此断定不存在相关研究。 [2] [3] [4] [5]
+本次检索未完整完成，结论仅限所列文献，不代表领域全貌。
+本次使用在线 OpenAlex及本地来源；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

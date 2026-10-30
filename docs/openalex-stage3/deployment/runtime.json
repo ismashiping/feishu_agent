@@ -1,0 +1,36 @@
+[
+  {
+    "name": "clinical-agent-e2e-api-1",
+    "image": "sha256:714bd8c9bc3e1e935d479a91872efedebb8f8e45c6f37baa491f0ebca1299dd1",
+    "status": "running",
+    "health": "starting",
+    "source_hashes_match": true,
+    "versions": {
+      "clinical-literature-agent": "0.1.0",
+      "llama-index-core": "0.14.22",
+      "torch": "2.14.1+cpu",
+      "psycopg": "3.3.6"
+    },
+    "openalex_key_present": true,
+    "llm_max_tokens": "4096",
+    "threads": "2",
+    "source_bind_mounted": false
+  },
+  {
+    "name": "clinical-agent-e2e-feishu_bot-1",
+    "image": "sha256:714bd8c9bc3e1e935d479a91872efedebb8f8e45c6f37baa491f0ebca1299dd1",
+    "status": "running",
+    "health": null,
+    "source_hashes_match": true,
+    "versions": {
+      "clinical-literature-agent": "0.1.0",
+      "llama-index-core": "0.14.22",
+      "torch": "2.14.1+cpu",
+      "psycopg": "3.3.6"
+    },
+    "openalex_key_present": true,
+    "llm_max_tokens": "4096",
+    "threads": "2",
+    "source_bind_mounted": false
+  }
+]

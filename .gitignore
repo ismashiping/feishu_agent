@@ -28,3 +28,13 @@ logs/
 .venv-p117/
 .venv-p117-prior/
 .venv-p117-partial/
+
+.uv-fulltext-cache/
+.pytest_fulltext*/
+
+# Local stage-2 verification sandboxes
+.pytest_openalex*/
+
+# Local stage-3 verification sandboxes
+.pytest_oa_stage3*/
+.pytest_oa_exercise*/

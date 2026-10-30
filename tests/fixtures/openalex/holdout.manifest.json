@@ -1,0 +1,10 @@
+{
+  "endpoint": "https://api.openalex.org/works",
+  "params": {
+    "search": "brain tumor segmentation",
+    "per_page": 8
+  },
+  "fetched_at": "2026-10-29T04:17:21.544012+00:00",
+  "sha256": "ec722c27439a0b0bb3ce7453db776222ff5bc24eaacd80281619d587da42fbc5",
+  "kind": "real API response; relevance labels pending human review"
+}

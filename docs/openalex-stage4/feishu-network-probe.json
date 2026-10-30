@@ -1,0 +1,11 @@
+[
+  {
+    "scope": "host",
+    "status": 200
+  },
+  {
+    "scope": "container",
+    "type": "ConnectError",
+    "cause": "[Errno -5] No address associated with hostname"
+  }
+]

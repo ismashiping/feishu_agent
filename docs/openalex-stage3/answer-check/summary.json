@@ -1,0 +1,8 @@
+{
+  "scope": "saved fulltext retrieval -> real LLM -> existing citation gate",
+  "full_pipeline_discovery": false,
+  "human_medical_signoff": "pending",
+  "status": "answered",
+  "fulltext_citations": 2,
+  "seconds": 9.394
+}

@@ -1,0 +1,12 @@
+ModuleNotFoundError langchain_openai 
+  File "/app/audit/diagnose.py", line 5, in <module>
+    with open_research(Path('/app/model')) as service: print('runtime_ready')
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/app/src/clinical_agent/command_runtime.py", line 76, in open_research
+    _require(
+  File "/app/src/clinical_agent/command_runtime.py", line 41, in _require
+    raise ModuleNotFoundError("Required optional dependency is unavailable", name=name)
+

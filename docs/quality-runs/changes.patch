@@ -1,0 +1,1145 @@
+--- before/src\clinical_agent\adapters\pubmed_online.py
++++ after/src\clinical_agent\adapters\pubmed_online.py
+@@ -199,7 +199,7 @@
+         options = request.options
+         query = request.query_text()
+         count = [0]
+-        warnings: list[str] = []
++        warnings: list[str] = request.planning_warnings()
+         ids: list[str] = []
+         total: int | None = None
+         translation: str | None = None
+@@ -303,6 +303,8 @@
+         )
+         ordered = [records[i] for i in ids if i in records]
+         return PubMedSearchResult(
++            searched_pmids=ids,
++            fetched_pmids=[r.pmid for r in ordered],
+             query_sent=query,
+             query_translation=translation,
+             total_count=total or 0,
+--- before/src\clinical_agent\application\agents.py
++++ after/src\clinical_agent\application\agents.py
+@@ -84,7 +84,11 @@
+                     query_plan=state.get("query_plan"),
+                     timeout_seconds=remaining(state, self.clock()),
+                 )
+-                retrieval = merge_sources(local, online) if local is not None else online
++                retrieval = (
++                    merge_sources(local, online, state.get("query_plan"))
++                    if local is not None
++                    else online
++                )
+             retrieval = RetrievalResult.model_validate(retrieval).model_copy(deep=True)
+             if retrieval.options != request.options or retrieval.scope != request.scope:
+                 raise ValueError("Mismatched query options or source scope")
+--- before/src\clinical_agent\application\pico.py
++++ after/src\clinical_agent\application\pico.py
+@@ -86,6 +86,8 @@
+                 structured_question=structured,
+                 terms=draft.terms,
+                 concept_groups=draft.concept_groups,
++                concept_mappings=draft.concept_mappings,
++                research_intent=draft.research_intent,
+                 search_intent=draft.question_type,
+                 preserved_constraints=[
+                     ExtractedField(
+--- before/src\clinical_agent\application\pubmed.py
++++ after/src\clinical_agent\application\pubmed.py
+@@ -1,5 +1,6 @@
+ """Convert acquired PubMed abstract snapshots to the existing evidence/citation chain."""
+ 
++import re
+ from typing import Protocol
+ from uuid import NAMESPACE_URL, uuid5
+ 
+@@ -16,6 +17,38 @@
+     RetrievalRequest,
+     RetrievalResult,
+ )
++
++
++def select_candidates(hits, limit, query_plan=None):
++    """Lexical concept coverage only; never a medical directness judgment.
++
++    Select within acquired candidates; restore source order for the DTO contract.
++    Prefer distinct documents, then fill spare slots with complementary passages.
++    """
++    groups = query_plan.concept_groups if query_plan else []
++
++    def coverage(hit):
++        text = (hit.document.title + " " + hit.chunk.text).casefold()
++        return sum(
++            any(
++                re.search(r"(?<!\w)" + re.escape(term.casefold()) + r"(?!\w)", text)
++                for term in group
++            )
++            for group in groups
++        )
++
++    ordered = sorted(range(len(hits)), key=lambda i: -coverage(hits[i]))
++    chosen, seen = [], set()
++    for i in ordered:
++        key = hits[i].document.pmid or str(hits[i].document.document_id)
++        if key not in seen:
++            chosen.append(i)
++            seen.add(key)
++        if len(chosen) == limit:
++            break
++    if len(chosen) < limit:
++        chosen.extend(i for i in ordered if i not in chosen)
++    return [hits[i] for i in sorted(chosen[:limit])]
+ 
+ 
+ class SearchPort(Protocol):
+@@ -61,8 +94,20 @@
+             )
+         except Exception:
+             raise ResearchError("pubmed_failed") from None
++        provenance = result.provenance()
++        provenance.candidate_outcomes = {pmid: "fetch_missing" for pmid in result.missing_pmids}
+         hits: list[EvidenceHit] = []
+         for position, record in enumerate(result.records, 1):
++            provenance.candidate_outcomes[record.pmid] = (
++                "filtered_governance"
++                if (
++                    states.get(record.pmid, GovernanceState()).status in BLOCKED_STATUSES
++                    or pubmed_status(record.publication_types, record.notices) in BLOCKED_STATUSES
++                )
++                else "filtered_metadata_only"
++                if record.content_scope == "metadata_only"
++                else "filtered_source_policy"
++            )
+             if (
+                 states.get(record.pmid, GovernanceState()).status in BLOCKED_STATUSES
+                 or pubmed_status(record.publication_types, record.notices) in BLOCKED_STATUSES
+@@ -71,6 +116,7 @@
+                 or "abstract" not in request.options.content_scopes
+             ):
+                 continue
++            provenance.candidate_outcomes[record.pmid] = "eligible_not_selected"
+             # One contiguous abstract passage retains all sections.
+             identity = uuid5(NAMESPACE_URL, record.source_url + "#" + record.content_hash)
+             metadata = SourceMetadata(
+@@ -113,19 +159,22 @@
+                     rank=len(hits) + 1,
+                 )
+             )
+-            if len(hits) >= request.options.top_k:
+-                break
++        hits = select_candidates(hits, request.options.top_k, query_plan)
++        for hit in hits:
++            provenance.candidate_outcomes[hit.document.pmid] = "selected"
+         return RetrievalResult(
+             scope="online",
+             options=request.options,
+             embedding_info=None,
+             hits=hits,
+-            search_provenance=result.provenance(),
++            search_provenance=provenance,
+             warnings=["source_governance_known_pmids"] if self._governance is not None else [],
+         )
+ 
+ 
+-def merge_sources(local: RetrievalResult, online: RetrievalResult) -> RetrievalResult:
++def merge_sources(
++    local: RetrievalResult, online: RetrievalResult, query_plan: QueryPlan | None = None
++) -> RetrievalResult:
+     """Local then online, reserving half the budget; no cross-channel score fusion."""
+     limit = local.options.top_k
+     chosen: list[EvidenceHit] = []
+@@ -144,15 +193,9 @@
+         seen_chunks.add(str(hit.chunk.chunk_id))
+         seen_documents.add(document)
+ 
+-    for hit in local.hits[: (limit + 1) // 2]:
+-        add(hit)
+-    for hit in online.hits:
+-        if len(chosen) == limit:
+-            break
+-        add(hit)
+-    for hit in local.hits:
+-        if len(chosen) == limit:
+-            break
++    split = (limit + 1) // 2
++    pool = [*local.hits[:split], *online.hits, *local.hits[split:]]
++    for hit in select_candidates(pool, limit, query_plan):
+         add(hit)
+     chosen.sort(
+         key=lambda h: (
+@@ -161,12 +204,17 @@
+             h.chunk.chunk_id.int,
+         )
+     )
++    provenance = online.search_provenance.model_copy(deep=True)
++    selected_pmids = {h.document.pmid for h in chosen}
++    for pmid, outcome in provenance.candidate_outcomes.items():
++        if outcome == "selected" and pmid not in selected_pmids:
++            provenance.candidate_outcomes[pmid] = "merge_not_selected"
+     return RetrievalResult(
+         scope="hybrid",
+         options=local.options,
+         embedding_info=local.embedding_info,
+         hits=[hit.model_copy(update={"rank": i}) for i, hit in enumerate(chosen, 1)],
+-        search_provenance=online.search_provenance,
++        search_provenance=provenance,
+         channel_status=local.channel_status,
+         strategy_version=local.strategy_version,
+         warnings=list(dict.fromkeys([*local.warnings, *online.warnings])),
+--- before/src\clinical_agent\application\research.py
++++ after/src\clinical_agent\application\research.py
+@@ -187,9 +187,13 @@
+     def _prepare(self, state: State) -> dict[str, object]:
+         self._remaining(state)
+         context = GenerationInput(
++            query_plan=state.get("query_plan"),
++            search_provenance=state["retrieval"].search_provenance,
+             question=state["request"].question,
+             evidence=[
+                 GenerationEvidence(
++                    title=h.document.title,
++                    pmid=h.document.pmid,
+                     chunk_id=h.chunk.chunk_id,
+                     text=h.chunk.text,
+                     location=h.chunk.location,
+--- before/src\clinical_agent\domain\citations.py
++++ after/src\clinical_agent\domain\citations.py
+@@ -1,171 +1,180 @@
+-"""Deterministic citation gate; it checks identity, not medical entailment."""
+-
+-import json
+-from datetime import datetime
+-from uuid import UUID
+-
+-from pydantic import ValidationError
+-
+-from clinical_agent.domain.research import (
+-    CitationEvidence,
+-    CitationSource,
+-    EvidenceClaim,
+-    GenerationDraft,
+-    QuestionRequest,
+-    ResearchAnswer,
+-    ResearchError,
+-)
+-from clinical_agent.domain.retrieval import DocumentSummary, RetrievalResult
+-
+-BASE_LIMITATIONS = [
+-    "仅检索本地已导入文献，不保证覆盖最新或全部研究。",
+-    "已检查引用标识与来源关联，尚未自动验证结论的医学语义支持关系，需人工复核。",
+-    "本结果用于医学科研辅助，不用于个体诊断或治疗决策。",
+-]
+-
+-
+-def _pairs(items: list[tuple[str, object]]) -> dict[str, object]:
+-    result: dict[str, object] = {}
+-    for key, value in items:
+-        if key in result:
+-            raise ValueError("Duplicate JSON key")
+-        result[key] = value
+-    return result
+-
+-
+-def _constant(value: str) -> None:
+-    raise ValueError("Non-JSON constant")
+-
+-
+-def parse_draft(raw: str, *, max_bytes: int) -> GenerationDraft:
+-    try:
+-        if not isinstance(raw, str) or len(raw.encode("utf-8")) > max_bytes:
+-            raise ValueError("Invalid output size or type")
+-        data = json.loads(raw, object_pairs_hook=_pairs, parse_constant=_constant)
+-        result = GenerationDraft.model_validate(data)
+-    except (ValueError, TypeError, RecursionError):
+-        raise ResearchError("model_output_invalid") from None
+-    for claim in result.claims:
+-        if len(set(claim.evidence_chunk_ids)) != len(claim.evidence_chunk_ids):
+-            raise ResearchError("citation_invalid")
+-    return result
+-
+-
+-def build_answer(
+-    request: QuestionRequest,
+-    retrieval: RetrievalResult,
+-    draft: GenerationDraft | None,
+-    *,
+-    generated_at: datetime,
+-) -> ResearchAnswer:
+-    request = QuestionRequest.model_validate(request)
+-    try:
+-        retrieval = RetrievalResult.model_validate(retrieval).model_copy(deep=True)
+-        if retrieval.options != request.options or retrieval.scope != request.scope:
+-            raise ValueError("Mismatched retrieval options")
+-        limitations = list(BASE_LIMITATIONS)
+-        if retrieval.scope != "local":
+-            limitations[0] = (
+-                "已按记录查询 PubMed；结果有查询、日期、数量和摘要范围限制，"
+-                "不保证检全或覆盖全部最新研究。"
+-            )
+-            if retrieval.scope == "hybrid":
+-                limitations.append(
+-                    "按来源保留名额合并本地与在线结果；在线排名不参与本地关键词/向量排序。"
+-                )
+-            if retrieval.search_provenance and retrieval.search_provenance.status == "partial":
+-                limitations.append("PubMed 仅部分获取成功，回答不能视为完整检索结果。")
+-            if retrieval.search_provenance and retrieval.search_provenance.returned_count > len(
+-                retrieval.hits
+-            ):
+-                limitations.append("部分检索条目没有摘要或未进入回答证据范围。")
+-            if any(hit.document.source_notices for hit in retrieval.hits):
+-                limitations.append("部分来源有更正/关联出版记录标记，需核查原文及来源状态。")
+-        local_notes = []
+-        if retrieval.scope != "online" and retrieval.options.mode != "vector":
+-            local_notes.append("本地关键词通道为 simple ASCII 匹配，分数不代表医学可靠性。")
+-        if retrieval.options.date_from is not None:
+-            local_notes.append("本地日期过滤仅接纳已知完整出版日期，未知或年/月精度条目被排除。")
+-        if local_notes:
+-            limitations.append(" ".join(local_notes))
+-        if not retrieval.hits:
+-            if draft is not None:
+-                raise ValueError("Empty retrieval cannot have a draft")
+-            return ResearchAnswer(
+-                request_id=request.request_id,
+-                status="insufficient_evidence",
+-                claims=[],
+-                sources=[],
+-                generated_at=generated_at,
+-                local_channel_status=retrieval.channel_status
+-                if retrieval.scope != "online"
+-                else None,
+-                local_retrieval_mode=retrieval.options.mode,
+-                local_retrieval_strategy=retrieval.strategy_version,
+-                retrieval_warnings=retrieval.warnings,
+-                retrieval_scope=retrieval.scope,
+-                search_provenance=retrieval.search_provenance,
+-                limitations=[*limitations, "未检索到符合条件的证据，不代表证据证明无效。"],
+-            )
+-        if draft is None:
+-            raise ValueError("A nonempty retrieval requires a draft")
+-        draft = GenerationDraft.model_validate(draft)
+-        by_id = {hit.chunk.chunk_id: hit for hit in retrieval.hits}
+-        summaries: dict[UUID, DocumentSummary] = {}
+-        for hit in retrieval.hits:
+-            previous = summaries.setdefault(hit.document.document_id, hit.document)
+-            if previous != hit.document:
+-                raise ValueError("Conflicting document snapshots")
+-        sources: dict[UUID, CitationSource] = {}
+-        claims = []
+-        used = set()
+-        for index, claim in enumerate(draft.claims, 1):
+-            if len(set(claim.evidence_chunk_ids)) != len(claim.evidence_chunk_ids):
+-                raise ValueError("Duplicate claim citations")
+-            for identity in claim.evidence_chunk_ids:
+-                if identity not in by_id:
+-                    raise ValueError("Unknown evidence identity")
+-                hit = by_id[identity]
+-                if identity in used:
+-                    continue
+-                used.add(identity)
+-                document_id = hit.document.document_id
+-                if document_id not in sources:
+-                    data = hit.document.model_dump(
+-                        mode="json", include=set(CitationSource.model_fields) - {"evidence"}
+-                    )
+-                    # Construct only after the first evidence is available.
+-                    data["evidence"] = [
+-                        CitationEvidence(
+-                            chunk_id=identity, text=hit.chunk.text, location=hit.chunk.location
+-                        )
+-                    ]
+-                    sources[document_id] = CitationSource.model_validate(data)
+-                else:
+-                    sources[document_id].evidence.append(
+-                        CitationEvidence(
+-                            chunk_id=identity, text=hit.chunk.text, location=hit.chunk.location
+-                        )
+-                    )
+-            claims.append(EvidenceClaim(claim_id=f"c{index}", **claim.model_dump()))
+-        scopes = {source.content_scope for source in sources.values()}
+-        if "abstract" in scopes:
+-            limitations.append("部分来源仅包含摘要，不能视为已阅读全文。")
+-        if "extracted_text" in scopes:
+-            limitations.append("部分来源为PDF文本层提取，未验证版面、表格或全文完整性。")
+-        return ResearchAnswer(
+-            request_id=request.request_id,
+-            status="answered",
+-            claims=claims,
+-            sources=list(sources.values()),
+-            limitations=limitations,
+-            generated_at=generated_at,
+-            local_channel_status=retrieval.channel_status if retrieval.scope != "online" else None,
+-            local_retrieval_mode=retrieval.options.mode,
+-            local_retrieval_strategy=retrieval.strategy_version,
+-            retrieval_warnings=retrieval.warnings,
+-            retrieval_scope=retrieval.scope,
+-            search_provenance=retrieval.search_provenance,
+-        )
+-    except (ValueError, ValidationError):
+-        raise ResearchError("citation_invalid") from None
++"""Deterministic citation gate; it checks identity, not medical entailment."""
++
++import json
++from datetime import datetime
++from uuid import UUID
++
++from pydantic import ValidationError
++
++from clinical_agent.domain.research import (
++    CitationEvidence,
++    CitationSource,
++    EvidenceClaim,
++    GenerationDraft,
++    QuestionRequest,
++    ResearchAnswer,
++    ResearchError,
++)
++from clinical_agent.domain.retrieval import DocumentSummary, RetrievalResult
++
++BASE_LIMITATIONS = [
++    "仅检索本地已导入文献，不保证覆盖最新或全部研究。",
++    "已检查引用标识与来源关联，尚未自动验证结论的医学语义支持关系，需人工复核。",
++    "本结果用于医学科研辅助，不用于个体诊断或治疗决策。",
++]
++
++
++def _pairs(items: list[tuple[str, object]]) -> dict[str, object]:
++    result: dict[str, object] = {}
++    for key, value in items:
++        if key in result:
++            raise ValueError("Duplicate JSON key")
++        result[key] = value
++    return result
++
++
++def _constant(value: str) -> None:
++    raise ValueError("Non-JSON constant")
++
++
++def parse_draft(raw: str, *, max_bytes: int) -> GenerationDraft:
++    try:
++        if not isinstance(raw, str) or len(raw.encode("utf-8")) > max_bytes:
++            raise ValueError("Invalid output size or type")
++        data = json.loads(raw, object_pairs_hook=_pairs, parse_constant=_constant)
++        result = GenerationDraft.model_validate(data)
++    except (ValueError, TypeError, RecursionError):
++        raise ResearchError("model_output_invalid") from None
++    for claim in result.claims:
++        if len(set(claim.evidence_chunk_ids)) != len(claim.evidence_chunk_ids):
++            raise ResearchError("citation_invalid")
++    return result
++
++
++def build_answer(
++    request: QuestionRequest,
++    retrieval: RetrievalResult,
++    draft: GenerationDraft | None,
++    *,
++    generated_at: datetime,
++) -> ResearchAnswer:
++    request = QuestionRequest.model_validate(request)
++    try:
++        retrieval = RetrievalResult.model_validate(retrieval).model_copy(deep=True)
++        if retrieval.options != request.options or retrieval.scope != request.scope:
++            raise ValueError("Mismatched retrieval options")
++        limitations = list(BASE_LIMITATIONS)
++        if retrieval.scope != "local":
++            limitations[0] = (
++                "已按记录查询 PubMed；结果有查询、日期、数量和摘要范围限制，"
++                "不保证检全或覆盖全部最新研究。"
++            )
++            if retrieval.scope == "hybrid":
++                limitations.append(
++                    "在已获取候选内合并来源并优先保留不同文献；词面概念匹配不代表医学直接证据。"
++                )
++            if retrieval.search_provenance and retrieval.search_provenance.status == "partial":
++                limitations.append("PubMed 仅部分获取成功，回答不能视为完整检索结果。")
++            if retrieval.search_provenance and retrieval.search_provenance.returned_count > len(
++                retrieval.hits
++            ):
++                limitations.append("部分检索条目没有摘要或未进入回答证据范围。")
++            if any(hit.document.source_notices for hit in retrieval.hits):
++                limitations.append("部分来源有更正/关联出版记录标记，需核查原文及来源状态。")
++        if retrieval.search_provenance and retrieval.search_provenance.truncated:
++            limitations[0] += " PubMed候选已截断，本次未发现不能解释为不存在相关研究。"
++        local_notes = []
++        if retrieval.scope != "online" and retrieval.options.mode != "vector":
++            local_notes.append("本地关键词通道为 simple ASCII 匹配，分数不代表医学可靠性。")
++        if retrieval.options.date_from is not None:
++            local_notes.append("本地日期过滤仅接纳已知完整出版日期，未知或年/月精度条目被排除。")
++        if local_notes:
++            limitations.append(" ".join(local_notes))
++        if not retrieval.hits:
++            if draft is not None:
++                raise ValueError("Empty retrieval cannot have a draft")
++            return ResearchAnswer(
++                request_id=request.request_id,
++                status="insufficient_evidence",
++                claims=[],
++                sources=[],
++                generated_at=generated_at,
++                local_channel_status=retrieval.channel_status
++                if retrieval.scope != "online"
++                else None,
++                local_retrieval_mode=retrieval.options.mode,
++                local_retrieval_strategy=retrieval.strategy_version,
++                retrieval_warnings=retrieval.warnings,
++                retrieval_scope=retrieval.scope,
++                search_provenance=retrieval.search_provenance,
++                limitations=[*limitations, "未检索到符合条件的证据，不代表证据证明无效。"],
++            )
++        if draft is None:
++            raise ValueError("A nonempty retrieval requires a draft")
++        draft = GenerationDraft.model_validate(draft)
++        by_id = {hit.chunk.chunk_id: hit for hit in retrieval.hits}
++        summaries: dict[UUID, DocumentSummary] = {}
++        for hit in retrieval.hits:
++            previous = summaries.setdefault(hit.document.document_id, hit.document)
++            if previous != hit.document:
++                raise ValueError("Conflicting document snapshots")
++        sources: dict[UUID, CitationSource] = {}
++        claims = []
++        used = set()
++        for index, claim in enumerate(draft.claims, 1):
++            if len(set(claim.evidence_chunk_ids)) != len(claim.evidence_chunk_ids):
++                raise ValueError("Duplicate claim citations")
++            for identity in claim.evidence_chunk_ids:
++                if identity not in by_id:
++                    raise ValueError("Unknown evidence identity")
++                hit = by_id[identity]
++                if identity in used:
++                    continue
++                used.add(identity)
++                document_id = hit.document.document_id
++                if document_id not in sources:
++                    data = hit.document.model_dump(
++                        mode="json", include=set(CitationSource.model_fields) - {"evidence"}
++                    )
++                    # Construct only after the first evidence is available.
++                    data["evidence"] = [
++                        CitationEvidence(
++                            chunk_id=identity, text=hit.chunk.text, location=hit.chunk.location
++                        )
++                    ]
++                    sources[document_id] = CitationSource.model_validate(data)
++                else:
++                    sources[document_id].evidence.append(
++                        CitationEvidence(
++                            chunk_id=identity, text=hit.chunk.text, location=hit.chunk.location
++                        )
++                    )
++            claims.append(EvidenceClaim(claim_id=f"c{index}", **claim.model_dump()))
++        if retrieval.search_provenance:
++            cited_pmids = {source.pmid for source in sources.values()}
++            for pmid, outcome in retrieval.search_provenance.candidate_outcomes.items():
++                if outcome == "selected":
++                    retrieval.search_provenance.candidate_outcomes[pmid] = (
++                        "cited" if pmid in cited_pmids else "selected_not_cited"
++                    )
++        scopes = {source.content_scope for source in sources.values()}
++        if "abstract" in scopes:
++            limitations.append("部分来源仅包含摘要，不能视为已阅读全文。")
++        if "extracted_text" in scopes:
++            limitations.append("部分来源为PDF文本层提取，未验证版面、表格或全文完整性。")
++        return ResearchAnswer(
++            request_id=request.request_id,
++            status="answered",
++            claims=claims,
++            sources=list(sources.values()),
++            limitations=limitations,
++            generated_at=generated_at,
++            local_channel_status=retrieval.channel_status if retrieval.scope != "online" else None,
++            local_retrieval_mode=retrieval.options.mode,
++            local_retrieval_strategy=retrieval.strategy_version,
++            retrieval_warnings=retrieval.warnings,
++            retrieval_scope=retrieval.scope,
++            search_provenance=retrieval.search_provenance,
++        )
++    except (ValueError, ValidationError):
++        raise ResearchError("citation_invalid") from None
+--- before/src\clinical_agent\domain\pico.py
++++ after/src\clinical_agent\domain\pico.py
+@@ -78,7 +78,23 @@
+ ConceptGroup = Annotated[list[QuestionText], Field(min_length=1, max_length=10)]
+ 
+ 
++class ConceptMapping(DTO):
++    source_text: QuestionText
++    english_terms: ConceptGroup
++    role: Literal["population", "topic", "method", "other"]
++    required: bool
++
++
++ResearchIntent = Literal[
++    "discovery", "exploration", "methods_review", "comparison", "design", "unknown"
++]
++
++
+ class ExtractionDraft(DTO):
++    research_intent: ResearchIntent = "unknown"
++    concept_mappings: Annotated[list[ConceptMapping], Field(max_length=5)] = Field(
++        default_factory=list
++    )
+     concept_groups: Annotated[list[ConceptGroup], Field(max_length=5)] = Field(default_factory=list)
+     question_type: QuestionType
+     pico: PICO
+@@ -110,6 +126,10 @@
+ 
+ 
+ class QueryPlan(DTO):
++    research_intent: ResearchIntent = "unknown"
++    concept_mappings: Annotated[list[ConceptMapping], Field(max_length=5)] = Field(
++        default_factory=list
++    )
+     concept_groups: Annotated[list[ConceptGroup], Field(max_length=5)] = Field(default_factory=list)
+     version: Literal["pico-v1"] = "pico-v1"
+     original_question: QuestionText
+@@ -121,6 +141,8 @@
+     @model_validator(mode="after")
+     def validate_provenance(self) -> Self:
+         ClassificationRequest(question=self.original_question)
++        if any(m.source_text not in self.original_question for m in self.concept_mappings):
++            raise ValueError("Concept mappings must quote the original question")
+         if self.search_intent != self.structured_question.question_type:
+             raise ValueError("Search intent must match classification")
+         for value in [
+@@ -162,6 +184,15 @@
+ Provide concept_groups: separate core research concepts (disease/population and research topic).
+ Each group contains English medical synonyms for ONE concept; groups will be ANDed.
+ Within each group synonyms will be ORed. Do not add optional modalities or outcomes as core
+-constraints. For exploratory questions classified other, still supply disease and topic groups.
++constraints.
++For Chinese, English and mixed questions, normalize concepts into English in this SAME call.
++Do not translate the whole sentence as a search phrase. Preserve the breadth of each concept;
++never replace an organ-level disease with one subtype. Include standard full names and useful
++abbreviations as synonyms only when equivalent. Do not require MeSH indexing or add field syntax.
++Supply research_intent and concept_mappings quoting exact source_text, with english_terms,
++role and required. concept_groups contains ONLY necessary concepts, never optional refinements.
++A methods review or exploratory question may have NO disease concept. Do not invent one.
++Preserve explicit exclusions and time constraints; if these cannot be represented safely,
++report a blocking ambiguity rather than silently dropping them.
+ JSON only, no markdown.
+ """
+--- before/src\clinical_agent\domain\pubmed.py
++++ after/src\clinical_agent\domain\pubmed.py
+@@ -47,6 +47,17 @@
+     options: PubMedOptions = Field(default_factory=PubMedOptions)
+     query_plan: QueryPlan | None = None
+ 
++    def planning_warnings(self) -> list[str]:
++        if self.options.query is not None or self.query_plan is None:
++            return []
++        if self.query_plan.structured_question.blocking_ambiguities != []:
++            return ["concept_planning_not_explicitly_unblocked"]
++        if not self.query_plan.concept_groups:
++            return ["legacy_terms_without_concept_relationships"]
++        if self.query_text() == self.query_plan.original_question:
++            return ["concept_query_exceeds_limit"]
++        return []
++
+     def query_text(self) -> str:
+         if (
+             self.options.query is None
+@@ -54,6 +65,7 @@
+             and self.query_plan.structured_question.blocking_ambiguities == []
+         ):
+             if self.query_plan.concept_groups:
++
+                 def literal(term: str) -> str:
+                     return '"' + term.replace('"', " ").replace(chr(92), " ") + '"'
+ 
+@@ -108,6 +120,11 @@
+ 
+ 
+ class SearchProvenance(DTO):
++    searched_pmids: Annotated[list[PubMedID], Field(max_length=20)] | None = None
++    fetched_pmids: Annotated[list[PubMedID], Field(max_length=20)] | None = None
++    candidate_outcomes: Annotated[dict[PubMedID, str], Field(max_length=20)] = Field(
++        default_factory=dict
++    )
+     endpoint: Literal["https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"] = (
+         "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+     )
+--- before/src\clinical_agent\domain\report.py
++++ after/src\clinical_agent\domain\report.py
+@@ -90,7 +90,7 @@
+     return re.sub(r"([\\`*_{}\[\]()#+!|>])", r"\\\1", html.escape(text, quote=False))
+ 
+ 
+-def render_report(report: ResearchReport) -> str:
++def render_report(report: ResearchReport, *, include_audit: bool = False) -> str:
+     report = ResearchReport.model_validate(report)
+     numbers = {e.chunk_id: ref.number for ref in report.references for e in ref.source.evidence}
+     lines = [
+@@ -165,11 +165,32 @@
+                 for pointer in claim.evidence:
+                     lines.append(f"  chunk={pointer.chunk_id} 引文：{plain(pointer.quote)}")
+             if index == 7:
+-                lines.extend("待评估方案：" + plain(str(d)) for d in report.research_designs)
++                lines.extend(
++                    "待评估方案："
++                    + plain(str(d) if include_audit else str(d.get("data_and_methods", "待评估")))
++                    for d in report.research_designs
++                )
+             if index == 6:
+                 lines.extend("局限：" + plain(v) for v in report.analysis.limitations)
+                 lines.extend("待调查：" + plain(v) for v in report.analysis.unresolved_questions)
+     lines.append("反馈停止原因：" + plain(report.feedback_stop))
++    if not include_audit:
++        prefixes = (
++            "结构化问题：",
++            "document=",
++            "chunk=",
++            "审核依据",
++            "本地治理：",
++            "反馈停止原因：",
++        )
++        lines = [
++            line
++            for line in lines
++            if not line.strip().startswith(prefixes)
++            and not line.strip().startswith(("{", "[", "\\{", "\\["))
++            or line.startswith("[")
++            and "] " in line
++        ]
+     return "\n".join(lines)
+ 
+ 
+--- before/src\clinical_agent\domain\research.py
++++ after/src\clinical_agent\domain\research.py
+@@ -96,6 +96,8 @@
+ 
+ 
+ class GenerationEvidence(DTO):
++    title: str | None = None
++    pmid: PubMedID | None = None
+     chunk_id: UUID
+     text: PreservedText
+     content_scope: ContentScope
+@@ -114,11 +116,21 @@
+ Do not invent or output bibliographic fields, titles, authors, PMID, DOI, URLs or reference
+ numbers in prose; citations are rendered separately from trusted metadata.
+ If evidence is insufficient for the question, describe that uncertainty using a cited claim.
++Adapt to the research intent: discovery should describe representative relevant studies,
++methods reviews should compare methods across appropriate domains, and comparisons should
++state evidence boundaries. Distinguish population-specific studies, partial relevance and
++cross-domain methodological references. Lexical overlap is NOT proof of direct evidence.
++Use supplied passages for methods and findings; titles and metadata cannot support results.
++Never invent unreported statistics, experiments or clinical implications. Limited, truncated
++or partial retrieval cannot establish that PubMed has no relevant studies. Citation identity
++validation is not medical entailment verification. Do not force citation of irrelevant studies.
+ Do not prescribe individual treatment. Answer in the question's language. No markdown fences.
+ """
+ 
+ 
+ class GenerationInput(DTO):
++    query_plan: QueryPlan | None = None
++    search_provenance: SearchProvenance | None = None
+     question: Annotated[str, StringConstraints(strict=True, min_length=1, max_length=4000)]
+     evidence: Annotated[list[GenerationEvidence], Field(min_length=1, max_length=20)]
+     instructions: str = INSTRUCTIONS
+--- before/tests\unit\test_exploratory_discovery.py
++++ after/tests\unit\test_exploratory_discovery.py
+@@ -1,201 +1,202 @@
+-"""Exploratory discovery must distinguish optional questions from blocking ambiguity."""
+-
+-import json
+-from uuid import uuid4
+-
+-import pytest
+-
+-from clinical_agent.application.pico import PicoPlanner
+-from clinical_agent.application.research import ResearchService
+-from clinical_agent.domain.pico import ClassificationRequest
+-from clinical_agent.domain.pubmed import PubMedSearchRequest
+-from clinical_agent.domain.research import QuestionRequest
+-from clinical_agent.domain.retrieval import RetrievalResult, retrieval_embedding_info
+-
+-QUESTION = "我想进行肝脏肿瘤亚区的划分，有没有相关研究？"
+-
+-
+-def draft(*, anchored=True, blocking=None):
+-    return {
+-        "question_type": "uncertain",
+-        "pico": dict.fromkeys(["population", "intervention", "comparison", "outcome"]),
+-        "terms": (
+-            [
+-                {
+-                    "text": "肝脏肿瘤亚区",
+-                    "origin": "user_text",
+-                    "source_span": {
+-                        "start": QUESTION.index("肝脏肿瘤亚区"),
+-                        "end": QUESTION.index("肝脏肿瘤亚区") + len("肝脏肿瘤亚区"),
+-                    },
+-                }
+-            ]
+-            if anchored
+-            else []
+-        )
+-        + [
+-            {
+-                "text": "liver tumor subregion segmentation",
+-                "origin": "query_expansion",
+-                "source_span": None,
+-            }
+-        ],
+-        "ambiguities": ["可选：CT还是MRI？", "未提供对照或结局"],
+-        "blocking_ambiguities": blocking or [],
+-    }
+-
+-
+-class Extractor:
+-    def __init__(self, value):
+-        self.value = value
+-
+-    def extract(self, request, **kwargs):
+-        return json.dumps(self.value)
+-
+-
+-def planner(value=None):
+-    return PicoPlanner(extractor=Extractor(value or draft()))
+-
+-
+-def test_optional_missing_pico_does_not_block_and_expansions_are_candidates():
+-    plan = planner().plan(ClassificationRequest(question=QUESTION))
+-    assert plan.structured_question.extraction_status == "partial"
+-    assert not plan.structured_question.pico.fields()
+-    assert plan.structured_question.ambiguities
+-    query = PubMedSearchRequest(question=QUESTION, query_plan=plan).query_text()
+-    assert '"liver tumor subregion segmentation"' in query
+-    assert "MRI" not in query and "CT" not in query
+-    assert (
+-        PubMedSearchRequest(
+-            question=QUESTION, query_plan=plan, options={"query": "explicit query"}
+-        ).query_text()
+-        == "explicit query"
+-    )
+-
+-
+-@pytest.mark.parametrize("value", [draft(anchored=False), draft(blocking=["主题指什么？"])])
+-def test_unidentified_topic_or_explicit_blocker_still_clarifies(value):
+-    plan = planner(value).plan(ClassificationRequest(question=QUESTION))
+-    assert plan.structured_question.extraction_status == "needs_clarification"
+-
+-
+-@pytest.mark.parametrize("entry", ["answer", "analyze", "report"])
+-def test_all_graph_entrypoints_reach_scout_before_downstream_processing(entry):
+-    from clinical_agent.domain.research import ResearchError
+-
+-    class StopAtScout:
+-        calls = 0
+-
+-        def retrieve(self, request):
+-            self.calls += 1
+-            assert request.question == QUESTION and request.scope == "local"
+-            raise ResearchError("pubmed_failed")
+-
+-    local = StopAtScout()
+-    service = ResearchService(retriever=local, generator=object(), planner=planner())
+-    with pytest.raises(ResearchError, match="pubmed_failed"):
+-        getattr(service, entry)(QuestionRequest(question=QUESTION, request_id=uuid4()))
+-    assert local.calls == 1
+-
+-
+-def test_local_empty_does_not_use_online_and_displays_scope():
+-    class Local:
+-        def retrieve(self, request):
+-            return RetrievalResult(
+-                options=request.options, embedding_info=retrieval_embedding_info(), hits=[]
+-            )
+-
+-    class Online:
+-        def retrieve(self, *args, **kwargs):
+-            raise AssertionError("local must never use online")
+-
+-    service = ResearchService(
+-        retriever=Local(), online_retriever=Online(), generator=object(), planner=planner()
+-    )
+-    result = service.answer(QuestionRequest(question=QUESTION, request_id=uuid4()))
+-    assert result.status == "insufficient_evidence" and result.retrieval_scope == "local"
+-
+-
+-@pytest.mark.parametrize("scope", ["online", "hybrid"])
+-@pytest.mark.parametrize("failure", [None, "pubmed_timeout", "pubmed_failed"])
+-def test_online_dispatch_receives_plan_even_without_local_hits(scope, failure):
+-    from datetime import UTC, datetime
+-
+-    from clinical_agent.application.pubmed import PubMedRetrievalService
+-    from clinical_agent.domain.pubmed import PubMedSearchResult
+-    from clinical_agent.domain.research import ResearchError
+-
+-    calls = []
+-
+-    class Local:
+-        def retrieve(self, request):
+-            assert scope == "hybrid"
+-            calls.append("local")
+-            return RetrievalResult(
+-                options=request.options, embedding_info=retrieval_embedding_info(), hits=[]
+-            )
+-
+-    class Search:
+-        def search(self, request, *, timeout_seconds):
+-            calls.append("online")
+-            assert request.query_plan.original_question == QUESTION
+-            assert "liver tumor subregion segmentation" in request.query_text()
+-            assert 0 < timeout_seconds <= 90
+-            if failure:
+-                raise ResearchError(failure)
+-            return PubMedSearchResult(
+-                query_sent=request.query_text(),
+-                query_translation=None,
+-                total_count=0,
+-                requested_limit=10,
+-                returned_count=0,
+-                truncated=False,
+-                fetched_at=datetime.now(UTC),
+-                date_from=None,
+-                date_to=None,
+-                date_field="pdat",
+-                sort="relevance",
+-                status="complete",
+-                warnings=[],
+-                missing_pmids=[],
+-                records=[],
+-            )
+-
+-    service = ResearchService(
+-        retriever=Local(),
+-        online_retriever=PubMedRetrievalService(Search()),
+-        generator=object(),
+-        planner=planner(),
+-    )
+-    request = QuestionRequest(question=QUESTION, request_id=uuid4(), scope=scope)
+-    if failure:
+-        with pytest.raises(ResearchError, match=failure):
+-            service.answer(request)
+-    else:
+-        answer = service.answer(request)
+-        assert answer.status == "insufficient_evidence"
+-        assert answer.retrieval_scope == scope and answer.search_provenance.total_count == 0
+-    assert calls == (["local", "online"] if scope == "hybrid" else ["online"])
+-
+-
+-def test_user_entry_default_is_hybrid_and_internal_request_stays_compatible():
+-    from clinical_agent.api_runtime import QuestionBody
+-    from feishu.sender import render_answer
+-
+-    assert QuestionBody(question=QUESTION).scope == "hybrid"
+-    assert QuestionBody(question=QUESTION, scope="local").scope == "local"
+-    assert QuestionRequest(question=QUESTION, request_id=uuid4()).scope == "local"
+-    # CLI/worker default construction is also exercised by existing entrypoint regressions.
+-    from clinical_agent.domain.research import ResearchAnswer
+-
+-    text = render_answer(
+-        ResearchAnswer(
+-            request_id=uuid4(),
+-            status="insufficient_evidence",
+-            claims=[],
+-            sources=[],
+-            limitations=["No evidence"],
+-            generated_at=__import__("datetime").datetime.now(__import__("datetime").UTC),
+-        )
+-    )
+-    assert "未执行在线 PubMed" in text
++"""Exploratory discovery must distinguish optional questions from blocking ambiguity."""
++
++import json
++from uuid import uuid4
++
++import pytest
++
++from clinical_agent.application.pico import PicoPlanner
++from clinical_agent.application.research import ResearchService
++from clinical_agent.domain.pico import ClassificationRequest
++from clinical_agent.domain.pubmed import PubMedSearchRequest
++from clinical_agent.domain.research import QuestionRequest
++from clinical_agent.domain.retrieval import RetrievalResult, retrieval_embedding_info
++
++QUESTION = "我想进行肝脏肿瘤亚区的划分，有没有相关研究？"
++
++
++def draft(*, anchored=True, blocking=None):
++    return {
++        "question_type": "uncertain",
++        "pico": dict.fromkeys(["population", "intervention", "comparison", "outcome"]),
++        "terms": (
++            [
++                {
++                    "text": "肝脏肿瘤亚区",
++                    "origin": "user_text",
++                    "source_span": {
++                        "start": QUESTION.index("肝脏肿瘤亚区"),
++                        "end": QUESTION.index("肝脏肿瘤亚区") + len("肝脏肿瘤亚区"),
++                    },
++                }
++            ]
++            if anchored
++            else []
++        )
++        + [
++            {
++                "text": "liver tumor subregion segmentation",
++                "origin": "query_expansion",
++                "source_span": None,
++            }
++        ],
++        "ambiguities": ["可选：CT还是MRI？", "未提供对照或结局"],
++        "blocking_ambiguities": blocking or [],
++    }
++
++
++class Extractor:
++    def __init__(self, value):
++        self.value = value
++
++    def extract(self, request, **kwargs):
++        return json.dumps(self.value)
++
++
++def planner(value=None):
++    return PicoPlanner(extractor=Extractor(value or draft()))
++
++
++def test_optional_missing_pico_does_not_block_and_expansions_are_candidates():
++    plan = planner().plan(ClassificationRequest(question=QUESTION))
++    assert plan.structured_question.extraction_status == "partial"
++    assert not plan.structured_question.pico.fields()
++    assert plan.structured_question.ambiguities
++    query = PubMedSearchRequest(question=QUESTION, query_plan=plan).query_text()
++    assert query == QUESTION
++    assert PubMedSearchRequest(question=QUESTION, query_plan=plan).planning_warnings() == ["legacy_terms_without_concept_relationships"]
++    assert "MRI" not in query and "CT" not in query
++    assert (
++        PubMedSearchRequest(
++            question=QUESTION, query_plan=plan, options={"query": "explicit query"}
++        ).query_text()
++        == "explicit query"
++    )
++
++
++@pytest.mark.parametrize("value", [draft(anchored=False), draft(blocking=["主题指什么？"])])
++def test_unidentified_topic_or_explicit_blocker_still_clarifies(value):
++    plan = planner(value).plan(ClassificationRequest(question=QUESTION))
++    assert plan.structured_question.extraction_status == "needs_clarification"
++
++
++@pytest.mark.parametrize("entry", ["answer", "analyze", "report"])
++def test_all_graph_entrypoints_reach_scout_before_downstream_processing(entry):
++    from clinical_agent.domain.research import ResearchError
++
++    class StopAtScout:
++        calls = 0
++
++        def retrieve(self, request):
++            self.calls += 1
++            assert request.question == QUESTION and request.scope == "local"
++            raise ResearchError("pubmed_failed")
++
++    local = StopAtScout()
++    service = ResearchService(retriever=local, generator=object(), planner=planner())
++    with pytest.raises(ResearchError, match="pubmed_failed"):
++        getattr(service, entry)(QuestionRequest(question=QUESTION, request_id=uuid4()))
++    assert local.calls == 1
++
++
++def test_local_empty_does_not_use_online_and_displays_scope():
++    class Local:
++        def retrieve(self, request):
++            return RetrievalResult(
++                options=request.options, embedding_info=retrieval_embedding_info(), hits=[]
++            )
++
++    class Online:
++        def retrieve(self, *args, **kwargs):
++            raise AssertionError("local must never use online")
++
++    service = ResearchService(
++        retriever=Local(), online_retriever=Online(), generator=object(), planner=planner()
++    )
++    result = service.answer(QuestionRequest(question=QUESTION, request_id=uuid4()))
++    assert result.status == "insufficient_evidence" and result.retrieval_scope == "local"
++
++
++@pytest.mark.parametrize("scope", ["online", "hybrid"])
++@pytest.mark.parametrize("failure", [None, "pubmed_timeout", "pubmed_failed"])
++def test_online_dispatch_receives_plan_even_without_local_hits(scope, failure):
++    from datetime import UTC, datetime
++
++    from clinical_agent.application.pubmed import PubMedRetrievalService
++    from clinical_agent.domain.pubmed import PubMedSearchResult
++    from clinical_agent.domain.research import ResearchError
++
++    calls = []
++
++    class Local:
++        def retrieve(self, request):
++            assert scope == "hybrid"
++            calls.append("local")
++            return RetrievalResult(
++                options=request.options, embedding_info=retrieval_embedding_info(), hits=[]
++            )
++
++    class Search:
++        def search(self, request, *, timeout_seconds):
++            calls.append("online")
++            assert request.query_plan.original_question == QUESTION
++            assert request.query_text() == QUESTION
++            assert 0 < timeout_seconds <= 90
++            if failure:
++                raise ResearchError(failure)
++            return PubMedSearchResult(
++                query_sent=request.query_text(),
++                query_translation=None,
++                total_count=0,
++                requested_limit=10,
++                returned_count=0,
++                truncated=False,
++                fetched_at=datetime.now(UTC),
++                date_from=None,
++                date_to=None,
++                date_field="pdat",
++                sort="relevance",
++                status="complete",
++                warnings=[],
++                missing_pmids=[],
++                records=[],
++            )
++
++    service = ResearchService(
++        retriever=Local(),
++        online_retriever=PubMedRetrievalService(Search()),
++        generator=object(),
++        planner=planner(),
++    )
++    request = QuestionRequest(question=QUESTION, request_id=uuid4(), scope=scope)
++    if failure:
++        with pytest.raises(ResearchError, match=failure):
++            service.answer(request)
++    else:
++        answer = service.answer(request)
++        assert answer.status == "insufficient_evidence"
++        assert answer.retrieval_scope == scope and answer.search_provenance.total_count == 0
++    assert calls == (["local", "online"] if scope == "hybrid" else ["online"])
++
++
++def test_user_entry_default_is_hybrid_and_internal_request_stays_compatible():
++    from clinical_agent.api_runtime import QuestionBody
++    from feishu.sender import render_answer
++
++    assert QuestionBody(question=QUESTION).scope == "hybrid"
++    assert QuestionBody(question=QUESTION, scope="local").scope == "local"
++    assert QuestionRequest(question=QUESTION, request_id=uuid4()).scope == "local"
++    # CLI/worker default construction is also exercised by existing entrypoint regressions.
++    from clinical_agent.domain.research import ResearchAnswer
++
++    text = render_answer(
++        ResearchAnswer(
++            request_id=uuid4(),
++            status="insufficient_evidence",
++            claims=[],
++            sources=[],
++            limitations=["No evidence"],
++            generated_at=__import__("datetime").datetime.now(__import__("datetime").UTC),
++        )
++    )
++    assert "未执行在线 PubMed" in text

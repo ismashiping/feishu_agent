@@ -29,7 +29,17 @@ def ingest_args():
 
 
 def ask_args():
-    return ["ask", "--question", "  中文问题  ", "--model-dir", "model", "--request-id", ID]
+    return [
+        "ask",
+        "--scope",
+        "local",
+        "--question",
+        "  中文问题  ",
+        "--model-dir",
+        "model",
+        "--request-id",
+        ID,
+    ]
 
 
 def batch(status="imported"):

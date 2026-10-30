@@ -29,7 +29,7 @@ def test_official_long_connection_and_reply(monkeypatch, tmp_path):
     results = []
 
     class SyntheticResearch:
-        def answer(self, request):
+        def respond(self, request):
             return ResearchAnswer(
                 request_id=request.request_id,
                 status="insufficient_evidence",

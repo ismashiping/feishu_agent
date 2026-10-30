@@ -1,0 +1,101 @@
+[
+  {
+    "index": 1,
+    "question": "肝脏分割最新研究有哪些？",
+    "mode": "live",
+    "fresh_discovery": true,
+    "human_medical_signoff": "pending",
+    "status": "insufficient_evidence",
+    "sources": 0,
+    "claims": 0,
+    "fulltext_citations": 0,
+    "sections": [],
+    "warnings": [
+      "openalex_failed",
+      "openalex_screening_failed"
+    ],
+    "seconds": 24.801
+  },
+  {
+    "index": 2,
+    "question": "肝脏肿瘤亚区分割最新进展有哪些？",
+    "mode": "live",
+    "fresh_discovery": true,
+    "human_medical_signoff": "pending",
+    "status": "insufficient_evidence",
+    "sources": 0,
+    "claims": 0,
+    "fulltext_citations": 0,
+    "sections": [],
+    "warnings": [],
+    "seconds": 15.573
+  },
+  {
+    "index": 3,
+    "question": "MedSAM与nnU-Net有哪些区别？",
+    "mode": "live",
+    "fresh_discovery": true,
+    "human_medical_signoff": "pending",
+    "status": "answered",
+    "sources": 6,
+    "claims": 9,
+    "fulltext_citations": 0,
+    "sections": [
+      "总体结论",
+      "架构与使用方式",
+      "骨转移瘤CT比较",
+      "心脏MRE比较",
+      "脑部肿瘤比较",
+      "提示质量的影响",
+      "微调的必要性",
+      "互补整合",
+      "证据局限"
+    ],
+    "warnings": [
+      "openalex_assessment_invalid",
+      "doi:10.3390/ai7060181:fulltext_location_unsupported",
+      "doi:10.1016/j.mri.2026.110768:fulltext_location_unsupported",
+      "doi:10.1117/12.3044679:fulltext_location_unsupported",
+      "doi:10.48550/arxiv.2506.20786:fulltext_license_not_allowed",
+      "doi:10.1002/mp.17470:fulltext_license_not_allowed",
+      "doi:10.1117/12.3048987:fulltext_license_not_allowed"
+    ],
+    "seconds": 22.446
+  },
+  {
+    "index": 4,
+    "question": "最近三年MRI预测肝癌微血管侵犯有哪些研究？",
+    "mode": "live",
+    "fresh_discovery": true,
+    "human_medical_signoff": "pending",
+    "status": "failed",
+    "error": "context_limit",
+    "seconds": 50.369
+  },
+  {
+    "index": 5,
+    "question": "肝脏肿瘤分割目前有哪些技术瓶颈？",
+    "mode": "live",
+    "fresh_discovery": true,
+    "human_medical_signoff": "pending",
+    "status": "insufficient_evidence",
+    "sources": 0,
+    "claims": 0,
+    "fulltext_citations": 0,
+    "sections": [],
+    "warnings": [
+      "openalex_assessment_invalid"
+    ],
+    "seconds": 22.113
+  },
+  {
+    "index": 6,
+    "question": "这篇2024年肝癌微血管侵犯双中心影像列线图研究采用了哪些CT和MRI采集方案？",
+    "mode": "live",
+    "fresh_discovery": true,
+    "human_medical_signoff": "pending",
+    "status": "failed",
+    "error": "citation_invalid",
+    "seconds": 20.499
+  }
+]

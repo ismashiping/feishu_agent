@@ -1,0 +1,10 @@
+{
+  "endpoint": "https://api.openalex.org/works",
+  "params": {
+    "search": "liver tumor segmentation challenges",
+    "per_page": 8
+  },
+  "fetched_at": "2026-10-29T04:17:20.315500+00:00",
+  "sha256": "3d8484d80ec996f60b35b64ac456cae04b8fa077d7a55652828ec1baa6298944",
+  "kind": "real API response; relevance labels pending human review"
+}

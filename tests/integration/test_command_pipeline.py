@@ -62,6 +62,23 @@ def test_cli_ingestion_and_rag_with_real_model_database(
         assert request.url.host == "api.example.test"
         context = json.loads(json.loads(request.content)["messages"][1]["content"])
         calls.append(context)
+        if "evidence" not in context:
+            raw = json.dumps(
+                {
+                    "question_type": "other",
+                    "pico": dict.fromkeys(["population", "intervention", "comparison", "outcome"]),
+                    "terms": [],
+                    "ambiguities": [],
+                }
+            )
+            return httpx.Response(
+                200,
+                json={
+                    "choices": [
+                        {"finish_reason": "stop", "message": {"role": "assistant", "content": raw}}
+                    ]
+                },
+            )
         raw = json.dumps(
             {
                 "claims": [
@@ -141,6 +158,8 @@ def test_cli_ingestion_and_rag_with_real_model_database(
             code = cli.main(
                 [
                     "ask",
+                    "--scope",
+                    "local",
                     "--question",
                     "What limitations does this fictional example have?",
                     "--model-dir",
@@ -154,7 +173,7 @@ def test_cli_ingestion_and_rag_with_real_model_database(
             captured = capsys.readouterr()
             assert code == 0, captured.err
             answer = json.loads(captured.out)
-            assert answer["status"] == "answered" and len(calls) == 1
+            assert answer["status"] == "answered" and len(calls) == 2
             assert answer["claims"][0]["evidence_chunk_ids"][0] in {
                 item["chunk_id"] for source in answer["sources"] for item in source["evidence"]
             }

@@ -53,7 +53,7 @@ def engine(tmp_path_factory):
             }
         assert report["vector_version"] == "0.8.7"
         assert report["postgres_version"].startswith("PostgreSQL 16.")
-        assert report["revision"] == "p107_0002"
+        assert report["revision"] == "p804_0007"
         evidence = Path(
             os.environ.get(
                 "CLINICAL_AGENT_TEST_EVIDENCE_DIR",

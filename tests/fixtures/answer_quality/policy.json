@@ -1,0 +1,11 @@
+{
+  "scope": "Synthetic control-flow fixtures, never scientific references",
+  "overview_soft_target": [5, 8],
+  "first_round_independent_papers": 1,
+  "second_round_independent_papers": 6,
+  "fulltext_download_papers": 3,
+  "fulltext_passages_per_paper": 3,
+  "acquisition_question": "这篇研究使用哪些CT和MRI采集方案、扫描序列及对比剂？",
+  "preferred_section": "Methods / Image acquisition",
+  "distractor_section": "Methods / Patients"
+}

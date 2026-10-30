@@ -1,0 +1,86 @@
+FFFFF......FFFFFF....................................................... [ 63%]
+..........................................                               [100%]
+================================== FAILURES ===================================
+_______ test_a_mapping_same_query[\u54ee\u5598\u547c\u6c14\u5206\u6790] _______
+tests\unit\test_quality_phase2.py:23: in test_a_mapping_same_query
+    assert p.research_intent == 'discovery'
+E   AssertionError: assert 'unknown' == 'discovery'
+E     
+E     - discovery
+E     + unknown
+______________ test_a_mapping_same_query[asthma breath analysis] ______________
+tests\unit\test_quality_phase2.py:23: in test_a_mapping_same_query
+    assert p.research_intent == 'discovery'
+E   AssertionError: assert 'unknown' == 'discovery'
+E     
+E     - discovery
+E     + unknown
+___________ test_a_mapping_same_query[\u54ee\u5598 breath analysis] ___________
+tests\unit\test_quality_phase2.py:23: in test_a_mapping_same_query
+    assert p.research_intent == 'discovery'
+E   AssertionError: assert 'unknown' == 'discovery'
+E     
+E     - discovery
+E     + unknown
+____________________ test_a_legacy_is_explicitly_degraded _____________________
+tests\unit\test_quality_phase2.py:29: in test_a_legacy_is_explicitly_degraded
+    assert req.planning_warnings() == ['legacy_terms_without_concept_relationships']
+           ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pydantic\main.py:1105: in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E   AttributeError: 'PubMedSearchRequest' object has no attribute 'planning_warnings'
+___ test_optional_missing_pico_does_not_block_and_expansions_are_candidates ___
+tests\unit\test_exploratory_discovery.py:66: in test_optional_missing_pico_does_not_block_and_expansions_are_candidates
+    assert '"liver tumor subregion segmentation"' in query
+E   assert '"liver tumor subregion segmentation"' in '������и������������Ļ��֣���û������о���'
+___ test_online_dispatch_receives_plan_even_without_local_hits[None-online] ___
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    answer = service.answer(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+___ test_online_dispatch_receives_plan_even_without_local_hits[None-hybrid] ___
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    answer = service.answer(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-online] _
+tests\unit\test_exploratory_discovery.py:173: in test_online_dispatch_receives_plan_even_without_local_hits
+    service.answer(request)
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-hybrid] _
+tests\unit\test_exploratory_discovery.py:173: in test_online_dispatch_receives_plan_even_without_local_hits
+    service.answer(request)
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-online] _
+tests\unit\test_exploratory_discovery.py:173: in test_online_dispatch_receives_plan_even_without_local_hits
+    service.answer(request)
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-hybrid] _
+tests\unit\test_exploratory_discovery.py:173: in test_online_dispatch_receives_plan_even_without_local_hits
+    service.answer(request)
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_quality_phase2.py::test_a_mapping_same_query[\u54ee\u5598\u547c\u6c14\u5206\u6790]
+FAILED tests/unit/test_quality_phase2.py::test_a_mapping_same_query[asthma breath analysis]
+FAILED tests/unit/test_quality_phase2.py::test_a_mapping_same_query[\u54ee\u5598 breath analysis]
+FAILED tests/unit/test_quality_phase2.py::test_a_legacy_is_explicitly_degraded
+FAILED tests/unit/test_exploratory_discovery.py::test_optional_missing_pico_does_not_block_and_expansions_are_candidates
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[None-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[None-hybrid]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-hybrid]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-hybrid]
+11 failed, 103 passed in 2.93s

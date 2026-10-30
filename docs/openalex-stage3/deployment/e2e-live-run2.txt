@@ -1,0 +1,6 @@
+{"index": 1, "question": "肝脏分割最新研究有哪些？", "request_id": "a66dc444-bd66-475c-88c5-6e8aa88b235a", "http_status": 422, "status": "http_error", "error": "retrieval_language_unsupported", "seconds": 2.875}
+{"index": 2, "question": "肝脏肿瘤亚区分割最新进展有哪些？", "request_id": "417a4f69-8267-4cdd-9dcc-2de3c098896a", "http_status": 422, "status": "http_error", "error": "retrieval_language_unsupported", "seconds": 4.656}
+{"index": 3, "question": "MedSAM与nnU-Net有哪些区别？", "request_id": "415b328d-e968-41b0-ac71-28ef3dd2bfd1", "http_status": 422, "status": "http_error", "error": "retrieval_language_unsupported", "seconds": 3.829}
+{"index": 4, "question": "最近三年MRI预测肝癌微血管侵犯有哪些研究？", "request_id": "74af76b5-9a07-4667-b65e-89c0480092a4", "http_status": 422, "status": "http_error", "error": "retrieval_language_unsupported", "seconds": 4.968}
+{"index": 5, "question": "肝脏肿瘤分割目前有哪些技术瓶颈？", "request_id": "37a53c6b-e10c-48c7-99a6-999da7ef8ad4", "http_status": 422, "status": "http_error", "error": "retrieval_language_unsupported", "seconds": 4.188}
+{"index": 6, "question": "2024年发表的Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram: a bi-centre study这项研究使用了哪些CT与MRI采集方案？", "request_id": "91a2a577-25c4-44ae-a646-3e21a65edbf4", "http_status": 502, "status": "http_error", "error": "extraction_failed", "seconds": 4.734}

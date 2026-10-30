@@ -1,0 +1,8 @@
+{
+  "reviewer": null,
+  "signed_at": null,
+  "decision": "pending",
+  "source_sha256": "c04561ef9b8a34d9860f94bab744078ec6a71ef7bb98178f5cc879e1287ae7b9",
+  "item_count": 106,
+  "independence": "Reviewer must not inspect model judgments before labeling"
+}

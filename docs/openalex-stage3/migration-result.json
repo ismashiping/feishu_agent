@@ -1,0 +1,7 @@
+{
+  "database": "clinical_agent_test_oa_stage3_20261029_1",
+  "downgrade_verified": true,
+  "legacy_sentinel_preserved": true,
+  "reupgrade_verified": true,
+  "business_database_modified": false
+}

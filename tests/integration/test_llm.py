@@ -164,16 +164,79 @@ def test_transport_failures_are_controlled(failure, code):
         },
     ],
 )
-def test_malformed_or_truncated_envelope_is_not_an_answer(change):
+def test_malformed_or_truncated_envelope_is_not_an_answer(change, caplog):
+    import logging
+
     from clinical_agent.adapters.llm import open_llm
     from clinical_agent.domain.research import ResearchError
 
-    with open_llm(
-        settings(),
-        transport=httpx.MockTransport(lambda request: httpx.Response(200, json=envelope(**change))),
-    ) as generator:
-        with pytest.raises(ResearchError, match="model_output_invalid"):
-            generator.generate(context(), timeout_seconds=2.0)
+    with caplog.at_level(logging.INFO, logger="clinical_agent.application.openalex"):
+        with open_llm(
+            settings(),
+            transport=httpx.MockTransport(
+                lambda request: httpx.Response(200, json=envelope(**change))
+            ),
+        ) as generator:
+            with pytest.raises(ResearchError, match="model_output_invalid"):
+                generator.generate(context(), timeout_seconds=2.0)
+    choice = change["choices"][0] if change["choices"] else None
+    if isinstance(choice, dict) and choice.get("finish_reason") == "length":
+        record = next(r for r in caplog.records if getattr(r, "evidence_stage", None) == "provider")
+        assert record.failure_kind == "length"
+        assert "content_chars=2" in record.evidence_counts
+        assert "reasoning_tokens=unknown" in record.evidence_counts
+        assert "input_tokens=unknown" in record.evidence_counts
+        assert "{}" not in record.getMessage()
+
+
+def test_analysis_output_budget_stays_independent_of_other_calls(caplog):
+    import logging
+
+    from clinical_agent.adapters.llm import open_llm
+    from clinical_agent.domain.research import ResearchError
+
+    seen = []
+
+    def handler(request):
+        payload = json.loads(request.content)
+        seen.append(payload)
+        if payload["max_tokens"] > 4096:
+            return httpx.Response(
+                200,
+                json=envelope(
+                    choices=[
+                        {
+                            "finish_reason": "length",
+                            "message": {"role": "assistant", "content": '{"studies":[]}'},
+                        }
+                    ],
+                    usage={
+                        "prompt_tokens": 11,
+                        "completion_tokens": 16384,
+                        "completion_tokens_details": {"reasoning_tokens": 0},
+                    },
+                ),
+            )
+        return httpx.Response(200, json=envelope())
+
+    with caplog.at_level(logging.INFO, logger="clinical_agent.application.openalex"):
+        with open_llm(settings(), transport=httpx.MockTransport(handler)) as generator:
+            generator.screen_candidates({"question": "secret topic"}, timeout_seconds=2)
+            generator.review_claims({}, timeout_seconds=2)
+            with pytest.raises(ResearchError) as error:
+                generator.analyze_evidence(
+                    {"question": "secret topic"}, timeout_seconds=2, max_output_tokens=16384
+                )
+    assert error.value.code == "analysis_output_truncated"
+    assert error.value.details["output_tokens"] == "16384"
+    assert error.value.details["reasoning_tokens"] == "0"
+    assert error.value.details["input_tokens"] == "11"
+    assert [item["max_tokens"] for item in seen] == [1500, 1500, 16384]
+    assert seen[0]["thinking"] == {"type": "disabled"}
+    assert "thinking" not in seen[1]
+    assert seen[2]["thinking"] == {"type": "disabled"}
+    assert '{"studies":[]}' not in caplog.text
+    assert "secret topic" not in caplog.text
 
 
 def test_response_stream_is_bounded_and_closed():
@@ -184,7 +247,9 @@ def test_response_stream_is_bounded_and_closed():
         closed = False
 
         def __iter__(self):
-            yield b" " * 128001
+            from clinical_agent.adapters.llm import RESPONSE_BYTE_LIMIT
+
+            yield b" " * (RESPONSE_BYTE_LIMIT + 1)
             raise AssertionError("Should stop before consuming more data")
 
         def close(self):

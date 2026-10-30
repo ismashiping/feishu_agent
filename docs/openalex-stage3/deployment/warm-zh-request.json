@@ -1,0 +1,9 @@
+{
+  "question": "这篇2024年肝癌微血管侵犯双中心影像列线图研究采用了哪些CT和MRI采集方案？",
+  "scope": "hybrid",
+  "openalex": {
+    "query": "Preoperative evaluation of microvascular invasion in hepatocellular carcinoma with a radiological feature-based nomogram a bi-centre study",
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31"
+  }
+}

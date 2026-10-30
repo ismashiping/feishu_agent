@@ -72,9 +72,9 @@ class PublicationDate(DTO):
 
 
 class SourceMetadata(DTO):
-    source_type: Literal["pdf", "pubmed"]
+    source_type: Literal["pdf", "pubmed", "openalex"]
     source_url: HttpUrl | None  # 原始网络地址
-    source_uri: FileUrl  # 本地文件 URI
+    source_uri: FileUrl | HttpUrl  # 离线文件或真实在线来源 URI
     content_hash: SnapshotHash
     content_scope: Literal["abstract", "extracted_text", "full_text"]  # 当前保存内容的范围
 
@@ -87,13 +87,17 @@ class SourceMetadata(DTO):
 
     @model_validator(mode="after")
     def validate_acquisition_scope(self) -> Self:
-        if self.source_type == "pubmed" and self.content_scope != "abstract":
+        if isinstance(self.source_uri, HttpUrl) and (
+            self.source_type not in {"pubmed", "openalex"} or self.source_uri != self.source_url
+        ):
+            raise ValueError("Online URI must match the acquired public PubMed source")
+        if self.source_type in {"pubmed", "openalex"} and self.content_scope != "abstract":
             raise ValueError("Offline PubMed content must be identified as abstract")
         return self
 
 
 class EvidenceLocation(DTO):
-    kind: Literal["pdf_page", "abstract"]
+    kind: Literal["pdf_page", "abstract", "fulltext"]
     page: PositiveInteger | None = None
     section: MetadataText | None = None
     start: NonnegativeInteger
@@ -101,8 +105,10 @@ class EvidenceLocation(DTO):
 
     @model_validator(mode="after")
     def validate_position(self) -> Self:
-        if (self.kind == "pdf_page") != (self.page is not None):
-            raise ValueError("Only PDF locations require a page number")
+        if (self.kind == "pdf_page" and self.page is None) or (
+            self.kind == "abstract" and self.page is not None
+        ):
+            raise ValueError("PDF locations require pages; abstract locations cannot have pages")
         if self.end <= self.start:
             raise ValueError("Location must be a nonempty half-open interval")
         return self

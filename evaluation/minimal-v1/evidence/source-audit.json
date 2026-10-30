@@ -1,0 +1,40 @@
+[
+  {
+    "id": "blood-pressure",
+    "mode": "replay_of_real_official_snapshots_not_live_e2e",
+    "checks": [
+      {
+        "pmid": "26551272",
+        "snapshot_location_status": "valid",
+        "hash": "bb5cbe48cc62ef2d9b640af8da1217d1b0f3a350370e0aa4a44e285deefc9669"
+      },
+      {
+        "pmid": "34010531",
+        "snapshot_location_status": "valid",
+        "hash": "ac5436a15977d26dd46c83bfba23e9afa392bcbb69404ee422d63e84d620da20"
+      }
+    ],
+    "analysis_payload_characters_after": 10538,
+    "analysis_payload_characters_with_duplicate_xml": 143754,
+    "budget": 24000
+  },
+  {
+    "id": "sepsis",
+    "mode": "replay_of_real_official_snapshots_not_live_e2e",
+    "checks": [
+      {
+        "pmid": "39011361",
+        "snapshot_location_status": "valid",
+        "hash": "b76d792384a40ee642078633a0516e232c47d09e5032920e07a51b1437efd678"
+      },
+      {
+        "pmid": "42196888",
+        "snapshot_location_status": "valid",
+        "hash": "b2b3ec37286bf9b30e21af59c86e17b2210f88ee6bcbbbf02763d35bb274a478"
+      }
+    ],
+    "analysis_payload_characters_after": 10425,
+    "analysis_payload_characters_with_duplicate_xml": 34157,
+    "budget": 24000
+  }
+]

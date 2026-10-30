@@ -1,0 +1,56 @@
+{
+  "source_mode": "verified real XML replay",
+  "schema_isolated": true,
+  "generation": "deterministic test double",
+  "cases": [
+    {
+      "case": "abstract",
+      "status": "answered",
+      "seconds": 2.22,
+      "context_characters": 6625,
+      "passages": 0,
+      "sections": [],
+      "downloads": 0,
+      "passage_embedding_calls": 0,
+      "warnings": [
+        "source_governance_known_pmids"
+      ]
+    },
+    {
+      "case": "fulltext_cold",
+      "status": "answered",
+      "seconds": 26.52,
+      "context_characters": 8810,
+      "passages": 2,
+      "sections": [
+        "RESULTS / Estimates of Phenotypic Complexity for VSV and ΦX174",
+        "DISCUSS / Viral Estimates of Phenotypic Complexity"
+      ],
+      "downloads": 1,
+      "passage_embedding_calls": 1,
+      "warnings": [
+        "source_governance_known_pmids",
+        "17299597:fulltext_available"
+      ]
+    },
+    {
+      "case": "fulltext_warm",
+      "status": "answered",
+      "seconds": 1.69,
+      "context_characters": 8810,
+      "passages": 2,
+      "sections": [
+        "RESULTS / Estimates of Phenotypic Complexity for VSV and ΦX174",
+        "DISCUSS / Viral Estimates of Phenotypic Complexity"
+      ],
+      "downloads": 0,
+      "passage_embedding_calls": 0,
+      "warnings": [
+        "source_governance_known_pmids",
+        "17299597:fulltext_available"
+      ]
+    }
+  ],
+  "persisted_chunks": 66,
+  "status": "passed"
+}

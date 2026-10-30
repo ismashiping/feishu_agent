@@ -1,0 +1,18 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+___________ test_default_render_is_readable_and_preserves_citations ___________
+
+    def test_default_render_is_readable_and_preserves_citations():
+        from feishu.sender import render_answer
+    
+        dto = answer(answered=True)
+        text = render_answer(dto)
+>       assert text.startswith("�ƶϣ��ϳɽ��� [1]")
+E       AssertionError: assert False
+E        +  where False = <built-in method startswith of str object at 0x000001E8E207F280>('�ƶϣ��ϳɽ��� [1]')
+E        +    where <built-in method startswith of str object at 0x000001E8E207F280> = '�����������ѵ������ף�����֤�������»�ȫ���о������ڿ��и����������ڸ�����ϻ����ƾ��ߡ�\n��Դ��Χ��local�������أ�δִ������ PubMed ��������\n���ؼ�����vector�����ԣ�vector-v1\nc1 �ƶϣ��ϳɽ���\...ic\nURL��https://pubmed.ncbi.nlm.nih.gov/123456/\nchunk=3bfbe552-e406-47e4-aeb8-8ca0fe3548af ժҪ RESULTS [0,19)\n���ޣ�ȫ�־���'.startswith
+
+tests\unit\test_feishu_sender.py:162: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_feishu_sender.py::test_default_render_is_readable_and_preserves_citations
+1 failed, 72 deselected in 1.10s

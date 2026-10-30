@@ -22,7 +22,9 @@ from clinical_agent.api_runtime import (
     open_api_runtime,
 )
 from clinical_agent.config import load_settings
+from clinical_agent.domain.analysis import AnalysisResult
 from clinical_agent.domain.ingestion import BatchIngestionResult, ImportRequest
+from clinical_agent.domain.report import ReportResult
 from clinical_agent.domain.research import QuestionRequest, ResearchAnswer, ResearchError
 from clinical_agent.domain.retrieval import RetrievalError
 from clinical_agent.logging_config import configure_logging
@@ -103,7 +105,12 @@ class _Boundary:
         if invalid_id:
             await reject("invalid_request_id", 400)
             return
-        if scope["method"] == "POST" and scope["path"] in {"/v1/documents/import", "/v1/questions"}:
+        if scope["method"] == "POST" and scope["path"] in {
+            "/v1/documents/import",
+            "/v1/questions",
+            "/v1/analyses",
+            "/v1/reports",
+        }:
             mapping = {key.lower(): value for key, value in headers}
             if (
                 mapping.get(b"content-encoding", b"identity") != b"identity"
@@ -255,11 +262,33 @@ def create_app(
             code = safe.code
             if code.endswith("timeout"):
                 return _error_response(request, code, 504, True)
-            if code in {"retrieval_failed", "retrieval_embedding_failed", "generation_failed"}:
+            if code in {
+                "retrieval_failed",
+                "retrieval_embedding_failed",
+                "generation_failed",
+                "pubmed_failed",
+                "openalex_failed",
+                "openalex_auth_failed",
+                "openalex_rate_limited",
+                "openalex_timeout",
+            }:
                 return _error_response(request, code, 503, True)
-            if code in {"model_output_invalid", "citation_invalid"}:
+            if code in {
+                "model_output_invalid",
+                "analysis_output_truncated",
+                "citation_invalid",
+                "extraction_failed",
+                "pubmed_invalid",
+                "openalex_invalid",
+                "openalex_plan_required",
+                "openalex_options_retired",
+            }:
                 return _error_response(request, code, 502)
-            return _error_response(request, code, 422 if code == "context_limit" else 500)
+            return _error_response(
+                request,
+                code,
+                422 if code in {"context_limit", "retrieval_language_unsupported"} else 500,
+            )
         except Exception:
             return _error_response(request, "internal_error", 500)
 
@@ -279,9 +308,33 @@ def create_app(
             assert state.services is not None
             question = QuestionRequest(request_id=identity(request), **body.model_dump())
             answer = ResearchAnswer.model_validate(state.services.research.answer(question))
-            if answer.request_id != question.request_id:
+            if answer.request_id != question.request_id or answer.retrieval_scope != question.scope:
                 raise ValueError("Answer correlation mismatch")
             return answer
+
+        return await execute(request, operation)
+
+    @app.post("/v1/reports", response_model=ReportResult)
+    async def report(body: QuestionBody, request: Request) -> ReportResult | JSONResponse:
+        def operation() -> ReportResult:
+            assert state.services is not None
+            question = QuestionRequest(request_id=identity(request), **body.model_dump())
+            result = ReportResult.model_validate(state.services.research.report(question))
+            if result.report.request_id != question.request_id:
+                raise ValueError("Report correlation mismatch")
+            return result
+
+        return await execute(request, operation)
+
+    @app.post("/v1/analyses", response_model=AnalysisResult)
+    async def analysis(body: QuestionBody, request: Request) -> AnalysisResult | JSONResponse:
+        def operation() -> AnalysisResult:
+            assert state.services is not None
+            question = QuestionRequest(request_id=identity(request), **body.model_dump())
+            result = AnalysisResult.model_validate(state.services.research.analyze(question))
+            if result.request_id != question.request_id:
+                raise ValueError("Analysis correlation mismatch")
+            return result
 
         return await execute(request, operation)
 

@@ -1,0 +1,67 @@
+[
+  {
+    "index": 1,
+    "question": "肝脏分割最新研究有哪些？",
+    "request_id": "74f12f2c-7f32-4d07-a14d-d0b6a45682d5",
+    "http_status": 504,
+    "status": "http_error",
+    "error": "extraction_timeout",
+    "seconds": 5.11
+  },
+  {
+    "index": 3,
+    "question": "MedSAM与nnU-Net有哪些区别？",
+    "request_id": "03107691-0509-4deb-a8e5-363da481e34f",
+    "http_status": 200,
+    "status": "answered",
+    "sources": 5,
+    "claims": 11,
+    "fulltext_citations": 2,
+    "citation_identity_checked": true,
+    "warnings": [
+      "openalex_assessment_invalid",
+      "doi:10.1038/s41467-024-44824-z:fulltext_available",
+      "doi:10.48550/arxiv.1809.10486:fulltext_license_not_allowed",
+      "doi:10.3390/ai7060181:fulltext_location_unsupported",
+      "doi:10.1016/j.mri.2026.110768:fulltext_location_unsupported",
+      "doi:10.1093/dote/doag077.110:fulltext_license_not_allowed"
+    ],
+    "search_status": "partial",
+    "evidence_gaps": [],
+    "date_from": "None",
+    "date_to": "None",
+    "dates": [
+      "2024-01-22",
+      "2018-09-27",
+      "2026-08-08",
+      "2026-05-22",
+      "2026-08-22"
+    ],
+    "seconds": 46.125
+  },
+  {
+    "index": 6,
+    "question": "这篇2024年肝癌微血管侵犯双中心影像列线图研究采用了哪些CT和MRI采集方案？",
+    "request_id": "b6bfe324-3ac7-4031-907b-a135e3e4e5af",
+    "http_status": 200,
+    "status": "answered",
+    "sources": 1,
+    "claims": 6,
+    "fulltext_citations": 3,
+    "citation_identity_checked": true,
+    "warnings": [
+      "openalex_screening_failed",
+      "doi:10.1186/s12880-024-01206-7:fulltext_available"
+    ],
+    "search_status": "partial",
+    "evidence_gaps": [
+      "limited_independent_evidence"
+    ],
+    "date_from": "2024-01-01",
+    "date_to": "2024-12-31",
+    "dates": [
+      "2024-01-27"
+    ],
+    "seconds": 31.75
+  }
+]

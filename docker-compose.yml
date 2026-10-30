@@ -1,3 +1,4 @@
+name: clinical-agent-e2e
 services:
   postgres:
     image: pgvector/pgvector:0.8.7-pg16@sha256:7b822b0aac60967beb1ea5e576b8602c94c300a157d187f385ae3e0da199b90a
@@ -37,6 +38,9 @@ services:
     environment: &app_environment
       CLINICAL_AGENT_APP_ENV: production
       CLINICAL_AGENT_LOG_LEVEL: ${CLINICAL_AGENT_LOG_LEVEL:-INFO}
+      OMP_NUM_THREADS: "2"
+      OPENBLAS_NUM_THREADS: "2"
+      MKL_NUM_THREADS: "2"
       CLINICAL_AGENT_DB_HOST: postgres
       CLINICAL_AGENT_DB_PORT: "5432"
       CLINICAL_AGENT_DB_NAME: ${CLINICAL_AGENT_DB_NAME:-clinical_agent}
@@ -45,6 +49,12 @@ services:
       LLM_API_KEY: ${LLM_API_KEY:-}
       LLM_BASE_URL: ${LLM_BASE_URL:-}
       LLM_MODEL: ${LLM_MODEL:-}
+      LLM_MAX_TOKENS: ${LLM_MAX_TOKENS:-4096}
+      OPENALEX_API_KEY: ${OPENALEX_API_KEY:-}
+      OPENALEX_RECENT_MONTHS: ${OPENALEX_RECENT_MONTHS:-24}
+      PUBMED_TOOL: ${PUBMED_TOOL:-clinical-literature-agent}
+      PUBMED_EMAIL: ${PUBMED_EMAIL:-}
+      PUBMED_API_KEY: ${PUBMED_API_KEY:-}
       CLINICAL_AGENT_API_MODEL_DIR: /app/model
       CLINICAL_AGENT_API_IMPORT_ROOT: /app/data/incoming
       CLINICAL_AGENT_API_SNAPSHOT_DIR: /app/data/snapshots

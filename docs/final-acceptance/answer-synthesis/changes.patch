@@ -1,0 +1,147 @@
+--- .quality-backup/answer-synthesis-20261029/sender.py
++++ src/feishu/sender.py
+@@ -13,6 +13,7 @@
+ 
+ from pydantic import Field, StrictInt
+ 
++from clinical_agent.domain.citations import BASE_LIMITATIONS
+ from clinical_agent.domain.models import DTO
+ from clinical_agent.domain.report import ResearchReport, render_report
+ from clinical_agent.domain.research import ResearchAnswer
+@@ -83,16 +84,16 @@
+             )
+     elif answer.status == "insufficient_evidence":
+         lines.append("本次检索证据不足，不代表不存在相关研究或证据证明无效。")
++    caveats: dict[str, list[int]] = {}
+     for claim in answer.claims:
+         refs = " ".join(
+             f"[{n}]" for n in dict.fromkeys(numbers[k] for k in claim.evidence_chunk_ids)
+         )
+         label = {"evidence": "", "inference": "推断：", "uncertainty": "不确定："}[claim.kind]
+         lines.append(f"{label}{_plain(claim.text)} {refs}".rstrip())
+-        if claim.limitations:
+-            lines.append(
+-                "局限：" + "；".join(_plain(item) for item in dict.fromkeys(claim.limitations))
+-            )
++        for item in claim.limitations:
++            linked = caveats.setdefault(item, [])
++            linked.extend(numbers[k] for k in claim.evidence_chunk_ids if numbers[k] not in linked)
+         lines.append("")
+     if answer.sources:
+         lines.append("参考文献")
+@@ -104,28 +105,73 @@
+     for number, source in enumerate(answer.sources, 1):
+         date = str(source.publication_date.year or source.publication_date.raw or "年份未知")
+         lines.append(f"[{number}] {_plain(source.title)}（{_plain(date)}）")
+-        metadata = [scopes[source.content_scope]]
++        metadata = []
+         if source.pmid:
+             metadata.append(f"PMID：{source.pmid}")
+-        elif source.doi:
++        if source.doi:
+             metadata.append(f"DOI：{_plain(source.doi)}")
+-        lines.append("；".join(metadata))
++        if metadata:
++            lines.append("；".join(metadata))
+         url = _safe_url(source.source_url)
+         if url:
+             lines.append(_plain(url))
+         if source.source_notices:
+             lines.append("来源关联标记：" + _plain("、".join(source.source_notices)))
+-    lines.extend("局限：" + _plain(item) for item in dict.fromkeys(answer.limitations))
++        if source.content_scope != "abstract":
++            for evidence in source.evidence:
++                loc = evidence.location
++                page = f"第{loc.page}页；" if loc.page else ""
++                section = f"{_plain(loc.section)}；" if loc.section else ""
++                lines.append(f"定位：{page}{section}字符 [{loc.start},{loc.end})")
++    for scope, label in scopes.items():
++        refs = " ".join(
++            f"[{n}]" for n, source in enumerate(answer.sources, 1) if source.content_scope == scope
++        )
++        if refs:
++            lines.append(f"证据范围：{label} {refs}")
++    # Only exact, known system notices are consolidated; never fuzzy-match medical caveats.
++    covered = {
++        BASE_LIMITATIONS[0],
++        BASE_LIMITATIONS[2],
++        "部分来源仅包含摘要，不能视为已阅读全文。",
++        "部分来源为PDF文本层提取，未验证版面、表格或全文完整性。",
++    }
++    if answer.retrieval_scope != "local":
++        online_scope = (
++            "已按记录查询 PubMed；结果有查询、日期、数量和摘要范围限制，"
++            "不保证检全或覆盖全部最新研究。"
++        )
++        covered.update(
++            {online_scope, online_scope + " PubMed候选已截断，本次未发现不能解释为不存在相关研究。"}
++        )
++    for item in answer.limitations:
++        if item not in covered:
++            caveats.setdefault(item, [])
++    if caveats:
++        lines.extend(["", "局限与范围"])
++        for item, linked_numbers in caveats.items():
++            text = (
++                "引用关联已核对；医学语义支持仍需人工复核。"
++                if item == BASE_LIMITATIONS[1]
++                else _plain(item)
++            )
++            lines.append(
++                text + (" " + " ".join(f"[{n}]" for n in linked_numbers) if linked_numbers else "")
++            )
+     if answer.status != "needs_clarification":
+         search = answer.search_provenance
+         if search:
+             lines.append(
+                 f"检索范围：PubMed 匹配 {search.total_count} 条；"
+-                f"本次返回 {search.returned_count} 个候选；状态：{search.status}。"
+-                + ("候选已截断，不代表全部相关研究。" if search.truncated else "")
++                f"本次返回 {search.returned_count} 个候选；请求状态：{search.status}。"
++                + (
++                    "候选已截断，不代表全部相关研究。"
++                    if search.truncated
++                    else "候选未截断，但不保证检全。"
++                )
+             )
+         lines.append(
+-            DISCLAIMER
++            "未执行在线 PubMed 检索。" + DISCLAIMER
+             if answer.retrieval_scope == "local"
+             else "本次使用在线 PubMed"
+             + ("及本地来源" if answer.retrieval_scope == "hybrid" else "")
+--- .quality-backup/answer-synthesis-20261029/research.py
++++ src/clinical_agent/domain/research.py
+@@ -116,10 +116,28 @@
+ Do not invent or output bibliographic fields, titles, authors, PMID, DOI, URLs or reference
+ numbers in prose; citations are rendered separately from trusted metadata.
+ If evidence is insufficient for the question, describe that uncertainty using a cited claim.
+-Adapt to the research intent: discovery should describe representative relevant studies,
+-methods reviews should compare methods across appropriate domains, and comparisons should
+-state evidence boundaries. Distinguish population-specific studies, partial relevance and
+-cross-domain methodological references. Lexical overlap is NOT proof of direct evidence.
++The first claim must directly answer the user's question at the strength supported by evidence.
++Before composing, check the requested population, task, unit of analysis and endpoint against
++the passages, using the original question even if the query plan lost a constraint. A shared
++organ, disease or method name does not establish the same task. Distinguish whole-object
++boundaries, lesion boundaries and subdivisions within a lesion; do not interchange them.
++If no passage directly addresses the requested task, lead with a cited uncertainty explaining
++the mismatch in this evidence set. Do not manufacture a complete review; mention indirect
++methods only if useful and explicitly label their domain and limited relevance.
++Synthesize compatible findings across papers by scientific point, not one abstract per claim.
++Keep differing populations, endpoints and validation settings separate; no unsupported pooled
++results or superiority claims. No fixed number of papers or claims is required.
++Adapt organization to intent, without a mandatory template: discovery leads with whether
++relevant studies were found then representative methods/findings; methods comparisons group
++approaches and compare supported tradeoffs/conditions; single-paper analysis covers purpose,
++method, reported results and missing details; research gaps distinguish observed evidence gaps
++from speculative directions (kind=inference), never claiming novelty from limited retrieval.
++Distinguish direct studies, partial relevance and cross-domain methodological references.
++Lexical overlap is NOT proof of direct evidence. Cite only passages supporting each point;
++for a mismatch claim, cite the passages whose actual scope demonstrates the mismatch.
++Do not repeat generic abstract, retrieval or disclaimer text in each claim: the renderer adds
++these from trusted metadata. Use limitations for study-specific caveats; keep any caveat
++essential to interpreting a result in that claim's text. Keep the answer concise.
+ Use supplied passages for methods and findings; titles and metadata cannot support results.
+ Never invent unreported statistics, experiments or clinical implications. Limited, truncated
+ or partial retrieval cannot establish that PubMed has no relevant studies. Citation identity

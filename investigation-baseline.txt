@@ -1,0 +1,55 @@
+........................................................F......FFFFFF... [ 39%]
+........................................................................ [ 78%]
+.......................................                                  [100%]
+================================== FAILURES ===================================
+___ test_optional_missing_pico_does_not_block_and_expansions_are_candidates ___
+tests\unit\test_exploratory_discovery.py:66: in test_optional_missing_pico_does_not_block_and_expansions_are_candidates
+    assert '"liver tumor subregion segmentation"' in query
+E   assert '"liver tumor subregion segmentation"' in '������и������������Ļ��֣���û������о���'
+___ test_online_dispatch_receives_plan_even_without_local_hits[None-online] ___
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    answer = service.answer(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+___ test_online_dispatch_receives_plan_even_without_local_hits[None-hybrid] ___
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    answer = service.answer(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-online] _
+tests\unit\test_exploratory_discovery.py:173: in test_online_dispatch_receives_plan_even_without_local_hits
+    service.answer(request)
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-hybrid] _
+tests\unit\test_exploratory_discovery.py:173: in test_online_dispatch_receives_plan_even_without_local_hits
+    service.answer(request)
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-online] _
+tests\unit\test_exploratory_discovery.py:173: in test_online_dispatch_receives_plan_even_without_local_hits
+    service.answer(request)
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-hybrid] _
+tests\unit\test_exploratory_discovery.py:173: in test_online_dispatch_receives_plan_even_without_local_hits
+    service.answer(request)
+src\clinical_agent\application\research.py:336: in answer
+    raise RetrievalError(error.code) from None
+E   clinical_agent.domain.retrieval.RetrievalError: retrieval_failed
+=========================== short test summary info ===========================
+FAILED tests/unit/test_exploratory_discovery.py::test_optional_missing_pico_does_not_block_and_expansions_are_candidates
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[None-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[None-hybrid]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-hybrid]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-hybrid]
+7 failed, 176 passed in 6.18s

@@ -1,0 +1,39 @@
+[
+  {
+    "number": 1,
+    "operation": "extract",
+    "started_at": "2026-10-27T19:29:18.998784+00:00",
+    "status": "returned",
+    "seconds": 2.19
+  },
+  {
+    "number": 2,
+    "operation": "extract",
+    "started_at": "2026-10-27T19:29:21.186296+00:00",
+    "status": "returned",
+    "seconds": 2.28
+  },
+  {
+    "number": 3,
+    "operation": "extract",
+    "started_at": "2026-10-27T19:31:32.444717+00:00",
+    "status": "returned",
+    "seconds": 1.81
+  },
+  {
+    "number": 4,
+    "operation": "extract",
+    "started_at": "2026-10-27T19:31:36.124631+00:00",
+    "status": "returned",
+    "seconds": 2.19
+  },
+  {
+    "number": 5,
+    "operation": "analyze_evidence",
+    "started_at": "2026-10-27T19:33:26.331004+00:00",
+    "status": "failed",
+    "error_type": "ResearchError",
+    "error_code": "model_output_invalid",
+    "seconds": 13.51
+  }
+]

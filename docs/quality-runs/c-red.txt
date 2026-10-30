@@ -1,0 +1,17 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_____________________ test_c_audit_and_context_contracts ______________________
+
+    def test_c_audit_and_context_contracts():
+        from clinical_agent.domain.pubmed import SearchProvenance
+        from clinical_agent.domain.research import GenerationInput, GenerationEvidence
+>       assert {'searched_pmids','fetched_pmids','candidate_outcomes'} <= SearchProvenance.model_fields.keys()
+E       AssertionError: assert {'candidate_outcomes', 'fetched_pmids', 'searched_pmids'} <= dict_keys(['endpoint', 'query_sent', 'query_translation', 'total_count', 'requested_limit', 'returned_count', 'truncated', 'fetched_at', 'date_from', 'date_to', 'date_field', 'sort', 'status', 'warnings', 'missing_pmids'])
+E        +  where dict_keys(['endpoint', 'query_sent', 'query_translation', 'total_count', 'requested_limit', 'returned_count', 'truncated', 'fetched_at', 'date_from', 'date_to', 'date_field', 'sort', 'status', 'warnings', 'missing_pmids']) = <built-in method keys of dict object at 0x00000272BEF8DEC0>()
+E        +    where <built-in method keys of dict object at 0x00000272BEF8DEC0> = {'endpoint': FieldInfo(annotation=Literal['https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'], required=False, default='...required=True), 'total_count': FieldInfo(annotation=int, required=True, metadata=[Strict(strict=True), Ge(ge=0)]), ...}.keys
+E        +      where {'endpoint': FieldInfo(annotation=Literal['https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'], required=False, default='...required=True), 'total_count': FieldInfo(annotation=int, required=True, metadata=[Strict(strict=True), Ge(ge=0)]), ...} = <class 'clinical_agent.domain.pubmed.SearchProvenance'>.model_fields
+
+tests\unit\test_quality_phase2.py:55: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_quality_phase2.py::test_c_audit_and_context_contracts
+1 failed, 7 deselected in 0.52s

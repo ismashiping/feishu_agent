@@ -1,0 +1,53 @@
+不确定：现有证据仅覆盖5篇摘要，均聚焦深度学习肝脏分割方法，无法据此完整回答“最新研究有哪些”；以下为这些摘要所代表的技术方向与报告结果。 [1] [2] [3] [4] [5]
+
+混合架构方向：WavPAC-Net将ConvNeXt-Small卷积分支与Swin Transformer分支组合，并用小波域融合模块分解低频/高频子带做自适应加权融合，再用置换轴向-通道特征增强器细化融合特征，作者称其兼顾CNN的局部纹理与Transformer的长程依赖。 [1]
+
+状态空间模型方向：RMA-Mamba在VMamba序列建模基础上加入反向Mamba注意力模块，用于病理肝脏（肝硬化）分割，作者称其在保持局部特征的同时捕获长程依赖。 [4]
+
+U-Net改进方向：RR UNet在解码器引入循环注意力模块、残差跳跃连接，并用BCE与Focal Loss混合损失缓解类别不平衡，针对肝脏形状不规则与边界模糊问题。 [5]
+
+另有工作采用带残差连接的U-Net并关注分割可解释性，在两个CT标注数据集上训练两个模型、共四组实验，报告准确率0.81–0.93。 [3]
+
+较简单的改进ResUNet在3Dircadb数据集128×128图像上报告Dice 93.08%、准确率98.57%、Jaccard 87.12%。 [2]
+
+在CirrMRI600+（T2加权MRI）上，WavPAC-Net报告Dice 93.16%、IoU 88.45%、MCC 93.03%、19.88 GFLOPs；RMA-Mamba在同一数据集报告Dice 92.08%、mIoU 87.36%、召回92.96%。两者数值接近，但摘要未提供同一评测协议下的统计检验，不能据此判定优劣。 [1] [4]
+
+在LiTS CT数据集上，WavPAC-Net报告Dice 96.91%、IoU 94.32%、MCC 96.79%，RMA-Mamba报告Dice 92.9%、mIoU 88.99%；RR UNet在LiTS2017上报告mIoU 95.8%、DSC 87.7%、Precision 98.6%、Recall 97.1%、ASSD 3.48mm。由于指标定义与数据集版本表述不完全一致，这些数字不宜直接横向合并比较。 [1] [4] [5]
+
+推断：从这些摘要看，当前方向集中在混合CNN-Transformer、状态空间模型与注意力/残差增强的U-Net变体，并普遍以Dice/IoU为主要报告指标；但各研究数据集（3Dircadb、LiTS、CirrMRI600+）与验证设置不同，尚不能得出某一架构整体更优的结论。 [1] [2] [4] [5]
+
+不确定：证据缺口：所给摘要中未见外部多中心前瞻验证、统一基准下的统计显著性比较或临床落地评估的详细报告；这些是否在其他文献中存在，本证据集无法判断。 [1] [3]
+
+参考文献
+[1] WavPAC-Net: a wavelet-based hybrid encoder network with permuted axial-channel feature enhancement for liver segmentation（2026）
+DOI：10.1007/s44443-026-01362-6
+https://doi.org/10.1007/s44443-026-01362-6
+https://openalex.org/W7223277402
+[2] Automated liver segmentation from CT images using modified ResUNet（2025）
+DOI：10.1016/j.gande.2025.03.002
+https://doi.org/10.1016/j.gande.2025.03.002
+https://openalex.org/W4408220583
+[3] Explainable and Robust Deep Learning for Liver Segmentation Through U-Net Network（2025）
+DOI：10.3390/diagnostics15070878
+https://doi.org/10.3390/diagnostics15070878
+https://openalex.org/W4409039562
+[4] A Reverse Mamba Attention Network for Pathological Liver Segmentation（2025）
+DOI：10.1109/iceccme64568.2025.11277937
+https://doi.org/10.1109/iceccme64568.2025.11277937
+https://openalex.org/W4417337617
+[5] Liver segmentation algorithm based on improved UNet（2025）
+DOI：10.1117/12.3095447
+https://doi.org/10.1117/12.3095447
+https://openalex.org/W4416077158
+证据范围：摘要（未阅读全文） [1] [2] [3] [4] [5]
+
+局限与范围
+仅摘要层面证据，未检索到全文方法/结果细节。 [1] [2] [3] [4] [5]
+性能对比细节仅在摘要中概述，未给出逐模型数值。 [1]
+摘要仅给出准确率区间，未报告Dice等分割指标。 [3]
+输入分辨率较低（128×128），与其他研究报告条件不同。 [2]
+两项研究各自报告，未说明是否采用完全相同的预处理与划分。 [1] [4]
+LiTS与LiTS2017的划分是否一致未在摘要中说明。 [1] [4] [5]
+基于摘要的归纳，非系统比较。 [1] [2] [4] [5]
+仅反映所提供摘要的内容范围。 [1] [3]
+本次使用在线 OpenAlex；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

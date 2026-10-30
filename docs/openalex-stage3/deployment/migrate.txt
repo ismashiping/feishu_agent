@@ -1,0 +1,67 @@
+ Container clinical-agent-e2e-feishu_bot-1 Stopping 
+ Container clinical-agent-e2e-api-1 Stopping 
+ Container clinical-agent-e2e-api-1 Stopped 
+ Container clinical-agent-e2e-feishu_bot-1 Stopped 
+;
+; Archive created at 2026-10-29 11:57:08 UTC
+;     dbname: clinical_agent_e2e
+;     TOC Entries: 50
+;     Compression: gzip
+;     Dump Version: 1.15-0
+;     Format: CUSTOM
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 16.15 (Debian 16.15-1.pgdg12+2)
+;     Dumped by pg_dump version: 16.15 (Debian 16.15-1.pgdg12+2)
+;
+;
+; Selected TOC Entries:
+;
+2; 3079 16394 EXTENSION - vector 
+3703; 0 0 COMMENT - EXTENSION vector 
+216; 1259 16389 TABLE public alembic_version clinical_agent
+218; 1259 16744 TABLE public chunks clinical_agent
+219; 1259 16776 TABLE public document_versions clinical_agent
+217; 1259 16722 TABLE public documents clinical_agent
+225; 1259 16843 TABLE public online_update_batches clinical_agent
+226; 1259 16850 TABLE public rebuild_runs clinical_agent
+222; 1259 16803 TABLE public source_aliases clinical_agent
+224; 1259 16830 TABLE public source_states clinical_agent
+223; 1259 16816 TABLE public source_status_events clinical_agent
+220; 1259 16789 TABLE public update_cursors clinical_agent
+221; 1259 16796 TABLE public update_runs clinical_agent
+3686; 0 16389 TABLE DATA public alembic_version clinical_agent
+3688; 0 16744 TABLE DATA public chunks clinical_agent
+3689; 0 16776 TABLE DATA public document_versions clinical_agent
+3687; 0 16722 TABLE DATA public documents clinical_agent
+3695; 0 16843 TABLE DATA public online_update_batches clinical_agent
+3696; 0 16850 TABLE DATA public rebuild_runs clinical_agent
+3692; 0 16803 TABLE DATA public source_aliases clinical_agent
+3694; 0 16830 TABLE DATA public source_states clinical_agent
+3693; 0 16816 TABLE DATA public source_status_events clinical_agent
+3690; 0 16789 TABLE DATA public update_cursors clinical_agent
+3691; 0 16796 TABLE DATA public update_runs clinical_agent
+3507; 2606 16393 CONSTRAINT public alembic_version alembic_version_pkc clinical_agent
+3515; 2606 16758 CONSTRAINT public chunks chunks_pkey clinical_agent
+3520; 2606 16782 CONSTRAINT public document_versions document_versions_pkey clinical_agent
+3509; 2606 16739 CONSTRAINT public documents documents_pkey clinical_agent
+3535; 2606 16849 CONSTRAINT public online_update_batches online_update_batches_pkey clinical_agent
+3537; 2606 16856 CONSTRAINT public rebuild_runs rebuild_runs_pkey clinical_agent
+3527; 2606 16810 CONSTRAINT public source_aliases source_aliases_pkey clinical_agent
+3533; 2606 16837 CONSTRAINT public source_states source_states_pkey clinical_agent
+3529; 2606 16822 CONSTRAINT public source_status_events source_status_events_pkey clinical_agent
+3523; 2606 16795 CONSTRAINT public update_cursors update_cursors_pkey clinical_agent
+3525; 2606 16802 CONSTRAINT public update_runs update_runs_pkey clinical_agent
+3518; 2606 16760 CONSTRAINT public chunks uq_chunks_position clinical_agent
+3511; 2606 16741 CONSTRAINT public documents uq_documents_id_source clinical_agent
+3513; 2606 16743 CONSTRAINT public documents uq_documents_source clinical_agent
+3531; 2606 16824 CONSTRAINT public source_status_events uq_source_event_document clinical_agent
+3516; 1259 16775 INDEX public ix_chunks_search_vector clinical_agent
+3521; 1259 16788 INDEX public uq_document_versions_active clinical_agent
+3539; 2606 16783 FK CONSTRAINT public document_versions document_versions_document_id_fkey clinical_agent
+3538; 2606 16761 FK CONSTRAINT public chunks fk_chunks_document_source clinical_agent
+3540; 2606 16811 FK CONSTRAINT public source_aliases source_aliases_document_id_fkey clinical_agent
+3542; 2606 16838 FK CONSTRAINT public source_states source_states_document_id_event_id_fkey clinical_agent
+3541; 2606 16825 FK CONSTRAINT public source_status_events source_status_events_document_id_fkey clinical_agent
+ Container clinical-agent-e2e-api-run-e2691f32f4d8 Creating 
+ Container clinical-agent-e2e-api-run-e2691f32f4d8 Created 

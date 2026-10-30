@@ -1,0 +1,66 @@
+总体结论
+现有证据显示，MedSAM与nnU-Net的核心区别在于：nnU-Net是任务特定的自配置监督分割框架，而MedSAM是通用医学基础模型，通常依赖提示（如边界框）或需微调才能达到临床可用精度；在多项直接比较中，nnU-Net在无提示或常规条件下表现更稳健，而MedSAM在获得强提示或专门微调后可接近nnU-Net水平。 [1] [2] [3] [4] [5]
+
+架构与使用方式
+nnU-Net被描述为自配置（self-configuring）的监督分割流程，需针对具体任务训练；MedSAM被描述为在大量医学数据上训练的医学基础模型，可零样本或借助提示使用，但多项研究指出其开箱即用性能常不理想，需要专门微调。 [1] [5] [2]
+
+骨转移瘤CT比较
+在88例患者、11,006对2D CT图像-标签的骨转移瘤分割中，留出测试集上nnU-Net的Dice为0.6849、归一化Hausdorff距离为0.0473，MedSAM的Dice为0.6280、归一化Hausdorff距离为0.1008，nnU-Net在该任务上表现更好。 [1]
+
+心脏MRE比较
+在16名健康志愿者的心脏磁共振弹性成像左心室心肌分割中，最佳nnU-Net模型Dice为0.82±0.04；MedSAM最佳结果为半自动微调加ROI平滑变体，Dice为0.82±0.02，两者均达到阅片者间一致性水平，但MedSAM的全自动变体较低（自动提示0.68±0.09，框回归0.71±0.08）。 [2]
+
+脑部肿瘤比较
+在原发性中枢神经系统淋巴瘤临床常规MRI及MSD-BraTS胶质瘤分割中，监督学习（nnU-Net）在两个数据集上均显著优于包括MedSAM在内的分割基础模型，作者据此认为复杂分割任务仍需任务特定模型。 [3]
+
+提示质量的影响
+在BraTS 2023胶质瘤数据上，当提供极精确的边界框提示时，SAM/SAM 2的Dice可达约0.89并超过nnU-Net，但作者指出实际中难以提供如此精确的提示，因此nnU-Net仍是主导的医学分割网络；对MedSAM等微调后点提示性能提升明显，但仍未超过边界框或nnU-Net。 [4]
+
+微调的必要性
+在盆腔MRI解剖结构分割中，开箱即用的MedSAM与LiteMedSAM表现较差（如闭孔内肌Dice仅0.251±0.110），改变边界框提示质量影响很小；对LiteMedSAM进行专门微调后Dice提升至0.864±0.123，与nnU-Net在多数结构上无显著差异。 [5]
+
+互补整合
+在克罗恩病肛周瘘管盆腔MRI分割中，将nnU-Net与MedSAM整合的模型在括约肌和瘘管分割上优于两者单独使用（如内括约肌Dice 0.96±0.18、外括约肌0.59±0.09、肛瘘0.55±0.09），提示两者可互补而非仅相互替代。 [6]
+
+证据局限
+不确定：上述比较均来自摘要层面，未提供完整训练细节、统计检验或跨模态系统评测；不同研究对MedSAM采用零样本、提示、微调或整合等不同使用方式，因此不能据此得出某一方法普遍优于另一方法的结论。 [1] [2] [3] [4] [5] [6]
+
+参考文献
+[1] Comparison of Foundation Models MedSAM and DINOv3 with the nnU-Net Framework for Bone Metastasis Segmentation in Computed Tomography Scans（2026）
+DOI：10.3390/ai7060181
+https://doi.org/10.3390/ai7060181
+https://openalex.org/W7162083801
+[2] Toward self-contained cardiac magnetic resonance elastography: Deep learning-based segmentation of the left ventricular myocardium（2026）
+DOI：10.1016/j.mri.2026.110768
+https://doi.org/10.1016/j.mri.2026.110768
+https://openalex.org/W7201983585
+[3] Comparing foundation models and nnU-Net for segmentation of primary brain lymphoma on clinical routine post-contrast T1-weighted MRI（2025）
+DOI：10.1117/12.3044679
+https://doi.org/10.1117/12.3044679
+https://openalex.org/W4391673478
+[4] AI-Driven MRI-based Brain Tumour Segmentation Benchmarking（2025）
+DOI：10.48550/arxiv.2506.20786
+https://doi.org/10.48550/arxiv.2506.20786
+https://openalex.org/W4415164780
+[5] Necessity and impact of specialization of large foundation model for medical segmentation tasks（2024）
+DOI：10.1002/mp.17470
+https://doi.org/10.1002/mp.17470
+https://openalex.org/W4403602943
+[6] Integrating self-configuring and foundational deep learning segmentation models for identifying the anal sphincter complex and perianal fistulae on pelvic MRI（2025）
+DOI：10.1117/12.3048987
+https://doi.org/10.1117/12.3048987
+https://openalex.org/W4407628689
+证据范围：摘要（未阅读全文） [1] [2] [3] [4] [5] [6]
+
+局限与范围
+各研究任务、模态与数据规模不同，不能合并为统一性能结论。 [1] [2] [3] [4] [5]
+上述描述来自摘要层面的方法概述，未提供完整架构细节。 [1] [5] [2]
+该研究使用无提示的MedSAM适配版本，结果不代表带提示或微调后的MedSAM。 [1]
+样本量小（16名健康男性志愿者），仅评估左心室心肌单一结构。 [2]
+摘要未报告具体Dice数值与统计细节。 [3]
+该结论主要基于零样本推理与提示质量梯度实验，MedSAM的具体数值未在摘要中给出。 [4]
+微调结果来自LiteMedSAM而非完整MedSAM，且为单一公共盆腔MR数据集。 [5]
+为单一疾病队列（92例）的初步验证，整合方式细节未在摘要中展开。 [6]
+证据集仅含摘要，无法评估全文中的方法学质量。 [1] [2] [3] [4] [5] [6]
+本次检索未完整完成，结论仅限所列文献，不代表领域全貌。
+本次使用在线 OpenAlex及本地来源；仅用于科研辅助，不保证检全，不用于个体诊断或治疗决策。

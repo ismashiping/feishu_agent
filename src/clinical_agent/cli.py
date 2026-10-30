@@ -21,7 +21,10 @@ from clinical_agent.command_runtime import (
     open_ingestion,
     open_research,
 )
+from clinical_agent.domain.analysis import AnalysisResult
 from clinical_agent.domain.ingestion import BatchIngestionResult, ImportRequest
+from clinical_agent.domain.openalex import OpenAlexOptions
+from clinical_agent.domain.report import ReportResult
 from clinical_agent.domain.research import QuestionRequest, ResearchAnswer, ResearchError
 from clinical_agent.domain.retrieval import RetrievalError, RetrievalOptions
 
@@ -58,14 +61,44 @@ def _business(
                 ingestion_time=datetime.now(UTC),
             )
             options = IngestionCommand(
-                model_dir=Path(arguments.model_dir), snapshot_dir=Path(arguments.snapshot_dir)
+                model_dir=Path(arguments.model_dir),
+                snapshot_dir=Path(arguments.snapshot_dir),
+                update_existing=arguments.update_existing,
             )
         else:
+            if arguments.scope == "local" and (
+                arguments.pubmed_query
+                or arguments.openalex_query
+                or arguments.date_from
+                or arguments.date_to
+            ):
+                raise ValueError("PubMed filters require online scope")
+            if (
+                arguments.pubmed_query
+                or arguments.date_field != "pdat"
+                or arguments.sort != "relevance"
+                or arguments.max_results != 10
+            ):
+                raise ValueError("PubMed-specific options retired; use OpenAlex")
             question = QuestionRequest(
                 request_id=request_id,
                 question=arguments.question,
+                scope=arguments.scope,
+                openalex=OpenAlexOptions(
+                    query=arguments.openalex_query,
+                    date_from=arguments.date_from,
+                    date_to=arguments.date_to,
+                )
+                if arguments.scope != "local"
+                else None,
                 options=RetrievalOptions(
-                    top_k=int(arguments.top_k), min_similarity=float(arguments.min_similarity)
+                    top_k=int(arguments.top_k),
+                    min_similarity=float(arguments.min_similarity),
+                    mode=arguments.retrieval_mode,
+                    candidate_limit=arguments.candidate_limit,
+                    keyword_query=arguments.keyword_query,
+                    date_from=arguments.local_date_from,
+                    date_to=arguments.local_date_to,
                 ),
             )
     except (ValueError, TypeError):
@@ -92,7 +125,8 @@ def _business(
                             result.entries
                             and result.error_code is None
                             and all(
-                                item.status in {"imported", "already_present"}
+                                item.status
+                                in {"imported", "already_present", "updated", "metadata_updated"}
                                 for item in result.entries
                             )
                         )
@@ -101,8 +135,25 @@ def _business(
             else:
                 with (research_factory or open_research)(Path(arguments.model_dir)) as research:
                     executing = True
-                    answer = ResearchAnswer.model_validate(research.answer(question))
-                    if answer.request_id != request_id:
+                    if arguments.report:
+                        report_result = ReportResult.model_validate(research.report(question))
+                        if report_result.report.request_id != request_id:
+                            raise ValueError("Mismatched report correlation")
+                        if arguments.format == "markdown":
+                            print(report_result.markdown)
+                            return 0
+                        payload = report_result.model_dump(mode="json")
+                        print(json.dumps(payload, ensure_ascii=True))
+                        return 0
+                    answer = (
+                        AnalysisResult.model_validate(research.analyze(question))
+                        if arguments.analyze
+                        else ResearchAnswer.model_validate(research.answer(question))
+                    )
+                    if answer.request_id != request_id or (
+                        isinstance(answer, ResearchAnswer)
+                        and answer.retrieval_scope != question.scope
+                    ):
                         raise ValueError("Mismatched answer correlation")
                     payload = answer.model_dump(mode="json")
                     code = 0
@@ -185,12 +236,34 @@ def main(
     for flag in ("--path", "--allowed-root", "--snapshot-dir", "--model-dir"):
         ingest.add_argument(flag, required=True)
     ingest.add_argument("--request-id")
+    ingest.add_argument(
+        "--update-existing", action="store_true", help="Explicit atomic version update"
+    )
     ask = commands.add_parser(
         "ask",
         help="Local RAG; sends retrieved excerpts to configured model API.",
         allow_abbrev=False,
     )
+    output_mode = ask.add_mutually_exclusive_group()
+    output_mode.add_argument("--report", action="store_true", help="Research topic report")
+    ask.add_argument("--format", choices=["json", "markdown"], default="json")
+    output_mode.add_argument(
+        "--analyze", action="store_true", help="Phase 6 evidence analysis JSON"
+    )
     ask.add_argument("--question", required=True)
+    ask.add_argument("--retrieval-mode", choices=["vector", "keyword", "hybrid"], default="vector")
+    ask.add_argument("--candidate-limit", type=int, default=50)
+    ask.add_argument("--keyword-query")
+    ask.add_argument("--local-date-from")
+    ask.add_argument("--local-date-to")
+    ask.add_argument("--scope", choices=["local", "online", "hybrid"], default="hybrid")
+    ask.add_argument("--pubmed-query", help="retired; rejected")
+    ask.add_argument("--openalex-query")
+    ask.add_argument("--date-from")
+    ask.add_argument("--date-to")
+    ask.add_argument("--date-field", choices=["pdat", "edat"], default="pdat")
+    ask.add_argument("--sort", choices=["relevance", "pub_date"], default="relevance")
+    ask.add_argument("--max-results", type=int, default=10)
     ask.add_argument("--model-dir", required=True)
     ask.add_argument("--top-k", default="5")
     ask.add_argument("--min-similarity", default="0")

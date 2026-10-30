@@ -1,0 +1,6 @@
+
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]
+Loading weights:  48%|████▊     | 96/199 [00:00<00:00, 959.36it/s]
+Loading weights: 100%|██████████| 199/199 [00:00<00:00, 1174.04it/s]
+[transformers] Token indices sequence length is longer than the specified maximum sequence length for this model (647 > 512). Running this sequence through the model will result in indexing errors
+{"index": 3, "question": "MedSAM与nnU-Net有哪些区别？", "mode": "live", "fresh_discovery": true, "human_medical_signoff": "pending", "status": "answered", "sources": 7, "claims": 8, "fulltext_citations": 2, "sections": ["总体结论", "方法与设计差异", "泛化性差异", "分割精度比较", "提示依赖与自动化差异", "开箱即用与微调需求", "结合使用", "证据局限"], "warnings": ["openalex_assessment_invalid", "doi:10.1038/s41467-024-44824-z:fulltext_available", "doi:10.3390/ai7060181:fulltext_location_unsupported", "doi:10.1016/j.mri.2026.110768:fulltext_location_unsupported", "doi:10.1117/12.3044679:fulltext_location_unsupported", "doi:10.48550/arxiv.2506.20786:fulltext_license_not_allowed", "doi:10.1002/mp.17470:fulltext_license_not_allowed", "doi:10.1117/12.3048987:fulltext_license_not_allowed"], "seconds": 71.282}

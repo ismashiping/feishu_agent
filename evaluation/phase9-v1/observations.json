@@ -1,0 +1,40 @@
+[
+  {
+    "case_id": "a",
+    "status": "success",
+    "retrieved_chunk_ids": [
+      "irrelevant",
+      "a"
+    ],
+    "claims": [
+      {
+        "claim_id": "unsupported",
+        "citations": [
+          {
+            "chunk_id": "a",
+            "source_id": "fixture:a",
+            "location": "abstract:1"
+          },
+          {
+            "chunk_id": "unknown",
+            "source_id": "fabricated",
+            "location": "none"
+          }
+        ]
+      },
+      {
+        "claim_id": "uncited",
+        "citations": []
+      }
+    ]
+  },
+  {
+    "case_id": "b",
+    "status": "model_failure",
+    "error": "synthetic timeout"
+  },
+  {
+    "case_id": "c",
+    "status": "refusal"
+  }
+]

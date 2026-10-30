@@ -1,0 +1,16 @@
+{
+  "llm_attempts": 1,
+  "usage": [
+    {
+      "input_tokens": 2616,
+      "output_tokens": 741,
+      "total_tokens": 3357,
+      "input_token_details": {
+        "cache_read": 384
+      },
+      "output_token_details": {}
+    }
+  ],
+  "error": "extraction_failed",
+  "elapsed_seconds": 2.991360008000015
+}

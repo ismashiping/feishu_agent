@@ -1,0 +1,8 @@
+# Reuse the already verified, locked stage-3 dependencies. Only project code changes.
+FROM clinical-literature-agent:oa-stage3-20261029
+USER root
+WORKDIR /app
+COPY src ./src
+RUN uv pip install --offline --no-deps --python /app/.venv/bin/python \
+    --reinstall-package clinical-literature-agent .
+USER agent

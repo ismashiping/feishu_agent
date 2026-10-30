@@ -1,0 +1,23 @@
+E501 Line too long (112 > 100)
+  --> src\clinical_agent\application\oa_fulltext.py:41:93
+   |
+39 |     lex_rank = {i: rank for rank, i in enumerate(lexical, 1)}
+40 |     preferred = set()
+41 |     if re.search(r"methods?|architecture|acquisition|scanners?|sequences?|方法|架构|采集|参数", question, re.I):
+   |                                                                                                     ^^^^^^^^^^^^
+42 |         preferred.update({"methods", "materials and methods", "methodology"})
+43 |     if re.search(r"results?|performance|结果|性能|指标", question, re.I):
+   |
+
+E501 Line too long (103 > 100)
+   --> tests\unit\test_oa_fulltext.py:119:101
+    |
+117 |     raw = jats().replace(
+118 |         b"we used a network.",
+119 |         b"we used a network.<table-wrap><table><tr><td>123</td><td>456</td></tr></table></table-wrap>",
+    |                                                                                                     ^^^
+120 |     )
+121 |     assert "123456" not in parse_jats(raw, record())[0].text
+    |
+
+Found 3 errors (1 fixed, 2 remaining).

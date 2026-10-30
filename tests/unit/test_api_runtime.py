@@ -88,9 +88,7 @@ def test_shared_runtime_one_model_engine_http(monkeypatch, tmp_path):
     monkeypatch.setattr(
         connection, "DatabaseSettings", lambda: events.append("db-config") or object()
     )
-    monkeypatch.setattr(
-        llm_api, "LLMSettings", lambda: events.append("llm-config") or object()
-    )
+    monkeypatch.setattr(llm_api, "LLMSettings", lambda: events.append("llm-config") or object())
     monkeypatch.setattr(
         embedding, "load_local_embedder", lambda config: events.append("model") or object()
     )
@@ -119,6 +117,7 @@ def test_shared_runtime_one_model_engine_http(monkeypatch, tmp_path):
     with open_api_runtime(settings) as services:
         assert isinstance(services.ingestion, IngestionService)
         assert isinstance(services.research, ResearchService)
+        assert services.research._planner is not None
     assert events == [
         "db-config",
         "llm-config",

@@ -1,0 +1,108 @@
+E501 Line too long (101 > 100)
+  --> tests\unit\test_quality_phase2.py:18:101
+   |
+16 |     return PicoPlanner(extractor=Extractor(dict(question_type='other',
+17 |         pico=dict.fromkeys(['population','intervention','comparison','outcome']),
+18 |         terms=[dict(text=question, origin='user_text', source_span=dict(start=0,end=len(question)))],
+   |                                                                                                     ^
+19 |         ambiguities=[], blocking_ambiguities=[], concept_groups=groups or [], **extra
+20 |     ))).plan(ClassificationRequest(question=question))
+   |
+
+E501 Line too long (102 > 100)
+  --> tests\unit\test_quality_phase2.py:22:93
+   |
+20 |     ))).plan(ClassificationRequest(question=question))
+21 |
+22 | @pytest.mark.parametrize('question', ['哮喘呼气分析','asthma breath analysis','哮喘 breath analysis'])
+   |                                                                                                     ^^
+23 | def test_a_mapping_same_query(question):
+24 |     p = plan(question, [['asthma'], ['breath analysis']], research_intent='discovery',
+   |
+
+E501 Line too long (119 > 100)
+  --> tests\unit\test_quality_phase2.py:25:101
+   |
+23 | def test_a_mapping_same_query(question):
+24 |     p = plan(question, [['asthma'], ['breath analysis']], research_intent='discovery',
+25 |              concept_mappings=[dict(source_text=question, english_terms=['asthma'], role='population', required=True)])
+   |                                                                                                     ^^^^^^^^^^^^^^^^^^^
+26 |     assert p.research_intent == 'discovery'
+27 |     assert p.concept_mappings[0].source_text == question
+   |
+
+E501 Line too long (116 > 100)
+  --> tests\unit\test_quality_phase2.py:28:101
+   |
+26 |     assert p.research_intent == 'discovery'
+27 |     assert p.concept_mappings[0].source_text == question
+28 |     assert PubMedSearchRequest(question=question, query_plan=p).query_text() == '("asthma") AND ("breath analysis")'
+   |                                                                                                     ^^^^^^^^^^^^^^^^
+29 |
+30 | def test_a_legacy_is_explicitly_degraded():
+   |
+
+E501 Line too long (101 > 100)
+  --> tests\unit\test_quality_phase2.py:48:101
+   |
+47 | @pytest.mark.parametrize('groups,texts', [
+48 |     ([['Parkinson disease'],['gait analysis']], ['gait analysis','Parkinson disease gait analysis']),
+   |                                                                                                     ^
+49 |     ([['spatial deconvolution']], ['background','spatial deconvolution in kidney'])])
+50 | def test_b_independent(groups,texts):
+   |
+
+E501 Line too long (111 > 100)
+  --> tests\unit\test_quality_phase2.py:54:101
+   |
+53 |     from clinical_agent.application.pubmed import select_candidates
+54 |     hits=[S(document=S(pmid=None,document_id=i,title='Synthetic'),chunk=S(text=t)) for i,t in enumerate(texts)]
+   |                                                                                                     ^^^^^^^^^^^
+55 |     assert select_candidates(hits,1,plan(groups=groups)) == [hits[1]]
+   |
+
+E501 Line too long (106 > 100)
+  --> tests\unit\test_quality_phase2.py:60:101
+   |
+58 |     from clinical_agent.domain.pubmed import SearchProvenance
+59 |     from clinical_agent.domain.research import GenerationEvidence, GenerationInput
+60 |     assert {'searched_pmids','fetched_pmids','candidate_outcomes'} <= SearchProvenance.model_fields.keys()
+   |                                                                                                     ^^^^^^
+61 |     assert {'query_plan','search_provenance'} <= GenerationInput.model_fields.keys()
+62 |     assert {'title','pmid'} <= GenerationEvidence.model_fields.keys()
+   |
+
+E702 Multiple statements on one line (semicolon)
+  --> tests\unit\test_quality_phase2.py:80:48
+   |
+78 |     calls=[]
+79 |     def handler(request):
+80 |         args=parse_qs(request.content.decode()); calls.append(args)
+   |                                                ^
+81 |         if request.url.path.endswith('esearch.fcgi'):
+82 |             assert args['term']==['("asthma" OR "bronchial asthma")']
+   |
+
+E501 Line too long (101 > 100)
+  --> tests\unit\test_quality_phase2.py:83:101
+   |
+81 |         if request.url.path.endswith('esearch.fcgi'):
+82 |             assert args['term']==['("asthma" OR "bronchial asthma")']
+83 |             return httpx.Response(200,json={'esearchresult':{'count':'1000','idlist':['123','124']}})
+   |                                                                                                     ^
+84 |         return httpx.Response(200,content=xml(article('123'),article('124',False)))
+85 |     result=PubMedRetrievalService(client(handler)).retrieve(
+   |
+
+E501 Line too long (112 > 100)
+  --> tests\unit\test_quality_phase2.py:95:101
+   |
+93 |     assert result.search_provenance.candidate_outcomes['124']=='filtered_metadata_only'
+94 |
+95 | @pytest.mark.parametrize('groups', [[['multiple sclerosis','MS']],[['cell senescence']],[['batch correction']]])
+   |                                                                                                     ^^^^^^^^^^^^
+96 | def test_a_normalized_groups_are_not_disease_required(groups):
+97 |     p=plan('synthetic methodology question',groups)
+   |
+
+Found 16 errors (6 fixed, 10 remaining).

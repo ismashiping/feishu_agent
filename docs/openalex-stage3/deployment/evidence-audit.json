@@ -1,0 +1,51 @@
+{
+  "checks": [
+    {
+      "response": "q1-response.json",
+      "status": "answered",
+      "sources": 5,
+      "fulltext_pointers_verified": 0,
+      "date_bounds_pass": true
+    },
+    {
+      "response": "q2-response.json",
+      "status": "insufficient_evidence",
+      "sources": 0,
+      "fulltext_pointers_verified": 0,
+      "date_bounds_pass": null
+    },
+    {
+      "response": "q3-response.json",
+      "status": "answered",
+      "sources": 5,
+      "fulltext_pointers_verified": 0,
+      "date_bounds_pass": null
+    },
+    {
+      "response": "q4-response.json",
+      "status": "answered",
+      "sources": 4,
+      "fulltext_pointers_verified": 0,
+      "date_bounds_pass": true
+    },
+    {
+      "response": "q5-response.json",
+      "status": "insufficient_evidence",
+      "sources": 0,
+      "fulltext_pointers_verified": 0,
+      "date_bounds_pass": null
+    },
+    {
+      "response": "q6-response.json",
+      "status": "answered",
+      "sources": 1,
+      "fulltext_pointers_verified": 2,
+      "date_bounds_pass": true
+    }
+  ],
+  "cache_payload_and_expiry_unchanged_after_warm": true,
+  "independent_real_jats_fixture_matches_live_parsed_body": true,
+  "oa_papers": 1,
+  "oa_vectors": 29,
+  "human_medical_signoff": "pending"
+}

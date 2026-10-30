@@ -1,0 +1,6 @@
+{
+  "batch_id": "local-study-batch-v1",
+  "source_type": "pubmed_xml",
+  "files": ["pubmed-export.xml"],
+  "window_label": "manual-local-export"
+}

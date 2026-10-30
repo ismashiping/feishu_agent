@@ -1,0 +1,353 @@
+{
+  "before": {
+    "status": "passed",
+    "plan": {
+      "research_intent": "exploration",
+      "concept_mappings": [
+        {
+          "source_text": "liver tumors",
+          "english_terms": [
+            "liver tumors",
+            "liver neoplasms",
+            "hepatic tumors",
+            "hepatic neoplasms",
+            "liver cancer",
+            "hepatocellular carcinoma",
+            "HCC",
+            "liver metastases"
+          ],
+          "role": "population",
+          "required": true
+        },
+        {
+          "source_text": "intratumoral subregion delineation",
+          "english_terms": [
+            "intratumoral subregion delineation",
+            "intratumoral subregion segmentation",
+            "tumor subregion delineation",
+            "intratumoral habitat imaging",
+            "tumor habitat segmentation",
+            "spatial subregion definition",
+            "intratumoral heterogeneity mapping"
+          ],
+          "role": "topic",
+          "required": true
+        },
+        {
+          "source_text": "what methods do they use to define these subregions",
+          "english_terms": [
+            "delineation methods",
+            "segmentation methods",
+            "clustering methods",
+            "habitat definition methods",
+            "radiomics",
+            "deep learning segmentation"
+          ],
+          "role": "method",
+          "required": false
+        }
+      ],
+      "concept_groups": [
+        [
+          "liver tumors",
+          "liver neoplasms",
+          "hepatic tumors",
+          "hepatic neoplasms",
+          "liver cancer",
+          "hepatocellular carcinoma",
+          "HCC",
+          "liver metastases"
+        ],
+        [
+          "intratumoral subregion delineation",
+          "intratumoral subregion segmentation",
+          "tumor subregion delineation",
+          "intratumoral habitat imaging",
+          "tumor habitat segmentation",
+          "spatial subregion definition",
+          "intratumoral heterogeneity mapping"
+        ]
+      ],
+      "version": "pico-v1",
+      "original_question": "Are there studies on intratumoral subregion delineation in liver tumors? What representative papers exist, and what methods do they use to define these subregions?",
+      "structured_question": {
+        "question_type": "other",
+        "pico": {
+          "population": {
+            "text": "liver tumors",
+            "origin": "user_text",
+            "source_span": {
+              "start": 59,
+              "end": 71
+            }
+          },
+          "intervention": {
+            "text": "intratumoral subregion delineation",
+            "origin": "user_text",
+            "source_span": {
+              "start": 21,
+              "end": 55
+            }
+          },
+          "comparison": null,
+          "outcome": null
+        },
+        "ambiguities": [
+          "Would you like to focus on a specific imaging modality (e.g., CT, MRI, PET)?",
+          "Are you interested in a specific liver tumor type (e.g., hepatocellular carcinoma, metastases)?"
+        ],
+        "extraction_status": "partial",
+        "blocking_ambiguities": []
+      },
+      "terms": [
+        {
+          "text": "intratumoral subregion delineation",
+          "origin": "user_text",
+          "source_span": {
+            "start": 21,
+            "end": 55
+          }
+        },
+        {
+          "text": "liver tumors",
+          "origin": "user_text",
+          "source_span": {
+            "start": 59,
+            "end": 71
+          }
+        },
+        {
+          "text": "representative papers",
+          "origin": "user_text",
+          "source_span": {
+            "start": 78,
+            "end": 99
+          }
+        },
+        {
+          "text": "methods",
+          "origin": "user_text",
+          "source_span": {
+            "start": 116,
+            "end": 123
+          }
+        },
+        {
+          "text": "define these subregions",
+          "origin": "user_text",
+          "source_span": {
+            "start": 139,
+            "end": 162
+          }
+        },
+        {
+          "text": "intratumoral habitat imaging",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "tumor habitat segmentation",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "intratumoral heterogeneity mapping",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "hepatic neoplasms",
+          "origin": "query_expansion",
+          "source_span": null
+        }
+      ],
+      "preserved_constraints": [
+        {
+          "text": "Are there studies on intratumoral subregion delineation in liver tumors? What representative papers exist, and what methods do they use to define these subregions?",
+          "origin": "user_text",
+          "source_span": {
+            "start": 0,
+            "end": 163
+          }
+        }
+      ],
+      "search_intent": "other"
+    }
+  },
+  "after": {
+    "status": "passed",
+    "plan": {
+      "research_intent": "exploration",
+      "concept_mappings": [
+        {
+          "source_text": "liver tumors",
+          "english_terms": [
+            "liver tumors",
+            "liver neoplasms",
+            "hepatic tumors",
+            "hepatic neoplasms",
+            "liver cancer",
+            "hepatocellular carcinoma",
+            "HCC",
+            "liver metastases"
+          ],
+          "role": "population",
+          "required": true
+        },
+        {
+          "source_text": "intratumoral subregion delineation",
+          "english_terms": [
+            "intratumoral subregion delineation",
+            "intratumoral subregion segmentation",
+            "tumor subregion delineation",
+            "intratumoral habitat imaging",
+            "tumor habitat segmentation",
+            "spatial subregion definition",
+            "intratumoral heterogeneity mapping"
+          ],
+          "role": "topic",
+          "required": true
+        },
+        {
+          "source_text": "what methods do they use to define these subregions",
+          "english_terms": [
+            "delineation methods",
+            "segmentation methods",
+            "clustering methods",
+            "habitat definition methods",
+            "radiomics",
+            "deep learning segmentation"
+          ],
+          "role": "method",
+          "required": false
+        }
+      ],
+      "concept_groups": [
+        [
+          "liver tumors",
+          "liver neoplasms",
+          "hepatic tumors",
+          "hepatic neoplasms",
+          "liver cancer",
+          "hepatocellular carcinoma",
+          "HCC",
+          "liver metastases"
+        ],
+        [
+          "intratumoral subregion delineation",
+          "intratumoral subregion segmentation",
+          "tumor subregion delineation",
+          "intratumoral habitat imaging",
+          "tumor habitat segmentation",
+          "spatial subregion definition",
+          "intratumoral heterogeneity mapping"
+        ]
+      ],
+      "version": "pico-v1",
+      "original_question": "Are there studies on intratumoral subregion delineation in liver tumors? What representative papers exist, and what methods do they use to define these subregions?",
+      "structured_question": {
+        "question_type": "other",
+        "pico": {
+          "population": {
+            "text": "liver tumors",
+            "origin": "user_text",
+            "source_span": {
+              "start": 59,
+              "end": 71
+            }
+          },
+          "intervention": {
+            "text": "intratumoral subregion delineation",
+            "origin": "user_text",
+            "source_span": {
+              "start": 21,
+              "end": 55
+            }
+          },
+          "comparison": null,
+          "outcome": null
+        },
+        "ambiguities": [
+          "Would you like to focus on a specific imaging modality (e.g., CT, MRI, PET)?",
+          "Are you interested in a specific liver tumor type (e.g., hepatocellular carcinoma, metastases)?"
+        ],
+        "extraction_status": "partial",
+        "blocking_ambiguities": []
+      },
+      "terms": [
+        {
+          "text": "intratumoral subregion delineation",
+          "origin": "user_text",
+          "source_span": {
+            "start": 21,
+            "end": 55
+          }
+        },
+        {
+          "text": "liver tumors",
+          "origin": "user_text",
+          "source_span": {
+            "start": 59,
+            "end": 71
+          }
+        },
+        {
+          "text": "representative papers",
+          "origin": "user_text",
+          "source_span": {
+            "start": 78,
+            "end": 99
+          }
+        },
+        {
+          "text": "methods",
+          "origin": "user_text",
+          "source_span": {
+            "start": 116,
+            "end": 123
+          }
+        },
+        {
+          "text": "define these subregions",
+          "origin": "user_text",
+          "source_span": {
+            "start": 139,
+            "end": 162
+          }
+        },
+        {
+          "text": "intratumoral habitat imaging",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "tumor habitat segmentation",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "intratumoral heterogeneity mapping",
+          "origin": "query_expansion",
+          "source_span": null
+        },
+        {
+          "text": "hepatic neoplasms",
+          "origin": "query_expansion",
+          "source_span": null
+        }
+      ],
+      "preserved_constraints": [
+        {
+          "text": "Are there studies on intratumoral subregion delineation in liver tumors? What representative papers exist, and what methods do they use to define these subregions?",
+          "origin": "user_text",
+          "source_span": {
+            "start": 0,
+            "end": 163
+          }
+        }
+      ],
+      "search_intent": "other"
+    }
+  },
+  "same_result": true
+}

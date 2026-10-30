@@ -445,7 +445,7 @@ def test_real_receiver_worker_sender_chain(tmp_path):
     calls, requests = [], []
 
     class Research:
-        def answer(self, request):
+        def respond(self, request):
             calls.append(request)
             return ResearchAnswer(
                 request_id=request.request_id,

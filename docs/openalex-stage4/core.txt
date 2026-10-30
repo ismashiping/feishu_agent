@@ -1,0 +1,144 @@
+...F..............F.........F....................F...................... [ 33%]
+........................................................................ [ 66%]
+.......................................................................  [100%]
+================================== FAILURES ===================================
+______ test_denied_licenses_do_not_consume_actual_download_paper_budget _______
+
+    def test_denied_licenses_do_not_consume_actual_download_paper_budget():
+        from clinical_agent.application.fulltext import FulltextService
+        from tests.unit.test_fulltext_rag import Embedder
+    
+        records = [synthetic_record(i) for i in range(1, 7)]
+    
+        class Source:
+            fetched = []
+    
+            def fetch_record(self, record, deadline, count):
+                if record in records[:3]:
+                    raise ValueError("fulltext_license_not_allowed")
+                count[0] += 1
+                self.fetched.append(record.openalex_id)
+                return (
+                    "CC BY",
+                    "https://pmc.ncbi.nlm.nih.gov/",
+                    b"synthetic",
+                    [FulltextUnit(section="Methods", text="Synthetic method evidence.", start=0)],
+                )
+    
+        class Store:
+            payloads = {}
+    
+            def load(self, key, signature):
+                return self.payloads.get(key)
+    
+            def reuse_content(self, *args):
+                return False
+    
+            def publish(self, key, signature, payload, vectors):
+                self.payloads[key] = payload
+    
+            def search(self, key, vector, limit):
+                return self.payloads[key]["passages"][:limit]
+    
+>       result = RetrievalResult(
+            options=RetrievalOptions(top_k=8),
+            scope="online",
+            embedding_info=None,
+            hits=[record_hit(r, datetime.now(UTC)) for r in records],
+            search_provenance={
+                "endpoint": "https://api.openalex.org/works",
+                "query_sent": "synthetic",
+                "fetched_at": datetime.now(UTC),
+                "date_from": None,
+                "date_to": None,
+            },
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for RetrievalResult
+E         Value error, Hits must retain stable descending similarity order [type=value_error]
+E           For further information visit https://errors.pydantic.dev/2.14/v/value_error
+
+tests\unit\test_research_quality_v2.py:118: ValidationError
+________________ test_openalex_citation_and_snapshot_roundtrip ________________
+
+    def test_openalex_citation_and_snapshot_roundtrip():
+        from datetime import UTC, datetime
+        from uuid import uuid4
+    
+        from clinical_agent.adapters.report_snapshot import SnapshotVerifier
+        from clinical_agent.application.openalex import OpenAlexRetrievalService
+        from clinical_agent.domain.citations import build_answer
+        from clinical_agent.domain.research import DraftClaim, GenerationDraft, QuestionRequest
+        from clinical_agent.domain.retrieval import RetrievalRequest
+        from feishu.sender import render_answer
+    
+        service = OpenAlexRetrievalService(Search(), Screening())
+        request = QuestionRequest(question="segmentation", scope="online", request_id=uuid4())
+        result = service.retrieve(
+            RetrievalRequest(question=request.question, scope="online"), query_plan=plan()
+        )
+        assert result.hits
+>       assert result.search_provenance.http_attempts == 2
+E       assert 4 == 2
+E        +  where 4 = OpenAlexProvenance(endpoint='https://api.openalex.org/works', query_sent='("segmentation")', query_translation=None, t...16T09:59:22.235173","volume":null}', content_hash='7baf43917dd6089b016322371e510c0dec5fd0780bcd763fb0abfa4d1dc20f0a')]).http_attempts
+E        +    where OpenAlexProvenance(endpoint='https://api.openalex.org/works', query_sent='("segmentation")', query_translation=None, t...16T09:59:22.235173","volume":null}', content_hash='7baf43917dd6089b016322371e510c0dec5fd0780bcd763fb0abfa4d1dc20f0a')]) = RetrievalResult(channel_status={'keyword': 'not_requested', 'vector': 'ok'}, degraded=False, warnings=[], strategy_ver...mezone.utc)), score=0.25, keyword_rank=None, vector_rank=None, fusion_score=None, score_type='openalex_rank', rank=4)]).search_provenance
+
+tests\unit\test_openalex.py:242: AssertionError
+______________ test_query_time_words_are_not_literature_concepts ______________
+
+    def test_query_time_words_are_not_literature_concepts():
+        from clinical_agent.application.openalex import compile_queries
+    
+        p = plan("segmentation latest", task=["segmentation"], time_intent="latest", time_text="latest")
+        p.concept_relations = [
+            __import__("clinical_agent.domain.pico", fromlist=["ConceptRelation"]).ConceptRelation(
+                source_text=quote,
+                english_term=quote,
+                concept_id=quote,
+                relation="exact_synonym",
+                required=True,
+            )
+            for quote in ["segmentation", "latest"]
+        ]
+>       assert compile_queries(p) == ['("segmentation")']
+E       assert ['("segmentat...segmentation'] == ['("segmentation")']
+E         
+E         Left contains one more item: 'segmentation'
+E         Use -v to get more diff
+
+tests\unit\test_openalex.py:436: AssertionError
+____________________ test_reranking_uses_specific_question ____________________
+
+    def test_reranking_uses_specific_question():
+        from types import SimpleNamespace
+    
+        from clinical_agent.application.oa_fulltext import rerank_passages
+    
+        candidates = [
+            SimpleNamespace(text=t, section="Background" if i < 2 else "Methods")
+            for i, t in enumerate(
+                [
+                    "Microvascular invasion prediction MRI background.",
+                    "Patients with microvascular invasion.",
+                    "CT scanners used contrast agents.",
+                    "MRI sequences used a contrast agent.",
+                ]
+            )
+        ]
+>       assert (
+            rerank_passages(
+                candidates, "Which CT scanners and MRI sequences and contrast agents were used?"
+            )
+            == candidates[2:]
+        )
+E       AssertionError: assert [namespace(te...'Background')] == [namespace(te...on='Methods')]
+E         
+E         Left contains one more item: namespace(text='Microvascular invasion prediction MRI background.', section='Background')
+E         Use -v to get more diff
+
+tests\unit\test_oa_fulltext.py:141: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_research_quality_v2.py::test_denied_licenses_do_not_consume_actual_download_paper_budget
+FAILED tests/unit/test_openalex.py::test_openalex_citation_and_snapshot_roundtrip
+FAILED tests/unit/test_openalex.py::test_query_time_words_are_not_literature_concepts
+FAILED tests/unit/test_oa_fulltext.py::test_reranking_uses_specific_question
+4 failed, 211 passed in 16.09s

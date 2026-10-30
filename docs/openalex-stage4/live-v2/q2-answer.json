@@ -1,0 +1,801 @@
+{
+  "local_retrieval_mode": "vector",
+  "local_retrieval_strategy": "vector-v1",
+  "retrieval_warnings": [],
+  "local_channel_status": {
+    "keyword": "not_requested",
+    "vector": "ok"
+  },
+  "request_id": "15d0f0af-4e65-4941-b864-2ec4800e7eb3",
+  "status": "insufficient_evidence",
+  "query_plan": {
+    "research_constraints": {
+      "population": [
+        "肝脏肿瘤"
+      ],
+      "task": [
+        "亚区分割"
+      ],
+      "data_type": [],
+      "paper_type": [],
+      "answer_dimensions": [
+        "latest advances",
+        "methods",
+        "results"
+      ],
+      "time_text": "最新",
+      "time_intent": "latest",
+      "years": null,
+      "year_from": null,
+      "year_to": null
+    },
+    "concept_relations": [
+      {
+        "source_text": "肝脏肿瘤",
+        "english_term": "liver tumor",
+        "relation": "exact_synonym",
+        "concept_id": "c1",
+        "required": true,
+        "confidence": 0.95,
+        "verification": "candidate"
+      },
+      {
+        "source_text": "肝脏肿瘤",
+        "english_term": "hepatic neoplasm",
+        "relation": "exact_synonym",
+        "concept_id": "c1",
+        "required": false,
+        "confidence": 0.9,
+        "verification": "candidate"
+      },
+      {
+        "source_text": "肝脏肿瘤",
+        "english_term": "liver cancer",
+        "relation": "broader_concept",
+        "concept_id": "c1",
+        "required": false,
+        "confidence": 0.7,
+        "verification": "candidate"
+      },
+      {
+        "source_text": "亚区分割",
+        "english_term": "subregion segmentation",
+        "relation": "exact_synonym",
+        "concept_id": "c2",
+        "required": true,
+        "confidence": 0.9,
+        "verification": "candidate"
+      },
+      {
+        "source_text": "亚区分割",
+        "english_term": "tumor subregion segmentation",
+        "relation": "related_concept",
+        "concept_id": "c2",
+        "required": false,
+        "confidence": 0.8,
+        "verification": "candidate"
+      }
+    ],
+    "research_intent": "discovery",
+    "concept_mappings": [
+      {
+        "source_text": "肝脏肿瘤",
+        "english_terms": [
+          "liver tumor",
+          "liver tumour",
+          "hepatic tumor",
+          "hepatic neoplasm",
+          "liver cancer"
+        ],
+        "role": "population",
+        "required": true
+      },
+      {
+        "source_text": "亚区分割",
+        "english_terms": [
+          "subregion segmentation",
+          "sub-region segmentation",
+          "tumor subregion segmentation",
+          "fine-grained tumor segmentation"
+        ],
+        "role": "topic",
+        "required": true
+      }
+    ],
+    "concept_groups": [
+      [
+        "liver tumor",
+        "liver tumour",
+        "hepatic tumor",
+        "hepatic neoplasm",
+        "liver cancer"
+      ],
+      [
+        "subregion segmentation",
+        "sub-region segmentation",
+        "tumor subregion segmentation",
+        "fine-grained tumor segmentation"
+      ]
+    ],
+    "version": "pico-v1",
+    "original_question": "肝脏肿瘤亚区分割最新进展有哪些？",
+    "structured_question": {
+      "question_type": "other",
+      "pico": {
+        "population": {
+          "text": "肝脏肿瘤",
+          "origin": "user_text",
+          "source_span": {
+            "start": 0,
+            "end": 4
+          }
+        },
+        "intervention": {
+          "text": "亚区分割",
+          "origin": "user_text",
+          "source_span": {
+            "start": 4,
+            "end": 8
+          }
+        },
+        "comparison": null,
+        "outcome": null
+      },
+      "ambiguities": [
+        "是否需要限定特定的分割方法（如深度学习、传统方法）？",
+        "是否需要限定特定的影像模态（如CT、MRI）？",
+        "是否需要限定特定的研究类型（如综述、原创研究）？"
+      ],
+      "extraction_status": "partial",
+      "blocking_ambiguities": []
+    },
+    "terms": [
+      {
+        "text": "肝脏肿瘤",
+        "origin": "user_text",
+        "source_span": {
+          "start": 0,
+          "end": 4
+        }
+      },
+      {
+        "text": "亚区分割",
+        "origin": "user_text",
+        "source_span": {
+          "start": 4,
+          "end": 8
+        }
+      },
+      {
+        "text": "liver tumor subregion segmentation",
+        "origin": "query_expansion",
+        "source_span": null
+      },
+      {
+        "text": "hepatic tumor sub-region segmentation",
+        "origin": "query_expansion",
+        "source_span": null
+      }
+    ],
+    "preserved_constraints": [
+      {
+        "text": "肝脏肿瘤亚区分割最新进展有哪些？",
+        "origin": "user_text",
+        "source_span": {
+          "start": 0,
+          "end": 16
+        }
+      }
+    ],
+    "search_intent": "other"
+  },
+  "claims": [],
+  "sources": [],
+  "limitations": [
+    "已查询 OpenAlex，证据限于本次检索与已获取摘要，不保证检全。",
+    "已检查引用标识与来源关联，尚未自动验证结论的医学语义支持关系，需人工复核。",
+    "本结果用于医学科研辅助，不用于个体诊断或治疗决策。",
+    "证据尚未充分覆盖：no_direct_evidence、latest advances、methods、results",
+    "未检索到符合条件的证据，不代表证据证明无效。"
+  ],
+  "retrieval_scope": "hybrid",
+  "search_provenance": {
+    "endpoint": "https://api.openalex.org/works",
+    "query_sent": "(\"liver tumor\" OR \"hepatic neoplasm\") AND (\"subregion segmentation\")",
+    "query_translation": null,
+    "total_count": 4,
+    "returned_count": 4,
+    "requested_limit": 40,
+    "truncated": false,
+    "fetched_at": "2026-10-29T12:57:28.298481Z",
+    "date_from": "2024-10-29",
+    "date_to": "2026-10-29",
+    "date_field": "publication_date",
+    "sort": "mixed",
+    "status": "complete",
+    "warnings": [],
+    "query_rounds": [
+      {
+        "round": 1,
+        "query": "(\"liver tumor\" OR \"hepatic neoplasm\") AND (\"subregion segmentation\")",
+        "sort": "relevance_score:desc",
+        "date_from": "2024-10-29",
+        "date_to": "2026-10-29",
+        "status": "complete",
+        "returned_ids": [
+          "https://openalex.org/W7202383786",
+          "https://openalex.org/W7221539928",
+          "https://openalex.org/W4405673968",
+          "https://openalex.org/W7154888239"
+        ]
+      },
+      {
+        "round": 1,
+        "query": "(\"liver tumor\" OR \"hepatic neoplasm\") AND (\"subregion segmentation\")",
+        "sort": "publication_date:desc",
+        "date_from": "2024-10-29",
+        "date_to": "2026-10-29",
+        "status": "complete",
+        "returned_ids": [
+          "https://openalex.org/W7221539928",
+          "https://openalex.org/W7202383786",
+          "https://openalex.org/W7154888239",
+          "https://openalex.org/W4405673968"
+        ]
+      },
+      {
+        "round": 2,
+        "query": "(\"liver tumor\" OR \"hepatic neoplasm\") AND (\"subregion segmentation\" OR \"tumor subregion segmentation\")",
+        "sort": "relevance_score:desc",
+        "date_from": "2024-10-29",
+        "date_to": "2026-10-29",
+        "status": "complete",
+        "returned_ids": [
+          "https://openalex.org/W7202383786",
+          "https://openalex.org/W7221539928",
+          "https://openalex.org/W4405673968",
+          "https://openalex.org/W7154888239"
+        ]
+      },
+      {
+        "round": 2,
+        "query": "(\"liver tumor\" OR \"hepatic neoplasm\") AND (\"subregion segmentation\" OR \"tumor subregion segmentation\")",
+        "sort": "publication_date:desc",
+        "date_from": "2024-10-29",
+        "date_to": "2026-10-29",
+        "status": "complete",
+        "returned_ids": [
+          "https://openalex.org/W7221539928",
+          "https://openalex.org/W7202383786",
+          "https://openalex.org/W7154888239",
+          "https://openalex.org/W4405673968"
+        ]
+      }
+    ],
+    "candidate_outcomes": {
+      "https://openalex.org/W7202383786": "partial",
+      "https://openalex.org/W7221539928": "irrelevant",
+      "https://openalex.org/W4405673968": "irrelevant",
+      "https://openalex.org/W7154888239": "irrelevant"
+    },
+    "assessments": [
+      {
+        "study_role": "other",
+        "id": "https://openalex.org/W7202383786",
+        "relevance": "partial",
+        "quote": "Experiments on three benchmarks (LiTS, KiTS, and BraTS) show that M-Net achieves Dice scores of 78.42%, 76.15%, and 83.67%, outperforming baseline U-Net by 12.37%, 3.52%, and 5.55% on liver, kidney, and brain tumor segmentation, respectively.",
+        "constraints_match": false,
+        "experimental_information": true,
+        "representative": false,
+        "covered_dimensions": [
+          "methods",
+          "results"
+        ],
+        "reason": "Involves liver tumor segmentation on LiTS but performs whole-lesion segmentation, not within-lesion subregion subdivision; the task constraint is violated. Methodologically relevant as a recent deep-learning segmentation approach."
+      },
+      {
+        "study_role": "other",
+        "id": "https://openalex.org/W7221539928",
+        "relevance": "irrelevant",
+        "quote": "MRI-Glioma Net wasbuilt as a new 3D Res-UNet framework.",
+        "constraints_match": false,
+        "experimental_information": true,
+        "representative": false,
+        "covered_dimensions": [],
+        "reason": "Brain glioma subregion segmentation (WT/TC/ET), not liver tumor; population and organ mismatch. Subregion concept is brain-specific, not liver tumor subregion subdivision."
+      },
+      {
+        "study_role": "other",
+        "id": "https://openalex.org/W4405673968",
+        "relevance": "irrelevant",
+        "quote": "The dice coefficients for the multiple branch TS-U-net model were 0.876, 0.868, and 0.814 in the tumor subregions of WT, TC, and ET, respectively.",
+        "constraints_match": false,
+        "experimental_information": true,
+        "representative": false,
+        "covered_dimensions": [],
+        "reason": "Brain tumor (BraTS) subregion segmentation, not liver tumor. Population mismatch; no liver tumor subregion evidence."
+      },
+      {
+        "study_role": "other",
+        "id": "https://openalex.org/W7154888239",
+        "relevance": "irrelevant",
+        "quote": "this paper discusses a tumor image segmentation algorithm that combines thresholding and region-growing methods",
+        "constraints_match": false,
+        "experimental_information": false,
+        "representative": false,
+        "covered_dimensions": [],
+        "reason": "Generic tumor segmentation/classification review with thresholding and region-growing; no liver tumor subregion subdivision and no specific experimental evidence in abstract."
+      }
+    ],
+    "evidence_gaps": [
+      "no_direct_evidence",
+      "latest advances",
+      "methods",
+      "results"
+    ],
+    "http_attempts": 4,
+    "screening_calls": 1,
+    "records": [
+      {
+        "openalex_id": "https://openalex.org/W7202383786",
+        "title": "M-Net: Integrating Spectral Features and Physical Field Operators into Deep Learning for Medical Image Segmentation",
+        "authors": [
+          "Jing Zhu",
+          "Ye Wang",
+          "Fumin Wang"
+        ],
+        "doi": "10.48550/arxiv.2608.12196",
+        "journal": "arXiv (Cornell University)",
+        "publication_date": {
+          "precision": "day",
+          "raw": "2026-08-12",
+          "year": 2026,
+          "month": 8,
+          "day": 12
+        },
+        "abstract": "Purpose: Deep learning-based medical image segmentation has achieved remarkable success, yet purely data-driven approaches often fail to exploit the rich mathematical structure inherent in medical images. We investigate whether explicit mathematical inductive biases, specifically matrix spectral analysis and vector calculus operators, can enhance segmentation beyond data-driven learning alone. Methods: We propose M-Net (Math-Augmented Network), which integrates three complementary mathematical priors into U-Net: (1) continuous spectral features derived from the condition number of centered local pixel matrices, providing a differentiable measure of texture ill-conditioning; (2) physical field operators (divergence and a discrete curl-like boundary irregularity operator) computed from image gradient fields, capturing focal intensity extrema and edge non-smoothness; and (3) a Math-Attention Gate (MAG) that adaptively fuses mathematical features with CNN-extracted deep features at skip connections. Results: Experiments on three benchmarks (LiTS, KiTS, and BraTS) show that M-Net achieves Dice scores of 78.42%, 76.15%, and 83.67%, outperforming baseline U-Net by 12.37%, 3.52%, and 5.55% on liver, kidney, and brain tumor segmentation, respectively. Ablations reveal that the condition-number feature contributes a 2.14% gain over binary invertibility features, while MAG adds 1.45% over simple concatenation. Conclusion: M-Net establishes that mathematical inductive biases provide effective complementary information for medical image segmentation. The continuous condition-number feature offers superior gradient information over discrete alternatives, and MAG preserves these priors throughout the network. This work opens avenues for integrating linear algebra and vector calculus into deep architectures for medical imaging.",
+        "abstract_status": "available",
+        "work_type": "preprint",
+        "is_retracted": false,
+        "open_access": {
+          "is_oa": true,
+          "oa_status": "green",
+          "oa_url": "https://arxiv.org/pdf/2608.12196",
+          "any_repository_has_fulltext": true
+        },
+        "locations": [
+          {
+            "id": "pmh:oai:arXiv.org:2608.12196",
+            "doi": null,
+            "is_oa": true,
+            "landing_page_url": "https://arxiv.org/abs/2608.12196",
+            "pdf_url": "https://arxiv.org/pdf/2608.12196",
+            "source": {
+              "id": "https://openalex.org/S4306400194",
+              "display_name": "arXiv (Cornell University)",
+              "issn_l": "2331-8422",
+              "issn": [
+                "2331-8422"
+              ],
+              "is_oa": true,
+              "is_in_doaj": false,
+              "is_core": false,
+              "listed_in": [],
+              "host_organization": "https://openalex.org/I205783295",
+              "host_organization_name": "Cornell University",
+              "host_organization_lineage": [
+                "https://openalex.org/I205783295"
+              ],
+              "host_organization_lineage_names": [],
+              "type": "repository"
+            },
+            "license": "cc-by",
+            "license_id": "https://openalex.org/licenses/cc-by",
+            "version": "submittedVersion",
+            "is_accepted": false,
+            "is_published": false,
+            "raw_source_name": null,
+            "raw_type": "text"
+          },
+          {
+            "id": "doi:10.48550/arxiv.2608.12196",
+            "doi": "https://doi.org/10.48550/arxiv.2608.12196",
+            "is_oa": true,
+            "landing_page_url": "https://doi.org/10.48550/arxiv.2608.12196",
+            "pdf_url": null,
+            "source": {
+              "id": "https://openalex.org/S4306400194",
+              "display_name": "arXiv (Cornell University)",
+              "issn_l": "2331-8422",
+              "issn": [
+                "2331-8422"
+              ],
+              "is_oa": true,
+              "is_in_doaj": false,
+              "is_core": false,
+              "listed_in": [],
+              "host_organization": "https://openalex.org/I205783295",
+              "host_organization_name": "Cornell University",
+              "host_organization_lineage": [
+                "https://openalex.org/I205783295"
+              ],
+              "host_organization_lineage_names": [],
+              "type": "repository"
+            },
+            "license": "cc-by",
+            "license_id": "https://openalex.org/licenses/cc-by",
+            "version": null,
+            "is_accepted": false,
+            "is_published": false,
+            "raw_source_name": null,
+            "raw_type": "Preprint"
+          }
+        ],
+        "best_oa_location": {
+          "id": "pmh:oai:arXiv.org:2608.12196",
+          "doi": null,
+          "is_oa": true,
+          "landing_page_url": "https://arxiv.org/abs/2608.12196",
+          "pdf_url": "https://arxiv.org/pdf/2608.12196",
+          "source": {
+            "id": "https://openalex.org/S4306400194",
+            "display_name": "arXiv (Cornell University)",
+            "issn_l": "2331-8422",
+            "issn": [
+              "2331-8422"
+            ],
+            "is_oa": true,
+            "is_in_doaj": false,
+            "is_core": false,
+            "listed_in": [],
+            "host_organization": "https://openalex.org/I205783295",
+            "host_organization_name": "Cornell University",
+            "host_organization_lineage": [
+              "https://openalex.org/I205783295"
+            ],
+            "host_organization_lineage_names": [],
+            "type": "repository"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "submittedVersion",
+          "is_accepted": false,
+          "is_published": false,
+          "raw_source_name": null,
+          "raw_type": "text"
+        },
+        "snapshot_json": "{\"abstract_inverted_index\":{\"(1)\":[62],\"(2)\":[83],\"(3)\":[108],\"(LiTS,\":[130],\"(MAG)\":[112],\"(Math-Augmented\":[52],\"(divergence\":[87],\"1.45%\":[178],\"12.37%,\":[149],\"2.14%\":[169],\"3.52%,\":[150],\"5.55%\":[152],\"76.15%,\":[142],\"78.42%,\":[141],\"83.67%,\":[144],\"Ablations\":[161],\"BraTS)\":[133],\"CNN-extracted\":[119],\"Conclusion:\":[182],\"Deep\":[1],\"Dice\":[138],\"Experiments\":[126],\"Gate\":[111],\"KiTS,\":[131],\"M-Net\":[51,136,183],\"MAG\":[176,209],\"Math-Attention\":[110],\"Methods:\":[48],\"Network),\":[53],\"Purpose:\":[0],\"Results:\":[125],\"The\":[197],\"This\":[216],\"U-Net\":[147],\"U-Net:\":[61],\"We\":[26,49],\"a\":[77,89,109,168],\"achieved\":[7],\"achieves\":[137],\"adaptively\":[114],\"adds\":[177],\"algebra\":[223],\"alone.\":[47],\"alternatives,\":[207],\"analysis\":[36],\"and\":[37,88,104,107,132,143,151,156,208,224],\"approaches\":[13],\"architectures\":[229],\"at\":[122],\"avenues\":[219],\"baseline\":[146],\"benchmarks\":[129],\"beyond\":[44],\"biases\":[188],\"biases,\":[32],\"binary\":[172],\"boundary\":[92],\"brain\":[157],\"by\":[148],\"calculus\":[39,226],\"can\":[41],\"capturing\":[100],\"centered\":[72],\"complementary\":[57,191],\"computed\":[95],\"concatenation.\":[181],\"condition\":[69],\"condition-number\":[165,199],\"connections.\":[124],\"continuous\":[63,198],\"contributes\":[167],\"curl-like\":[91],\"data-driven\":[12,45],\"deep\":[120,228],\"derived\":[66],\"differentiable\":[78],\"discrete\":[90,206],\"edge\":[105],\"effective\":[190],\"enhance\":[42],\"establishes\":[184],\"explicit\":[29],\"exploit\":[17],\"extrema\":[103],\"fail\":[15],\"feature\":[166,200],\"features\":[65,117,121],\"features,\":[174],\"field\":[85],\"fields,\":[99],\"focal\":[101],\"for\":[193,220,230],\"from\":[67,96],\"fuses\":[115],\"gain\":[170],\"gradient\":[98,203],\"has\":[6],\"ill-conditioning;\":[82],\"image\":[4,97,195],\"images.\":[25],\"imaging.\":[232],\"in\":[23],\"inductive\":[31,187],\"information\":[192,204],\"inherent\":[22],\"integrates\":[55],\"integrating\":[221],\"intensity\":[102],\"into\":[60,227],\"invertibility\":[173],\"investigate\":[27],\"irregularity\":[93],\"kidney,\":[155],\"learning\":[46],\"learning-based\":[2],\"linear\":[222],\"liver,\":[154],\"local\":[73],\"mathematical\":[20,30,58,116,186],\"matrices,\":[75],\"matrix\":[34],\"measure\":[79],\"medical\":[3,24,194,231],\"network.\":[215],\"non-smoothness;\":[106],\"number\":[70],\"of\":[71,80,140],\"offers\":[201],\"often\":[14],\"on\":[127,153],\"opens\":[218],\"operator)\":[94],\"operators\":[86],\"operators,\":[40],\"outperforming\":[145],\"over\":[171,179,205],\"physical\":[84],\"pixel\":[74],\"preserves\":[210],\"priors\":[59,212],\"propose\":[50],\"provide\":[189],\"providing\":[76],\"purely\":[11],\"remarkable\":[8],\"respectively.\":[160],\"reveal\":[162],\"rich\":[19],\"scores\":[139],\"segmentation\":[5,43],\"segmentation,\":[159],\"segmentation.\":[196],\"show\":[134],\"simple\":[180],\"skip\":[123],\"specifically\":[33],\"spectral\":[35,64],\"structure\":[21],\"success,\":[9],\"superior\":[202],\"texture\":[81],\"that\":[113,135,163,185],\"the\":[18,68,164,214],\"these\":[211],\"three\":[56,128],\"throughout\":[213],\"to\":[16],\"tumor\":[158],\"vector\":[38,225],\"whether\":[28],\"which\":[54],\"while\":[175],\"with\":[118],\"work\":[217],\"yet\":[10]},\"apc_list\":null,\"apc_paid\":null,\"authorships\":[{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I87445476\"],\"raw_affiliation_string\":\"School of Physics , Xi'an Jiaotong University , Xi'an 710049 , China\"}],\"author\":{\"display_name\":\"Jing Zhu\",\"id\":\"https://openalex.org/A5147132372\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"first\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Xi'an Jiaotong University\",\"id\":\"https://openalex.org/I87445476\",\"lineage\":[\"https://openalex.org/I87445476\"],\"ror\":\"https://ror.org/017zhmm22\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"School of Physics , Xi'an Jiaotong University , Xi'an 710049 , China\"],\"raw_author_name\":\"Zhu, Jing\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I129604602\"],\"raw_affiliation_string\":\"University of Sydney , Sydney , NSW 2006 , Australia\"}],\"author\":{\"display_name\":\"Ye Wang\",\"id\":\"https://openalex.org/A5147078362\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"middle\",\"countries\":[\"AU\"],\"institutions\":[{\"country_code\":\"AU\",\"display_name\":\"The University of Sydney\",\"id\":\"https://openalex.org/I129604602\",\"lineage\":[\"https://openalex.org/I129604602\"],\"ror\":\"https://ror.org/0384j8v12\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"University of Sydney , Sydney , NSW 2006 , Australia\"],\"raw_author_name\":\"Wang, Ye\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I87445476\"],\"raw_affiliation_string\":\"School of Physics , Xi'an Jiaotong University , Xi'an 710049 , China\"}],\"author\":{\"display_name\":\"Fumin Wang\",\"id\":\"https://openalex.org/A5100770482\",\"observed_orcids\":[\"https://orcid.org/0000-0002-7211-8644\"],\"orcid\":\"https://orcid.org/0000-0002-7211-8644\"},\"author_position\":\"last\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Xi'an Jiaotong University\",\"id\":\"https://openalex.org/I87445476\",\"lineage\":[\"https://openalex.org/I87445476\"],\"ror\":\"https://ror.org/017zhmm22\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"School of Physics , Xi'an Jiaotong University , Xi'an 710049 , China\"],\"raw_author_name\":\"Wang, Fumin\",\"raw_orcid\":null}],\"awards\":[],\"best_oa_location\":{\"doi\":null,\"id\":\"pmh:oai:arXiv.org:2608.12196\",\"is_accepted\":false,\"is_oa\":true,\"is_published\":false,\"landing_page_url\":\"https://arxiv.org/abs/2608.12196\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://arxiv.org/pdf/2608.12196\",\"raw_source_name\":null,\"raw_type\":\"text\",\"source\":{\"display_name\":\"arXiv (Cornell University)\",\"host_organization\":\"https://openalex.org/I205783295\",\"host_organization_lineage\":[\"https://openalex.org/I205783295\"],\"host_organization_lineage_names\":[],\"host_organization_name\":\"Cornell University\",\"id\":\"https://openalex.org/S4306400194\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":true,\"issn\":[\"2331-8422\"],\"issn_l\":\"2331-8422\",\"listed_in\":[],\"type\":\"repository\"},\"version\":\"submittedVersion\"},\"biblio\":{\"first_page\":null,\"issue\":null,\"last_page\":null,\"volume\":null},\"citation_normalized_percentile\":null,\"cited_by_count\":0,\"cited_by_percentile_year\":null,\"concepts\":[{\"display_name\":\"Artificial intelligence\",\"id\":\"https://openalex.org/C154945302\",\"level\":1,\"score\":0.670799970626831,\"wikidata\":\"https://www.wikidata.org/wiki/Q11660\"},{\"display_name\":\"Medical imaging\",\"id\":\"https://openalex.org/C31601959\",\"level\":2,\"score\":0.5471000075340271,\"wikidata\":\"https://www.wikidata.org/wiki/Q931309\"},{\"display_name\":\"Deep learning\",\"id\":\"https://openalex.org/C108583219\",\"level\":2,\"score\":0.5425000190734863,\"wikidata\":\"https://www.wikidata.org/wiki/Q197536\"},{\"display_name\":\"Feature (linguistics)\",\"id\":\"https://openalex.org/C2776401178\",\"level\":2,\"score\":0.5182999968528748,\"wikidata\":\"https://www.wikidata.org/wiki/Q12050496\"},{\"display_name\":\"Segmentation\",\"id\":\"https://openalex.org/C89600930\",\"level\":2,\"score\":0.5117999911308289,\"wikidata\":\"https://www.wikidata.org/wiki/Q1423946\"},{\"display_name\":\"Prior probability\",\"id\":\"https://openalex.org/C177769412\",\"level\":3,\"score\":0.49390000104904175,\"wikidata\":\"https://www.wikidata.org/wiki/Q278090\"},{\"display_name\":\"Computer science\",\"id\":\"https://openalex.org/C41008148\",\"level\":0,\"score\":0.46389999985694885,\"wikidata\":\"https://www.wikidata.org/wiki/Q21198\"},{\"display_name\":\"Image segmentation\",\"id\":\"https://openalex.org/C124504099\",\"level\":3,\"score\":0.45899999141693115,\"wikidata\":\"https://www.wikidata.org/wiki/Q56933\"},{\"display_name\":\"Pattern recognition (psychology)\",\"id\":\"https://openalex.org/C153180895\",\"level\":2,\"score\":0.450300008058548,\"wikidata\":\"https://www.wikidata.org/wiki/Q7148389\"},{\"display_name\":\"Feature vector\",\"id\":\"https://openalex.org/C83665646\",\"level\":2,\"score\":0.41780000925064087,\"wikidata\":\"https://www.wikidata.org/wiki/Q42139305\"},{\"display_name\":\"Field (mathematics)\",\"id\":\"https://openalex.org/C9652623\",\"level\":2,\"score\":0.39800000190734863,\"wikidata\":\"https://www.wikidata.org/wiki/Q190109\"},{\"display_name\":\"Differentiable function\",\"id\":\"https://openalex.org/C202615002\",\"level\":2,\"score\":0.39100000262260437,\"wikidata\":\"https://www.wikidata.org/wiki/Q783507\"},{\"display_name\":\"Boundary (topology)\",\"id\":\"https://openalex.org/C62354387\",\"level\":2,\"score\":0.38440001010894775,\"wikidata\":\"https://www.wikidata.org/wiki/Q875399\"},{\"display_name\":\"Pixel\",\"id\":\"https://openalex.org/C160633673\",\"level\":2,\"score\":0.3806999921798706,\"wikidata\":\"https://www.wikidata.org/wiki/Q355198\"},{\"display_name\":\"Mathematics\",\"id\":\"https://openalex.org/C33923547\",\"level\":0,\"score\":0.37450000643730164,\"wikidata\":\"https://www.wikidata.org/wiki/Q395\"},{\"display_name\":\"Maxima and minima\",\"id\":\"https://openalex.org/C186633575\",\"level\":2,\"score\":0.3709000051021576,\"wikidata\":\"https://www.wikidata.org/wiki/Q845060\"},{\"display_name\":\"Image (mathematics)\",\"id\":\"https://openalex.org/C115961682\",\"level\":2,\"score\":0.3702999949455261,\"wikidata\":\"https://www.wikidata.org/wiki/Q860623\"},{\"display_name\":\"Computer vision\",\"id\":\"https://openalex.org/C31972630\",\"level\":1,\"score\":0.35569998621940613,\"wikidata\":\"https://www.wikidata.org/wiki/Q844240\"},{\"display_name\":\"Image processing\",\"id\":\"https://openalex.org/C9417928\",\"level\":3,\"score\":0.34850001335144043,\"wikidata\":\"https://www.wikidata.org/wiki/Q1070689\"},{\"display_name\":\"Spectral clustering\",\"id\":\"https://openalex.org/C105611402\",\"level\":3,\"score\":0.3027999997138977,\"wikidata\":\"https://www.wikidata.org/wiki/Q2976589\"},{\"display_name\":\"Measure (data warehouse)\",\"id\":\"https://openalex.org/C2780009758\",\"level\":2,\"score\":0.29420000314712524,\"wikidata\":\"https://www.wikidata.org/wiki/Q6804172\"},{\"display_name\":\"Mathematical theory\",\"id\":\"https://openalex.org/C2779193601\",\"level\":2,\"score\":0.2888999879360199,\"wikidata\":\"https://www.wikidata.org/wiki/Q20026918\"},{\"display_name\":\"Similarity measure\",\"id\":\"https://openalex.org/C2776517306\",\"level\":2,\"score\":0.2840999960899353,\"wikidata\":\"https://www.wikidata.org/wiki/Q29017317\"},{\"display_name\":\"Flexibility (engineering)\",\"id\":\"https://openalex.org/C2780598303\",\"level\":2,\"score\":0.2793999910354614,\"wikidata\":\"https://www.wikidata.org/wiki/Q65921492\"},{\"display_name\":\"Algorithm\",\"id\":\"https://openalex.org/C11413529\",\"level\":1,\"score\":0.27880001068115234,\"wikidata\":\"https://www.wikidata.org/wiki/Q8366\"},{\"display_name\":\"Dice\",\"id\":\"https://openalex.org/C22029948\",\"level\":2,\"score\":0.2786000072956085,\"wikidata\":\"https://www.wikidata.org/wiki/Q45089\"},{\"display_name\":\"Binary number\",\"id\":\"https://openalex.org/C48372109\",\"level\":2,\"score\":0.27559998631477356,\"wikidata\":\"https://www.wikidata.org/wiki/Q3913\"},{\"display_name\":\"Vector calculus\",\"id\":\"https://openalex.org/C5408677\",\"level\":2,\"score\":0.27219998836517334,\"wikidata\":\"https://www.wikidata.org/wiki/Q200802\"},{\"display_name\":\"Matrix (chemical analysis)\",\"id\":\"https://openalex.org/C106487976\",\"level\":2,\"score\":0.2676999866962433,\"wikidata\":\"https://www.wikidata.org/wiki/Q685816\"},{\"display_name\":\"Scale-space segmentation\",\"id\":\"https://openalex.org/C65885262\",\"level\":4,\"score\":0.2632000148296356,\"wikidata\":\"https://www.wikidata.org/wiki/Q7429708\"},{\"display_name\":\"Edge detection\",\"id\":\"https://openalex.org/C193536780\",\"level\":4,\"score\":0.2574999928474426,\"wikidata\":\"https://www.wikidata.org/wiki/Q1513153\"},{\"display_name\":\"Vector field\",\"id\":\"https://openalex.org/C91188154\",\"level\":2,\"score\":0.25679999589920044,\"wikidata\":\"https://www.wikidata.org/wiki/Q186247\"}],\"content_urls\":{\"grobid_xml\":\"https://content.openalex.org/works/W7202383786.grobid-xml\",\"pdf\":\"https://content.openalex.org/works/W7202383786.pdf\"},\"corresponding_author_ids\":[],\"corresponding_institution_ids\":[],\"countries_distinct_count\":2,\"counts_by_year\":[],\"created_date\":\"2026-08-14T00:00:00\",\"display_name\":\"M-Net: Integrating Spectral Features and Physical Field Operators into Deep Learning for Medical Image Segmentation\",\"doi\":\"https://doi.org/10.48550/arxiv.2608.12196\",\"funders\":[],\"fwci\":null,\"has_content\":{\"grobid_xml\":true,\"pdf\":true},\"has_fulltext\":true,\"id\":\"https://openalex.org/W7202383786\",\"ids\":{\"doi\":\"https://doi.org/10.48550/arxiv.2608.12196\",\"openalex\":\"https://openalex.org/W7202383786\"},\"indexed_in\":[\"arxiv\",\"datacite\"],\"institutions\":[],\"institutions_distinct_count\":2,\"is_paratext\":false,\"is_retracted\":false,\"is_xpac\":false,\"keywords\":[{\"display_name\":\"medical image segmentation\",\"id\":\"https://openalex.org/keywords/medical-image-segmentation\",\"score\":0.972000002861023},{\"display_name\":\"condition number\",\"id\":\"https://openalex.org/keywords/condition-number\",\"score\":0.8859999775886536},{\"display_name\":\"U-Net\",\"id\":\"https://openalex.org/keywords/u-net\",\"score\":0.7260000109672546},{\"display_name\":\"liver segmentation\",\"id\":\"https://openalex.org/keywords/liver-segmentation\",\"score\":0.6949999928474426},{\"display_name\":\"kidney segmentation\",\"id\":\"https://openalex.org/keywords/kidney-segmentation\",\"score\":0.9860000014305115},{\"display_name\":\"brain tumor segmentation\",\"id\":\"https://openalex.org/keywords/brain-tumor-segmentation\",\"score\":0.9380000233650208}],\"language\":\"en\",\"locations\":[{\"doi\":null,\"id\":\"pmh:oai:arXiv.org:2608.12196\",\"is_accepted\":false,\"is_oa\":true,\"is_published\":false,\"landing_page_url\":\"https://arxiv.org/abs/2608.12196\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://arxiv.org/pdf/2608.12196\",\"raw_source_name\":null,\"raw_type\":\"text\",\"source\":{\"display_name\":\"arXiv (Cornell University)\",\"host_organization\":\"https://openalex.org/I205783295\",\"host_organization_lineage\":[\"https://openalex.org/I205783295\"],\"host_organization_lineage_names\":[],\"host_organization_name\":\"Cornell University\",\"id\":\"https://openalex.org/S4306400194\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":true,\"issn\":[\"2331-8422\"],\"issn_l\":\"2331-8422\",\"listed_in\":[],\"type\":\"repository\"},\"version\":\"submittedVersion\"},{\"doi\":\"https://doi.org/10.48550/arxiv.2608.12196\",\"id\":\"doi:10.48550/arxiv.2608.12196\",\"is_accepted\":false,\"is_oa\":true,\"is_published\":false,\"landing_page_url\":\"https://doi.org/10.48550/arxiv.2608.12196\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":null,\"raw_source_name\":null,\"raw_type\":\"Preprint\",\"source\":{\"display_name\":\"arXiv (Cornell University)\",\"host_organization\":\"https://openalex.org/I205783295\",\"host_organization_lineage\":[\"https://openalex.org/I205783295\"],\"host_organization_lineage_names\":[],\"host_organization_name\":\"Cornell University\",\"id\":\"https://openalex.org/S4306400194\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":true,\"issn\":[\"2331-8422\"],\"issn_l\":\"2331-8422\",\"listed_in\":[],\"type\":\"repository\"},\"version\":null}],\"locations_count\":2,\"mesh\":[],\"open_access\":{\"any_repository_has_fulltext\":true,\"is_oa\":true,\"oa_status\":\"green\",\"oa_url\":\"https://arxiv.org/pdf/2608.12196\"},\"primary_location\":{\"doi\":null,\"id\":\"pmh:oai:arXiv.org:2608.12196\",\"is_accepted\":false,\"is_oa\":true,\"is_published\":false,\"landing_page_url\":\"https://arxiv.org/abs/2608.12196\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://arxiv.org/pdf/2608.12196\",\"raw_source_name\":null,\"raw_type\":\"text\",\"source\":{\"display_name\":\"arXiv (Cornell University)\",\"host_organization\":\"https://openalex.org/I205783295\",\"host_organization_lineage\":[\"https://openalex.org/I205783295\"],\"host_organization_lineage_names\":[],\"host_organization_name\":\"Cornell University\",\"id\":\"https://openalex.org/S4306400194\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":true,\"issn\":[\"2331-8422\"],\"issn_l\":\"2331-8422\",\"listed_in\":[],\"type\":\"repository\"},\"version\":\"submittedVersion\"},\"primary_topic\":{\"display_name\":\"Medical Image Segmentation Techniques\",\"domain\":{\"display_name\":\"Physical Sciences\",\"id\":\"https://openalex.org/domains/3\"},\"field\":{\"display_name\":\"Computer Science\",\"id\":\"https://openalex.org/fields/17\"},\"id\":\"https://openalex.org/T10052\",\"score\":0.9965999722480774,\"subfield\":{\"display_name\":\"Computer Vision and Pattern Recognition\",\"id\":\"https://openalex.org/subfields/1707\"}},\"publication_date\":\"2026-08-12\",\"publication_year\":2026,\"referenced_works\":[],\"referenced_works_count\":0,\"related_works\":[\"https://openalex.org/W7214012293\",\"https://openalex.org/W7118394261\",\"https://openalex.org/W4391125493\",\"https://openalex.org/W4406075545\",\"https://openalex.org/W4417130057\",\"https://openalex.org/W4361267445\",\"https://openalex.org/W3161791427\",\"https://openalex.org/W3012128277\",\"https://openalex.org/W4366699911\",\"https://openalex.org/W4395057320\"],\"relevance_score\":0.9007901,\"study_designs\":[],\"sustainable_development_goals\":[],\"sustainable_development_goals_aurora\":[{\"display_name\":\"Quality education\",\"id\":\"https://metadata.un.org/sdg/4\",\"score\":0.46568384766578674}],\"title\":\"M-Net: Integrating Spectral Features and Physical Field Operators into Deep Learning for Medical Image Segmentation\",\"topics\":[{\"display_name\":\"Medical Image Segmentation Techniques\",\"domain\":{\"display_name\":\"Physical Sciences\",\"id\":\"https://openalex.org/domains/3\"},\"field\":{\"display_name\":\"Computer Science\",\"id\":\"https://openalex.org/fields/17\"},\"id\":\"https://openalex.org/T10052\",\"score\":0.9965999722480774,\"subfield\":{\"display_name\":\"Computer Vision and Pattern Recognition\",\"id\":\"https://openalex.org/subfields/1707\"}},{\"display_name\":\"Advanced Neural Network Applications\",\"domain\":{\"display_name\":\"Physical Sciences\",\"id\":\"https://openalex.org/domains/3\"},\"field\":{\"display_name\":\"Computer Science\",\"id\":\"https://openalex.org/fields/17\"},\"id\":\"https://openalex.org/T10036\",\"score\":0.0010999999940395355,\"subfield\":{\"display_name\":\"Computer Vision and Pattern Recognition\",\"id\":\"https://openalex.org/subfields/1707\"}},{\"display_name\":\"Brain Tumor Detection and Classification\",\"domain\":{\"display_name\":\"Life Sciences\",\"id\":\"https://openalex.org/domains/1\"},\"field\":{\"display_name\":\"Neuroscience\",\"id\":\"https://openalex.org/fields/28\"},\"id\":\"https://openalex.org/T12702\",\"score\":0.0008999999845400453,\"subfield\":{\"display_name\":\"Neurology\",\"id\":\"https://openalex.org/subfields/2808\"}}],\"type\":\"preprint\",\"updated_date\":\"2026-10-28T10:33:24.094632\",\"volume\":null}",
+        "content_hash": "cc6096daa4e61cfcda56a3e74349e9f7223767f1fbb379494cf0a9a08de58a91"
+      },
+      {
+        "openalex_id": "https://openalex.org/W7221539928",
+        "title": "Multi-Task Learning for Brain Tumor Diagnosis:MRI-Glioma Net with Residual Attention andGrading Head",
+        "authors": [
+          "N. Krishnavardhan",
+          "Bhavani R.",
+          "Ch. V. S. Satyamurty",
+          "Spandana Shivanadhuni",
+          "Nekkanti Rajesh",
+          "Ashwini Barbadekar"
+        ],
+        "doi": "10.5815/ijigsp.2026.05.07",
+        "journal": "International Journal of Image Graphics and Signal Processing",
+        "publication_date": {
+          "precision": "day",
+          "raw": "2026-10-08",
+          "year": 2026,
+          "month": 10,
+          "day": 8
+        },
+        "abstract": "To accurately segment brain tumors and grade gliomas using multi-modal MRI data, MRI-Glioma Net wasbuilt as a new 3D Res-UNet framework. The model uses residual learning, multi-scale feature extraction, and attentionenhanced fusion to delineate three heterogeneous tumor subregions: whole tumor (WT), tumor core (TC), andenhancing tumor (ET). It leverages T1, T2, FLAIR, and T1ce sequences. It uses fused latent features to incorporate aspecialized classification head for glioma grading (low-grade vs. high-grade), which improves discriminative capability.A glioma dataset with extensive cross-validation was used for evaluation across multiple institutions. MRI-Glioma Netoutperformed baseline models such as 3D UNet and Res UNet, achieving Dice Similarity Coefficients (DSCs) of 0.94(WT), 0.90 (TC), and 0.88 (ET), respectively. An IoU of 0.86, HD95 of 5.4 mm, and a volumetric similarity of 0.95were all recorded by the model. In terms of grading, it achieved better results than attention UNet and nn UNet, with 95%accuracy, 94% precision, 93% recall, and 93.5% F1-score. With a 7.2 GB GPU usage, a 2.1s inference time per volume,and only a 0.9% accuracy loss post-quantization, the model's efficiency metrics demonstrate its lightweight deploymentpotential. Additionally, 95% confidence intervals are computed for key metrics to reflect variability across folds. Statistical significance of improvements over baseline models (3D U-Net, Res-UNet, Attention U-Net, nnU-Net) isevaluated using paired statistical tests (e.g., Wilcoxon signed-rank test), confirming that performance gains are not dueto random variation. Efficiency is further validated using inference time per volume, GPU memory consumption, andpost-quantization performance, ensuring practical deployment feasibility. The anatomical fidelity is shown byqualitative overlays to be superior, and interpretability is improved by Grad-CAM and error maps. MRI-Glioma Netoffers a feasible, effective, and interpretable way to classify gliomas and diagnose tumors in real time in clinical settings.MRI-Glioma Net represents a major step forward in neuro-oncology imaging; its strong performance acrosssegmentation and grading tasks suggests it could be useful for pre-surgical planning, prognosis, and monitoringtreatment response.",
+        "abstract_status": "available",
+        "work_type": "article",
+        "is_retracted": false,
+        "open_access": {
+          "is_oa": true,
+          "oa_status": "diamond",
+          "oa_url": "https://www.mecs-press.org/ijigsp/ijigsp-v18-n5/IJIGSP-V18-N5-7.pdf",
+          "any_repository_has_fulltext": false
+        },
+        "locations": [
+          {
+            "id": "doi:10.5815/ijigsp.2026.05.07",
+            "doi": "https://doi.org/10.5815/ijigsp.2026.05.07",
+            "is_oa": true,
+            "landing_page_url": "https://doi.org/10.5815/ijigsp.2026.05.07",
+            "pdf_url": "https://www.mecs-press.org/ijigsp/ijigsp-v18-n5/IJIGSP-V18-N5-7.pdf",
+            "source": {
+              "id": "https://openalex.org/S2480669183",
+              "display_name": "International Journal of Image Graphics and Signal Processing",
+              "issn_l": "2074-9074",
+              "issn": [
+                "2074-9074",
+                "2074-9082"
+              ],
+              "is_oa": true,
+              "is_in_doaj": false,
+              "is_core": true,
+              "listed_in": [
+                "cwts-core",
+                "poland-20",
+                "russia-white-list-4"
+              ],
+              "host_organization": null,
+              "host_organization_name": null,
+              "host_organization_lineage": [],
+              "host_organization_lineage_names": [],
+              "type": "journal"
+            },
+            "license": null,
+            "license_id": null,
+            "version": "publishedVersion",
+            "is_accepted": true,
+            "is_published": true,
+            "raw_source_name": "International Journal of Image, Graphics and Signal Processing",
+            "raw_type": "journal-article"
+          }
+        ],
+        "best_oa_location": {
+          "id": "doi:10.5815/ijigsp.2026.05.07",
+          "doi": "https://doi.org/10.5815/ijigsp.2026.05.07",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.5815/ijigsp.2026.05.07",
+          "pdf_url": "https://www.mecs-press.org/ijigsp/ijigsp-v18-n5/IJIGSP-V18-N5-7.pdf",
+          "source": {
+            "id": "https://openalex.org/S2480669183",
+            "display_name": "International Journal of Image Graphics and Signal Processing",
+            "issn_l": "2074-9074",
+            "issn": [
+              "2074-9074",
+              "2074-9082"
+            ],
+            "is_oa": true,
+            "is_in_doaj": false,
+            "is_core": true,
+            "listed_in": [
+              "cwts-core",
+              "poland-20",
+              "russia-white-list-4"
+            ],
+            "host_organization": null,
+            "host_organization_name": null,
+            "host_organization_lineage": [],
+            "host_organization_lineage_names": [],
+            "type": "journal"
+          },
+          "license": null,
+          "license_id": null,
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "International Journal of Image, Graphics and Signal Processing",
+          "raw_type": "journal-article"
+        },
+        "snapshot_json": "{\"abstract_inverted_index\":{\"(3D\":[200],\"(DSCs)\":[102],\"(ET),\":[109],\"(ET).\":[46],\"(TC),\":[43,106],\"(WT),\":[40],\"(e.g.,\":[211],\"(low-grade\":[68],\"0.86,\":[114],\"0.88\":[108],\"0.9%\":[167],\"0.90\":[105],\"0.94(WT),\":[104],\"0.95were\":[124],\"2.1s\":[160],\"3D\":[18,93],\"5.4\":[117],\"7.2\":[155],\"93%\":[148],\"93.5%\":[151],\"94%\":[146],\"95%\":[180],\"95%accuracy,\":[145],\"Additionally,\":[179],\"An\":[111],\"Attention\":[203],\"Coefficients\":[101],\"Dice\":[99],\"Efficiency\":[224],\"F1-score.\":[152],\"FLAIR,\":[51],\"GB\":[156],\"GPU\":[157,233],\"Grad-CAM\":[257],\"HD95\":[115],\"In\":[130],\"IoU\":[112],\"It\":[47,55],\"MRI\":[10],\"MRI-Glioma\":[12,87,261],\"Net\":[13,281],\"Netoffers\":[262],\"Netoutperformed\":[88],\"Res\":[96],\"Res-UNet\":[19],\"Res-UNet,\":[202],\"Similarity\":[100],\"Statistical\":[193],\"T1,\":[49],\"T1ce\":[53],\"T2,\":[50],\"The\":[21,242],\"To\":[0],\"U-Net,\":[201,204],\"UNet\":[94,140],\"UNet,\":[97,143],\"Wilcoxon\":[212],\"With\":[153],\"a\":[16,120,154,159,166,263,283],\"accuracy\":[168],\"accurately\":[1],\"achieved\":[135],\"achieving\":[98],\"across\":[84,191],\"acrosssegmentation\":[293],\"all\":[125],\"anatomical\":[243],\"and\":[5,29,52,95,107,119,141,150,252,258,266,272,294,306],\"andenhancing\":[44],\"andpost-quantization\":[236],\"are\":[183,219],\"as\":[15,92],\"aspecialized\":[62],\"attention\":[139],\"attentionenhanced\":[30],\"baseline\":[89,198],\"be\":[250,300],\"better\":[136],\"brain\":[3],\"by\":[127,256],\"byqualitative\":[247],\"capability.A\":[74],\"classification\":[63],\"classify\":[270],\"clinical\":[279],\"computed\":[184],\"confidence\":[181],\"confirming\":[215],\"consumption,\":[235],\"core\":[42],\"could\":[299],\"cross-validation\":[79],\"data,\":[11],\"dataset\":[76],\"delineate\":[33],\"demonstrate\":[175],\"deployment\":[240],\"deploymentpotential.\":[178],\"diagnose\":[273],\"discriminative\":[73],\"dueto\":[221],\"effective,\":[265],\"efficiency\":[173],\"ensuring\":[238],\"error\":[259],\"evaluation\":[83],\"extensive\":[78],\"extraction,\":[28],\"feasibility.\":[241],\"feasible,\":[264],\"feature\":[27],\"features\":[59],\"fidelity\":[244],\"folds.\":[192],\"for\":[65,82,185,302],\"forward\":[286],\"framework.\":[20],\"further\":[226],\"fused\":[57],\"fusion\":[31],\"gains\":[218],\"glioma\":[66,75],\"gliomas\":[7,271],\"grade\":[6],\"grading\":[67,295],\"grading,\":[133],\"head\":[64],\"heterogeneous\":[35],\"high-grade),\":[70],\"imaging;\":[289],\"improved\":[255],\"improvements\":[196],\"improves\":[72],\"in\":[275,278,287],\"incorporate\":[61],\"inference\":[161,229],\"institutions.\":[86],\"interpretability\":[253],\"interpretable\":[267],\"intervals\":[182],\"is\":[225,245,254],\"isevaluated\":[206],\"it\":[134,298],\"its\":[176,290],\"key\":[186],\"latent\":[58],\"learning,\":[25],\"leverages\":[48],\"lightweight\":[177],\"loss\":[169],\"major\":[284],\"maps.\":[260],\"memory\":[234],\"metrics\":[174,187],\"mm,\":[118],\"model\":[22],\"model's\":[172],\"model.\":[129],\"models\":[90,199],\"monitoringtreatment\":[307],\"multi-modal\":[9],\"multi-scale\":[26],\"multiple\":[85],\"neuro-oncology\":[288],\"new\":[17],\"nn\":[142],\"nnU-Net)\":[205],\"not\":[220],\"of\":[103,113,116,123,132,195],\"only\":[165],\"over\":[197],\"overlays\":[248],\"paired\":[208],\"per\":[163,231],\"performance\":[217,292],\"performance,\":[237],\"planning,\":[304],\"post-quantization,\":[170],\"practical\":[239],\"pre-surgical\":[303],\"precision,\":[147],\"prognosis,\":[305],\"random\":[222],\"real\":[276],\"recall,\":[149],\"recorded\":[126],\"reflect\":[189],\"represents\":[282],\"residual\":[24],\"respectively.\":[110],\"response.\":[308],\"results\":[137],\"segment\":[2],\"sequences.\":[54],\"settings.MRI-Glioma\":[280],\"shown\":[246],\"signed-rank\":[213],\"significance\":[194],\"similarity\":[122],\"statistical\":[209],\"step\":[285],\"strong\":[291],\"subregions:\":[37],\"such\":[91],\"suggests\":[297],\"superior,\":[251],\"tasks\":[296],\"terms\":[131],\"test),\":[214],\"tests\":[210],\"than\":[138],\"that\":[216],\"the\":[128,171],\"three\":[34],\"time\":[162,230,277],\"to\":[32,60,188,249,269],\"tumor\":[36,39,41,45],\"tumors\":[4,274],\"usage,\":[158],\"used\":[81],\"useful\":[301],\"uses\":[23,56],\"using\":[8,207,228],\"validated\":[227],\"variability\":[190],\"variation.\":[223],\"volume,\":[232],\"volume,and\":[164],\"volumetric\":[121],\"vs.\":[69],\"was\":[80],\"wasbuilt\":[14],\"way\":[268],\"which\":[71],\"whole\":[38],\"with\":[77,144]},\"apc_list\":null,\"apc_paid\":null,\"authorships\":[{\"affiliations\":[{\"institution_ids\":[],\"raw_affiliation_string\":\"Department of Data Science, Geethanjali College of Engineering and Technology, Hyderabad, 501301, India\"}],\"author\":{\"display_name\":\"N. Krishnavardhan\",\"id\":\"https://openalex.org/A5121737125\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"first\",\"countries\":[],\"institutions\":[],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Data Science, Geethanjali College of Engineering and Technology, Hyderabad, 501301, India\"],\"raw_author_name\":\"N. Krishnavardhan\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I1330855593\"],\"raw_affiliation_string\":\"Department of Computer Science and Engineering, Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science andTechnology, Chennai, 600062, India\"}],\"author\":{\"display_name\":\"Bhavani R.\",\"id\":\"https://openalex.org/A5158450610\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"middle\",\"countries\":[\"IN\"],\"institutions\":[{\"country_code\":\"IN\",\"display_name\":\"Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science and Technology\",\"id\":\"https://openalex.org/I1330855593\",\"lineage\":[\"https://openalex.org/I1330855593\"],\"ror\":\"https://ror.org/05bc5bx80\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Computer Science and Engineering, Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science andTechnology, Chennai, 600062, India\"],\"raw_author_name\":\"Bhavani R.\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[],\"raw_affiliation_string\":\"Department of Information Technology, CVR College of Engineering, Hyderabad, 501510, India\"}],\"author\":{\"display_name\":\"Ch. V. S. Satyamurty\",\"id\":\"https://openalex.org/A5002599161\",\"observed_orcids\":[\"https://orcid.org/0000-0002-0456-9742\"],\"orcid\":\"https://orcid.org/0000-0002-0456-9742\"},\"author_position\":\"middle\",\"countries\":[],\"institutions\":[],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Information Technology, CVR College of Engineering, Hyderabad, 501510, India\"],\"raw_author_name\":\"Ch. V. S. Satyamurty\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I875944469\"],\"raw_affiliation_string\":\"Department of Computer Science and Engineering, Koneru Lakshmaiah Education Foundation, Hyderabad, 500043,India\"}],\"author\":{\"display_name\":\"Spandana Shivanadhuni\",\"id\":\"https://openalex.org/A5095951757\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"middle\",\"countries\":[\"IN\"],\"institutions\":[{\"country_code\":\"IN\",\"display_name\":\"Koneru Lakshmaiah Education Foundation\",\"id\":\"https://openalex.org/I875944469\",\"lineage\":[\"https://openalex.org/I875944469\"],\"ror\":\"https://ror.org/02k949197\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Computer Science and Engineering, Koneru Lakshmaiah Education Foundation, Hyderabad, 500043,India\"],\"raw_author_name\":\"Spandana Shivanadhuni\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I4405262389\"],\"raw_affiliation_string\":\"Department of Electrical and Electronics Engineering, Aditya University, Surampalem, 533437, India\"}],\"author\":{\"display_name\":\"Nekkanti Rajesh\",\"id\":\"https://openalex.org/A5134667146\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"middle\",\"countries\":[\"IN\"],\"institutions\":[{\"country_code\":\"IN\",\"display_name\":\"Aditya University\",\"id\":\"https://openalex.org/I4405262389\",\"lineage\":[\"https://openalex.org/I4405262389\"],\"ror\":\"https://ror.org/03127q162\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Electrical and Electronics Engineering, Aditya University, Surampalem, 533437, India\"],\"raw_author_name\":\"Rajesh Nekkanti\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I4405261743\"],\"raw_affiliation_string\":\"Department of Electronics and Telecommunication Engineering, Vishwakarma Institute of Technology, Pune, 411037,India\"}],\"author\":{\"display_name\":\"Ashwini Barbadekar\",\"id\":\"https://openalex.org/A5090918953\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"last\",\"countries\":[\"IN\"],\"institutions\":[{\"country_code\":\"IN\",\"display_name\":\"Vishwakarma Institute of Technology\",\"id\":\"https://openalex.org/I4405261743\",\"lineage\":[\"https://openalex.org/I4405261743\"],\"ror\":\"https://ror.org/05sj18h57\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Electronics and Telecommunication Engineering, Vishwakarma Institute of Technology, Pune, 411037,India\"],\"raw_author_name\":\"Ashwini Barbadekar\",\"raw_orcid\":null}],\"awards\":[],\"best_oa_location\":{\"doi\":\"https://doi.org/10.5815/ijigsp.2026.05.07\",\"id\":\"doi:10.5815/ijigsp.2026.05.07\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.5815/ijigsp.2026.05.07\",\"license\":null,\"license_id\":null,\"pdf_url\":\"https://www.mecs-press.org/ijigsp/ijigsp-v18-n5/IJIGSP-V18-N5-7.pdf\",\"raw_source_name\":\"International Journal of Image, Graphics and Signal Processing\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"International Journal of Image Graphics and Signal Processing\",\"host_organization\":null,\"host_organization_lineage\":[],\"host_organization_lineage_names\":[],\"host_organization_name\":null,\"id\":\"https://openalex.org/S2480669183\",\"is_core\":true,\"is_in_doaj\":false,\"is_oa\":true,\"issn\":[\"2074-9074\",\"2074-9082\"],\"issn_l\":\"2074-9074\",\"listed_in\":[\"cwts-core\",\"poland-20\",\"russia-white-list-4\"],\"type\":\"journal\"},\"version\":\"publishedVersion\"},\"biblio\":{\"first_page\":\"110\",\"issue\":\"5\",\"last_page\":\"125\",\"volume\":\"18\"},\"citation_normalized_percentile\":{\"is_in_top_10_percent\":false,\"is_in_top_1_percent\":false,\"value\":0.78132535},\"cited_by_count\":0,\"cited_by_percentile_year\":null,\"concepts\":[{\"display_name\":\"Computer science\",\"id\":\"https://openalex.org/C41008148\",\"level\":0,\"score\":0.795799970626831,\"wikidata\":\"https://www.wikidata.org/wiki/Q21198\"},{\"display_name\":\"Discriminative model\",\"id\":\"https://openalex.org/C97931131\",\"level\":2,\"score\":0.7095000147819519,\"wikidata\":\"https://www.wikidata.org/wiki/Q5282087\"},{\"display_name\":\"Residual\",\"id\":\"https://openalex.org/C155512373\",\"level\":2,\"score\":0.650600016117096,\"wikidata\":\"https://www.wikidata.org/wiki/Q287450\"},{\"display_name\":\"Artificial intelligence\",\"id\":\"https://openalex.org/C154945302\",\"level\":1,\"score\":0.620199978351593,\"wikidata\":\"https://www.wikidata.org/wiki/Q11660\"},{\"display_name\":\"Interpretability\",\"id\":\"https://openalex.org/C2781067378\",\"level\":2,\"score\":0.5857999920845032,\"wikidata\":\"https://www.wikidata.org/wiki/Q17027399\"},{\"display_name\":\"Wilcoxon signed-rank test\",\"id\":\"https://openalex.org/C206041023\",\"level\":3,\"score\":0.5702000260353088,\"wikidata\":\"https://www.wikidata.org/wiki/Q1751970\"},{\"display_name\":\"Inference\",\"id\":\"https://openalex.org/C2776214188\",\"level\":2,\"score\":0.565500020980835,\"wikidata\":\"https://www.wikidata.org/wiki/Q408386\"},{\"display_name\":\"Pattern recognition (psychology)\",\"id\":\"https://openalex.org/C153180895\",\"level\":2,\"score\":0.44999998807907104,\"wikidata\":\"https://www.wikidata.org/wiki/Q7148389\"},{\"display_name\":\"Brain tumor\",\"id\":\"https://openalex.org/C2779130545\",\"level\":2,\"score\":0.4219000041484833,\"wikidata\":\"https://www.wikidata.org/wiki/Q233309\"},{\"display_name\":\"Glioma\",\"id\":\"https://openalex.org/C2778227246\",\"level\":2,\"score\":0.41510000824928284,\"wikidata\":\"https://www.wikidata.org/wiki/Q1365309\"},{\"display_name\":\"Feature (linguistics)\",\"id\":\"https://openalex.org/C2776401178\",\"level\":2,\"score\":0.41100001335144043,\"wikidata\":\"https://www.wikidata.org/wiki/Q12050496\"},{\"display_name\":\"Similarity (geometry)\",\"id\":\"https://openalex.org/C103278499\",\"level\":3,\"score\":0.3702000081539154,\"wikidata\":\"https://www.wikidata.org/wiki/Q254465\"},{\"display_name\":\"Grading (engineering)\",\"id\":\"https://openalex.org/C2777286243\",\"level\":2,\"score\":0.3686999976634979,\"wikidata\":\"https://www.wikidata.org/wiki/Q5591926\"},{\"display_name\":\"Dice\",\"id\":\"https://openalex.org/C22029948\",\"level\":2,\"score\":0.3578999936580658,\"wikidata\":\"https://www.wikidata.org/wiki/Q45089\"},{\"display_name\":\"Nonparametric statistics\",\"id\":\"https://openalex.org/C102366305\",\"level\":2,\"score\":0.3325999975204468,\"wikidata\":\"https://www.wikidata.org/wiki/Q1097688\"},{\"display_name\":\"Leverage (statistics)\",\"id\":\"https://openalex.org/C153083717\",\"level\":2,\"score\":0.33070001006126404,\"wikidata\":\"https://www.wikidata.org/wiki/Q6535263\"},{\"display_name\":\"Radiomics\",\"id\":\"https://openalex.org/C2778559731\",\"level\":2,\"score\":0.3043999969959259,\"wikidata\":\"https://www.wikidata.org/wiki/Q23808793\"},{\"display_name\":\"Statistical inference\",\"id\":\"https://openalex.org/C134261354\",\"level\":2,\"score\":0.2809999883174896,\"wikidata\":\"https://www.wikidata.org/wiki/Q938438\"},{\"display_name\":\"Machine learning\",\"id\":\"https://openalex.org/C119857082\",\"level\":1,\"score\":0.28049999475479126,\"wikidata\":\"https://www.wikidata.org/wiki/Q2539\"},{\"display_name\":\"Percentile\",\"id\":\"https://openalex.org/C122048520\",\"level\":2,\"score\":0.2533000111579895,\"wikidata\":\"https://www.wikidata.org/wiki/Q2913954\"},{\"display_name\":\"Deep learning\",\"id\":\"https://openalex.org/C108583219\",\"level\":2,\"score\":0.2524000108242035,\"wikidata\":\"https://www.wikidata.org/wiki/Q197536\"}],\"content_urls\":{\"grobid_xml\":\"https://content.openalex.org/works/W7221539928.grobid-xml\",\"pdf\":\"https://content.openalex.org/works/W7221539928.pdf\"},\"corresponding_author_ids\":[],\"corresponding_institution_ids\":[],\"countries_distinct_count\":1,\"counts_by_year\":[],\"created_date\":\"2026-10-13T00:00:00\",\"display_name\":\"Multi-Task Learning for Brain Tumor Diagnosis:MRI-Glioma Net with Residual Attention andGrading Head\",\"doi\":\"https://doi.org/10.5815/ijigsp.2026.05.07\",\"funders\":[],\"fwci\":0.0,\"has_content\":{\"grobid_xml\":true,\"pdf\":true},\"has_fulltext\":true,\"id\":\"https://openalex.org/W7221539928\",\"ids\":{\"doi\":\"https://doi.org/10.5815/ijigsp.2026.05.07\",\"openalex\":\"https://openalex.org/W7221539928\"},\"indexed_in\":[\"crossref\"],\"institutions\":[],\"institutions_distinct_count\":4,\"is_paratext\":false,\"is_retracted\":false,\"is_xpac\":false,\"keywords\":[{\"display_name\":\"brain tumor segmentation\",\"id\":\"https://openalex.org/keywords/brain-tumor-segmentation\",\"score\":0.9290000200271606},{\"display_name\":\"glioma grading\",\"id\":\"https://openalex.org/keywords/glioma-grading\",\"score\":0.9940000176429749},{\"display_name\":\"multi-task learning\",\"id\":\"https://openalex.org/keywords/multi-task-learning\",\"score\":0.7749999761581421},{\"display_name\":\"residual attention\",\"id\":\"https://openalex.org/keywords/residual-attention\",\"score\":0.7789999842643738},{\"display_name\":\"multimodal MRI\",\"id\":\"https://openalex.org/keywords/multimodal-mri\",\"score\":0.7120000123977661},{\"display_name\":\"FLAIR\",\"id\":\"https://openalex.org/keywords/flair\",\"score\":0.5130000114440918},{\"display_name\":\"cross-institutional validation\",\"id\":\"https://openalex.org/keywords/cross-institutional-validation\",\"score\":0.6700000166893005},{\"display_name\":\"model quantization\",\"id\":\"https://openalex.org/keywords/model-quantization\",\"score\":0.7269999980926514},{\"display_name\":\"Grad-CAM interpretability\",\"id\":\"https://openalex.org/keywords/grad-cam-interpretability\",\"score\":0.8889999985694885},{\"display_name\":\"neuro-oncology imaging\",\"id\":\"https://openalex.org/keywords/neuro-oncology-imaging\",\"score\":0.8889999985694885},{\"display_name\":\"surgical planning\",\"id\":\"https://openalex.org/keywords/surgical-planning\",\"score\":0.75}],\"language\":\"en\",\"locations\":[{\"doi\":\"https://doi.org/10.5815/ijigsp.2026.05.07\",\"id\":\"doi:10.5815/ijigsp.2026.05.07\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.5815/ijigsp.2026.05.07\",\"license\":null,\"license_id\":null,\"pdf_url\":\"https://www.mecs-press.org/ijigsp/ijigsp-v18-n5/IJIGSP-V18-N5-7.pdf\",\"raw_source_name\":\"International Journal of Image, Graphics and Signal Processing\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"International Journal of Image Graphics and Signal Processing\",\"host_organization\":null,\"host_organization_lineage\":[],\"host_organization_lineage_names\":[],\"host_organization_name\":null,\"id\":\"https://openalex.org/S2480669183\",\"is_core\":true,\"is_in_doaj\":false,\"is_oa\":true,\"issn\":[\"2074-9074\",\"2074-9082\"],\"issn_l\":\"2074-9074\",\"listed_in\":[\"cwts-core\",\"poland-20\",\"russia-white-list-4\"],\"type\":\"journal\"},\"version\":\"publishedVersion\"}],\"locations_count\":1,\"mesh\":[],\"open_access\":{\"any_repository_has_fulltext\":false,\"is_oa\":true,\"oa_status\":\"diamond\",\"oa_url\":\"https://www.mecs-press.org/ijigsp/ijigsp-v18-n5/IJIGSP-V18-N5-7.pdf\"},\"primary_location\":{\"doi\":\"https://doi.org/10.5815/ijigsp.2026.05.07\",\"id\":\"doi:10.5815/ijigsp.2026.05.07\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.5815/ijigsp.2026.05.07\",\"license\":null,\"license_id\":null,\"pdf_url\":\"https://www.mecs-press.org/ijigsp/ijigsp-v18-n5/IJIGSP-V18-N5-7.pdf\",\"raw_source_name\":\"International Journal of Image, Graphics and Signal Processing\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"International Journal of Image Graphics and Signal Processing\",\"host_organization\":null,\"host_organization_lineage\":[],\"host_organization_lineage_names\":[],\"host_organization_name\":null,\"id\":\"https://openalex.org/S2480669183\",\"is_core\":true,\"is_in_doaj\":false,\"is_oa\":true,\"issn\":[\"2074-9074\",\"2074-9082\"],\"issn_l\":\"2074-9074\",\"listed_in\":[\"cwts-core\",\"poland-20\",\"russia-white-list-4\"],\"type\":\"journal\"},\"version\":\"publishedVersion\"},\"primary_topic\":{\"display_name\":\"Brain Tumor Detection and Classification\",\"domain\":{\"display_name\":\"Life Sciences\",\"id\":\"https://openalex.org/domains/1\"},\"field\":{\"display_name\":\"Neuroscience\",\"id\":\"https://openalex.org/fields/28\"},\"id\":\"https://openalex.org/T12702\",\"score\":0.9990000128746033,\"subfield\":{\"display_name\":\"Neurology\",\"id\":\"https://openalex.org/subfields/2808\"}},\"publication_date\":\"2026-10-08\",\"publication_year\":2026,\"referenced_works\":[],\"referenced_works_count\":0,\"related_works\":[\"https://openalex.org/W4394785775\",\"https://openalex.org/W4402724721\",\"https://openalex.org/W4282839986\",\"https://openalex.org/W7223297554\",\"https://openalex.org/W4411272905\",\"https://openalex.org/W7204574877\",\"https://openalex.org/W4393265616\",\"https://openalex.org/W4409652420\",\"https://openalex.org/W4406892919\",\"https://openalex.org/W4403004633\"],\"relevance_score\":0.83238316,\"study_designs\":[],\"sustainable_development_goals\":[{\"display_name\":\"Good health and well-being\",\"id\":\"https://metadata.un.org/sdg/3\",\"score\":0.8199999928474426}],\"sustainable_development_goals_aurora\":[],\"title\":\"Multi-Task Learning for Brain Tumor Diagnosis:MRI-Glioma Net with Residual Attention andGrading Head\",\"topics\":[{\"display_name\":\"Brain Tumor Detection and Classification\",\"domain\":{\"display_name\":\"Life Sciences\",\"id\":\"https://openalex.org/domains/1\"},\"field\":{\"display_name\":\"Neuroscience\",\"id\":\"https://openalex.org/fields/28\"},\"id\":\"https://openalex.org/T12702\",\"score\":0.9990000128746033,\"subfield\":{\"display_name\":\"Neurology\",\"id\":\"https://openalex.org/subfields/2808\"}},{\"display_name\":\"Medical Image Segmentation Techniques\",\"domain\":{\"display_name\":\"Physical Sciences\",\"id\":\"https://openalex.org/domains/3\"},\"field\":{\"display_name\":\"Computer Science\",\"id\":\"https://openalex.org/fields/17\"},\"id\":\"https://openalex.org/T10052\",\"score\":0.0005000000237487257,\"subfield\":{\"display_name\":\"Computer Vision and Pattern Recognition\",\"id\":\"https://openalex.org/subfields/1707\"}},{\"display_name\":\"Glioma Diagnosis and Treatment\",\"domain\":{\"display_name\":\"Health Sciences\",\"id\":\"https://openalex.org/domains/4\"},\"field\":{\"display_name\":\"Medicine\",\"id\":\"https://openalex.org/fields/27\"},\"id\":\"https://openalex.org/T10129\",\"score\":9.999999747378752e-05,\"subfield\":{\"display_name\":\"Genetics\",\"id\":\"https://openalex.org/subfields/2716\"}}],\"type\":\"article\",\"updated_date\":\"2026-10-28T10:33:24.094632\",\"volume\":null}",
+        "content_hash": "6d3ab95fb2ede4f3e715533e8f96bdc2cb57f8c61c52f9f693ce0f426bc9a535"
+      },
+      {
+        "openalex_id": "https://openalex.org/W4405673968",
+        "title": "Imaging Segmentation of Brain Tumors Based on the Modified U-net Method",
+        "authors": [
+          "Yajie Zhang",
+          "Hea Choon Ngo",
+          "Yifan Zhang",
+          "Noor Fazilla Abd Yusof",
+          "Xiaohan Wang"
+        ],
+        "doi": "10.5755/j01.itc.53.4.37719",
+        "journal": "Information Technology And Control",
+        "publication_date": {
+          "precision": "day",
+          "raw": "2024-12-21",
+          "year": 2024,
+          "month": 12,
+          "day": 21
+        },
+        "abstract": "Brain tumor segmentation in medical image analysis is a challenging task. Deep learning techniques have recently shown promise in resolving a variety of computer vision problems, such as semantic segmentation and image classification. Brain MRI (magnetic resonance imaging) requires precise brain image segmentation for effective, rapid diagnosis and treatment planning. However, it is quite difficult to manually segment the brain image rapidly and accurately in low-quality, noisy images. This paper proposes a U-Net and combined attention mechanism-based method. This research enhances the segmentation of images of tumors in the brain using modified U-net. Traditional U-net segmentation techniques are still widely used in the medical field, but they have a number of limitations when dealing with small targets and fuzzier boundaries. To address this issue, we made the following modifications to U-net: We propose attention mechanisms to assist the network in concentrating on important regions. The multiscale feature fusion strategy improves the efficacy of network segmentation at various scales. Cross-entropy loss function and data augmentation improve the performance of the network further. Our method was validated using the Brats2019 dataset. The experimental results demonstrate that our proposed methodology exhibits superior speed and efficiency compared to existing techniques in the context of brain image segmentation. The dice coefficients for the multiple branch TS-U-net model were 0.876, 0.868, and 0.814 in the tumor subregions of WT, TC, and ET, respectively. This exemplifies the feasibility and potential of our methodology for the segmentation of medical images.",
+        "abstract_status": "available",
+        "work_type": "article",
+        "is_retracted": false,
+        "open_access": {
+          "is_oa": true,
+          "oa_status": "gold",
+          "oa_url": "https://itc.ktu.lt/index.php/ITC/article/download/37719/16739",
+          "any_repository_has_fulltext": false
+        },
+        "locations": [
+          {
+            "id": "doi:10.5755/j01.itc.53.4.37719",
+            "doi": "https://doi.org/10.5755/j01.itc.53.4.37719",
+            "is_oa": true,
+            "landing_page_url": "https://doi.org/10.5755/j01.itc.53.4.37719",
+            "pdf_url": "https://itc.ktu.lt/index.php/ITC/article/download/37719/16739",
+            "source": {
+              "id": "https://openalex.org/S61708620",
+              "display_name": "Information Technology And Control",
+              "issn_l": "1392-124X",
+              "issn": [
+                "1392-124X",
+                "2335-884X"
+              ],
+              "is_oa": true,
+              "is_in_doaj": true,
+              "is_core": true,
+              "listed_in": [
+                "cwts-core",
+                "doaj",
+                "dongbi-d",
+                "jufo-1",
+                "norway-1",
+                "oarl",
+                "poland-40",
+                "russia-white-list-3"
+              ],
+              "host_organization": "https://openalex.org/P4310317509",
+              "host_organization_name": "Kaunas University of Technology",
+              "host_organization_lineage": [
+                "https://openalex.org/P4310317509"
+              ],
+              "host_organization_lineage_names": [
+                "Kaunas University of Technology"
+              ],
+              "type": "journal"
+            },
+            "license": "cc-by",
+            "license_id": "https://openalex.org/licenses/cc-by",
+            "version": "publishedVersion",
+            "is_accepted": true,
+            "is_published": true,
+            "raw_source_name": "Information Technology and Control",
+            "raw_type": "journal-article"
+          }
+        ],
+        "best_oa_location": {
+          "id": "doi:10.5755/j01.itc.53.4.37719",
+          "doi": "https://doi.org/10.5755/j01.itc.53.4.37719",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.5755/j01.itc.53.4.37719",
+          "pdf_url": "https://itc.ktu.lt/index.php/ITC/article/download/37719/16739",
+          "source": {
+            "id": "https://openalex.org/S61708620",
+            "display_name": "Information Technology And Control",
+            "issn_l": "1392-124X",
+            "issn": [
+              "1392-124X",
+              "2335-884X"
+            ],
+            "is_oa": true,
+            "is_in_doaj": true,
+            "is_core": true,
+            "listed_in": [
+              "cwts-core",
+              "doaj",
+              "dongbi-d",
+              "jufo-1",
+              "norway-1",
+              "oarl",
+              "poland-40",
+              "russia-white-list-3"
+            ],
+            "host_organization": "https://openalex.org/P4310317509",
+            "host_organization_name": "Kaunas University of Technology",
+            "host_organization_lineage": [
+              "https://openalex.org/P4310317509"
+            ],
+            "host_organization_lineage_names": [
+              "Kaunas University of Technology"
+            ],
+            "type": "journal"
+          },
+          "license": "cc-by",
+          "license_id": "https://openalex.org/licenses/cc-by",
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "Information Technology and Control",
+          "raw_type": "journal-article"
+        },
+        "snapshot_json": "{\"abstract_inverted_index\":{\"(magnetic\":[35],\"0.814\":[216],\"0.868,\":[214],\"0.876,\":[213],\"Brain\":[0,33],\"Brats2019\":[177],\"Cross-entropy\":[158],\"Deep\":[11],\"ET,\":[225],\"However,\":[50],\"MRI\":[34],\"Our\":[171],\"TC,\":[223],\"TS-U-net\":[210],\"The\":[144,179,203],\"This\":[68,78,227],\"To\":[120],\"Traditional\":[93],\"U-Net\":[72],\"U-net\":[94],\"U-net.\":[92],\"U-net:\":[130],\"WT,\":[222],\"We\":[131],\"a\":[8,20,71,108],\"accurately\":[63],\"address\":[121],\"analysis\":[6],\"and\":[30,47,62,73,117,161,190,215,224,231],\"are\":[97],\"as\":[27],\"assist\":[136],\"at\":[155],\"attention\":[75,133],\"augmentation\":[163],\"boundaries.\":[119],\"brain\":[40,59,89,200],\"branch\":[209],\"but\":[105],\"challenging\":[9],\"classification.\":[32],\"coefficients\":[205],\"combined\":[74],\"compared\":[192],\"computer\":[23],\"concentrating\":[140],\"context\":[198],\"data\":[162],\"dataset.\":[178],\"dealing\":[113],\"demonstrate\":[182],\"diagnosis\":[46],\"dice\":[204],\"difficult\":[54],\"effective,\":[44],\"efficacy\":[151],\"efficiency\":[191],\"enhances\":[80],\"exemplifies\":[228],\"exhibits\":[187],\"existing\":[194],\"experimental\":[180],\"feasibility\":[230],\"feature\":[146],\"field,\":[104],\"following\":[127],\"for\":[43,206,236],\"function\":[160],\"further.\":[170],\"fusion\":[147],\"fuzzier\":[118],\"have\":[14,107],\"image\":[5,31,41,60,201],\"images\":[84],\"images.\":[67,241],\"imaging)\":[37],\"important\":[142],\"improve\":[164],\"improves\":[149],\"in\":[3,18,64,87,101,139,196,217],\"is\":[7,52],\"issue,\":[123],\"it\":[51],\"learning\":[12],\"limitations\":[111],\"loss\":[159],\"low-quality,\":[65],\"made\":[125],\"manually\":[56],\"mechanism-based\":[76],\"mechanisms\":[134],\"medical\":[4,103,240],\"method\":[172],\"method.\":[77],\"methodology\":[186,235],\"model\":[211],\"modifications\":[128],\"modified\":[91],\"multiple\":[208],\"multiscale\":[145],\"network\":[138,153,169],\"noisy\":[66],\"number\":[109],\"of\":[22,83,85,110,152,167,199,221,233,239],\"on\":[141],\"our\":[184,234],\"paper\":[69],\"performance\":[166],\"planning.\":[49],\"potential\":[232],\"precise\":[39],\"problems,\":[25],\"promise\":[17],\"propose\":[132],\"proposed\":[185],\"proposes\":[70],\"quite\":[53],\"rapid\":[45],\"rapidly\":[61],\"recently\":[15],\"regions.\":[143],\"requires\":[38],\"research\":[79],\"resolving\":[19],\"resonance\":[36],\"respectively.\":[226],\"results\":[181],\"scales.\":[157],\"segment\":[57],\"segmentation\":[2,29,42,82,95,154,238],\"segmentation.\":[202],\"semantic\":[28],\"shown\":[16],\"small\":[115],\"speed\":[189],\"still\":[98],\"strategy\":[148],\"subregions\":[220],\"such\":[26],\"superior\":[188],\"targets\":[116],\"task.\":[10],\"techniques\":[13,96,195],\"that\":[183],\"the\":[58,81,88,102,126,137,150,165,168,176,197,207,218,229,237],\"they\":[106],\"this\":[122],\"to\":[55,129,135,193],\"treatment\":[48],\"tumor\":[1,219],\"tumors\":[86],\"used\":[100],\"using\":[90,175],\"validated\":[174],\"variety\":[21],\"various\":[156],\"vision\":[24],\"was\":[173],\"we\":[124],\"were\":[212],\"when\":[112],\"widely\":[99],\"with\":[114]},\"apc_list\":{\"currency\":\"EUR\",\"value\":500,\"value_usd\":539},\"apc_paid\":{\"currency\":\"EUR\",\"value\":500,\"value_usd\":539},\"authorships\":[{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I27781120\",\"https://openalex.org/I4210099759\"],\"raw_affiliation_string\":\"Division of Nephrology, Wenzhou Central Hospital, The Dingli Clinical Institute of Wenzhou Medical University, Wenzhou, 325000, China\"},{\"institution_ids\":[\"https://openalex.org/I32589535\",\"https://openalex.org/I4210144709\"],\"raw_affiliation_string\":\"School of Artificial Intelligence, Wenzhou Polytechnic, Wenzhou, 325000, Zhejiang, China; Faculty of Information and Communication Technology, Universiti Teknikal Malaysia Melaka, Melaka, Malaysia\"}],\"author\":{\"display_name\":\"Yajie Zhang\",\"id\":\"https://openalex.org/A5100430528\",\"observed_orcids\":[\"https://orcid.org/0000-0003-1357-1278\"],\"orcid\":\"https://orcid.org/0000-0003-1357-1278\"},\"author_position\":\"first\",\"countries\":[\"CN\",\"MY\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Wenzhou Medical University\",\"id\":\"https://openalex.org/I27781120\",\"lineage\":[\"https://openalex.org/I27781120\"],\"ror\":\"https://ror.org/00rd5t069\",\"type\":\"education\"},{\"country_code\":\"MY\",\"display_name\":\"Universiti Teknikal Malaysia Melaka\",\"id\":\"https://openalex.org/I32589535\",\"lineage\":[\"https://openalex.org/I32589535\"],\"ror\":\"https://ror.org/01xb6rs26\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Wenzhou Central Hospital\",\"id\":\"https://openalex.org/I4210099759\",\"lineage\":[\"https://openalex.org/I4210099759\"],\"ror\":\"https://ror.org/00w5h0n54\",\"type\":\"healthcare\"},{\"country_code\":\"CN\",\"display_name\":\"Wenzhou Polytechnic\",\"id\":\"https://openalex.org/I4210144709\",\"lineage\":[\"https://openalex.org/I4210144709\"],\"ror\":\"https://ror.org/05h1ry383\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Division of Nephrology, Wenzhou Central Hospital, The Dingli Clinical Institute of Wenzhou Medical University, Wenzhou, 325000, China\",\"School of Artificial Intelligence, Wenzhou Polytechnic, Wenzhou, 325000, Zhejiang, China; Faculty of Information and Communication Technology, Universiti Teknikal Malaysia Melaka, Melaka, Malaysia\"],\"raw_author_name\":\"Yajie Zhang\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I32589535\"],\"raw_affiliation_string\":\"Faculty of Information and Communication Technology, Universiti Teknikal Malaysia Melaka, Melaka, Malaysia\"}],\"author\":{\"display_name\":\"Hea Choon Ngo\",\"id\":\"https://openalex.org/A5088733948\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"middle\",\"countries\":[\"MY\"],\"institutions\":[{\"country_code\":\"MY\",\"display_name\":\"Universiti Teknikal Malaysia Melaka\",\"id\":\"https://openalex.org/I32589535\",\"lineage\":[\"https://openalex.org/I32589535\"],\"ror\":\"https://ror.org/01xb6rs26\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Faculty of Information and Communication Technology, Universiti Teknikal Malaysia Melaka, Melaka, Malaysia\"],\"raw_author_name\":\"Hea Choon Ngo\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I27781120\",\"https://openalex.org/I4210099759\"],\"raw_affiliation_string\":\"Division of Nephrology, Wenzhou Central Hospital, The Dingli Clinical Institute of Wenzhou Medical University, Wenzhou, 325000, China\"},{\"institution_ids\":[\"https://openalex.org/I32589535\",\"https://openalex.org/I4210144709\"],\"raw_affiliation_string\":\"School of Artificial Intelligence, Wenzhou Polytechnic, Wenzhou, 325000, Zhejiang, China; Faculty of Information and Communication Technology, Universiti Teknikal Malaysia Melaka, Melaka, Malaysia\"}],\"author\":{\"display_name\":\"Yifan Zhang\",\"id\":\"https://openalex.org/A5115591494\",\"observed_orcids\":[\"https://orcid.org/0000-0002-8046-4627\"],\"orcid\":\"https://orcid.org/0000-0002-8046-4627\"},\"author_position\":\"middle\",\"countries\":[\"CN\",\"MY\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Wenzhou Medical University\",\"id\":\"https://openalex.org/I27781120\",\"lineage\":[\"https://openalex.org/I27781120\"],\"ror\":\"https://ror.org/00rd5t069\",\"type\":\"education\"},{\"country_code\":\"MY\",\"display_name\":\"Universiti Teknikal Malaysia Melaka\",\"id\":\"https://openalex.org/I32589535\",\"lineage\":[\"https://openalex.org/I32589535\"],\"ror\":\"https://ror.org/01xb6rs26\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Wenzhou Central Hospital\",\"id\":\"https://openalex.org/I4210099759\",\"lineage\":[\"https://openalex.org/I4210099759\"],\"ror\":\"https://ror.org/00w5h0n54\",\"type\":\"healthcare\"},{\"country_code\":\"CN\",\"display_name\":\"Wenzhou Polytechnic\",\"id\":\"https://openalex.org/I4210144709\",\"lineage\":[\"https://openalex.org/I4210144709\"],\"ror\":\"https://ror.org/05h1ry383\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Division of Nephrology, Wenzhou Central Hospital, The Dingli Clinical Institute of Wenzhou Medical University, Wenzhou, 325000, China\",\"School of Artificial Intelligence, Wenzhou Polytechnic, Wenzhou, 325000, Zhejiang, China; Faculty of Information and Communication Technology, Universiti Teknikal Malaysia Melaka, Melaka, Malaysia\"],\"raw_author_name\":\"Yifan Zhang\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I32589535\"],\"raw_affiliation_string\":\"Faculty of Information and Communication Technology, Universiti Teknikal Malaysia Melaka, Melaka, Malaysia\"}],\"author\":{\"display_name\":\"Noor Fazilla Abd Yusof\",\"id\":\"https://openalex.org/A5007820406\",\"observed_orcids\":[\"https://orcid.org/0000-0001-6114-3900\"],\"orcid\":\"https://orcid.org/0000-0001-6114-3900\"},\"author_position\":\"middle\",\"countries\":[\"MY\"],\"institutions\":[{\"country_code\":\"MY\",\"display_name\":\"Universiti Teknikal Malaysia Melaka\",\"id\":\"https://openalex.org/I32589535\",\"lineage\":[\"https://openalex.org/I32589535\"],\"ror\":\"https://ror.org/01xb6rs26\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Faculty of Information and Communication Technology, Universiti Teknikal Malaysia Melaka, Melaka, Malaysia\"],\"raw_author_name\":\"Noor Fazilla Abd Yusof\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I27781120\",\"https://openalex.org/I4210099759\"],\"raw_affiliation_string\":\"Division of Nephrology, Wenzhou Central Hospital, The Dingli Clinical Institute of Wenzhou Medical University, Wenzhou, 325000, China\"}],\"author\":{\"display_name\":\"Xiaohan Wang\",\"id\":null,\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"last\",\"countries\":[\"CN\"],\"institutions\":[{\"country_code\":\"CN\",\"display_name\":\"Wenzhou Medical University\",\"id\":\"https://openalex.org/I27781120\",\"lineage\":[\"https://openalex.org/I27781120\"],\"ror\":\"https://ror.org/00rd5t069\",\"type\":\"education\"},{\"country_code\":\"CN\",\"display_name\":\"Wenzhou Central Hospital\",\"id\":\"https://openalex.org/I4210099759\",\"lineage\":[\"https://openalex.org/I4210099759\"],\"ror\":\"https://ror.org/00w5h0n54\",\"type\":\"healthcare\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Division of Nephrology, Wenzhou Central Hospital, The Dingli Clinical Institute of Wenzhou Medical University, Wenzhou, 325000, China\"],\"raw_author_name\":\"Xiaohan Wang\",\"raw_orcid\":null}],\"awards\":[],\"best_oa_location\":{\"doi\":\"https://doi.org/10.5755/j01.itc.53.4.37719\",\"id\":\"doi:10.5755/j01.itc.53.4.37719\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.5755/j01.itc.53.4.37719\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://itc.ktu.lt/index.php/ITC/article/download/37719/16739\",\"raw_source_name\":\"Information Technology and Control\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"Information Technology And Control\",\"host_organization\":\"https://openalex.org/P4310317509\",\"host_organization_lineage\":[\"https://openalex.org/P4310317509\"],\"host_organization_lineage_names\":[\"Kaunas University of Technology\"],\"host_organization_name\":\"Kaunas University of Technology\",\"id\":\"https://openalex.org/S61708620\",\"is_core\":true,\"is_in_doaj\":true,\"is_oa\":true,\"issn\":[\"1392-124X\",\"2335-884X\"],\"issn_l\":\"1392-124X\",\"listed_in\":[\"cwts-core\",\"doaj\",\"dongbi-d\",\"jufo-1\",\"norway-1\",\"oarl\",\"poland-40\",\"russia-white-list-3\"],\"type\":\"journal\"},\"version\":\"publishedVersion\"},\"biblio\":{\"first_page\":\"1074\",\"issue\":\"4\",\"last_page\":\"1087\",\"volume\":\"53\"},\"citation_normalized_percentile\":{\"is_in_top_10_percent\":false,\"is_in_top_1_percent\":false,\"value\":0.84196374},\"cited_by_count\":11,\"cited_by_percentile_year\":{\"max\":99,\"min\":93},\"concepts\":[{\"display_name\":\"Segmentation\",\"id\":\"https://openalex.org/C89600930\",\"level\":2,\"score\":0.822767972946167,\"wikidata\":\"https://www.wikidata.org/wiki/Q1423946\"},{\"display_name\":\"Computer science\",\"id\":\"https://openalex.org/C41008148\",\"level\":0,\"score\":0.7683733701705933,\"wikidata\":\"https://www.wikidata.org/wiki/Q21198\"},{\"display_name\":\"Artificial intelligence\",\"id\":\"https://openalex.org/C154945302\",\"level\":1,\"score\":0.6923720836639404,\"wikidata\":\"https://www.wikidata.org/wiki/Q11660\"},{\"display_name\":\"Pattern recognition (psychology)\",\"id\":\"https://openalex.org/C153180895\",\"level\":2,\"score\":0.554800271987915,\"wikidata\":\"https://www.wikidata.org/wiki/Q7148389\"},{\"display_name\":\"Image segmentation\",\"id\":\"https://openalex.org/C124504099\",\"level\":3,\"score\":0.5513505935668945,\"wikidata\":\"https://www.wikidata.org/wiki/Q56933\"},{\"display_name\":\"Scale-space segmentation\",\"id\":\"https://openalex.org/C65885262\",\"level\":4,\"score\":0.5273878574371338,\"wikidata\":\"https://www.wikidata.org/wiki/Q7429708\"},{\"display_name\":\"Context (archaeology)\",\"id\":\"https://openalex.org/C2779343474\",\"level\":2,\"score\":0.4905533194541931,\"wikidata\":\"https://www.wikidata.org/wiki/Q3109175\"},{\"display_name\":\"Segmentation-based object categorization\",\"id\":\"https://openalex.org/C25694479\",\"level\":5,\"score\":0.4839375615119934,\"wikidata\":\"https://www.wikidata.org/wiki/Q7446278\"},{\"display_name\":\"Deep learning\",\"id\":\"https://openalex.org/C108583219\",\"level\":2,\"score\":0.4449729025363922,\"wikidata\":\"https://www.wikidata.org/wiki/Q197536\"},{\"display_name\":\"Feature (linguistics)\",\"id\":\"https://openalex.org/C2776401178\",\"level\":2,\"score\":0.42103055119514465,\"wikidata\":\"https://www.wikidata.org/wiki/Q12050496\"},{\"display_name\":\"Computer vision\",\"id\":\"https://openalex.org/C31972630\",\"level\":1,\"score\":0.34457266330718994,\"wikidata\":\"https://www.wikidata.org/wiki/Q844240\"},{\"display_name\":\"Linguistics\",\"id\":\"https://openalex.org/C41895202\",\"level\":1,\"score\":0.0,\"wikidata\":\"https://www.wikidata.org/wiki/Q8162\"},{\"display_name\":\"Biology\",\"id\":\"https://openalex.org/C86803240\",\"level\":0,\"score\":0.0,\"wikidata\":\"https://www.wikidata.org/wiki/Q420\"},{\"display_name\":\"Paleontology\",\"id\":\"https://openalex.org/C151730666\",\"level\":1,\"score\":0.0,\"wikidata\":\"https://www.wikidata.org/wiki/Q7205\"},{\"display_name\":\"Philosophy\",\"id\":\"https://openalex.org/C138885662\",\"level\":0,\"score\":0.0,\"wikidata\":\"https://www.wikidata.org/wiki/Q5891\"}],\"content_urls\":{\"grobid_xml\":\"https://content.openalex.org/works/W4405673968.grobid-xml\",\"pdf\":\"https://content.openalex.org/works/W4405673968.pdf\"},\"corresponding_author_ids\":[],\"corresponding_institution_ids\":[],\"countries_distinct_count\":2,\"counts_by_year\":[{\"cited_by_count\":1,\"year\":2026},{\"cited_by_count\":10,\"year\":2025}],\"created_date\":\"2024-12-22T00:00:00\",\"display_name\":\"Imaging Segmentation of Brain Tumors Based on the Modified U-net Method\",\"doi\":\"https://doi.org/10.5755/j01.itc.53.4.37719\",\"funders\":[{\"display_name\":\"Wenzhou Municipal Science and Technology Bureau\",\"id\":\"https://openalex.org/F4320324224\",\"ror\":\"https://ror.org/02fr0s482\"}],\"fwci\":1.7184,\"has_content\":{\"grobid_xml\":true,\"pdf\":true},\"has_fulltext\":true,\"id\":\"https://openalex.org/W4405673968\",\"ids\":{\"doi\":\"https://doi.org/10.5755/j01.itc.53.4.37719\",\"openalex\":\"https://openalex.org/W4405673968\"},\"indexed_in\":[\"crossref\",\"doaj\"],\"institutions\":[],\"institutions_distinct_count\":4,\"is_paratext\":false,\"is_retracted\":false,\"is_xpac\":false,\"keywords\":[{\"display_name\":\"brain tumor segmentation\",\"id\":\"https://openalex.org/keywords/brain-tumor-segmentation\",\"score\":1.0},{\"display_name\":\"U-Net\",\"id\":\"https://openalex.org/keywords/u-net\",\"score\":0.699999988079071},{\"display_name\":\"attention mechanism\",\"id\":\"https://openalex.org/keywords/attention-mechanism\",\"score\":0.9900000095367432},{\"display_name\":\"multi-scale feature fusion\",\"id\":\"https://openalex.org/keywords/multiscale-feature-fusion\",\"score\":0.972000002861023},{\"display_name\":\"brain MRI\",\"id\":\"https://openalex.org/keywords/brain-mri\",\"score\":0.7350000143051147},{\"display_name\":\"medical image segmentation\",\"id\":\"https://openalex.org/keywords/medical-image-segmentation\",\"score\":0.753000020980835},{\"display_name\":\"BraTS 2019\",\"id\":\"https://openalex.org/keywords/brats-2019\",\"score\":0.7609999775886536},{\"display_name\":\"tumor subregions\",\"id\":\"https://openalex.org/keywords/tumor-subregions\",\"score\":0.671999990940094},{\"display_name\":\"data augmentation\",\"id\":\"https://openalex.org/keywords/data-augmentation\",\"score\":0.7279999852180481},{\"display_name\":\"cross-entropy loss\",\"id\":\"https://openalex.org/keywords/cross-entropy-loss\",\"score\":0.8410000205039978}],\"language\":\"en\",\"locations\":[{\"doi\":\"https://doi.org/10.5755/j01.itc.53.4.37719\",\"id\":\"doi:10.5755/j01.itc.53.4.37719\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.5755/j01.itc.53.4.37719\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://itc.ktu.lt/index.php/ITC/article/download/37719/16739\",\"raw_source_name\":\"Information Technology and Control\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"Information Technology And Control\",\"host_organization\":\"https://openalex.org/P4310317509\",\"host_organization_lineage\":[\"https://openalex.org/P4310317509\"],\"host_organization_lineage_names\":[\"Kaunas University of Technology\"],\"host_organization_name\":\"Kaunas University of Technology\",\"id\":\"https://openalex.org/S61708620\",\"is_core\":true,\"is_in_doaj\":true,\"is_oa\":true,\"issn\":[\"1392-124X\",\"2335-884X\"],\"issn_l\":\"1392-124X\",\"listed_in\":[\"cwts-core\",\"doaj\",\"dongbi-d\",\"jufo-1\",\"norway-1\",\"oarl\",\"poland-40\",\"russia-white-list-3\"],\"type\":\"journal\"},\"version\":\"publishedVersion\"}],\"locations_count\":1,\"mesh\":[],\"open_access\":{\"any_repository_has_fulltext\":false,\"is_oa\":true,\"oa_status\":\"gold\",\"oa_url\":\"https://itc.ktu.lt/index.php/ITC/article/download/37719/16739\"},\"primary_location\":{\"doi\":\"https://doi.org/10.5755/j01.itc.53.4.37719\",\"id\":\"doi:10.5755/j01.itc.53.4.37719\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.5755/j01.itc.53.4.37719\",\"license\":\"cc-by\",\"license_id\":\"https://openalex.org/licenses/cc-by\",\"pdf_url\":\"https://itc.ktu.lt/index.php/ITC/article/download/37719/16739\",\"raw_source_name\":\"Information Technology and Control\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"Information Technology And Control\",\"host_organization\":\"https://openalex.org/P4310317509\",\"host_organization_lineage\":[\"https://openalex.org/P4310317509\"],\"host_organization_lineage_names\":[\"Kaunas University of Technology\"],\"host_organization_name\":\"Kaunas University of Technology\",\"id\":\"https://openalex.org/S61708620\",\"is_core\":true,\"is_in_doaj\":true,\"is_oa\":true,\"issn\":[\"1392-124X\",\"2335-884X\"],\"issn_l\":\"1392-124X\",\"listed_in\":[\"cwts-core\",\"doaj\",\"dongbi-d\",\"jufo-1\",\"norway-1\",\"oarl\",\"poland-40\",\"russia-white-list-3\"],\"type\":\"journal\"},\"version\":\"publishedVersion\"},\"primary_topic\":{\"display_name\":\"Brain Tumor Detection and Classification\",\"domain\":{\"display_name\":\"Life Sciences\",\"id\":\"https://openalex.org/domains/1\"},\"field\":{\"display_name\":\"Neuroscience\",\"id\":\"https://openalex.org/fields/28\"},\"id\":\"https://openalex.org/T12702\",\"score\":0.98580002784729,\"subfield\":{\"display_name\":\"Neurology\",\"id\":\"https://openalex.org/subfields/2808\"}},\"publication_date\":\"2024-12-21\",\"publication_year\":2024,\"referenced_works\":[\"https://openalex.org/W1901129140\",\"https://openalex.org/W1910657905\",\"https://openalex.org/W1978503339\",\"https://openalex.org/W1987937542\",\"https://openalex.org/W2135465849\",\"https://openalex.org/W2366536035\",\"https://openalex.org/W2432481613\",\"https://openalex.org/W2526998669\",\"https://openalex.org/W2538556778\",\"https://openalex.org/W2769872337\"],\"referenced_works_count\":10,\"related_works\":[\"https://openalex.org/W4409961825\",\"https://openalex.org/W4391992053\",\"https://openalex.org/W7162397453\",\"https://openalex.org/W4312643851\",\"https://openalex.org/W4416157623\",\"https://openalex.org/W4408991758\",\"https://openalex.org/W7124878953\",\"https://openalex.org/W4416402485\",\"https://openalex.org/W4318570547\",\"https://openalex.org/W4388486492\"],\"relevance_score\":0.8259306,\"study_designs\":[],\"sustainable_development_goals\":[{\"display_name\":\"Good health and well-being\",\"id\":\"https://metadata.un.org/sdg/3\",\"score\":0.5683000087738037}],\"sustainable_development_goals_aurora\":[],\"title\":\"Imaging Segmentation of Brain Tumors Based on the Modified U-net Method\",\"topics\":[{\"display_name\":\"Brain Tumor Detection and Classification\",\"domain\":{\"display_name\":\"Life Sciences\",\"id\":\"https://openalex.org/domains/1\"},\"field\":{\"display_name\":\"Neuroscience\",\"id\":\"https://openalex.org/fields/28\"},\"id\":\"https://openalex.org/T12702\",\"score\":0.98580002784729,\"subfield\":{\"display_name\":\"Neurology\",\"id\":\"https://openalex.org/subfields/2808\"}},{\"display_name\":\"Medical Image Segmentation Techniques\",\"domain\":{\"display_name\":\"Physical Sciences\",\"id\":\"https://openalex.org/domains/3\"},\"field\":{\"display_name\":\"Computer Science\",\"id\":\"https://openalex.org/fields/17\"},\"id\":\"https://openalex.org/T10052\",\"score\":0.013899999670684338,\"subfield\":{\"display_name\":\"Computer Vision and Pattern Recognition\",\"id\":\"https://openalex.org/subfields/1707\"}},{\"display_name\":\"Advanced Neural Network Applications\",\"domain\":{\"display_name\":\"Physical Sciences\",\"id\":\"https://openalex.org/domains/3\"},\"field\":{\"display_name\":\"Computer Science\",\"id\":\"https://openalex.org/fields/17\"},\"id\":\"https://openalex.org/T10036\",\"score\":0.0,\"subfield\":{\"display_name\":\"Computer Vision and Pattern Recognition\",\"id\":\"https://openalex.org/subfields/1707\"}}],\"type\":\"article\",\"updated_date\":\"2026-10-29T09:56:32.521200\",\"volume\":null}",
+        "content_hash": "edac13a2eb4e140a47964c01480039de4419a9dfe7c98a0ec4c778165a171aad"
+      },
+      {
+        "openalex_id": "https://openalex.org/W7154888239",
+        "title": "A Comprehensive Review on Image Segmentation and Classification Algorithms for Tumor Detection in Smart Healthcare Systems",
+        "authors": [
+          "Kapil Shrivastava",
+          "Eirtty Telang",
+          "Rahat Naz",
+          "Prof. Sony Kumari",
+          "Avdhesh Kumar Tiwari",
+          "Allen Paul Esteban"
+        ],
+        "doi": "10.69888/ftshsl.2026.000593",
+        "journal": "FMDB Transactions on Sustainable Health Science Letters",
+        "publication_date": {
+          "precision": "day",
+          "raw": "2026-03-08",
+          "year": 2026,
+          "month": 3,
+          "day": 8
+        },
+        "abstract": "Recent innovations in imaging technologies have brought about improved benefits for smart health care systems in enabling earlier detection and diagnosis of tumors and other diseases through imaging techniques. To develop effective treatment guidelines, tumor images must be accurately and precisely segmented and classified. To overcome limitations in current tumor image segmentation and classification algorithms regarding high levels of computational overhead, low levels of accuracy, and inability to classify complex tumor architectures correctly, this paper proposes enhancements to current algorithms for smart health care tumor classification. In particular, this paper discusses a tumor image segmentation algorithm that combines thresholding and region-growing methods, designed to reduce the computational overhead of current tumor segmentation algorithms while increasing the accuracy of tumor region identification. In addition, this paper presents a novel approach to feature extraction that focuses on the textural and geometric characteristics of tumor areas segmented. Compared with earlier algorithms for segmentation and classification, the RBF kernel has improved the accuracy of both segmentation and classification when used in conjunction with SVMs for tumor image recognition. Furthermore, the RBF kernel has increased the SVM's ability to recognise complex structures in tumour images. Consequently, the speed of determining whether a person has a tumour has increased, enabling patients to receive care earlier.",
+        "abstract_status": "available",
+        "work_type": "article",
+        "is_retracted": false,
+        "open_access": {
+          "is_oa": true,
+          "oa_status": "bronze",
+          "oa_url": "https://www.fmdbpub.com/uploads/articles/17831462874__FTSHSL-593-2026.pdf",
+          "any_repository_has_fulltext": false
+        },
+        "locations": [
+          {
+            "id": "doi:10.69888/ftshsl.2026.000593",
+            "doi": "https://doi.org/10.69888/ftshsl.2026.000593",
+            "is_oa": true,
+            "landing_page_url": "https://doi.org/10.69888/ftshsl.2026.000593",
+            "pdf_url": "https://www.fmdbpub.com/uploads/articles/17831462874__FTSHSL-593-2026.pdf",
+            "source": {
+              "id": "https://openalex.org/S5407042280",
+              "display_name": "FMDB Transactions on Sustainable Health Science Letters",
+              "issn_l": "2993-6896",
+              "issn": [
+                "2993-6896"
+              ],
+              "is_oa": false,
+              "is_in_doaj": false,
+              "is_core": false,
+              "listed_in": [],
+              "host_organization": null,
+              "host_organization_name": null,
+              "host_organization_lineage": [],
+              "host_organization_lineage_names": [],
+              "type": "journal"
+            },
+            "license": null,
+            "license_id": null,
+            "version": "publishedVersion",
+            "is_accepted": true,
+            "is_published": true,
+            "raw_source_name": "FMDB Transactions on Sustainable Health Science Letters",
+            "raw_type": "journal-article"
+          }
+        ],
+        "best_oa_location": {
+          "id": "doi:10.69888/ftshsl.2026.000593",
+          "doi": "https://doi.org/10.69888/ftshsl.2026.000593",
+          "is_oa": true,
+          "landing_page_url": "https://doi.org/10.69888/ftshsl.2026.000593",
+          "pdf_url": "https://www.fmdbpub.com/uploads/articles/17831462874__FTSHSL-593-2026.pdf",
+          "source": {
+            "id": "https://openalex.org/S5407042280",
+            "display_name": "FMDB Transactions on Sustainable Health Science Letters",
+            "issn_l": "2993-6896",
+            "issn": [
+              "2993-6896"
+            ],
+            "is_oa": false,
+            "is_in_doaj": false,
+            "is_core": false,
+            "listed_in": [],
+            "host_organization": null,
+            "host_organization_name": null,
+            "host_organization_lineage": [],
+            "host_organization_lineage_names": [],
+            "type": "journal"
+          },
+          "license": null,
+          "license_id": null,
+          "version": "publishedVersion",
+          "is_accepted": true,
+          "is_published": true,
+          "raw_source_name": "FMDB Transactions on Sustainable Health Science Letters",
+          "raw_type": "journal-article"
+        },
+        "snapshot_json": "{\"abstract_inverted_index\":{\"Compared\":[144],\"Consequently,\":[190],\"Furthermore,\":[174],\"In\":[86,121],\"RBF\":[153,176],\"Recent\":[0],\"SVM's\":[181],\"SVMs\":[169],\"To\":[29,44],\"a\":[91,126,196,199],\"ability\":[182],\"about\":[7],\"accuracy\":[116,158],\"accuracy,\":[64],\"accurately\":[38],\"addition,\":[122],\"algorithm\":[95],\"algorithms\":[54,79,112,147],\"and\":[19,23,39,42,52,65,99,137,150,162],\"approach\":[128],\"architectures\":[71],\"areas\":[142],\"be\":[37],\"benefits\":[9],\"both\":[160],\"brought\":[6],\"care\":[13,83,207],\"characteristics\":[139],\"classification\":[53,163],\"classification,\":[151],\"classification.\":[85],\"classified.\":[43],\"classify\":[68],\"combines\":[97],\"complex\":[69,185],\"computational\":[59,106],\"conjunction\":[167],\"correctly,\":[72],\"current\":[48,78,109],\"designed\":[102],\"detection\":[18],\"determining\":[194],\"develop\":[30],\"diagnosis\":[20],\"discusses\":[90],\"diseases\":[25],\"earlier\":[17,146],\"earlier.\":[208],\"effective\":[31],\"enabling\":[16,203],\"enhancements\":[76],\"extraction\":[131],\"feature\":[130],\"focuses\":[133],\"for\":[10,80,148,170],\"geometric\":[138],\"guidelines,\":[33],\"has\":[155,178,198,201],\"have\":[5],\"health\":[12,82],\"high\":[56],\"identification.\":[120],\"image\":[50,93,172],\"images\":[35],\"images.\":[189],\"imaging\":[3,27],\"improved\":[8,156],\"in\":[2,15,47,166,187],\"inability\":[66],\"increased\":[179],\"increased,\":[202],\"increasing\":[114],\"innovations\":[1],\"kernel\":[154,177],\"levels\":[57,62],\"limitations\":[46],\"low\":[61],\"methods,\":[101],\"must\":[36],\"novel\":[127],\"of\":[21,58,63,108,117,140,159,193],\"on\":[134],\"other\":[24],\"overcome\":[45],\"overhead\":[107],\"overhead,\":[60],\"paper\":[74,89,124],\"particular,\":[87],\"patients\":[204],\"person\":[197],\"precisely\":[40],\"presents\":[125],\"proposes\":[75],\"receive\":[206],\"recognise\":[184],\"recognition.\":[173],\"reduce\":[104],\"regarding\":[55],\"region\":[119],\"region-growing\":[100],\"segmentation\":[51,94,111,149,161],\"segmented\":[41],\"segmented.\":[143],\"smart\":[11,81],\"speed\":[192],\"structures\":[186],\"systems\":[14],\"techniques.\":[28],\"technologies\":[4],\"textural\":[136],\"that\":[96,132],\"the\":[105,115,135,152,157,175,180,191],\"this\":[73,88,123],\"thresholding\":[98],\"through\":[26],\"to\":[67,77,103,129,183,205],\"treatment\":[32],\"tumor\":[34,49,70,84,92,110,118,141,171],\"tumors\":[22],\"tumour\":[188,200],\"used\":[165],\"when\":[164],\"whether\":[195],\"while\":[113],\"with\":[145,168]},\"apc_list\":null,\"apc_paid\":null,\"authorships\":[{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I82571370\"],\"raw_affiliation_string\":\"Department of Computer Engineering and Applications , GLA University Mathura , Mathura , Uttar Pradesh , India\"}],\"author\":{\"display_name\":\"Kapil Shrivastava\",\"id\":\"https://openalex.org/A5071099051\",\"observed_orcids\":[\"https://orcid.org/0009-0008-1661-5786\",\"https://orcid.org/0000-0002-8777-3721\"],\"orcid\":\"https://orcid.org/0009-0008-1661-5786\"},\"author_position\":\"first\",\"countries\":[\"IN\"],\"institutions\":[{\"country_code\":\"IN\",\"display_name\":\"GLA University\",\"id\":\"https://openalex.org/I82571370\",\"lineage\":[\"https://openalex.org/I82571370\"],\"ror\":\"https://ror.org/05fnxgv12\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Computer Engineering and Applications , GLA University Mathura , Mathura , Uttar Pradesh , India\"],\"raw_author_name\":\"Kapil Shrivastava\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[],\"raw_affiliation_string\":\"Department of Computer Science and Engineering and Applications , Delhi Technical Campus , Gautam Budh Nagar , Uttar Pradesh , India\"}],\"author\":{\"display_name\":\"Eirtty Telang\",\"id\":\"https://openalex.org/A5133982929\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"middle\",\"countries\":[],\"institutions\":[],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Computer Science and Engineering and Applications , Delhi Technical Campus , Gautam Budh Nagar , Uttar Pradesh , India\"],\"raw_author_name\":\"Eirtty Telang\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I5847235\"],\"raw_affiliation_string\":\"National School of Computer Science , University of Petroleum and Energy Studies , Dehradun , Uttarakhand , India\"}],\"author\":{\"display_name\":\"Rahat Naz\",\"id\":\"https://openalex.org/A5093760966\",\"observed_orcids\":[\"https://orcid.org/0009-0008-9522-6091\"],\"orcid\":\"https://orcid.org/0009-0008-9522-6091\"},\"author_position\":\"middle\",\"countries\":[\"IN\"],\"institutions\":[{\"country_code\":\"IN\",\"display_name\":\"University of Petroleum and Energy Studies\",\"id\":\"https://openalex.org/I5847235\",\"lineage\":[\"https://openalex.org/I5847235\"],\"ror\":\"https://ror.org/04q2jes40\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"National School of Computer Science , University of Petroleum and Energy Studies , Dehradun , Uttarakhand , India\"],\"raw_author_name\":\"Rahat Naz\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I4387154809\"],\"raw_affiliation_string\":\"Department of Computer Science and Engineering -Artificial Intelligence and Machine Learning , ABES Engineering College , Ghaziabad , Uttar Pradesh , India\"}],\"author\":{\"display_name\":\"Prof. Sony Kumari\",\"id\":\"https://openalex.org/A5114168981\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"middle\",\"countries\":[\"IN\"],\"institutions\":[{\"country_code\":\"IN\",\"display_name\":\"ABES Engineering College\",\"id\":\"https://openalex.org/I4387154809\",\"lineage\":[\"https://openalex.org/I4387154809\"],\"ror\":\"https://ror.org/04hp0cf98\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Computer Science and Engineering -Artificial Intelligence and Machine Learning , ABES Engineering College , Ghaziabad , Uttar Pradesh , India\"],\"raw_author_name\":\"Sony Kumari\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I4387154809\"],\"raw_affiliation_string\":\"Department of Computer Science and Engineering , ABES Institute of Technology , Ghaziabad , Uttar Pradesh , India\"}],\"author\":{\"display_name\":\"Avdhesh Kumar Tiwari\",\"id\":\"https://openalex.org/A5151897919\",\"observed_orcids\":[],\"orcid\":null},\"author_position\":\"middle\",\"countries\":[\"IN\"],\"institutions\":[{\"country_code\":\"IN\",\"display_name\":\"ABES Engineering College\",\"id\":\"https://openalex.org/I4387154809\",\"lineage\":[\"https://openalex.org/I4387154809\"],\"ror\":\"https://ror.org/04hp0cf98\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Computer Science and Engineering , ABES Institute of Technology , Ghaziabad , Uttar Pradesh , India\"],\"raw_author_name\":\"Avdhesh Kumar Tiwari\",\"raw_orcid\":null},{\"affiliations\":[{\"institution_ids\":[\"https://openalex.org/I3131059265\"],\"raw_affiliation_string\":\"Department of Graduate School Research Unit , Nueva Ecija University of Science and Technology , Cabanatuan , Nueva Ecija , Philippines\"}],\"author\":{\"display_name\":\"Allen Paul Esteban\",\"id\":\"https://openalex.org/A5012408154\",\"observed_orcids\":[\"https://orcid.org/0000-0003-2114-0339\"],\"orcid\":\"https://orcid.org/0000-0003-2114-0339\"},\"author_position\":\"last\",\"countries\":[\"PH\"],\"institutions\":[{\"country_code\":\"PH\",\"display_name\":\"Nueva Ecija University of Science and Technology\",\"id\":\"https://openalex.org/I3131059265\",\"lineage\":[\"https://openalex.org/I3131059265\"],\"ror\":\"https://ror.org/056vtz595\",\"type\":\"education\"}],\"is_corresponding\":false,\"raw_affiliation_strings\":[\"Department of Graduate School Research Unit , Nueva Ecija University of Science and Technology , Cabanatuan , Nueva Ecija , Philippines\"],\"raw_author_name\":\"Allen Paul Esteban\",\"raw_orcid\":null}],\"awards\":[],\"best_oa_location\":{\"doi\":\"https://doi.org/10.69888/ftshsl.2026.000593\",\"id\":\"doi:10.69888/ftshsl.2026.000593\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.69888/ftshsl.2026.000593\",\"license\":null,\"license_id\":null,\"pdf_url\":\"https://www.fmdbpub.com/uploads/articles/17831462874__FTSHSL-593-2026.pdf\",\"raw_source_name\":\"FMDB Transactions on Sustainable Health Science Letters\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"FMDB Transactions on Sustainable Health Science Letters\",\"host_organization\":null,\"host_organization_lineage\":[],\"host_organization_lineage_names\":[],\"host_organization_name\":null,\"id\":\"https://openalex.org/S5407042280\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":false,\"issn\":[\"2993-6896\"],\"issn_l\":\"2993-6896\",\"listed_in\":[],\"type\":\"journal\"},\"version\":\"publishedVersion\"},\"biblio\":{\"first_page\":\"31\",\"issue\":\"1\",\"last_page\":\"58\",\"volume\":\"4\"},\"citation_normalized_percentile\":{\"is_in_top_10_percent\":true,\"is_in_top_1_percent\":false,\"value\":0.90195514},\"cited_by_count\":1,\"cited_by_percentile_year\":{\"max\":96,\"min\":93},\"concepts\":[{\"display_name\":\"Computer science\",\"id\":\"https://openalex.org/C41008148\",\"level\":0,\"score\":0.6909999847412109,\"wikidata\":\"https://www.wikidata.org/wiki/Q21198\"},{\"display_name\":\"Segmentation\",\"id\":\"https://openalex.org/C89600930\",\"level\":2,\"score\":0.6438999772071838,\"wikidata\":\"https://www.wikidata.org/wiki/Q1423946\"},{\"display_name\":\"Artificial intelligence\",\"id\":\"https://openalex.org/C154945302\",\"level\":1,\"score\":0.6371999979019165,\"wikidata\":\"https://www.wikidata.org/wiki/Q11660\"},{\"display_name\":\"Thresholding\",\"id\":\"https://openalex.org/C191178318\",\"level\":3,\"score\":0.6205999851226807,\"wikidata\":\"https://www.wikidata.org/wiki/Q2256906\"},{\"display_name\":\"Support vector machine\",\"id\":\"https://openalex.org/C12267149\",\"level\":2,\"score\":0.5857999920845032,\"wikidata\":\"https://www.wikidata.org/wiki/Q282453\"},{\"display_name\":\"Image segmentation\",\"id\":\"https://openalex.org/C124504099\",\"level\":3,\"score\":0.5605999827384949,\"wikidata\":\"https://www.wikidata.org/wiki/Q56933\"},{\"display_name\":\"Feature extraction\",\"id\":\"https://openalex.org/C52622490\",\"level\":2,\"score\":0.5184999704360962,\"wikidata\":\"https://www.wikidata.org/wiki/Q1026626\"},{\"display_name\":\"Kernel (algebra)\",\"id\":\"https://openalex.org/C74193536\",\"level\":2,\"score\":0.5182999968528748,\"wikidata\":\"https://www.wikidata.org/wiki/Q574844\"},{\"display_name\":\"Feature (linguistics)\",\"id\":\"https://openalex.org/C2776401178\",\"level\":2,\"score\":0.4138000011444092,\"wikidata\":\"https://www.wikidata.org/wiki/Q12050496\"},{\"display_name\":\"Pattern recognition (psychology)\",\"id\":\"https://openalex.org/C153180895\",\"level\":2,\"score\":0.4106999933719635,\"wikidata\":\"https://www.wikidata.org/wiki/Q7148389\"},{\"display_name\":\"Contextual image classification\",\"id\":\"https://openalex.org/C75294576\",\"level\":3,\"score\":0.38530001044273376,\"wikidata\":\"https://www.wikidata.org/wiki/Q5165192\"},{\"display_name\":\"Statistical classification\",\"id\":\"https://openalex.org/C110083411\",\"level\":2,\"score\":0.3741999864578247,\"wikidata\":\"https://www.wikidata.org/wiki/Q1744628\"},{\"display_name\":\"Machine learning\",\"id\":\"https://openalex.org/C119857082\",\"level\":1,\"score\":0.35839998722076416,\"wikidata\":\"https://www.wikidata.org/wiki/Q2539\"},{\"display_name\":\"Medical imaging\",\"id\":\"https://openalex.org/C31601959\",\"level\":2,\"score\":0.35530000925064087,\"wikidata\":\"https://www.wikidata.org/wiki/Q931309\"},{\"display_name\":\"Computational complexity theory\",\"id\":\"https://openalex.org/C179799912\",\"level\":2,\"score\":0.3547999858856201,\"wikidata\":\"https://www.wikidata.org/wiki/Q205084\"},{\"display_name\":\"Computer vision\",\"id\":\"https://openalex.org/C31972630\",\"level\":1,\"score\":0.352400004863739,\"wikidata\":\"https://www.wikidata.org/wiki/Q844240\"},{\"display_name\":\"Scale-space segmentation\",\"id\":\"https://openalex.org/C65885262\",\"level\":4,\"score\":0.34209999442100525,\"wikidata\":\"https://www.wikidata.org/wiki/Q7429708\"},{\"display_name\":\"Overhead (engineering)\",\"id\":\"https://openalex.org/C2779960059\",\"level\":2,\"score\":0.3199000060558319,\"wikidata\":\"https://www.wikidata.org/wiki/Q7113681\"},{\"display_name\":\"Segmentation-based object categorization\",\"id\":\"https://openalex.org/C25694479\",\"level\":5,\"score\":0.28459998965263367,\"wikidata\":\"https://www.wikidata.org/wiki/Q7446278\"},{\"display_name\":\"Automation\",\"id\":\"https://openalex.org/C115901376\",\"level\":2,\"score\":0.2793000042438507,\"wikidata\":\"https://www.wikidata.org/wiki/Q184199\"},{\"display_name\":\"Algorithm\",\"id\":\"https://openalex.org/C11413529\",\"level\":1,\"score\":0.27410000562667847,\"wikidata\":\"https://www.wikidata.org/wiki/Q8366\"},{\"display_name\":\"Image (mathematics)\",\"id\":\"https://openalex.org/C115961682\",\"level\":2,\"score\":0.2727999985218048,\"wikidata\":\"https://www.wikidata.org/wiki/Q860623\"},{\"display_name\":\"Soft computing\",\"id\":\"https://openalex.org/C140073362\",\"level\":3,\"score\":0.2678999900817871,\"wikidata\":\"https://www.wikidata.org/wiki/Q738759\"},{\"display_name\":\"Market segmentation\",\"id\":\"https://openalex.org/C125308379\",\"level\":2,\"score\":0.25870001316070557,\"wikidata\":\"https://www.wikidata.org/wiki/Q363057\"},{\"display_name\":\"Noise (video)\",\"id\":\"https://openalex.org/C99498987\",\"level\":3,\"score\":0.2574999928474426,\"wikidata\":\"https://www.wikidata.org/wiki/Q2210247\"},{\"display_name\":\"Image processing\",\"id\":\"https://openalex.org/C9417928\",\"level\":3,\"score\":0.25380000472068787,\"wikidata\":\"https://www.wikidata.org/wiki/Q1070689\"}],\"content_urls\":{\"grobid_xml\":\"https://content.openalex.org/works/W7154888239.grobid-xml\",\"pdf\":\"https://content.openalex.org/works/W7154888239.pdf\"},\"corresponding_author_ids\":[],\"corresponding_institution_ids\":[],\"countries_distinct_count\":2,\"counts_by_year\":[{\"cited_by_count\":1,\"year\":2026}],\"created_date\":\"2026-04-20T00:00:00\",\"display_name\":\"A Comprehensive Review on Image Segmentation and Classification Algorithms for Tumor Detection in Smart Healthcare Systems\",\"doi\":\"https://doi.org/10.69888/ftshsl.2026.000593\",\"funders\":[{\"display_name\":\"University of Petroleum and Energy Studies\",\"id\":\"https://openalex.org/F4320317506\",\"ror\":\"https://ror.org/04q2jes40\"},{\"display_name\":\"GLA University\",\"id\":\"https://openalex.org/F4320318033\",\"ror\":\"https://ror.org/05fnxgv12\"}],\"fwci\":2.8339,\"has_content\":{\"grobid_xml\":true,\"pdf\":true},\"has_fulltext\":true,\"id\":\"https://openalex.org/W7154888239\",\"ids\":{\"doi\":\"https://doi.org/10.69888/ftshsl.2026.000593\",\"openalex\":\"https://openalex.org/W7154888239\"},\"indexed_in\":[\"crossref\"],\"institutions\":[],\"institutions_distinct_count\":4,\"is_paratext\":false,\"is_retracted\":false,\"is_xpac\":false,\"keywords\":[{\"display_name\":\"tumor detection\",\"id\":\"https://openalex.org/keywords/tumor-detection\",\"score\":0.9070000052452087},{\"display_name\":\"tumor classification\",\"id\":\"https://openalex.org/keywords/tumor-classification\",\"score\":0.8299999833106995},{\"display_name\":\"smart healthcare\",\"id\":\"https://openalex.org/keywords/smart-healthcare\",\"score\":0.7080000042915344},{\"display_name\":\"thresholding\",\"id\":\"https://openalex.org/keywords/thresholding\",\"score\":0.9369999766349792},{\"display_name\":\"region growing\",\"id\":\"https://openalex.org/keywords/region-growing\",\"score\":0.796999990940094},{\"display_name\":\"feature extraction\",\"id\":\"https://openalex.org/keywords/feature-extraction\",\"score\":0.8330000042915344},{\"display_name\":\"textural properties\",\"id\":\"https://openalex.org/keywords/textural-properties\",\"score\":0.8759999871253967},{\"display_name\":\"geometric features\",\"id\":\"https://openalex.org/keywords/geometric-features\",\"score\":0.9419999718666077},{\"display_name\":\"Gaussian kernel\",\"id\":\"https://openalex.org/keywords/gaussian-kernel\",\"score\":0.9580000042915344},{\"display_name\":\"support vector machine\",\"id\":\"https://openalex.org/keywords/support-vector-machine\",\"score\":0.9710000157356262},{\"display_name\":\"early cancer detection\",\"id\":\"https://openalex.org/keywords/early-cancer-detection\",\"score\":0.6019999980926514}],\"language\":\"en\",\"locations\":[{\"doi\":\"https://doi.org/10.69888/ftshsl.2026.000593\",\"id\":\"doi:10.69888/ftshsl.2026.000593\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.69888/ftshsl.2026.000593\",\"license\":null,\"license_id\":null,\"pdf_url\":\"https://www.fmdbpub.com/uploads/articles/17831462874__FTSHSL-593-2026.pdf\",\"raw_source_name\":\"FMDB Transactions on Sustainable Health Science Letters\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"FMDB Transactions on Sustainable Health Science Letters\",\"host_organization\":null,\"host_organization_lineage\":[],\"host_organization_lineage_names\":[],\"host_organization_name\":null,\"id\":\"https://openalex.org/S5407042280\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":false,\"issn\":[\"2993-6896\"],\"issn_l\":\"2993-6896\",\"listed_in\":[],\"type\":\"journal\"},\"version\":\"publishedVersion\"}],\"locations_count\":1,\"mesh\":[],\"open_access\":{\"any_repository_has_fulltext\":false,\"is_oa\":true,\"oa_status\":\"bronze\",\"oa_url\":\"https://www.fmdbpub.com/uploads/articles/17831462874__FTSHSL-593-2026.pdf\"},\"primary_location\":{\"doi\":\"https://doi.org/10.69888/ftshsl.2026.000593\",\"id\":\"doi:10.69888/ftshsl.2026.000593\",\"is_accepted\":true,\"is_oa\":true,\"is_published\":true,\"landing_page_url\":\"https://doi.org/10.69888/ftshsl.2026.000593\",\"license\":null,\"license_id\":null,\"pdf_url\":\"https://www.fmdbpub.com/uploads/articles/17831462874__FTSHSL-593-2026.pdf\",\"raw_source_name\":\"FMDB Transactions on Sustainable Health Science Letters\",\"raw_type\":\"journal-article\",\"source\":{\"display_name\":\"FMDB Transactions on Sustainable Health Science Letters\",\"host_organization\":null,\"host_organization_lineage\":[],\"host_organization_lineage_names\":[],\"host_organization_name\":null,\"id\":\"https://openalex.org/S5407042280\",\"is_core\":false,\"is_in_doaj\":false,\"is_oa\":false,\"issn\":[\"2993-6896\"],\"issn_l\":\"2993-6896\",\"listed_in\":[],\"type\":\"journal\"},\"version\":\"publishedVersion\"},\"primary_topic\":{\"display_name\":\"Medical Image Segmentation Techniques\",\"domain\":{\"display_name\":\"Physical Sciences\",\"id\":\"https://openalex.org/domains/3\"},\"field\":{\"display_name\":\"Computer Science\",\"id\":\"https://openalex.org/fields/17\"},\"id\":\"https://openalex.org/T10052\",\"score\":0.6973000168800354,\"subfield\":{\"display_name\":\"Computer Vision and Pattern Recognition\",\"id\":\"https://openalex.org/subfields/1707\"}},\"publication_date\":\"2026-03-08\",\"publication_year\":2026,\"referenced_works\":[],\"referenced_works_count\":0,\"related_works\":[\"https://openalex.org/W2623519971\",\"https://openalex.org/W4394717951\",\"https://openalex.org/W3203176533\",\"https://openalex.org/W2105849787\",\"https://openalex.org/W4399367384\",\"https://openalex.org/W2513902381\",\"https://openalex.org/W2869733044\",\"https://openalex.org/W2129030491\",\"https://openalex.org/W4210375186\",\"https://openalex.org/W4388645720\"],\"relevance_score\":0.64924467,\"study_designs\":[],\"sustainable_development_goals\":[{\"display_name\":\"Good health and well-being\",\"id\":\"https://metadata.un.org/sdg/3\",\"score\":0.9391000270843506}],\"sustainable_development_goals_aurora\":[],\"title\":\"A Comprehensive Review on Image Segmentation and Classification Algorithms for Tumor Detection in Smart Healthcare Systems\",\"topics\":[{\"display_name\":\"Medical Image Segmentation Techniques\",\"domain\":{\"display_name\":\"Physical Sciences\",\"id\":\"https://openalex.org/domains/3\"},\"field\":{\"display_name\":\"Computer Science\",\"id\":\"https://openalex.org/fields/17\"},\"id\":\"https://openalex.org/T10052\",\"score\":0.6973000168800354,\"subfield\":{\"display_name\":\"Computer Vision and Pattern Recognition\",\"id\":\"https://openalex.org/subfields/1707\"}},{\"display_name\":\"AI in cancer detection\",\"domain\":{\"display_name\":\"Physical Sciences\",\"id\":\"https://openalex.org/domains/3\"},\"field\":{\"display_name\":\"Computer Science\",\"id\":\"https://openalex.org/fields/17\"},\"id\":\"https://openalex.org/T10862\",\"score\":0.2800000011920929,\"subfield\":{\"display_name\":\"Artificial Intelligence\",\"id\":\"https://openalex.org/subfields/1702\"}},{\"display_name\":\"Brain Tumor Detection and Classification\",\"domain\":{\"display_name\":\"Life Sciences\",\"id\":\"https://openalex.org/domains/1\"},\"field\":{\"display_name\":\"Neuroscience\",\"id\":\"https://openalex.org/fields/28\"},\"id\":\"https://openalex.org/T12702\",\"score\":0.01720000058412552,\"subfield\":{\"display_name\":\"Neurology\",\"id\":\"https://openalex.org/subfields/2808\"}}],\"type\":\"article\",\"updated_date\":\"2026-10-29T09:56:32.521200\",\"volume\":null}",
+        "content_hash": "6905028b3e9b0d6a6952c94eda5a54bfef08c475f8d100efa1632860f2b542f2"
+      }
+    ]
+  },
+  "generated_at": "2026-10-29T12:57:35.758768Z"
+}

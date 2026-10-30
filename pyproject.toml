@@ -34,6 +34,7 @@ api = [
     "httpx==0.28.1",
 ]
 rag = [
+    "llama-index-core==0.14.22",
     "langchain-core==1.7.0",
     "langchain-openai==1.7.3",
     "langgraph==1.2.17",

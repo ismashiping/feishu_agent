@@ -1,0 +1,18 @@
+{
+  "LLM_API_KEY": {
+    "env_present": false,
+    "file_present": false
+  },
+  "LLM_BASE_URL": {
+    "env_present": false,
+    "file_present": false
+  },
+  "LLM_MODEL": {
+    "env_present": false,
+    "file_present": false
+  },
+  "CLINICAL_AGENT_DB_PASSWORD": {
+    "env_present": false,
+    "file_present": false
+  }
+}

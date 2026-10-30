@@ -1,0 +1,25 @@
+{
+  "started_at": "2026-10-27T19:33:19.767420+00:00",
+  "model": "deepseek-chat",
+  "max_calls": 6,
+  "max_output_tokens_per_call": 4096,
+  "runs": [
+    {
+      "id": "blood-pressure",
+      "idea": "在无糖尿病的高心血管风险成人中，比较强化与标准降压目标的心血管获益和急性肾损伤风险。",
+      "scope": "online",
+      "top_k": 1,
+      "planning_mode": "replay_validated_real_model_response_3_not_fresh_e2e",
+      "paid_calls_before": 4,
+      "status": "failed",
+      "error_type": "ResearchError",
+      "error_code": "model_output_invalid",
+      "paid_calls_used": 1,
+      "seconds": 15.47
+    }
+  ],
+  "medical_human_review": "pending",
+  "local_database": "unavailable; not replaced by a fake",
+  "paid_calls_total": 5,
+  "finished_at": "2026-10-27T19:33:39.844324+00:00"
+}

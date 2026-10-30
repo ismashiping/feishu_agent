@@ -57,6 +57,23 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
     def handler(request):
         context = json.loads(json.loads(request.content)["messages"][1]["content"])
         calls.append(context)
+        if "evidence" not in context:
+            raw = json.dumps(
+                {
+                    "question_type": "other",
+                    "pico": dict.fromkeys(["population", "intervention", "comparison", "outcome"]),
+                    "terms": [],
+                    "ambiguities": [],
+                }
+            )
+            return httpx.Response(
+                200,
+                json={
+                    "choices": [
+                        {"finish_reason": "stop", "message": {"role": "assistant", "content": raw}}
+                    ]
+                },
+            )
         raw = json.dumps(
             {
                 "claims": [
@@ -155,6 +172,7 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
                 response = client.post(
                     "/v1/questions",
                     json={
+                        "scope": "local",
                         "question": "What limits does this fictional example have?",
                         "options": {"top_k": 2, "min_similarity": -1},
                     },
@@ -168,7 +186,7 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
                 assert answer["claims"][0]["evidence_chunk_ids"][0] in {
                     item["chunk_id"] for source in answer["sources"] for item in source["evidence"]
                 }
-                assert "source_uri" not in response.text and len(loaded) == len(calls) == 1
+                assert "source_uri" not in response.text and len(loaded) == 1 and len(calls) == 2
                 with engine.connect() as connection:
                     documents = connection.scalar(select(func.count()).select_from(DocumentRecord))
                     chunks = connection.scalar(select(func.count()).select_from(ChunkRecord))

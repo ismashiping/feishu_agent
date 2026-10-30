@@ -1,0 +1,47 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+__ test_repeated_limits_are_grouped_without_losing_specific_limits_or_audit ___
+
+    def test_repeated_limits_are_grouped_without_losing_specific_limits_or_audit():
+        dto = answer(answered=True)
+        dto.claims[0].limitations = ["样本量小", "仅单中心"]
+        dto.claims.append(dto.claims[0].model_copy(deep=True, update={"claim_id": "c2"}))
+        dto.limitations = [*BASE_LIMITATIONS, "样本量小", "部分来源仅包含摘要，不能视为已阅读全文。"]
+        before = dto.model_dump_json()
+        text = render_answer(dto)
+>       assert text.count("样本量小") == 1
+E       assert 3 == 1
+E        +  where 3 = <built-in method count of str object at 0x0000023518035950>('样本量小')
+E        +    where <built-in method count of str object at 0x0000023518035950> = '推断：合成结论 [1]\n局限：样本量小；仅单中心\n\n推断：合成结论 [1]\n局限：样本量小；仅单中心\n\n参考文献\n[1] 合成＜at user_id="all"＞题目＜/at＞（2024）\n摘要（未阅读全文）；PMID...系，需人工复核。\n局限：本结果用于医学科研辅助，不用于个体诊断或治疗决策。\n局限：样本量小\n局限：部分来源仅包含摘要，不能视为已阅读全文。\n仅检索本地已导入文献，不保证覆盖最新或全部研究；用于科研辅助，不用于个体诊断或治疗决策。'.count
+
+tests\unit\test_answer_synthesis.py:16: AssertionError
+_______ test_full_text_locator_and_both_trusted_identifiers_are_visible _______
+
+    def test_full_text_locator_and_both_trusted_identifiers_are_visible():
+        dto = answer(answered=True)
+        dto.sources[0].content_scope = "full_text"
+        dto.sources[0].evidence[0].location = dict(
+            kind="pdf_page", page=3, section="Methods", start=12, end=31
+        )
+        text = render_answer(dto)
+>       assert "第3页" in text and "Methods" in text and "[12,31)" in text
+E       assert ('第3页' in '推断：合成结论 [1]\n局限：结论局限\n\n参考文献\n[1] 合成＜at user_id="all"＞题目＜/at＞（2024）\n全文来源；PMID：123456\nhttps://pubmed.ncbi.nlm.nih.gov/123456/\n局限：全局局限\n仅检索本地已导入文献，不保证覆盖最新或全部研究；用于科研辅助，不用于个体诊断或治疗决策。')
+
+tests\unit\test_answer_synthesis.py:33: AssertionError
+________ test_generation_policy_requires_task_alignment_and_synthesis _________
+
+    def test_generation_policy_requires_task_alignment_and_synthesis():
+        # Policy presence only: this cannot demonstrate a model follows the policy.
+        for instruction in [
+            "first claim", "unit of analysis", "Synthesize", "single-paper",
+            "research gaps", "Do not repeat", "No fixed number",
+        ]:
+>           assert instruction in INSTRUCTIONS
+E           assert 'first claim' in "You are a medical literature research assistant, not a diagnostic system.\nUse only the supplied evidence. Question a...f irrelevant studies.\nDo not prescribe individual treatment. Answer in the question's language. No markdown fences.\n"
+
+tests\unit\test_answer_synthesis.py:44: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_answer_synthesis.py::test_repeated_limits_are_grouped_without_losing_specific_limits_or_audit
+FAILED tests/unit/test_answer_synthesis.py::test_full_text_locator_and_both_trusted_identifiers_are_visible
+FAILED tests/unit/test_answer_synthesis.py::test_generation_policy_requires_task_alignment_and_synthesis
+3 failed in 1.32s

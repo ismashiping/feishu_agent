@@ -1,0 +1,199 @@
+{
+  "baseline": "minimal-v1",
+  "mode": "offline_replay_of_frozen_observations",
+  "integrity": "valid",
+  "fresh_e2e": {
+    "total": 2,
+    "successful": 0,
+    "success_rate": 0.0,
+    "runs": [
+      {
+        "id": "blood-pressure",
+        "idea": "在无糖尿病的高心血管风险成人中，比较强化与标准降压目标的心血管获益和急性肾损伤风险。",
+        "scope": "online",
+        "top_k": 1,
+        "paid_calls_before": 2,
+        "status": "failed",
+        "error_type": "ResearchError",
+        "error_code": "context_limit",
+        "paid_calls_used": 1,
+        "seconds": 3.69
+      },
+      {
+        "id": "sepsis",
+        "idea": "在成人脓毒症患者中，比较早期乳酸清除率与SOFA评分预测短期死亡风险的方法及局限。",
+        "scope": "online",
+        "top_k": 1,
+        "paid_calls_before": 3,
+        "status": "failed",
+        "error_type": "ResearchError",
+        "error_code": "context_limit",
+        "paid_calls_used": 1,
+        "seconds": 3.27
+      }
+    ],
+    "definition": "latest fresh attempt per idea; actual eight-section report required"
+  },
+  "historical_first_attempts": [
+    {
+      "id": "blood-pressure",
+      "idea": "在无糖尿病的高心血管风险成人中，比较强化与标准降压目标的心血管获益和急性肾损伤风险。",
+      "scope": "online",
+      "top_k": 1,
+      "paid_calls_before": 0,
+      "status": "failed",
+      "error_type": "ResearchError",
+      "error_code": "extraction_failed",
+      "paid_calls_used": 1,
+      "seconds": 2.2
+    },
+    {
+      "id": "sepsis",
+      "idea": "在成人脓毒症患者中，比较早期乳酸清除率与SOFA评分预测短期死亡风险的方法及局限。",
+      "scope": "online",
+      "top_k": 1,
+      "paid_calls_before": 1,
+      "status": "failed",
+      "error_type": "ResearchError",
+      "error_code": "extraction_failed",
+      "paid_calls_used": 1,
+      "seconds": 2.3
+    }
+  ],
+  "continuations": {
+    "total": 1,
+    "excluded_from_fresh": true,
+    "runs": [
+      {
+        "id": "blood-pressure",
+        "idea": "在无糖尿病的高心血管风险成人中，比较强化与标准降压目标的心血管获益和急性肾损伤风险。",
+        "scope": "online",
+        "top_k": 1,
+        "planning_mode": "replay_validated_real_model_response_3_not_fresh_e2e",
+        "paid_calls_before": 4,
+        "status": "failed",
+        "error_type": "ResearchError",
+        "error_code": "model_output_invalid",
+        "paid_calls_used": 1,
+        "seconds": 15.47
+      }
+    ]
+  },
+  "source_replay": {
+    "mode": "offline_replay_not_report_citation_validation",
+    "valid": 4,
+    "total": 4,
+    "sources": [
+      {
+        "case_id": "blood-pressure",
+        "pmid": "26551272",
+        "valid": true
+      },
+      {
+        "case_id": "blood-pressure",
+        "pmid": "34010531",
+        "valid": true
+      },
+      {
+        "case_id": "sepsis",
+        "pmid": "39011361",
+        "valid": true
+      },
+      {
+        "case_id": "sepsis",
+        "pmid": "42196888",
+        "valid": true
+      }
+    ]
+  },
+  "model_calls": 5,
+  "model_operation_counts": {
+    "extract": 4,
+    "analyze_evidence": 1
+  },
+  "model_call_seconds": [
+    2.19,
+    2.28,
+    1.81,
+    2.19,
+    13.51
+  ],
+  "new_model_calls": 0,
+  "medical_quality": {
+    "status": "not_evaluated",
+    "label_status": "pending_human_review",
+    "metrics": {
+      "methods_accuracy": null,
+      "methods_omission": null,
+      "similarity_error": null,
+      "unsupported_gaps": null,
+      "unsupported_novelty": null,
+      "support_precision": null,
+      "support_recall": null
+    },
+    "reason": "No valid report or independently signed medical labels; not zero scores."
+  },
+  "source_state": {
+    "git_head": "49e111072d2fc1ec5493a2122fb839e54557a40f",
+    "working_tree_dirty": true,
+    "interpretation": "Freeze-time hashes only; historical attempts span multiple uncommitted revisions.",
+    "source_hashes": {
+      "src/clinical_agent/api.py": "e00331b5da1cf44520db39a4cc7175b01b63a99498ba43415f4e9feb8f7c8c64",
+      "src/clinical_agent/api_runtime.py": "a98d0dd3324443afe7160c7cb1afc7cfb79a49823f015acd6936c08ddc6437dc",
+      "src/clinical_agent/bootstrap.py": "00a7d28f6502ed2db7ecde16a7b92879ac4a1b4a7efc856316d643218f6a23a1",
+      "src/clinical_agent/cli.py": "c7c714e4747ddb60ab3c3a9b5afd6774acf7036a12bb05dd49d3607c71ac19b8",
+      "src/clinical_agent/command_runtime.py": "dd441d0dbdb2b10e8e6cbb4dbad6e5c658372e956495470c78c35542a18ed20b",
+      "src/clinical_agent/config.py": "10c3cb58eae63aba10d60269d4ff4061321ae6d69ae30a7c17f53adbd57df8a6",
+      "src/clinical_agent/logging_config.py": "456fbae8f76382177ccef9639d2456e2ce7e0a12df807ad6503748020751017b",
+      "src/clinical_agent/__init__.py": "e8e5f65bdffe5e0e1719ca4e4f86c237fc38458bfb4b375f752b9e73cba9b23b",
+      "src/clinical_agent/__main__.py": "1154e46fea2ce05f6107a4e6787f533d618383db80a93781193a9e18675b6317",
+      "src/feishu/dedup.py": "e6ccbbeb1c08e4eae527a8e24f348b7abd9267168d6918c5b878b327fcc67258",
+      "src/feishu/events.py": "0a8886f9f24c1dc3fdaa81a38ab5f072c980303a88186c954be9a32544780000",
+      "src/feishu/main.py": "7a7d1cb594bc0393ef0b0502bca7b84034638403aa1676b4f8a907d42a70fa8a",
+      "src/feishu/sender.py": "a6a96bfc8f3e38ebe143db278377a0c383019e3c58e1ff867757b00be361d371",
+      "src/feishu/worker.py": "63ad5954fa91197e266522c3f659f1ea200bd8cdc63dc1b9597e97aff78681f3",
+      "src/feishu/__init__.py": "fde423bf67c049cb583c08c22d29f09336ea8936a9118faa36ae96299c0ebdd7",
+      "src/clinical_agent/adapters/embedding.py": "e70d453c1d2210a1307320169bc9786d96c92ddd35de6d0b22960f3650f2c4fe",
+      "src/clinical_agent/adapters/langchain_generation.py": "1322e0d151ad75845285985506e712083a4e306d92a6ded082b6d91675d438a2",
+      "src/clinical_agent/adapters/llm.py": "75d5a7e019b47175c8c9fd393403c978cae0446caa64f692c84640bee4cfc5f5",
+      "src/clinical_agent/adapters/offline.py": "2456845c0540eb066c7a8dda01b2147ca96fd63ec2a4856aab7b12b56b02f80b",
+      "src/clinical_agent/adapters/pdf.py": "9c0eefc15cb71dadeb507302e22c7c0c23bb60472b16e28dec11558b4afad131",
+      "src/clinical_agent/adapters/pubmed_online.py": "0e39aa19f7436c4b8cd5f0db97c7c740e30c4f44480a7e7e43ef2dcde018397b",
+      "src/clinical_agent/adapters/pubmed_xml.py": "006257d02618eceec78c36192837522fe622258869e7e63dd2c82d483e008725",
+      "src/clinical_agent/adapters/report_snapshot.py": "afc17cd015a5fa6d8e4fba43e52765c7f6743da4de092fd5819dd1363bdd6ff0",
+      "src/clinical_agent/adapters/__init__.py": "4422256a697109bf503187652c555ae6c9316f9dd2b741d96d23b20367f593bc",
+      "src/clinical_agent/application/analysis.py": "a5fd46cc78dd878258d970d2d96210375e6962d052670ab265de9e72aa184038",
+      "src/clinical_agent/application/ingestion.py": "7967e33c34e9a1e016f40be02cf7f0eaad622805d3be7a08749f2b611c3a9027",
+      "src/clinical_agent/application/pico.py": "15b8f74a1bec9d0444eef0dc556b271a942ffe70b9ab1de79114e9ed4eae4f43",
+      "src/clinical_agent/application/pubmed.py": "983fdbfa7359156bf949f85ca3d9c0daa09b3a20d34082e43517cbaac7b646ab",
+      "src/clinical_agent/application/report.py": "190973597cf6596039573189ca2ae6f54c4630cb40b7a11c9f227df5dd0c8406",
+      "src/clinical_agent/application/research.py": "ba79e29c395d076789fc1349b6ef4bc568fd52ff846a2f00ae157ca70dd747d5",
+      "src/clinical_agent/application/retrieval.py": "e953e11283ecc783e96e942919d04ff59e07d86c55fa2c6ee77397f9d8c65f51",
+      "src/clinical_agent/application/__init__.py": "e160446b0b4c5135a315eef111d169e096d537ae75ab33af2dc6038e095e7447",
+      "src/clinical_agent/domain/analysis.py": "1ca0ead10e2e9e65fb11b0baa339b664f2ae9af3fc33b8663662ec626fe2c346",
+      "src/clinical_agent/domain/chunking.py": "d54c0e9e881476b53393034763589c1a3126419a96267a053b0ca62f8a5e4485",
+      "src/clinical_agent/domain/citations.py": "baec50c9162257df8bca356b22fd7678670ad9df3b5c2ba858711a57451cb75f",
+      "src/clinical_agent/domain/embedding.py": "a9fc47e0476496173795286c9c0c24b21c9f07364757c900bc366279743e189b",
+      "src/clinical_agent/domain/hybrid.py": "add12108bfe126ab29caa971efa128da18913efc13e34a1afa99f68d61ab85aa",
+      "src/clinical_agent/domain/ingestion.py": "c882c632895ee87c00db4387b2faace0639340edb0cf91d3ef2a7f4997039fc6",
+      "src/clinical_agent/domain/models.py": "dd35e16078699fa65798746621fe2fa51940956a49b111d55d6acf69a7748680",
+      "src/clinical_agent/domain/pico.py": "3dca48e3a45b4ab19e7a8468ee49fa145202d6a5118bce6318379160f54159d7",
+      "src/clinical_agent/domain/pubmed.py": "adcef9861bb4c9ae8aeb5056777f45742f3cfc0244c9367610fb4982b150665c",
+      "src/clinical_agent/domain/report.py": "c64fc1cd8f55042b908060081e9818696b0da72c82efc8763d9836d725055e60",
+      "src/clinical_agent/domain/research.py": "4a077592fc5037e3b5a54a3796d61a5060fffdd9537d18d885718ca6457cfe8f",
+      "src/clinical_agent/domain/retrieval.py": "8eed5868b27e09d7055680cafb70d0b3429e7ab3dd12fb892ea8929e31ee2fbc",
+      "src/clinical_agent/domain/__init__.py": "4826c2cec3782c1bbaac82e0d22d49bc9785eaa3e2a428a6447c000a34c58849",
+      "src/clinical_agent/adapters/postgres/connection.py": "9d88ff1446e8f113468f9ddd1669a00777c8515f49ecbac014c02f0432a2a004",
+      "src/clinical_agent/adapters/postgres/models.py": "a1a66a79b823a3a4f4ad638a56a16debffac63863413b2129492eabae992105d",
+      "src/clinical_agent/adapters/postgres/retrieval.py": "b67c43e23d7b65582f474eec2ef1783eb611c8ac8bcf78fe0f45e634aedd5fba",
+      "src/clinical_agent/adapters/postgres/store.py": "779f3f637edbb1152a9fe15f775eb4132d0d79c221ae913be1e42f1ea78bebdc",
+      "src/clinical_agent/adapters/postgres/__init__.py": "d4628846bb540a2c607e15237ab6cc4211eaa233dc04df0810db56fa3f2b5dc0"
+    }
+  },
+  "limitations": [
+    "Historical attempts span uncommitted revisions; not a controlled before/after experiment.",
+    "Captured official sources are not a recall benchmark or medical ground truth.",
+    "Local database unavailable; hybrid/local end-to-end unverified.",
+    "No successful report; semantic quality and full report citations unverified."
+  ]
+}
