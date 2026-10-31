@@ -29,24 +29,20 @@ class DocumentRecord(Base):
     __table_args__ = (
         UniqueConstraint("source_type", "source_identity", name="uq_documents_source"),
         UniqueConstraint("document_id", "source_type", name="uq_documents_id_source"),
-        CheckConstraint("source_type IN ('pdf','pubmed')", name="ck_documents_source_type"),
+        CheckConstraint("source_type = 'pdf'", name="ck_documents_source_type"),
         CheckConstraint("content_hash ~ '^[0-9a-f]{64}$'", name="ck_documents_hash"),
         CheckConstraint("btrim(title) <> '' AND btrim(source_uri) <> ''", name="ck_documents_text"),
         CheckConstraint("pmid IS NULL OR pmid ~ '^[1-9][0-9]*$'", name="ck_documents_pmid"),
         CheckConstraint(
-            "(source_type='pubmed' AND pmid IS NOT NULL AND content_scope='abstract') OR "
-            "(source_type='pdf' AND content_scope IN ('extracted_text','full_text'))",
+            "source_type = 'pdf' AND content_scope IN ('extracted_text','full_text')",
             name="ck_documents_scope",
         ),
         CheckConstraint(
-            "(source_type='pdf' AND title_origin IN ('manual','document_metadata','filename')) OR "
-            "(source_type='pubmed' AND title_origin IN ('manual','pubmed_metadata'))",
+            "source_type = 'pdf' AND title_origin IN ('manual','document_metadata','filename')",
             name="ck_documents_title_origin",
         ),
         CheckConstraint(
-            "(content_scope='abstract' AND abstract IS NOT NULL AND btrim(abstract)<>'' "
-            "AND text IS NULL) OR (content_scope<>'abstract' AND text IS NOT NULL "
-            "AND btrim(text)<>'')",
+            "abstract IS NULL AND text IS NOT NULL AND btrim(text) <> ''",
             name="ck_documents_content",
         ),
         CheckConstraint("jsonb_typeof(authors)='array'", name="ck_documents_authors"),
@@ -106,8 +102,7 @@ class ChunkRecord(Base):
             name="ck_chunks_span",
         ),
         CheckConstraint(
-            "(source_type='pdf' AND location_kind='pdf_page' AND page IS NOT NULL AND page>0) OR "
-            "(source_type='pubmed' AND location_kind='abstract' AND page IS NULL)",
+            "source_type = 'pdf' AND location_kind = 'pdf_page' AND page IS NOT NULL AND page > 0",
             name="ck_chunks_location",
         ),
         CheckConstraint(

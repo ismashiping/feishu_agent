@@ -1,6 +1,6 @@
 # 当前实现与研究工作流
 
-> 2026-10-31 检索收敛第 2 层（工作区，未部署；回滚点 `f271ab3`）：删除 `domain/hybrid.py`、`application/retrieval.py`、`db/retrieval.py`。`KnowledgeRebuilder.evaluate` 只在临时 schema 里核对入库片段能否原样读回，不再做向量/关键词检索。新增迁移 `oa3002_0010`：删除 `source_type='pubmed'` 的文献行，并删除已停用的 `fulltext_indexes` / `fulltext_vectors`。PDF 行和表结构保留；该迁移未执行。入库接口仍可再次写入 PubMed 摘要。下文“本地RetrievalService”一段描述的是已删除实现。
+> 2026-10-31 检索收敛第 2 层（工作区，未部署；回滚点 `f271ab3`）：删除 `domain/hybrid.py`、`application/retrieval.py`、`db/retrieval.py`。`KnowledgeRebuilder.evaluate` 只在临时 schema 里核对入库片段能否原样读回，不再做向量/关键词检索。迁移 `oa3002_0010` 删除 `source_type='pubmed'` 的文献行和已停用的 `fulltext_indexes` / `fulltext_vectors`。迁移 `oa3003_0011` 把文献与片段的检查约束收成仅 PDF，摘要列必须为空。PDF 行、pmid 列和表保留。这两条迁移未执行。下文“本地RetrievalService”一段描述的是已删除实现。
 >
 > 2026-10-31 代码审查修复（工作区，未部署）：report 节点计算反馈去向并写入 `feedback_target`，条件边只读该字段，不再在路由函数中修改报告；ResearchService 四个入口共用 `_run`（同一 deadline、recursion_limit 与错误码转换）。`_prepare` 在副本上裁剪全文上下文，不再删除仍以 `evidence.text` 出现的锚点段落，避免模型合法引用后被判 `citation_invalid`。API/CLI/Graph 中把未知异常转换为错误码的位置统一用 `log_unexpected` 记录 `stage` 与 `exception_type`（不记录异常消息）。Graph 节点、边和对外接口不变；真实服务未复验。
 
@@ -67,7 +67,7 @@ flowchart TD
 
 本地语料的向量/关键词检索已删除。入库后的读取只发生在重建验收：临时 schema 中保存片段并按 chunk 原文读回。历史排序规则见 [SPEC05](../specs/05-hybrid-retrieval.md)，对应实现已不在当前代码中。
 
-科研检索由 OpenAlexRetrievalService 完成。Works API 仍是唯一发现来源。全文入口按缓存、`content_urls.grobid_xml`、`content_urls.pdf`、`best_oa_location.pdf_url`、`locations[].pdf_url` 排列；相同地址只请求一次。可持久保存的文本写入 `oa_fulltext_indexes` / `oa_fulltext_vectors`。许可字段随段落保存，不决定能否下载。缓存签名包含解析版本和 Embedding 模型，命中则不重复下载。科研回答不读取 PubMed 摘要。这些摘要存在 `documents` 中，迁移 `oa3002_0010` 会删掉 `source_type='pubmed'` 的行；迁移尚未执行，已有库在升级前仍保留它们。
+科研检索由 OpenAlexRetrievalService 完成。Works API 仍是唯一发现来源。全文入口按缓存、`content_urls.grobid_xml`、`content_urls.pdf`、`best_oa_location.pdf_url`、`locations[].pdf_url` 排列；相同地址只请求一次。可持久保存的文本写入 `oa_fulltext_indexes` / `oa_fulltext_vectors`。许可字段随段落保存，不决定能否下载。缓存签名包含解析版本和 Embedding 模型，命中则不重复下载。科研回答不读取 PubMed 摘要。`oa3002_0010` 会删掉已有的 `source_type='pubmed'` 行，`oa3003_0011` 之后数据库不再接受这种行。两条迁移都还没在库上执行。
 
 PDF保留页与区间，PubMed摘要保留章节与Unicode区间，未知元数据不补造。分析每项保留证据指针与原文约束；报告先验证快照和身份，再审核支持度，由可信命中构造引用。检索、分析、生成和来源核验不是医学专家签署。见 [引用测试](../../tests/unit/test_citation_report.py)、[证据分析测试](../../tests/unit/test_evidence_analysis.py)。
 
@@ -105,4 +105,4 @@ HTTP接入现为api包：app.py创建应用/管理lifespan/注册异常，routes
 
 ## 遗留兼容层清理 Phase 5（2026-10-31）
 
-Agents、API、RAG/Integrations/DB和飞书的映射内兼容文件已删除，活动调用方改为canonical路径。`clinical_agent.api:create_app`、`clinical-agent`和`clinical-feishu`保留。application/domain及canonical实现不在该清理范围。Phase 5结束后，工作区另有未提交的检索模块删除和新迁移文件`oa3002_0010`；这不属于兼容层清理，迁移未执行，完整回归因此没有稳定通过结果。详见[实际验收](../legacy-cleanup-phase5/acceptance.md)。
+Agents、API、RAG/Integrations/DB和飞书的映射内兼容文件已删除，活动调用方改为canonical路径。`clinical_agent.api:create_app`、`clinical-agent`和`clinical-feishu`保留。application/domain及canonical实现不在该清理范围。Phase 5结束后的检索模块删除已另提交。`oa3002_0010` 与 `oa3003_0011` 不属于兼容层清理，且尚未在数据库执行。详见[实际验收](../legacy-cleanup-phase5/acceptance.md)。

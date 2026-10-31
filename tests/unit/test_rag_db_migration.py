@@ -16,7 +16,7 @@ RETIRED = {
     "clinical_agent.integrations.pubmed_online",
     "clinical_agent.db.retrieval",
 }
-DRIFTED = {"clinical_agent.db.rebuild"}
+DRIFTED = {"clinical_agent.db.rebuild", "clinical_agent.db.models"}
 MODULES = {old: new for old, new in CONTRACT["modules"].items() if new not in RETIRED | DRIFTED}
 
 
@@ -50,19 +50,54 @@ def test_complete_ddl_and_migration_files_unchanged():
     from clinical_agent.db.models import Base
 
     dialect = postgresql.dialect()
-    assert {
+    current = {
         t.name: {
             "table": str(CreateTable(t).compile(dialect=dialect)),
             "indexes": sorted(str(CreateIndex(i).compile(dialect=dialect)) for i in t.indexes),
         }
         for t in Base.metadata.sorted_tables
-    } == CONTRACT["ddl"]
+    }
+    expected = {
+        name: {"table": spec["table"], "indexes": spec["indexes"]}
+        for name, spec in CONTRACT["ddl"].items()
+    }
+    # PDF-only checks replaced the Phase 3 pubmed branches. The frozen fixture stays intact.
+    for old, new in (
+        ("source_type IN ('pdf','pubmed')", "source_type = 'pdf'"),
+        (
+            "(source_type='pubmed' AND pmid IS NOT NULL AND content_scope='abstract') OR "
+            "(source_type='pdf' AND content_scope IN ('extracted_text','full_text'))",
+            "source_type = 'pdf' AND content_scope IN ('extracted_text','full_text')",
+        ),
+        (
+            "(source_type='pdf' AND title_origin IN ('manual','document_metadata','filename')) OR "
+            "(source_type='pubmed' AND title_origin IN ('manual','pubmed_metadata'))",
+            "source_type = 'pdf' AND title_origin IN ('manual','document_metadata','filename')",
+        ),
+        (
+            "(content_scope='abstract' AND abstract IS NOT NULL AND btrim(abstract)<>'' "
+            "AND text IS NULL) OR (content_scope<>'abstract' AND text IS NOT NULL "
+            "AND btrim(text)<>'')",
+            "abstract IS NULL AND text IS NOT NULL AND btrim(text) <> ''",
+        ),
+        (
+            "(source_type='pdf' AND location_kind='pdf_page' AND page IS NOT NULL AND page>0) OR "
+            "(source_type='pubmed' AND location_kind='abstract' AND page IS NULL)",
+            "source_type = 'pdf' AND location_kind = 'pdf_page' AND page IS NOT NULL AND page > 0",
+        ),
+    ):
+        for spec in expected.values():
+            spec["table"] = spec["table"].replace(old, new)
+    assert current == expected
     hashes = {
         p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
         for p in (ROOT / "alembic/versions").glob("*.py")
     }
-    added = hashes.pop("alembic/versions/oa3002_0010_drop_pubmed_cache.py")
-    assert added and hashes == CONTRACT["migration_hashes"]
+    added = [
+        hashes.pop("alembic/versions/oa3002_0010_drop_pubmed_cache.py"),
+        hashes.pop("alembic/versions/oa3003_0011_pdf_only_documents.py"),
+    ]
+    assert all(added) and hashes == CONTRACT["migration_hashes"]
 
 
 @pytest.mark.parametrize("old,new", MODULES.items())
