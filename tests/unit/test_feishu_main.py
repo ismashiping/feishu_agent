@@ -13,7 +13,7 @@ from pydantic import ValidationError
 
 
 def settings(tmp_path, **kw):
-    from feishu.main import FeishuSettings
+    from clinical_agent.channels.feishu.main import FeishuSettings
 
     return FeishuSettings(
         app_id="cli_test",
@@ -65,7 +65,7 @@ def test_invalid_policy(tmp_path, field, value):
 
 
 def test_settings_env_and_secrets(tmp_path, monkeypatch):
-    from feishu.main import FeishuSettings
+    from clinical_agent.channels.feishu.main import FeishuSettings
 
     for key, value in {
         "APP_ID": "cli_test",
@@ -89,7 +89,7 @@ def test_settings_env_and_secrets(tmp_path, monkeypatch):
     "url", ["http://localhost", "redis://localhost/0?socket_timeout=0", "redis://localhost/#x"]
 )
 def test_invalid_redis_url(tmp_path, url):
-    from feishu.main import FeishuSettings
+    from clinical_agent.channels.feishu.main import FeishuSettings
 
     with pytest.raises(ValidationError):
         FeishuSettings(
@@ -113,7 +113,7 @@ def test_invalid_redis_url(tmp_path, url):
     ],
 )
 def test_sdk_callback_routes_without_waiting(tmp_path, status, notice):
-    from feishu.main import Receiver
+    from clinical_agent.channels.feishu.main import Receiver
 
     dispatcher, sender = Mock(), Mock()
     dispatcher.submit.return_value = SimpleNamespace(status=status, future=Mock())
@@ -133,7 +133,7 @@ def test_sdk_callback_routes_without_waiting(tmp_path, status, notice):
     ["bot", "self", "image", "group", "missing_header", "schema", "other_app", "bad_content"],
 )
 def test_callback_filters_sdk_objects(tmp_path, mutation):
-    from feishu.main import Receiver
+    from clinical_agent.channels.feishu.main import Receiver
 
     p = payload()
     if mutation == "bot":
@@ -159,7 +159,7 @@ def test_callback_filters_sdk_objects(tmp_path, mutation):
 
 
 def test_sdk_group_mention(tmp_path):
-    from feishu.main import Receiver
+    from clinical_agent.channels.feishu.main import Receiver
 
     dispatcher, sender = Mock(), Mock()
     Receiver(settings(tmp_path), dispatcher, sender)(
@@ -175,7 +175,7 @@ def test_sdk_group_mention(tmp_path):
 
 
 def test_callback_exception_is_private(tmp_path, caplog):
-    from feishu.main import Receiver
+    from clinical_agent.channels.feishu.main import Receiver
 
     dispatcher = Mock()
     dispatcher.submit.side_effect = RuntimeError("SECRET_SENTINEL")
@@ -186,7 +186,7 @@ def test_callback_exception_is_private(tmp_path, caplog):
 
 
 def test_token_protocol_and_deadline(tmp_path):
-    from feishu.main import TenantToken
+    from clinical_agent.channels.feishu.main import TenantToken
 
     calls = []
 
@@ -225,7 +225,7 @@ def test_token_protocol_and_deadline(tmp_path):
     ],
 )
 def test_token_rejects_failure(tmp_path, body, status):
-    from feishu.main import TenantToken
+    from clinical_agent.channels.feishu.main import TenantToken
 
     with httpx.Client(
         transport=httpx.MockTransport(lambda r: httpx.Response(status, json=body))
@@ -235,7 +235,7 @@ def test_token_rejects_failure(tmp_path, body, status):
 
 
 def test_token_rejects_late_success(tmp_path):
-    from feishu.main import TenantToken
+    from clinical_agent.channels.feishu.main import TenantToken
 
     clock = iter([0, 10])
     with httpx.Client(
@@ -250,7 +250,7 @@ def test_token_rejects_late_success(tmp_path):
 
 
 def test_shutdown_order_timeout_and_idempotency():
-    from feishu.main import BotRuntime
+    from clinical_agent.channels.feishu.main import BotRuntime
 
     order = []
     worker, sender = Mock(), Mock()
@@ -268,7 +268,7 @@ def test_shutdown_order_timeout_and_idempotency():
 
 
 def test_composition_rollback_and_shared_service(tmp_path, monkeypatch):
-    import feishu.main as main
+    import clinical_agent.channels.feishu.main as main
 
     order = []
     research = Mock()
@@ -302,7 +302,7 @@ def test_composition_rollback_and_shared_service(tmp_path, monkeypatch):
 
 
 def test_http_client_is_explicit():
-    from feishu.main import create_http_client
+    from clinical_agent.channels.feishu.main import create_http_client
 
     with create_http_client() as client:
         assert client.follow_redirects is False
@@ -317,7 +317,7 @@ def test_http_client_is_explicit():
 def test_sdk_discovery_uses_bounded_http_and_real_handler(tmp_path):
     from lark_oapi.ws import client as ws
 
-    from feishu.main import create_sdk_client
+    from clinical_agent.channels.feishu.main import create_sdk_client
 
     loop = ws.loop
     asyncio.set_event_loop(loop)
@@ -358,7 +358,7 @@ def test_sdk_discovery_uses_bounded_http_and_real_handler(tmp_path):
 
 @pytest.mark.parametrize("fails", [False, True])
 def test_sdk_serve_cancels_tasks_and_disconnects(fails):
-    from feishu.main import serve_sdk
+    from clinical_agent.channels.feishu.main import serve_sdk
 
     order = []
 
@@ -397,7 +397,7 @@ def test_sdk_serve_cancels_tasks_and_disconnects(fails):
 
 
 def test_entry_help_and_failure_are_private(monkeypatch, capsys):
-    import feishu.main as main
+    import clinical_agent.channels.feishu.main as main
 
     assert main.main(["--help"]) == 0
     assert "Clinical" in capsys.readouterr().out
@@ -407,7 +407,7 @@ def test_entry_help_and_failure_are_private(monkeypatch, capsys):
 
 
 def test_sdk_background_terminal_failure_is_not_hidden():
-    from feishu.main import serve_sdk
+    from clinical_agent.channels.feishu.main import serve_sdk
 
     async def run():
         class Client:
@@ -435,11 +435,11 @@ def test_real_receiver_worker_sender_chain(tmp_path):
     from threading import Event
     from uuid import uuid4
 
+    from clinical_agent.channels.feishu.dedup import AcquireResult, DedupPolicy, Lease
+    from clinical_agent.channels.feishu.main import BotRuntime, Receiver, TenantToken
+    from clinical_agent.channels.feishu.sender import OfficialMessageAPI, Sender
+    from clinical_agent.channels.feishu.worker import Dispatcher
     from clinical_agent.domain.research import ResearchAnswer
-    from feishu.dedup import AcquireResult, DedupPolicy, Lease
-    from feishu.main import BotRuntime, Receiver, TenantToken
-    from feishu.sender import OfficialMessageAPI, Sender
-    from feishu.worker import Dispatcher
 
     complete = Event()
     calls, requests = [], []
@@ -512,7 +512,7 @@ def test_sdk_runner_restores_signals_logger_and_loop(tmp_path, monkeypatch, fail
     from lark_oapi.core.log import logger
     from lark_oapi.ws import client as ws
 
-    import feishu.main as main
+    import clinical_agent.channels.feishu.main as main
 
     original = {n: signal.getsignal(n) for n in (signal.SIGINT, signal.SIGTERM)}
     disabled = logger.disabled
@@ -547,7 +547,7 @@ def test_official_sdk_data_frame_acknowledges_synthetic_event(tmp_path):
     from lark_oapi.ws import client as ws
     from lark_oapi.ws.pb.pbbp2_pb2 import Frame
 
-    from feishu.main import create_sdk_client
+    from clinical_agent.channels.feishu.main import create_sdk_client
 
     if ws.loop.is_closed():
         ws.loop = asyncio.new_event_loop()
@@ -585,7 +585,7 @@ def test_official_sdk_data_frame_acknowledges_synthetic_event(tmp_path):
 def test_feishu_logs_keep_out_secrets_and_exception_text(capsys):
     from datetime import datetime
 
-    from feishu.main import configure_feishu_logging
+    from clinical_agent.channels.feishu.main import configure_feishu_logging
 
     logger = logging.getLogger("feishu")
     handlers, level, propagate = tuple(logger.handlers), logger.level, logger.propagate
@@ -620,7 +620,7 @@ def test_feishu_logs_keep_out_secrets_and_exception_text(capsys):
 
 
 def test_entry_cleanup_error_is_private_and_nonzero(tmp_path, monkeypatch, capsys):
-    import feishu.main as main
+    import clinical_agent.channels.feishu.main as main
 
     selected = settings(tmp_path)
     runtime = Mock()
@@ -642,7 +642,7 @@ def test_entrypoint_alias_keeps_connection_log_in_configured_handler(capsys):
     try:
         # python -m executes this source under __main__, unlike ordinary imports.
         # An inert alias exercises that naming behavior without launching clients.
-        source = Path(__file__).resolve().parents[2] / "src/feishu/main.py"
+        source = Path(__file__).resolve().parents[2] / "src/clinical_agent/channels/feishu/main.py"
         module = runpy.run_path(str(source), run_name="__entrypoint_probe__")
         module["configure_feishu_logging"]("INFO")
         module["_LOG"].info("feishu_connected")

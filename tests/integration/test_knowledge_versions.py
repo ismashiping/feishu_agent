@@ -6,8 +6,8 @@ pytestmark = [pytest.mark.integration, pytest.mark.database]
 
 
 def test_versions_publish_history_and_dry_run(engine, source_factory, prepared_factory):
-    from clinical_agent.adapters.postgres.store import PostgresStore
-    from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
+    from clinical_agent.db.store import PostgresStore
+    from clinical_agent.db.versions import VersionedPostgresStore
     from clinical_agent.domain.ingestion import document_id_for
 
     original = prepared_factory(
@@ -51,7 +51,7 @@ def test_versions_publish_history_and_dry_run(engine, source_factory, prepared_f
 def test_version_metadata_and_concurrency(engine, source_factory, prepared_factory):
     from concurrent.futures import ThreadPoolExecutor
 
-    from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
+    from clinical_agent.db.versions import VersionedPostgresStore
     from clinical_agent.domain.ingestion import document_id_for
 
     store = VersionedPostgresStore(engine)
@@ -78,7 +78,7 @@ def test_version_metadata_and_concurrency(engine, source_factory, prepared_facto
 def test_version_failure_keeps_old_projection(engine, source_factory, prepared_factory):
     from sqlalchemy import event
 
-    from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
+    from clinical_agent.db.versions import VersionedPostgresStore
     from clinical_agent.domain.ingestion import document_id_for
 
     store = VersionedPostgresStore(engine)
@@ -118,8 +118,8 @@ def test_version_failure_keeps_old_projection(engine, source_factory, prepared_f
 
 
 def test_legacy_chunks_are_archived_without_rekey(engine, source_factory, prepared_factory):
-    from clinical_agent.adapters.postgres.store import PostgresStore
-    from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
+    from clinical_agent.db.store import PostgresStore
+    from clinical_agent.db.versions import VersionedPostgresStore
     from clinical_agent.domain.ingestion import document_id_for
 
     one = prepared_factory(

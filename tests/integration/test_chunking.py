@@ -12,8 +12,8 @@ def test_real_pdf_keeps_blank_page_number_and_exact_slices(tmp_path):
     from pypdf import PdfWriter
     from pypdf.generic import DecodedStreamObject, DictionaryObject, NameObject
 
-    from clinical_agent.adapters.pdf import parse_pdf
     from clinical_agent.domain.chunking import ChunkingPolicy, TokenizerProfile, chunk_source
+    from clinical_agent.rag.pdf import parse_pdf
 
     path = tmp_path / "source.pdf"
     with PdfWriter() as writer:
@@ -61,8 +61,8 @@ def test_real_pdf_keeps_blank_page_number_and_exact_slices(tmp_path):
 
 
 def test_real_xml_sections_keep_global_offsets_and_metadata(tmp_path):
-    from clinical_agent.adapters.pubmed_xml import parse_pubmed_xml
     from clinical_agent.domain.chunking import ChunkingPolicy, TokenizerProfile, chunk_source
+    from clinical_agent.rag.pubmed_xml import parse_pubmed_xml
 
     path = tmp_path / "synthetic.xml"
     path.write_text(

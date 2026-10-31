@@ -6,7 +6,7 @@ import subprocess
 from pathlib import Path
 from time import monotonic
 
-from clinical_agent.adapters.llm import LLMSettings, open_llm
+from clinical_agent.integrations.llm import LLMSettings, open_llm
 from clinical_agent.domain.citations import parse_draft
 from clinical_agent.domain.research import GenerationInput
 

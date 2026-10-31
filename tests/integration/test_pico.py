@@ -30,7 +30,6 @@ def extraction(case):
 
 
 def test_pico_protocol_retrieval_generation_and_citations(source_factory, prepared_factory):
-    from clinical_agent.adapters.llm import LLMSettings, open_llm
     from clinical_agent.application.pico import PicoPlanner
     from clinical_agent.application.research import ResearchService
     from clinical_agent.domain.research import QuestionRequest
@@ -40,6 +39,7 @@ def test_pico_protocol_retrieval_generation_and_citations(source_factory, prepar
         RetrievalResult,
         retrieval_embedding_info,
     )
+    from clinical_agent.integrations.llm import LLMSettings, open_llm
 
     prepared = prepared_factory(source_factory())
     source = prepared.source.parsed.document
@@ -147,9 +147,10 @@ def test_pico_api_and_feishu_share_clarification(tmp_path):
     from fastapi.testclient import TestClient
 
     from clinical_agent.api import create_app
-    from clinical_agent.api_runtime import ApiSettings, ServiceBundle
+    from clinical_agent.api.runtime import ServiceBundle
+    from clinical_agent.api.schemas import ApiSettings
+    from clinical_agent.channels.feishu.sender import render_answer
     from clinical_agent.domain.research import ResearchAnswer
-    from feishu.sender import render_answer
 
     @contextmanager
     def runtime(settings):
@@ -170,7 +171,8 @@ def test_pico_api_error_contract(tmp_path, code, status):
     from fastapi.testclient import TestClient
 
     from clinical_agent.api import create_app
-    from clinical_agent.api_runtime import ApiSettings, ServiceBundle
+    from clinical_agent.api.runtime import ServiceBundle
+    from clinical_agent.api.schemas import ApiSettings
     from clinical_agent.domain.research import ResearchError
 
     class Bad:
@@ -192,9 +194,9 @@ def test_pico_api_error_contract(tmp_path, code, status):
 
 @pytest.mark.external
 def test_pico_live_frozen_examples(tmp_path):
-    from clinical_agent.adapters.llm import LLMSettings, open_llm
     from clinical_agent.application.pico import PicoPlanner
     from clinical_agent.domain.pico import ClassificationRequest
+    from clinical_agent.integrations.llm import LLMSettings, open_llm
 
     if not all(os.environ.get(name) for name in ("LLM_BASE_URL", "LLM_API_KEY", "LLM_MODEL")):
         pytest.fail("Explicit LLM_* configuration required; live PICO acceptance not run")

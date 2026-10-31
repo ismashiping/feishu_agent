@@ -7,13 +7,13 @@ from pathlib import Path
 from time import monotonic
 from uuid import uuid4
 
-from clinical_agent.adapters.llm import LLMSettings, open_llm
 from clinical_agent.application.research import ResearchService
 from clinical_agent.domain.citations import build_answer, parse_draft
 from clinical_agent.domain.openalex import OpenAlexProvenance
 from clinical_agent.domain.research import QuestionRequest, ResearchError
 from clinical_agent.domain.retrieval import RetrievalResult
-from feishu.sender import render_answer
+from clinical_agent.integrations.llm import LLMSettings, open_llm
+from clinical_agent.channels.feishu.sender import render_answer
 
 
 def main():

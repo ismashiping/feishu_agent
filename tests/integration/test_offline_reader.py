@@ -25,7 +25,7 @@ def read(reader, path, root, source_type="pdf"):
 def test_real_pdf_snapshot_retains_original_filename_and_survives_source_removal(
     tmp_path, pdf_factory
 ):
-    from clinical_agent.adapters.offline import OfflineReader
+    from clinical_agent.rag.offline import OfflineReader
 
     original = pdf_factory(tmp_path / "Original title.pdf")
     snapshot_root = tmp_path / "snapshots"
@@ -43,7 +43,7 @@ def test_real_pdf_snapshot_retains_original_filename_and_survives_source_removal
 
 
 def test_concurrent_snapshot_publication_is_atomic(tmp_path, pdf_factory):
-    from clinical_agent.adapters.offline import OfflineReader
+    from clinical_agent.rag.offline import OfflineReader
 
     original = pdf_factory(tmp_path / "source.pdf")
     reader = OfflineReader(tmp_path / "snapshots")
@@ -55,8 +55,8 @@ def test_concurrent_snapshot_publication_is_atomic(tmp_path, pdf_factory):
 
 
 def test_existing_corrupt_snapshot_is_not_overwritten(tmp_path, pdf_factory):
-    from clinical_agent.adapters.offline import OfflineReader
     from clinical_agent.domain.ingestion import IngestionError
+    from clinical_agent.rag.offline import OfflineReader
 
     path = pdf_factory(tmp_path / "source.pdf")
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
@@ -71,8 +71,8 @@ def test_existing_corrupt_snapshot_is_not_overwritten(tmp_path, pdf_factory):
 
 @pytest.mark.parametrize("case", ["outside", "size"])
 def test_snapshot_source_limits(tmp_path, pdf_factory, case):
-    from clinical_agent.adapters.offline import OfflineReader
     from clinical_agent.domain.ingestion import IngestionError
+    from clinical_agent.rag.offline import OfflineReader
 
     original = pdf_factory(tmp_path / "source.pdf")
     allowed = tmp_path / "allowed"
@@ -86,7 +86,7 @@ def test_snapshot_source_limits(tmp_path, pdf_factory, case):
 
 
 def test_real_xml_mixed_parsed_and_rejected_entries(tmp_path):
-    from clinical_agent.adapters.offline import OfflineReader
+    from clinical_agent.rag.offline import OfflineReader
 
     xml = tmp_path / "source.xml"
     xml.write_text(
@@ -106,9 +106,9 @@ def test_real_xml_mixed_parsed_and_rejected_entries(tmp_path):
 
 
 def test_actual_xml_application_batch_limit_is_explicit(tmp_path, fake_embedder):
-    from clinical_agent.adapters.offline import OfflineReader
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.domain.ingestion import ImportRequest
+    from clinical_agent.rag.offline import OfflineReader
 
     records = "".join(
         f"""<PubmedArticle><MedlineCitation><PMID>{i}</PMID><Article>

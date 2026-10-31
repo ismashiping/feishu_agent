@@ -37,6 +37,8 @@ ResearchCode = Literal[
     "openalex_invalid",
     "openalex_plan_required",
     "openalex_options_retired",
+    "openalex_required",
+    "local_corpus_not_evidence",
     "pubmed_failed",
     "pubmed_timeout",
     "pubmed_invalid",
@@ -122,6 +124,17 @@ class GenerationDraft(DTO):
 
 class EvidenceClaim(DraftClaim):
     claim_id: Annotated[str, StringConstraints(strict=True, pattern=r"^c[1-9][0-9]*$")]
+
+
+class UnobtainedWork(DTO):
+    """A screened paper whose full text was not acquired. Not answer evidence."""
+
+    openalex_id: str
+    title: str
+    doi: str | None = None
+    year: int | None = None
+    reason: str
+    detail: str | None = None
 
 
 class GenerationEvidence(DTO):
@@ -212,6 +225,39 @@ selection rules. Put only study-specific caveats in limitations; do not repeat g
 notices in each claim. References and one system scope note are added by the renderer.
 """
 
+OPENALEX_FULLTEXT_INSTRUCTIONS = (
+    INSTRUCTIONS.replace(
+        "Preserve abstract/extracted_text scope. Only attached fulltext passages\n"
+        "permit fulltext claims; cite the attached fulltext passage chunk_id and name its section. "
+        "Missing\n"
+        "details must be stated as not found, never inferred from titles or other papers.",
+        "This context is OpenAlex fulltext mode. Abstract text is withheld and is not evidence.\n"
+        "Cite only attached fulltext passage chunk_id values and name the section. If a method,\n"
+        "result, metric, comparison or limitation is not in those passages, "
+        "say the retrieved full\n"
+        "text does not contain it. Do not supply it from a title or from memory of an abstract.",
+    )
+    .replace(
+        "One abstract can explain one study but cannot establish field trends.",
+        "One paper cannot establish field trends. "
+        "Do not add studies that have no attached passage.",
+    )
+    .replace(
+        "evidence_groups organizes already screened ABSTRACT coverage "
+        "by question dimension. These\n"
+        "labels are navigation, not verified conclusions: read the actual "
+        "passages before claiming\n"
+        "support.",
+        "evidence_groups only names papers that already have attached fulltext. The labels are\n"
+        "navigation, not evidence: read the fulltext passages before claiming support.",
+    )
+    .replace(
+        "Several relevant abstracts can support a high-level overview;\n"
+        "their being abstracts does not by itself make such an overview impossible.",
+        "A high-level overview still requires fulltext passages. Do not write an abstract review.",
+    )
+)
+
 
 class GenerationInput(DTO):
     evidence_groups: dict[str, list[UUID]] = Field(default_factory=dict)
@@ -295,6 +341,9 @@ class ResearchAnswer(DTO):
     query_plan: QueryPlan | None = None
     claims: Annotated[list[EvidenceClaim], Field(max_length=20)]
     sources: Annotated[list[CitationSource], Field(max_length=20)]
+    unobtained_works: Annotated[list[UnobtainedWork], Field(max_length=20)] = Field(
+        default_factory=list
+    )
     limitations: Annotated[list[Limitation], Field(min_length=1, max_length=10)]
     retrieval_scope: Literal["local", "online", "hybrid"] = "local"
     search_provenance: SearchProvenance | OpenAlexProvenance | None = None

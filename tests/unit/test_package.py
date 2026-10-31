@@ -28,14 +28,16 @@ blocked_roots = {
     "redis", "lark_oapi", "langchain_core", "langchain_openai", "langgraph",
     "langsmith", "httpx", "fastapi", "uvicorn",
 }
-if sys.argv[1] in {
-    "clinical_agent.adapters.postgres.models", "clinical_agent.adapters.postgres.connection",
-    "clinical_agent.adapters.postgres.store",
-    "clinical_agent.adapters.postgres.retrieval",
-}:
-    # ORM/engine declarations explicitly depend on SQLAlchemy; all I/O guards still apply.
+if sys.argv[1].startswith("clinical_agent.db."):
+    # Persistence declarations need SQLAlchemy; connecting remains forbidden below.
     blocked_roots.remove("sqlalchemy")
-
+if sys.argv[1] in {
+    "clinical_agent.integrations.openalex",
+    "clinical_agent.integrations.pubmed_online",
+    "clinical_agent.integrations.oa_fulltext",
+}:
+    # These existing HTTP adapters explicitly import httpx, without making requests.
+    blocked_roots.remove("httpx")
 class BlockHeavyImports(importlib.abc.MetaPathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if fullname.partition(".")[0] in blocked_roots:
@@ -94,41 +96,42 @@ sys.exit(1 if error else 0)
         "clinical_agent.domain.models",
         "clinical_agent.domain.chunking",
         "clinical_agent.domain.embedding",
-        "clinical_agent.adapters",
-        "clinical_agent.adapters.pdf",
-        "clinical_agent.adapters.pubmed_xml",
-        "clinical_agent.adapters.embedding",
-        "clinical_agent.adapters.postgres",
-        "clinical_agent.adapters.postgres.models",
-        "clinical_agent.adapters.postgres.connection",
+        "clinical_agent.rag",
+        "clinical_agent.rag.pdf",
+        "clinical_agent.rag.pubmed_xml",
+        "clinical_agent.rag.embedding",
+        "clinical_agent.db",
+        "clinical_agent.db.models",
+        "clinical_agent.db.connection",
         "clinical_agent.domain.ingestion",
         "clinical_agent.application",
         "clinical_agent.application.ingestion",
-        "clinical_agent.adapters.offline",
-        "clinical_agent.adapters.postgres.store",
+        "clinical_agent.rag.offline",
+        "clinical_agent.db.store",
         "clinical_agent.domain.retrieval",
         "clinical_agent.application.retrieval",
-        "clinical_agent.adapters.postgres.retrieval",
+        "clinical_agent.db.retrieval",
         "clinical_agent.domain.hybrid",
         "clinical_agent.domain.pubmed",
-        "clinical_agent.adapters.pubmed_online",
+        "clinical_agent.integrations.pubmed_online",
         "clinical_agent.application.pubmed",
         "clinical_agent.domain.pico",
         "clinical_agent.application.pico",
         "clinical_agent.domain.research",
         "clinical_agent.domain.citations",
         "clinical_agent.application.research",
-        "clinical_agent.adapters.llm",
-        "clinical_agent.adapters.langchain_generation",
+        "clinical_agent.integrations.llm",
+        "clinical_agent.integrations.langchain_generation",
         "clinical_agent.command_runtime",
-        "clinical_agent.api_runtime",
+        "clinical_agent.api.runtime",
         "clinical_agent.api",
-        "feishu",
-        "feishu.events",
-        "feishu.dedup",
-        "feishu.worker",
-        "feishu.sender",
-        "feishu.main",
+        "clinical_agent.channels",
+        "clinical_agent.channels.feishu",
+        "clinical_agent.channels.feishu.events",
+        "clinical_agent.channels.feishu.dedup",
+        "clinical_agent.channels.feishu.worker",
+        "clinical_agent.channels.feishu.sender",
+        "clinical_agent.channels.feishu.main",
     ],
 )
 def test_package_import_is_isolated_and_quiet(module_name: str, tmp_path: Path) -> None:
@@ -155,4 +158,6 @@ def test_package_import_is_isolated_and_quiet(module_name: str, tmp_path: Path) 
     assert report["attempts"] == []
     assert report["handlers_changed"] is False
     source_package = Path(__file__).resolve().parents[2] / "src" / module_name.split(".")[0]
+    if module_name.startswith("feishu."):
+        source_package = source_package.parent / "clinical_agent/channels/feishu"
     assert Path(report["module_file"]).resolve().is_relative_to(source_package)

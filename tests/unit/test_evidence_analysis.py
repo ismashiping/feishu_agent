@@ -288,8 +288,8 @@ def test_evidence_analysis_retracted_source_excluded(case):
 def test_evidence_analysis_langchain_messages_are_data(case):
     from langchain_core.language_models.fake_chat_models import FakeListChatModel
 
-    from clinical_agent.adapters.langchain_generation import LangChainAnswerGenerator
     from clinical_agent.application.analysis import EvidenceAnalyzer
+    from clinical_agent.integrations.langchain_generation import LangChainAnswerGenerator
 
     model = FakeListChatModel(responses=[json.dumps(case[2])])
     output = EvidenceAnalyzer(model=LangChainAnswerGenerator(model)).analyze(case[0], case[1])
@@ -341,67 +341,6 @@ def test_evidence_analysis_two_sided_comparison(case, duplicate):
             run(case)
     else:
         assert run(case).comparisons[0].relation == "potential_conflict"
-
-
-def test_evidence_analysis_cli_and_http(case, tmp_path, capsys):
-    from contextlib import contextmanager
-
-    from fastapi.testclient import TestClient
-
-    from clinical_agent.api import create_app
-    from clinical_agent.api_runtime import ApiSettings, ServiceBundle
-    from clinical_agent.application.analysis import EvidenceAnalyzer
-    from clinical_agent.application.research import ResearchService
-    from clinical_agent.cli import main
-
-    class Retriever:
-        def retrieve(self, request):
-            return case[1]
-
-    service = ResearchService(
-        retriever=Retriever(), generator=object(), analyzer=EvidenceAnalyzer(model=Model(case[2]))
-    )
-
-    @contextmanager
-    def factory(*args):
-        yield service
-
-    assert (
-        main(
-            [
-                "ask",
-                "--scope",
-                "local",
-                "--question",
-                case[0].question,
-                "--model-dir",
-                str(tmp_path),
-                "--analyze",
-            ],
-            research_factory=factory,
-        )
-        == 0
-    )
-    result = json.loads(capsys.readouterr().out)
-    assert result["studies"] and "source_uri" not in json.dumps(result)
-
-    @contextmanager
-    def runtime(settings):
-        yield ServiceBundle(ingestion=object(), research=service)
-
-    settings = ApiSettings(model_dir=tmp_path, import_root=tmp_path, snapshot_dir=tmp_path)
-    with TestClient(create_app(settings=settings, runtime_factory=runtime)) as client:
-        response = client.post(
-            "/v1/analyses", json={"scope": "local", "question": case[0].question}
-        )
-        assert response.status_code == 200, response.text
-        assert response.json()["studies"] == result["studies"]
-        assert (
-            client.post(
-                "/v1/analyses", content="invalid", headers={"Content-Type": "text/plain"}
-            ).status_code
-            == 415
-        )
 
 
 def test_evidence_analysis_budget_and_timeout(case):

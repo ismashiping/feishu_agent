@@ -33,7 +33,7 @@ def _migration(engine, action, target=None):
 def engine(tmp_path_factory):
     from sqlalchemy import text
 
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
 
     assert os.environ.get("CLINICAL_AGENT_DB_ALLOW_TEST_RESET") == "1"
     settings = DatabaseSettings()
@@ -77,7 +77,7 @@ def session(engine):
 
 
 def _document(source="pdf", **overrides):
-    from clinical_agent.adapters.postgres.models import DocumentRecord
+    from clinical_agent.db.models import DocumentRecord
 
     identity = uuid4()
     body = "甲α🙂"
@@ -130,7 +130,7 @@ def _document(source="pdf", **overrides):
 
 
 def _chunk(document, **overrides):
-    from clinical_agent.adapters.postgres.models import ChunkRecord
+    from clinical_agent.db.models import ChunkRecord
 
     data = dict(
         chunk_id=uuid4(),
@@ -183,7 +183,7 @@ def test_commit_roundtrip_survives_other_session_and_cascade(engine, source):
     from sqlalchemy import delete, select
     from sqlalchemy.orm import Session
 
-    from clinical_agent.adapters.postgres.models import ChunkRecord, DocumentRecord
+    from clinical_agent.db.models import ChunkRecord, DocumentRecord
 
     document = _document(source)
     chunk = _chunk(document)
@@ -336,7 +336,7 @@ def test_invalid_chunk_rolls_back_the_new_document(engine):
     from sqlalchemy.exc import IntegrityError
     from sqlalchemy.orm import Session
 
-    from clinical_agent.adapters.postgres.models import DocumentRecord
+    from clinical_agent.db.models import DocumentRecord
 
     document = _document()
     identity = document.document_id
@@ -354,7 +354,7 @@ def test_concurrent_source_uniqueness_is_enforced_by_database(engine):
     from sqlalchemy.exc import IntegrityError
     from sqlalchemy.orm import Session
 
-    from clinical_agent.adapters.postgres.models import DocumentRecord
+    from clinical_agent.db.models import DocumentRecord
 
     content_hash = uuid4().hex * 2
     barrier = threading.Barrier(2, timeout=5)

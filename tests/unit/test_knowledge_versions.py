@@ -2,7 +2,7 @@ from datetime import UTC, datetime
 
 
 def test_signature_ignores_acquisition_time_and_path(prepared_factory):
-    from clinical_agent.adapters.postgres.versions import fingerprint, versioned
+    from clinical_agent.db.versions import fingerprint, versioned
 
     prepared = prepared_factory()
     changed = prepared.model_copy(deep=True)
@@ -15,7 +15,7 @@ def test_signature_ignores_acquisition_time_and_path(prepared_factory):
 
 
 def test_metadata_creates_new_version(prepared_factory):
-    from clinical_agent.adapters.postgres.versions import fingerprint
+    from clinical_agent.db.versions import fingerprint
 
     prepared = prepared_factory()
     changed = prepared.model_copy(deep=True)

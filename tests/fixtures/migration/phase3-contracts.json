@@ -1,0 +1,82 @@
+{
+  "modules": {
+    "clinical_agent.adapters.embedding": "clinical_agent.rag.embedding",
+    "clinical_agent.adapters.offline": "clinical_agent.rag.offline",
+    "clinical_agent.adapters.pdf": "clinical_agent.rag.pdf",
+    "clinical_agent.adapters.pubmed_xml": "clinical_agent.rag.pubmed_xml",
+    "clinical_agent.adapters.llm": "clinical_agent.integrations.llm",
+    "clinical_agent.adapters.langchain_generation": "clinical_agent.integrations.langchain_generation",
+    "clinical_agent.adapters.openalex": "clinical_agent.integrations.openalex",
+    "clinical_agent.adapters.pubmed_online": "clinical_agent.integrations.pubmed_online",
+    "clinical_agent.adapters.oa_fulltext": "clinical_agent.integrations.oa_fulltext",
+    "clinical_agent.adapters.report_snapshot": "clinical_agent.integrations.report_snapshot",
+    "clinical_agent.adapters.postgres.connection": "clinical_agent.db.connection",
+    "clinical_agent.adapters.postgres.fulltext": "clinical_agent.db.fulltext",
+    "clinical_agent.adapters.postgres.governance": "clinical_agent.db.governance",
+    "clinical_agent.adapters.postgres.maintenance": "clinical_agent.db.maintenance",
+    "clinical_agent.adapters.postgres.models": "clinical_agent.db.models",
+    "clinical_agent.adapters.postgres.online_publication": "clinical_agent.db.online_publication",
+    "clinical_agent.adapters.postgres.rebuild": "clinical_agent.db.rebuild",
+    "clinical_agent.adapters.postgres.retrieval": "clinical_agent.db.retrieval",
+    "clinical_agent.adapters.postgres.store": "clinical_agent.db.store",
+    "clinical_agent.adapters.postgres.update_runs": "clinical_agent.db.update_runs",
+    "clinical_agent.adapters.postgres.versions": "clinical_agent.db.versions"
+  },
+  "ddl": {
+    "documents": {
+      "table": "\nCREATE TABLE documents (\n\tdocument_id UUID NOT NULL, \n\tsource_type TEXT NOT NULL, \n\tsource_identity TEXT GENERATED ALWAYS AS (CASE WHEN source_type='pdf' THEN content_hash ELSE pmid END) STORED NOT NULL, \n\tcontent_hash TEXT NOT NULL, \n\tsource_uri TEXT NOT NULL, \n\tsource_url TEXT, \n\tcontent_scope TEXT NOT NULL, \n\ttitle TEXT NOT NULL, \n\ttitle_origin TEXT NOT NULL, \n\tauthors JSONB NOT NULL, \n\tpublication_date JSONB NOT NULL, \n\tjournal TEXT, \n\tdoi TEXT, \n\tpmid TEXT, \n\tabstract TEXT, \n\ttext TEXT, \n\tingestion_time TIMESTAMP WITH TIME ZONE NOT NULL, \n\tsource_units JSONB NOT NULL, \n\tingestion_metadata JSONB, \n\tPRIMARY KEY (document_id), \n\tCONSTRAINT uq_documents_source UNIQUE (source_type, source_identity), \n\tCONSTRAINT uq_documents_id_source UNIQUE (document_id, source_type), \n\tCONSTRAINT ck_documents_source_type CHECK (source_type IN ('pdf','pubmed')), \n\tCONSTRAINT ck_documents_hash CHECK (content_hash ~ '^[0-9a-f]{64}$'), \n\tCONSTRAINT ck_documents_text CHECK (btrim(title) <> '' AND btrim(source_uri) <> ''), \n\tCONSTRAINT ck_documents_pmid CHECK (pmid IS NULL OR pmid ~ '^[1-9][0-9]*$'), \n\tCONSTRAINT ck_documents_scope CHECK ((source_type='pubmed' AND pmid IS NOT NULL AND content_scope='abstract') OR (source_type='pdf' AND content_scope IN ('extracted_text','full_text'))), \n\tCONSTRAINT ck_documents_title_origin CHECK ((source_type='pdf' AND title_origin IN ('manual','document_metadata','filename')) OR (source_type='pubmed' AND title_origin IN ('manual','pubmed_metadata'))), \n\tCONSTRAINT ck_documents_content CHECK ((content_scope='abstract' AND abstract IS NOT NULL AND btrim(abstract)<>'' AND text IS NULL) OR (content_scope<>'abstract' AND text IS NOT NULL AND btrim(text)<>'')), \n\tCONSTRAINT ck_documents_authors CHECK (jsonb_typeof(authors)='array'), \n\tCONSTRAINT ck_documents_date CHECK (jsonb_typeof(publication_date)='object'), \n\tCONSTRAINT ck_documents_units CHECK (jsonb_typeof(source_units)='array' AND jsonb_array_length(source_units)>0), \n\tCONSTRAINT ck_documents_ingestion_metadata CHECK (ingestion_metadata IS NULL OR jsonb_typeof(ingestion_metadata)='object')\n)\n\n",
+      "indexes": []
+    },
+    "online_update_batches": {
+      "table": "\nCREATE TABLE online_update_batches (\n\tbatch_id TEXT NOT NULL, \n\tscope_hash TEXT NOT NULL, \n\tsnapshot JSONB NOT NULL, \n\tresult JSONB NOT NULL, \n\tPRIMARY KEY (batch_id)\n)\n\n",
+      "indexes": []
+    },
+    "rebuild_runs": {
+      "table": "\nCREATE TABLE rebuild_runs (\n\trun_id UUID NOT NULL, \n\tstatus TEXT NOT NULL, \n\tsource_signature TEXT NOT NULL, \n\tpayload JSONB NOT NULL, \n\tevaluation_status TEXT NOT NULL, \n\tPRIMARY KEY (run_id)\n)\n\n",
+      "indexes": []
+    },
+    "update_cursors": {
+      "table": "\nCREATE TABLE update_cursors (\n\tbatch_id TEXT NOT NULL, \n\tscope_hash TEXT NOT NULL, \n\tposition INTEGER NOT NULL, \n\tPRIMARY KEY (batch_id)\n)\n\n",
+      "indexes": []
+    },
+    "update_runs": {
+      "table": "\nCREATE TABLE update_runs (\n\trun_id UUID NOT NULL, \n\tbatch_id TEXT NOT NULL, \n\tstatus TEXT NOT NULL, \n\tresult JSONB NOT NULL, \n\tPRIMARY KEY (run_id)\n)\n\n",
+      "indexes": []
+    },
+    "chunks": {
+      "table": "\nCREATE TABLE chunks (\n\tchunk_id UUID NOT NULL, \n\tdocument_id UUID NOT NULL, \n\tsource_type TEXT NOT NULL, \n\tchunk_index INTEGER NOT NULL, \n\ttext TEXT NOT NULL, \n\tlocation_kind TEXT NOT NULL, \n\tpage INTEGER, \n\tsection TEXT, \n\tstart_offset INTEGER NOT NULL, \n\tend_offset INTEGER NOT NULL, \n\tmodel_id TEXT NOT NULL, \n\tmodel_revision TEXT NOT NULL, \n\ttokenizer_revision TEXT NOT NULL, \n\tembedding_dimension INTEGER NOT NULL, \n\tnormalized BOOLEAN NOT NULL, \n\tchunking_version TEXT NOT NULL, \n\tdocument_prefix TEXT NOT NULL, \n\ttoken_count INTEGER NOT NULL, \n\tmax_tokens INTEGER NOT NULL, \n\tchunking_policy JSONB NOT NULL, \n\tsearch_vector TSVECTOR GENERATED ALWAYS AS (to_tsvector('simple'::regconfig, text)) STORED NOT NULL, \n\tembedding VECTOR(768) NOT NULL, \n\tPRIMARY KEY (chunk_id), \n\tCONSTRAINT fk_chunks_document_source FOREIGN KEY(document_id, source_type) REFERENCES documents (document_id, source_type) ON DELETE CASCADE, \n\tCONSTRAINT uq_chunks_position UNIQUE (document_id, chunking_version, chunk_index), \n\tCONSTRAINT ck_chunks_index CHECK (chunk_index > 0), \n\tCONSTRAINT ck_chunks_text CHECK (btrim(text) <> ''), \n\tCONSTRAINT ck_chunks_span CHECK (start_offset >= 0 AND end_offset > start_offset AND end_offset - start_offset = char_length(text)), \n\tCONSTRAINT ck_chunks_location CHECK ((source_type='pdf' AND location_kind='pdf_page' AND page IS NOT NULL AND page>0) OR (source_type='pubmed' AND location_kind='abstract' AND page IS NULL)), \n\tCONSTRAINT ck_chunks_model CHECK (model_id='intfloat/multilingual-e5-base' AND model_revision='d128750597153bb5987e10b1c3493a34e5a4502a' AND tokenizer_revision='d128750597153bb5987e10b1c3493a34e5a4502a' AND embedding_dimension=768 AND normalized IS TRUE AND chunking_version='source-unit-v1' AND document_prefix='passage: '), \n\tCONSTRAINT ck_chunks_tokens CHECK (max_tokens>0 AND max_tokens<=512 AND token_count>0 AND token_count<=max_tokens), \n\tCONSTRAINT ck_chunks_policy CHECK (jsonb_typeof(chunking_policy)='object'), \n\tCONSTRAINT ck_chunks_norm CHECK (abs(vector_norm(embedding)-1.0)<=0.0001)\n)\n\n",
+      "indexes": [
+        "CREATE INDEX ix_chunks_search_vector ON chunks USING gin (search_vector)"
+      ]
+    },
+    "document_versions": {
+      "table": "\nCREATE TABLE document_versions (\n\tversion_id UUID NOT NULL, \n\tdocument_id UUID NOT NULL, \n\tfingerprint TEXT NOT NULL, \n\tprepared JSONB NOT NULL, \n\tis_active BOOLEAN NOT NULL, \n\tcreated_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tPRIMARY KEY (version_id), \n\tFOREIGN KEY(document_id) REFERENCES documents (document_id) ON DELETE RESTRICT\n)\n\n",
+      "indexes": [
+        "CREATE UNIQUE INDEX uq_document_versions_active ON document_versions (document_id) WHERE is_active"
+      ]
+    },
+    "source_aliases": {
+      "table": "\nCREATE TABLE source_aliases (\n\tnamespace TEXT NOT NULL, \n\tvalue TEXT NOT NULL, \n\tdocument_id UUID NOT NULL, \n\tevidence JSONB NOT NULL, \n\tPRIMARY KEY (namespace, value, document_id), \n\tFOREIGN KEY(document_id) REFERENCES documents (document_id) ON DELETE RESTRICT, \n\tCONSTRAINT ck_alias_namespace CHECK (namespace IN ('pmid','doi','pdf_sha256'))\n)\n\n",
+      "indexes": []
+    },
+    "source_status_events": {
+      "table": "\nCREATE TABLE source_status_events (\n\tevent_id UUID NOT NULL, \n\tdocument_id UUID NOT NULL, \n\trequest JSONB NOT NULL, \n\trecorded_at TIMESTAMP WITH TIME ZONE NOT NULL, \n\tPRIMARY KEY (event_id), \n\tFOREIGN KEY(document_id) REFERENCES documents (document_id) ON DELETE RESTRICT, \n\tCONSTRAINT uq_source_event_document UNIQUE (document_id, event_id)\n)\n\n",
+      "indexes": []
+    },
+    "source_states": {
+      "table": "\nCREATE TABLE source_states (\n\tdocument_id UUID NOT NULL, \n\tevent_id UUID NOT NULL, \n\tstatus TEXT NOT NULL, \n\tevidence JSONB NOT NULL, \n\tPRIMARY KEY (document_id), \n\tFOREIGN KEY(document_id, event_id) REFERENCES source_status_events (document_id, event_id) ON DELETE RESTRICT, \n\tCONSTRAINT ck_source_status CHECK (status IN ('normal','corrected','retracted','withdrawn','expression_of_concern'))\n)\n\n",
+      "indexes": []
+    }
+  },
+  "migration_hashes": {
+    "alembic/versions/oa3001_0009_fulltext.py": "03f7948f9a5d2c831c9a1ae84a2e25b6eb7c74b871d21188e98f488cf1d2f5bd",
+    "alembic/versions/p1001_0008_fulltext.py": "9c4ea74b4a8f0992650becb78c5df800660f3efd5f6ea7bf03058a77d8419b57",
+    "alembic/versions/p106_0001_initial_postgres_schema.py": "a8095583af6ea7f6064a132ee3294d81d2e2ef41e1f99784b7c11b9a81716d20",
+    "alembic/versions/p107_0002_ingestion_metadata.py": "8ee341f975bdbe99bcb279ffae4aee2af1ec8eaa8992f055506e401759cb2b65",
+    "alembic/versions/p501_0003_keyword_search.py": "7a97f261847c67640b034d5e859de0560fa7746e0d0dd1d85ba4e5f3c00c1cc0",
+    "alembic/versions/p801_0004_document_versions.py": "6cc5989422c274564623912fc2c9287c518e4ced62e113d3524cb98dbbcd69d3",
+    "alembic/versions/p802_0005_update_runs.py": "0b7c9504b288eef3ac081ff7aec3ea8deb64ba4da8f42d9cfc237ef1fadd55f8",
+    "alembic/versions/p803_0006_source_governance.py": "2e85dad513c586922611db5e51e6a50326e02f73a280f263ac713474cd323702",
+    "alembic/versions/p804_0007_maintenance.py": "01054ce6949cfbaebeb96d54e055423719537f261b496f7f5ff45250a9cf0ef7"
+  }
+}

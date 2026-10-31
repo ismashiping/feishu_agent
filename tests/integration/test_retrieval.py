@@ -28,7 +28,7 @@ def engine():
     from sqlalchemy import text
 
     from alembic import command
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
 
     settings = DatabaseSettings()
     assert os.environ.get("CLINICAL_AGENT_DB_ALLOW_TEST_RESET") == "1"
@@ -47,8 +47,8 @@ def engine():
 def store(engine):
     from sqlalchemy import delete
 
-    from clinical_agent.adapters.postgres.models import DocumentRecord
-    from clinical_agent.adapters.postgres.store import PostgresStore
+    from clinical_agent.db.models import DocumentRecord
+    from clinical_agent.db.store import PostgresStore
 
     assert os.environ.get("CLINICAL_AGENT_DB_ALLOW_TEST_RESET") == "1"
     try:
@@ -77,7 +77,7 @@ def seed(store, source_factory, prepared_factory):
 
 
 def test_exact_distances_stable_ties_top_k_and_detached_hits(engine, seed):
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalOptions, RetrievalResult
 
     seed("Later UUID", [1.0], 20)
@@ -107,7 +107,7 @@ def test_exact_distances_stable_ties_top_k_and_detached_hits(engine, seed):
 
 @pytest.mark.parametrize("minimum,expected", [(1.0, [1]), (0.0, [1, 2]), (-1.0, [1, 2, 3])])
 def test_inclusive_thresholds(engine, seed, minimum, expected):
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalOptions
 
     seed("Aligned", [1.0], 1)
@@ -118,7 +118,7 @@ def test_inclusive_thresholds(engine, seed, minimum, expected):
 
 
 def test_filters_apply_before_limit_and_abstract_metadata_stays_abstract(engine, seed):
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalOptions
 
     pdf = seed("PDF aligned", [1.0], 1)
@@ -155,7 +155,7 @@ def test_filters_apply_before_limit_and_abstract_metadata_stays_abstract(engine,
 
 
 def test_empty_corpus_is_a_successful_empty_result(engine, store):
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalOptions
 
     assert PostgresRetriever(engine).search(query(), RetrievalOptions()).hits == []
@@ -167,8 +167,8 @@ def test_selected_corruption_is_an_error_not_zero_hits(
 ):
     from sqlalchemy import delete, update
 
-    from clinical_agent.adapters.postgres.models import ChunkRecord, DocumentRecord
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.models import ChunkRecord, DocumentRecord
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalError, RetrievalOptions
 
     original = prepared_factory(source_factory(text="Long enough evidence."), max_tokens=13)
@@ -187,7 +187,7 @@ def test_selected_corruption_is_an_error_not_zero_hits(
 def test_real_read_only_repeatable_read_and_three_data_queries(engine, seed):
     from sqlalchemy import event
 
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalOptions
 
     seed("Source A", [1.0], 1)
@@ -219,8 +219,8 @@ def test_real_read_only_repeatable_read_and_three_data_queries(engine, seed):
 def test_candidate_and_hydration_share_snapshot_during_concurrent_update(engine, seed):
     from sqlalchemy import event, update
 
-    from clinical_agent.adapters.postgres.models import DocumentRecord
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.models import DocumentRecord
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalOptions
 
     original = seed("Original source", [1.0], 1)
@@ -244,7 +244,7 @@ def test_database_error_cannot_become_empty_result(engine, store):
     from sqlalchemy import event
     from sqlalchemy.exc import OperationalError
 
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalError, RetrievalOptions
 
     def fail(connection, cursor, statement, parameters, context, executemany):
@@ -267,13 +267,13 @@ def test_actual_e5_query_and_document_vectors_return_traceable_hits(
 ):
     import socket
 
-    from clinical_agent.adapters.embedding import REVISION, LocalModelConfig, load_local_embedder
-    from clinical_agent.adapters.offline import OfflineReader
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.application.retrieval import RetrievalService
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.ingestion import ImportRequest
     from clinical_agent.domain.retrieval import RetrievalOptions, RetrievalRequest
+    from clinical_agent.rag.embedding import REVISION, LocalModelConfig, load_local_embedder
+    from clinical_agent.rag.offline import OfflineReader
 
     original_connect = socket.socket.connect
 

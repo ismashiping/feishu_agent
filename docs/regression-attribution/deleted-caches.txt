@@ -1,0 +1,3 @@
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_cache
+E:\02_Projects\chatgpt_project\clinical_agent\.ruff_cache
+E:\02_Projects\chatgpt_project\clinical_agent\.mypy_cache

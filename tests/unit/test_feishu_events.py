@@ -27,7 +27,7 @@ def payload(text="问题 α🙂\n证据", **message):
 
 
 def decide(data):
-    from feishu.events import EventPolicy, filter_event
+    from clinical_agent.channels.feishu.events import EventPolicy, filter_event
 
     return filter_event(data, policy=EventPolicy(app_id="cli_test", bot_open_id="ou_bot"))
 
@@ -82,7 +82,7 @@ def test_missing_message_id_fallback_and_optional_event_id():
 
 
 def test_identity_namespaces_and_correlation():
-    from feishu.events import EventPolicy, filter_event
+    from clinical_agent.channels.feishu.events import EventPolicy, filter_event
 
     a = decide(payload()).envelope
     data = payload(message_id=None)
@@ -260,14 +260,14 @@ def test_mention_only_is_empty_and_p2p_does_not_parse_mentions():
     ],
 )
 def test_invalid_policy(values):
-    from feishu.events import EventPolicy
+    from clinical_agent.channels.feishu.events import EventPolicy
 
     with pytest.raises(ValidationError):
         EventPolicy(**values)
 
 
 def test_dto_consistency_and_strictness():
-    from feishu.events import EventDecision, MessageEnvelope
+    from clinical_agent.channels.feishu.events import EventDecision, MessageEnvelope
 
     valid = decide(payload()).envelope.model_dump()
     for override in (
@@ -338,7 +338,7 @@ def test_raw_surrogate_is_controlled_and_identifier_boundary_is_preserved():
 
 
 def test_mutated_policy_and_envelope_are_revalidated():
-    from feishu.events import EventPolicy, MessageEnvelope, filter_event
+    from clinical_agent.channels.feishu.events import EventPolicy, MessageEnvelope, filter_event
 
     policy = EventPolicy(app_id="cli_test", bot_open_id="ou_bot")
     policy.bot_open_id = ""

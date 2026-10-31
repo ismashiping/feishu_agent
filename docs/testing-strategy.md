@@ -226,3 +226,19 @@ Docker直连Hub超时后，只读确认既有本机7890代理可访问官方regi
 最终应用镜像ID：sha256:013d6909cef814039ea1f610e5bd4f4c1f60fc65e683714d2bde603266e50a9c。证据docker-build-proxy.txt、python-base-pull.txt、redis-base-pull.txt、image-check.json、compose-accept-result.json、compose-accept-commands.json及compose-accept-api/feishu_bot.log。真实口令收发仍以此前live-external-published.txt的1 passed/34.38秒为准（研究为合成替身）；本次生产容器验证启动/连接/停止，不追加真实医学消息。
 
 P1-16任务内无阻塞，Phase1尚未整体验收。真实E5/PG/付费LLM完整研究链路、医学支持关系人工审查、解释器升级前置要求与phase-01六份学习文档仍归P1-17；未自动开始。原有未提交改动保留，未创建Git提交。
+
+
+## 2026-10-31 当前测试产物约定
+
+新运行使用 `.artifacts/tmp/<独立运行名>/` 保存 pytest 临时输入/输出，日志、JUnit 和验收结论保存 `docs/<任务>/<批次>/`。先创建 `.artifacts/tmp` 父目录；pytest 原生 `--basetemp` 会删除指定目录，禁止指向任何验收目录或复用并行进程的路径。每个进程独立命名（可含日期和PID），xdist 在该运行内部使用 pytest 自身的 worker 子目录。不新增目录管理框架。
+
+PowerShell 示例（日志目录也需预先创建）：
+
+```powershell
+New-Item -ItemType Directory -Force .artifacts/tmp | Out-Null
+.venv/Scripts/python.exe -X utf8 -m pytest -q --basetemp=".artifacts/tmp/local-$PID" > docs/my-task/offline.txt 2>&1
+```
+
+pytest/ruff/mypy 缓存已配置到 `.artifacts/tmp/{pytest-cache,ruff-cache,mypy-cache}`。`.gitignore` 只排除生成区；必要fixtures保留tests/fixtures，长期证据放docs，不新增根目录 `.pytest_*`。旧命令、旧证据目录不重写；引用它们不表示新运行继续使用这些路径。
+
+CI 当前只跑确定性评价测试，使用 pytest 原生临时目录，无共享 basetemp，保持不变。检查脚本、CI 后未发现需要迁移的活动 --basetemp 参数；多种根目录路径主要来自历史SPEC/验收命令，保留原始事实。仓库工具、虚拟环境、模型、备份和研究下载缓存不属于测试临时目录。

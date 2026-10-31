@@ -1,0 +1,9 @@
+# 运行与排错
+
+使用仓库.venv的Python3.12；缺LangGraph时安装项目锁定的rag可选依赖，不通过备用框架规避问题。项目不要求导入agents包时加载模型或创建连接。
+
+调试入口：ResearchService.__init__→build_research_graph→公开方法invoke→目标节点。超时从deadline减clock核查，反馈检查feedback_rounds、feedback_history和report.feedback_stop。
+
+新增测试路径：tests/unit/test_agents_migration.py。类型字符串中的旧模块路径允许映射到新模块位置，字段和泛型结构仍严格比较；旧新对象身份另行断言。函数默认值的内存地址跨进程不同，fixture只归一化地址，不忽略参数或默认值语义。
+
+现有local门禁和PubMed旧契约失败不能据此判断为迁移错误，应比较Phase0失败身份。完整命令与实际结果见阶段acceptance.md；未执行的真实服务不标通过。

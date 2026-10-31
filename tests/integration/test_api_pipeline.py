@@ -19,12 +19,12 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
     import uvicorn
     from sqlalchemy import delete, func, select, text
 
-    from clinical_agent.adapters import embedding
-    from clinical_agent.adapters import llm as llm_api
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-    from clinical_agent.adapters.postgres.models import ChunkRecord, DocumentRecord
     from clinical_agent.api import create_app
-    from clinical_agent.api_runtime import ApiSettings
+    from clinical_agent.api.schemas import ApiSettings
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.models import ChunkRecord, DocumentRecord
+    from clinical_agent.integrations import llm as llm_api
+    from clinical_agent.rag import embedding
 
     database = DatabaseSettings()
     assert database.host == "127.0.0.1" and database.name.startswith("clinical_agent_test_")

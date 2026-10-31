@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="9" time="7.578" timestamp="2026-10-31T10:17:21.799708+08:00" hostname="IsMaShiPing"><testcase classname="tests.unit.test_agents_migration" name="test_complete_graph_topology[False]" time="1.629" /><testcase classname="tests.unit.test_agents_migration" name="test_complete_graph_topology[True]" time="0.018" /><testcase classname="tests.unit.test_agents_migration" name="test_state_types_and_required_fields" time="0.002" /><testcase classname="tests.unit.test_agents_migration" name="test_public_signatures_and_api_unchanged" time="0.348"><failure message="AssertionError: assert {'__init__': ...sResult', ...} == {'__init__': ...sResult', ...}&#10;  &#10;  Omitting 4 identical items, use -vv to show&#10;  Differing items:&#10;  {'__init__': '(self, *, retriever: clinical_agent.agents.nodes.RetrievalPort, generator: clinical_agent.application.re...ic&gt;, now: collections.abc.Callable[[], datetime.datetime] = &lt;function ResearchService.&lt;lambda&gt; at 0xADDRESS&gt;) -&gt; None'} != {'__init__': '(self, *, retriever: clinical_agent.agents.nodes.RetrievalPort, generator: clinical_agent.application.re... now: collections.abc.Callable[[], datetime.datetime] = &lt;function ResearchService.&lt;lambda&gt; at 0xADDRESSRESS&gt;) -&gt; None'}&#10;  Use -v to get more diff">def test_public_signatures_and_api_unchanged():
+        from clinical_agent.api import create_app
+        from clinical_agent.application.research import ResearchService
+    
+&gt;       assert {
+            name: relocated_type(inspect.signature(getattr(ResearchService, name)))
+            for name in BASELINE["interfaces"]
+        } == {name: relocated_type(value) for name, value in BASELINE["interfaces"].items()}
+E       AssertionError: assert {'__init__': ...sResult', ...} == {'__init__': ...sResult', ...}
+E         
+E         Omitting 4 identical items, use -vv to show
+E         Differing items:
+E         {'__init__': '(self, *, retriever: clinical_agent.agents.nodes.RetrievalPort, generator: clinical_agent.application.re...ic&gt;, now: collections.abc.Callable[[], datetime.datetime] = &lt;function ResearchService.&lt;lambda&gt; at 0xADDRESS&gt;) -&gt; None'} != {'__init__': '(self, *, retriever: clinical_agent.agents.nodes.RetrievalPort, generator: clinical_agent.application.re... now: collections.abc.Callable[[], datetime.datetime] = &lt;function ResearchService.&lt;lambda&gt; at 0xADDRESSRESS&gt;) -&gt; None'}
+E         Use -v to get more diff
+
+tests\unit\test_agents_migration.py:55: AssertionError</failure></testcase><testcase classname="tests.unit.test_agents_migration" name="test_legacy_imports_are_same_objects" time="0.002" /><testcase classname="tests.unit.test_agents_migration" name="test_new_modules_import_without_optional_runtime[agents]" time="1.112" /><testcase classname="tests.unit.test_agents_migration" name="test_new_modules_import_without_optional_runtime[agents.state]" time="1.279" /><testcase classname="tests.unit.test_agents_migration" name="test_new_modules_import_without_optional_runtime[agents.nodes]" time="1.207" /><testcase classname="tests.unit.test_agents_migration" name="test_new_modules_import_without_optional_runtime[agents.graph]" time="1.191" /></testsuite></testsuites>

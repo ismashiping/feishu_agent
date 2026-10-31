@@ -37,6 +37,16 @@ def _allowed_fields(_logger: object, _method_name: str, event_dict: EventDict) -
     }
 
 
+def log_unexpected(stage: str, error: BaseException) -> None:
+    """Keep an error-code boundary diagnosable without logging messages or tracebacks.
+
+    Exception text may contain medical questions, model output or credentials.
+    """
+    logging.getLogger("clinical_agent").warning(
+        "unexpected_error", extra={"stage": stage, "exception_type": type(error).__name__}
+    )
+
+
 def configure_logging(settings: Settings) -> None:
     """Configure only project handlers, retaining unrelated logging resources."""
     logger = logging.getLogger("clinical_agent")

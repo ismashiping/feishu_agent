@@ -9,11 +9,11 @@ from uuid import NAMESPACE_URL, uuid4, uuid5
 import pytest
 from pydantic import ValidationError
 
+from clinical_agent.channels.feishu.dedup import AcquireResult, DedupPolicy, Lease
+from clinical_agent.channels.feishu.events import MessageEnvelope
 from clinical_agent.domain.citations import build_answer
 from clinical_agent.domain.research import QuestionRequest
 from clinical_agent.domain.retrieval import RetrievalResult, retrieval_embedding_info
-from feishu.dedup import AcquireResult, DedupPolicy, Lease
-from feishu.events import MessageEnvelope
 from tests.unit.test_evidence_analysis import case as case
 
 
@@ -48,7 +48,7 @@ class EmptyOnline:
         from clinical_agent.domain.pubmed import SearchProvenance
 
         return RetrievalResult(
-            scope="online",
+            scope=request.scope,
             options=request.options,
             embedding_info=None,
             hits=[],
@@ -137,7 +137,7 @@ class Sink:
 
 @pytest.fixture
 def setup_worker():
-    from feishu.worker import Dispatcher, WorkerPolicy
+    from clinical_agent.channels.feishu.worker import Dispatcher, WorkerPolicy
 
     service, dedup, sink = Service(), Dedup(), Sink()
     worker = Dispatcher(research=service, dedup=dedup, sink=sink, policy=WorkerPolicy(capacity=1))
@@ -264,7 +264,7 @@ def test_submit_failure_cleans_owned_resources(setup_worker, monkeypatch):
 
 
 def test_concurrent_duplicates_call_one_shared_service():
-    from feishu.worker import Dispatcher, WorkerPolicy
+    from clinical_agent.channels.feishu.worker import Dispatcher, WorkerPolicy
 
     service, dedup, sink = Service(), Dedup(), Sink()
     service.finish.clear()
@@ -301,14 +301,14 @@ def test_concurrent_duplicates_call_one_shared_service():
     ],
 )
 def test_policy_rejects_invalid_values(values):
-    from feishu.worker import WorkerPolicy
+    from clinical_agent.channels.feishu.worker import WorkerPolicy
 
     with pytest.raises(ValidationError):
         WorkerPolicy(**values)
 
 
 def test_budget_rejects_short_default_lease():
-    from feishu.worker import Dispatcher
+    from clinical_agent.channels.feishu.worker import Dispatcher
 
     dedup = Dedup()
     dedup.policy = DedupPolicy()
@@ -318,7 +318,7 @@ def test_budget_rejects_short_default_lease():
 
 def test_real_graph_reused_with_independent_request_state():
     from clinical_agent.application.research import ResearchService
-    from feishu.worker import Dispatcher
+    from clinical_agent.channels.feishu.worker import Dispatcher
 
     class Retriever:
         def retrieve(self, request):
@@ -391,7 +391,7 @@ def test_input_snapshot_and_invalid_input_before_io(setup_worker):
 
 
 def test_distinct_messages_never_exceed_capacity():
-    from feishu.worker import Dispatcher, WorkerPolicy
+    from clinical_agent.channels.feishu.worker import Dispatcher, WorkerPolicy
 
     service, dedup, sink = Service(), Dedup(), Sink()
     service.finish.clear()
@@ -450,8 +450,8 @@ def test_unexpected_adapter_errors_do_not_leak_or_overrelease(setup_worker, monk
 
 def test_real_graph_generation_keeps_evidence_for_each_message(prepared_factory):
     from clinical_agent.application.research import ResearchService
+    from clinical_agent.channels.feishu.worker import Dispatcher
     from clinical_agent.domain.retrieval import DocumentSummary, EvidenceHit
-    from feishu.worker import Dispatcher
 
     prepared = prepared_factory()
     chunk = prepared.embedded[0].evidence
@@ -499,9 +499,17 @@ def test_real_graph_generation_keeps_evidence_for_each_message(prepared_factory)
     from clinical_agent.application.pico import PicoPlanner
     from tests.unit.test_intent_routing import Extractor
 
+    class Online:
+        def retrieve(self, request, **kwargs):
+            found = Retriever().retrieve(request)
+            provenance = EmptyOnline().retrieve(request).search_provenance
+            return found.model_copy(
+                update={"scope": request.scope, "search_provenance": provenance}
+            )
+
     service = ResearchService(
         planner=PicoPlanner(extractor=Extractor("question_answer")),
-        online_retriever=EmptyOnline(),
+        online_retriever=Online(),
         retriever=Retriever(),
         generator=Generator(),
         now=lambda: datetime(2026, 10, 27, tzinfo=UTC),
@@ -537,8 +545,8 @@ def test_handoff_carries_bounded_sender_deadline(setup_worker):
 def test_research_failure_logs_safe_code(setup_worker, caplog, code):
     import logging
 
+    from clinical_agent.channels.feishu.main import _SafeFormatter
     from clinical_agent.domain.research import ResearchError
-    from feishu.main import _SafeFormatter
 
     worker, service, _, sink = setup_worker
 

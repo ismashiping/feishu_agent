@@ -21,7 +21,7 @@ def engine():
     from sqlalchemy import text
 
     from alembic import command
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
 
     settings = DatabaseSettings()
     assert os.environ.get("CLINICAL_AGENT_DB_ALLOW_TEST_RESET") == "1"
@@ -40,8 +40,8 @@ def engine():
 def store(engine):
     from sqlalchemy import delete
 
-    from clinical_agent.adapters.postgres.models import DocumentRecord
-    from clinical_agent.adapters.postgres.store import PostgresStore
+    from clinical_agent.db.models import DocumentRecord
+    from clinical_agent.db.store import PostgresStore
 
     value = PostgresStore(engine)
     try:
@@ -136,7 +136,7 @@ def test_wrong_document_primary_key_is_not_reported_as_duplicate(
 def test_corrupt_storage_is_not_accepted_as_duplicate(store, engine, prepared_factory, case):
     from sqlalchemy import delete, update
 
-    from clinical_agent.adapters.postgres.models import ChunkRecord, DocumentRecord
+    from clinical_agent.db.models import ChunkRecord, DocumentRecord
     from clinical_agent.domain.ingestion import IngestionError
 
     original = prepared_factory(max_tokens=13)
@@ -182,7 +182,7 @@ def test_simultaneous_same_source_imports_have_one_canonical_commit(
     from sqlalchemy import event, func, select
     from sqlalchemy.orm import Session
 
-    from clinical_agent.adapters.postgres.models import ChunkRecord, DocumentRecord
+    from clinical_agent.db.models import ChunkRecord, DocumentRecord
 
     original = prepared_factory()
     barrier = threading.Barrier(2, timeout=5)
@@ -211,7 +211,7 @@ def test_incremental_migration_preserves_legacy_row_without_fabrication(engine):
     from sqlalchemy import text
 
     from alembic import command
-    from clinical_agent.adapters.postgres.store import PostgresStore
+    from clinical_agent.db.store import PostgresStore
     from clinical_agent.domain.ingestion import IngestionError
 
     identity = uuid4()
@@ -254,9 +254,9 @@ def test_actual_pdf_and_xml_application_chain_uses_no_db_connection_until_store(
     pdf_factory,
     fake_embedder,
 ):
-    from clinical_agent.adapters.offline import OfflineReader
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.domain.ingestion import ImportRequest
+    from clinical_agent.rag.offline import OfflineReader
 
     original = fake_embedder.embed_chunks
 
@@ -316,10 +316,10 @@ def test_actual_pdf_and_xml_application_chain_uses_no_db_connection_until_store(
 def test_real_pdf_e5_postgres_end_to_end(store, tmp_path, pdf_factory, monkeypatch):
     import socket
 
-    from clinical_agent.adapters.embedding import REVISION, LocalModelConfig, load_local_embedder
-    from clinical_agent.adapters.offline import OfflineReader
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.domain.ingestion import ImportRequest
+    from clinical_agent.rag.embedding import REVISION, LocalModelConfig, load_local_embedder
+    from clinical_agent.rag.offline import OfflineReader
 
     path = pdf_factory(tmp_path / "real-model-source.pdf")
     # The database is on 127.0.0.1; reject all non-loopback network destinations.
@@ -373,7 +373,7 @@ def test_store_sets_read_committed_even_for_snapshot_isolation_engine(
 ):
     from sqlalchemy import event
 
-    from clinical_agent.adapters.postgres.store import PostgresStore
+    from clinical_agent.db.store import PostgresStore
 
     levels = []
 

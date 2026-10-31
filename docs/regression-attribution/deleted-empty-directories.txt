@@ -1,0 +1,11 @@
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_feishu_readable_regression
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_fulltext_runtime
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_openalex_budget_fix
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_openalex_cli_final
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_openalex_contract_final
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_openalex_final
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_openalex_fix
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_quality_c
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_quality_last
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_recall_final
+E:\02_Projects\chatgpt_project\clinical_agent\.pytest_recall_regression

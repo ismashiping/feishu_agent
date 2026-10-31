@@ -10,7 +10,7 @@ def test_shared_image_and_explicit_bot_profile():
     assert "  api:" in text
     assert "  redis:" in text
     assert "profiles: [bot]" in text
-    assert 'command: ["python", "-m", "feishu.main"]' in text
+    assert 'command: ["python", "-m", "clinical_agent.channels.feishu.main"]' in text
     assert text.count("image: clinical-literature-agent:local") == 2
     assert "condition: service_healthy" in text
     assert ":/app/model:ro" in text

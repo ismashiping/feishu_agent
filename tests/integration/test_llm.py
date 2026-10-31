@@ -26,7 +26,7 @@ def context():
 
 
 def settings(**changes):
-    from clinical_agent.adapters.llm import LLMSettings
+    from clinical_agent.integrations.llm import LLMSettings
 
     data = dict(
         api_key="synthetic-secret", base_url="https://api.example.test/v1", model="test-model"
@@ -63,7 +63,7 @@ def test_invalid_endpoint_configuration_is_rejected(url):
 
 
 def test_settings_are_explicit_secret_and_environment_only(monkeypatch, tmp_path):
-    from clinical_agent.adapters.llm import LLMSettings
+    from clinical_agent.integrations.llm import LLMSettings
 
     monkeypatch.chdir(tmp_path)
     (tmp_path / ".env").write_text("LLM_API_KEY=file-secret\nLLM_MODEL=file-model")
@@ -81,7 +81,7 @@ def test_settings_are_explicit_secret_and_environment_only(monkeypatch, tmp_path
 
 
 def test_compatible_protocol_timeout_and_lifecycle():
-    from clinical_agent.adapters.llm import open_llm
+    from clinical_agent.integrations.llm import open_llm
 
     seen = []
 
@@ -108,8 +108,8 @@ def test_compatible_protocol_timeout_and_lifecycle():
 
 @pytest.mark.parametrize("status", [301, 401, 429, 500])
 def test_http_failures_no_retry_or_body_leak(status):
-    from clinical_agent.adapters.llm import open_llm
     from clinical_agent.domain.research import ResearchError
+    from clinical_agent.integrations.llm import open_llm
 
     calls = []
 
@@ -130,8 +130,8 @@ def test_http_failures_no_retry_or_body_leak(status):
     [(httpx.ReadTimeout, "generation_timeout"), (httpx.ConnectError, "generation_failed")],
 )
 def test_transport_failures_are_controlled(failure, code):
-    from clinical_agent.adapters.llm import open_llm
     from clinical_agent.domain.research import ResearchError
+    from clinical_agent.integrations.llm import open_llm
 
     def handler(request):
         raise failure("private upstream", request=request)
@@ -167,8 +167,8 @@ def test_transport_failures_are_controlled(failure, code):
 def test_malformed_or_truncated_envelope_is_not_an_answer(change, caplog):
     import logging
 
-    from clinical_agent.adapters.llm import open_llm
     from clinical_agent.domain.research import ResearchError
+    from clinical_agent.integrations.llm import open_llm
 
     with caplog.at_level(logging.INFO, logger="clinical_agent.application.openalex"):
         with open_llm(
@@ -192,8 +192,8 @@ def test_malformed_or_truncated_envelope_is_not_an_answer(change, caplog):
 def test_analysis_output_budget_stays_independent_of_other_calls(caplog):
     import logging
 
-    from clinical_agent.adapters.llm import open_llm
     from clinical_agent.domain.research import ResearchError
+    from clinical_agent.integrations.llm import open_llm
 
     seen = []
 
@@ -240,14 +240,14 @@ def test_analysis_output_budget_stays_independent_of_other_calls(caplog):
 
 
 def test_response_stream_is_bounded_and_closed():
-    from clinical_agent.adapters.llm import open_llm
     from clinical_agent.domain.research import ResearchError
+    from clinical_agent.integrations.llm import open_llm
 
     class Huge(httpx.SyncByteStream):
         closed = False
 
         def __iter__(self):
-            from clinical_agent.adapters.llm import RESPONSE_BYTE_LIMIT
+            from clinical_agent.integrations.llm import RESPONSE_BYTE_LIMIT
 
             yield b" " * (RESPONSE_BYTE_LIMIT + 1)
             raise AssertionError("Should stop before consuming more data")
@@ -266,7 +266,7 @@ def test_response_stream_is_bounded_and_closed():
 
 
 def test_mutated_settings_revalidated_before_creating_client():
-    from clinical_agent.adapters.llm import open_llm
+    from clinical_agent.integrations.llm import open_llm
 
     config = settings()
     config.base_url = "https://user:password@api.example.test"
@@ -284,7 +284,7 @@ def test_mutated_settings_revalidated_before_creating_client():
     ],
 )
 def test_switch_endpoint_and_model_using_configuration_only(base_url, model):
-    from clinical_agent.adapters.llm import open_llm
+    from clinical_agent.integrations.llm import open_llm
 
     calls = []
 
@@ -302,7 +302,7 @@ def test_switch_endpoint_and_model_using_configuration_only(base_url, model):
 
 
 def test_missing_base_url_never_falls_back_to_a_vendor(monkeypatch):
-    from clinical_agent.adapters.llm import LLMSettings
+    from clinical_agent.integrations.llm import LLMSettings
 
     monkeypatch.delenv("LLM_BASE_URL", raising=False)
     with pytest.raises(ValidationError):

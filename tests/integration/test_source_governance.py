@@ -11,7 +11,7 @@ pytestmark = [pytest.mark.integration, pytest.mark.database]
 
 
 def setup_source(engine, source_factory, prepared_factory, **kwargs):
-    from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
+    from clinical_agent.db.versions import VersionedPostgresStore
 
     value = prepared_factory(source_factory(**kwargs))
     store = VersionedPostgresStore(engine)
@@ -20,7 +20,7 @@ def setup_source(engine, source_factory, prepared_factory, **kwargs):
 
 
 def test_alias_idempotence_conflicts_and_native_guard(engine, source_factory, prepared_factory):
-    from clinical_agent.adapters.postgres.governance import SourceGovernance
+    from clinical_agent.db.governance import SourceGovernance
     from clinical_agent.domain.governance import AliasClaim
 
     registry = SourceGovernance(engine)
@@ -63,7 +63,7 @@ def test_alias_idempotence_conflicts_and_native_guard(engine, source_factory, pr
 
 
 def test_status_compare_and_swap_and_idempotence(engine, source_factory, prepared_factory):
-    from clinical_agent.adapters.postgres.governance import SourceGovernance
+    from clinical_agent.db.governance import SourceGovernance
     from clinical_agent.domain.governance import StatusChange
 
     registry = SourceGovernance(engine)
@@ -111,8 +111,8 @@ def test_status_compare_and_swap_and_idempotence(engine, source_factory, prepare
 def test_governance_filters_all_modes_and_preserves_history(
     engine, source_factory, prepared_factory, blocked
 ):
-    from clinical_agent.adapters.postgres.governance import SourceGovernance
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.governance import SourceGovernance
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.governance import StatusChange
     from clinical_agent.domain.retrieval import RetrievalOptions
 
@@ -205,8 +205,8 @@ def test_governance_filters_all_modes_and_preserves_history(
 
 
 def test_unknown_document_and_migration(engine):
-    from clinical_agent.adapters.postgres.governance import SourceGovernance
-    from clinical_agent.adapters.postgres.models import SourceStatusEventRecord
+    from clinical_agent.db.governance import SourceGovernance
+    from clinical_agent.db.models import SourceStatusEventRecord
     from clinical_agent.domain.governance import StatusChange
     from tests.integration.test_postgres import _migration
 
@@ -235,7 +235,7 @@ def test_unknown_document_and_migration(engine):
 def test_status_failure_rolls_back_event_and_projection(engine, source_factory, prepared_factory):
     from sqlalchemy import event
 
-    from clinical_agent.adapters.postgres.governance import SourceGovernance
+    from clinical_agent.db.governance import SourceGovernance
     from clinical_agent.domain.governance import StatusChange
 
     registry = SourceGovernance(engine)

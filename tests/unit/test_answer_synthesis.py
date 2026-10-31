@@ -6,9 +6,9 @@ from pathlib import Path
 
 import pytest
 
+from clinical_agent.channels.feishu.sender import render_answer
 from clinical_agent.domain.citations import BASE_LIMITATIONS
 from clinical_agent.domain.research import INSTRUCTIONS
-from feishu.sender import render_answer
 from tests.unit.test_feishu_sender import answer
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -71,9 +71,9 @@ def test_real_organ_abstract_negative_control_dataflow(question, source_factory,
     """Real source text, hand-authored negative response; NOT a model quality score."""
     from uuid import uuid4
 
-    from clinical_agent.adapters.pubmed_xml import parse_pubmed_response
     from clinical_agent.application.research import ResearchService
     from clinical_agent.domain.research import QuestionRequest
+    from clinical_agent.rag.pubmed_xml import parse_pubmed_response
     from tests.unit.test_research import Retriever, draft, result
 
     xml = (ROOT / "docs/final-acceptance/answer-synthesis/organ-segmentation.xml").read_bytes()

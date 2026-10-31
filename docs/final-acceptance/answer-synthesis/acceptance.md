@@ -30,7 +30,7 @@ render-before.txt / render-after.txt 使用相同真实模型响应，隔离展�
 
 ## 未验证及边界
 未完成跨疾病真实模型评测、多论文综合准确率、真实中英文检索与飞书用户端新回答验收。当前测试中有确定性真实内容快照，也有固定生成替身，两者不等同端到端科研质量。引用身份校验仍不能阻断所有医学语义错误；泛化和高风险结论仍需人工检查。
-所有旧未提交改动保留；生产变更前副本与 SHA256 位于 .quality-backup/answer-synthesis-20261029。changes.patch 是相对于本轮副本的差异，不相对于 HEAD。
+所有旧未提交改动保留；生产变更前副本与 SHA256 位于 docs/archive/quality-backup/answer-synthesis-20261029。changes.patch 是相对于本轮副本的差异，不相对于 HEAD。
 
 ## 最终结果
 最终完整 unit：1120 passed、0 failed、0 skipped、0 errors、1 条既有 SDK 弃用警告（127.15s）。Ruff 通过，mypy 两个生产文件通过，最终9项新用例再次通过。固定 Compose 项目复用 API c10bdb4a0f06 与飞书 86c384d4af78 执行 restart，无新容器/卷/镜像构建。

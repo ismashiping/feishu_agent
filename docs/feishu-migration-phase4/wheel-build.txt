@@ -1,0 +1,398 @@
+running bdist_wheel
+running build
+running build_py
+creating build\lib\clinical_agent
+copying src\clinical_agent\api_runtime.py -> build\lib\clinical_agent
+copying src\clinical_agent\bootstrap.py -> build\lib\clinical_agent
+copying src\clinical_agent\cli.py -> build\lib\clinical_agent
+copying src\clinical_agent\command_runtime.py -> build\lib\clinical_agent
+copying src\clinical_agent\config.py -> build\lib\clinical_agent
+copying src\clinical_agent\logging_config.py -> build\lib\clinical_agent
+copying src\clinical_agent\research_runtime.py -> build\lib\clinical_agent
+copying src\clinical_agent\__init__.py -> build\lib\clinical_agent
+copying src\clinical_agent\__main__.py -> build\lib\clinical_agent
+creating build\lib\feishu
+copying src\feishu\dedup.py -> build\lib\feishu
+copying src\feishu\events.py -> build\lib\feishu
+copying src\feishu\main.py -> build\lib\feishu
+copying src\feishu\sender.py -> build\lib\feishu
+copying src\feishu\worker.py -> build\lib\feishu
+copying src\feishu\__init__.py -> build\lib\feishu
+creating build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\embedding.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\langchain_generation.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\llm.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\oa_fulltext.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\offline.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\openalex.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\pdf.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\pubmed_online.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\pubmed_xml.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\report_snapshot.py -> build\lib\clinical_agent\adapters
+copying src\clinical_agent\adapters\__init__.py -> build\lib\clinical_agent\adapters
+creating build\lib\clinical_agent\agents
+copying src\clinical_agent\agents\graph.py -> build\lib\clinical_agent\agents
+copying src\clinical_agent\agents\nodes.py -> build\lib\clinical_agent\agents
+copying src\clinical_agent\agents\state.py -> build\lib\clinical_agent\agents
+copying src\clinical_agent\agents\__init__.py -> build\lib\clinical_agent\agents
+creating build\lib\clinical_agent\api
+copying src\clinical_agent\api\app.py -> build\lib\clinical_agent\api
+copying src\clinical_agent\api\execution.py -> build\lib\clinical_agent\api
+copying src\clinical_agent\api\middleware.py -> build\lib\clinical_agent\api
+copying src\clinical_agent\api\routes.py -> build\lib\clinical_agent\api
+copying src\clinical_agent\api\runtime.py -> build\lib\clinical_agent\api
+copying src\clinical_agent\api\schemas.py -> build\lib\clinical_agent\api
+copying src\clinical_agent\api\__init__.py -> build\lib\clinical_agent\api
+creating build\lib\clinical_agent\application
+copying src\clinical_agent\application\agents.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\analysis.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\evaluation.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\fulltext.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\ingestion.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\oa_fulltext.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\online_updates.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\openalex.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\pico.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\pubmed.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\report.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\research.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\retrieval.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\updates.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\workflow.py -> build\lib\clinical_agent\application
+copying src\clinical_agent\application\__init__.py -> build\lib\clinical_agent\application
+creating build\lib\clinical_agent\channels
+copying src\clinical_agent\channels\__init__.py -> build\lib\clinical_agent\channels
+creating build\lib\clinical_agent\db
+copying src\clinical_agent\db\connection.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\fulltext.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\governance.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\maintenance.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\models.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\online_publication.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\rebuild.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\retrieval.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\store.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\update_runs.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\versions.py -> build\lib\clinical_agent\db
+copying src\clinical_agent\db\__init__.py -> build\lib\clinical_agent\db
+creating build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\analysis.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\chunking.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\citations.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\embedding.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\fulltext.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\governance.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\hybrid.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\ingestion.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\maintenance.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\models.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\openalex.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\pico.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\pubmed.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\report.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\research.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\retrieval.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\updates.py -> build\lib\clinical_agent\domain
+copying src\clinical_agent\domain\__init__.py -> build\lib\clinical_agent\domain
+creating build\lib\clinical_agent\integrations
+copying src\clinical_agent\integrations\langchain_generation.py -> build\lib\clinical_agent\integrations
+copying src\clinical_agent\integrations\llm.py -> build\lib\clinical_agent\integrations
+copying src\clinical_agent\integrations\oa_fulltext.py -> build\lib\clinical_agent\integrations
+copying src\clinical_agent\integrations\openalex.py -> build\lib\clinical_agent\integrations
+copying src\clinical_agent\integrations\pubmed_online.py -> build\lib\clinical_agent\integrations
+copying src\clinical_agent\integrations\report_snapshot.py -> build\lib\clinical_agent\integrations
+copying src\clinical_agent\integrations\__init__.py -> build\lib\clinical_agent\integrations
+creating build\lib\clinical_agent\rag
+copying src\clinical_agent\rag\embedding.py -> build\lib\clinical_agent\rag
+copying src\clinical_agent\rag\offline.py -> build\lib\clinical_agent\rag
+copying src\clinical_agent\rag\pdf.py -> build\lib\clinical_agent\rag
+copying src\clinical_agent\rag\pubmed_xml.py -> build\lib\clinical_agent\rag
+copying src\clinical_agent\rag\__init__.py -> build\lib\clinical_agent\rag
+creating build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\connection.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\fulltext.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\governance.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\maintenance.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\models.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\online_publication.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\rebuild.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\retrieval.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\store.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\update_runs.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\versions.py -> build\lib\clinical_agent\adapters\postgres
+copying src\clinical_agent\adapters\postgres\__init__.py -> build\lib\clinical_agent\adapters\postgres
+creating build\lib\clinical_agent\channels\feishu
+copying src\clinical_agent\channels\feishu\dedup.py -> build\lib\clinical_agent\channels\feishu
+copying src\clinical_agent\channels\feishu\events.py -> build\lib\clinical_agent\channels\feishu
+copying src\clinical_agent\channels\feishu\main.py -> build\lib\clinical_agent\channels\feishu
+copying src\clinical_agent\channels\feishu\sender.py -> build\lib\clinical_agent\channels\feishu
+copying src\clinical_agent\channels\feishu\worker.py -> build\lib\clinical_agent\channels\feishu
+copying src\clinical_agent\channels\feishu\__init__.py -> build\lib\clinical_agent\channels\feishu
+running egg_info
+creating src\clinical_literature_agent.egg-info
+writing src\clinical_literature_agent.egg-info\PKG-INFO
+writing dependency_links to src\clinical_literature_agent.egg-info\dependency_links.txt
+writing entry points to src\clinical_literature_agent.egg-info\entry_points.txt
+writing requirements to src\clinical_literature_agent.egg-info\requires.txt
+writing top-level names to src\clinical_literature_agent.egg-info\top_level.txt
+writing manifest file 'src\clinical_literature_agent.egg-info\SOURCES.txt'
+reading manifest file 'src\clinical_literature_agent.egg-info\SOURCES.txt'
+writing manifest file 'src\clinical_literature_agent.egg-info\SOURCES.txt'
+installing to build\bdist.win-amd64\wheel
+running install
+running install_lib
+creating build\bdist.win-amd64\wheel
+creating build\bdist.win-amd64\wheel\clinical_agent
+creating build\bdist.win-amd64\wheel\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\embedding.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\langchain_generation.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\llm.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\oa_fulltext.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\offline.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\openalex.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\pdf.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+creating build\bdist.win-amd64\wheel\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\connection.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\fulltext.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\governance.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\maintenance.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\models.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\online_publication.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\rebuild.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\retrieval.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\store.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\update_runs.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\versions.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\postgres\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters\postgres
+copying build\lib\clinical_agent\adapters\pubmed_online.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\pubmed_xml.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\report_snapshot.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+copying build\lib\clinical_agent\adapters\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\adapters
+creating build\bdist.win-amd64\wheel\clinical_agent\agents
+copying build\lib\clinical_agent\agents\graph.py -> build\bdist.win-amd64\wheel\.\clinical_agent\agents
+copying build\lib\clinical_agent\agents\nodes.py -> build\bdist.win-amd64\wheel\.\clinical_agent\agents
+copying build\lib\clinical_agent\agents\state.py -> build\bdist.win-amd64\wheel\.\clinical_agent\agents
+copying build\lib\clinical_agent\agents\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\agents
+creating build\bdist.win-amd64\wheel\clinical_agent\api
+copying build\lib\clinical_agent\api\app.py -> build\bdist.win-amd64\wheel\.\clinical_agent\api
+copying build\lib\clinical_agent\api\execution.py -> build\bdist.win-amd64\wheel\.\clinical_agent\api
+copying build\lib\clinical_agent\api\middleware.py -> build\bdist.win-amd64\wheel\.\clinical_agent\api
+copying build\lib\clinical_agent\api\routes.py -> build\bdist.win-amd64\wheel\.\clinical_agent\api
+copying build\lib\clinical_agent\api\runtime.py -> build\bdist.win-amd64\wheel\.\clinical_agent\api
+copying build\lib\clinical_agent\api\schemas.py -> build\bdist.win-amd64\wheel\.\clinical_agent\api
+copying build\lib\clinical_agent\api\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\api
+copying build\lib\clinical_agent\api_runtime.py -> build\bdist.win-amd64\wheel\.\clinical_agent
+creating build\bdist.win-amd64\wheel\clinical_agent\application
+copying build\lib\clinical_agent\application\agents.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\analysis.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\evaluation.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\fulltext.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\ingestion.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\oa_fulltext.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\online_updates.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\openalex.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\pico.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\pubmed.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\report.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\research.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\retrieval.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\updates.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\workflow.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\application\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\application
+copying build\lib\clinical_agent\bootstrap.py -> build\bdist.win-amd64\wheel\.\clinical_agent
+creating build\bdist.win-amd64\wheel\clinical_agent\channels
+creating build\bdist.win-amd64\wheel\clinical_agent\channels\feishu
+copying build\lib\clinical_agent\channels\feishu\dedup.py -> build\bdist.win-amd64\wheel\.\clinical_agent\channels\feishu
+copying build\lib\clinical_agent\channels\feishu\events.py -> build\bdist.win-amd64\wheel\.\clinical_agent\channels\feishu
+copying build\lib\clinical_agent\channels\feishu\main.py -> build\bdist.win-amd64\wheel\.\clinical_agent\channels\feishu
+copying build\lib\clinical_agent\channels\feishu\sender.py -> build\bdist.win-amd64\wheel\.\clinical_agent\channels\feishu
+copying build\lib\clinical_agent\channels\feishu\worker.py -> build\bdist.win-amd64\wheel\.\clinical_agent\channels\feishu
+copying build\lib\clinical_agent\channels\feishu\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\channels\feishu
+copying build\lib\clinical_agent\channels\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\channels
+copying build\lib\clinical_agent\cli.py -> build\bdist.win-amd64\wheel\.\clinical_agent
+copying build\lib\clinical_agent\command_runtime.py -> build\bdist.win-amd64\wheel\.\clinical_agent
+copying build\lib\clinical_agent\config.py -> build\bdist.win-amd64\wheel\.\clinical_agent
+creating build\bdist.win-amd64\wheel\clinical_agent\db
+copying build\lib\clinical_agent\db\connection.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\fulltext.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\governance.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\maintenance.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\models.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\online_publication.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\rebuild.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\retrieval.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\store.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\update_runs.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\versions.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+copying build\lib\clinical_agent\db\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\db
+creating build\bdist.win-amd64\wheel\clinical_agent\domain
+copying build\lib\clinical_agent\domain\analysis.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\chunking.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\citations.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\embedding.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\fulltext.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\governance.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\hybrid.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\ingestion.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\maintenance.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\models.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\openalex.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\pico.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\pubmed.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\report.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\research.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\retrieval.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\updates.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+copying build\lib\clinical_agent\domain\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\domain
+creating build\bdist.win-amd64\wheel\clinical_agent\integrations
+copying build\lib\clinical_agent\integrations\langchain_generation.py -> build\bdist.win-amd64\wheel\.\clinical_agent\integrations
+copying build\lib\clinical_agent\integrations\llm.py -> build\bdist.win-amd64\wheel\.\clinical_agent\integrations
+copying build\lib\clinical_agent\integrations\oa_fulltext.py -> build\bdist.win-amd64\wheel\.\clinical_agent\integrations
+copying build\lib\clinical_agent\integrations\openalex.py -> build\bdist.win-amd64\wheel\.\clinical_agent\integrations
+copying build\lib\clinical_agent\integrations\pubmed_online.py -> build\bdist.win-amd64\wheel\.\clinical_agent\integrations
+copying build\lib\clinical_agent\integrations\report_snapshot.py -> build\bdist.win-amd64\wheel\.\clinical_agent\integrations
+copying build\lib\clinical_agent\integrations\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\integrations
+copying build\lib\clinical_agent\logging_config.py -> build\bdist.win-amd64\wheel\.\clinical_agent
+creating build\bdist.win-amd64\wheel\clinical_agent\rag
+copying build\lib\clinical_agent\rag\embedding.py -> build\bdist.win-amd64\wheel\.\clinical_agent\rag
+copying build\lib\clinical_agent\rag\offline.py -> build\bdist.win-amd64\wheel\.\clinical_agent\rag
+copying build\lib\clinical_agent\rag\pdf.py -> build\bdist.win-amd64\wheel\.\clinical_agent\rag
+copying build\lib\clinical_agent\rag\pubmed_xml.py -> build\bdist.win-amd64\wheel\.\clinical_agent\rag
+copying build\lib\clinical_agent\rag\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent\rag
+copying build\lib\clinical_agent\research_runtime.py -> build\bdist.win-amd64\wheel\.\clinical_agent
+copying build\lib\clinical_agent\__init__.py -> build\bdist.win-amd64\wheel\.\clinical_agent
+copying build\lib\clinical_agent\__main__.py -> build\bdist.win-amd64\wheel\.\clinical_agent
+creating build\bdist.win-amd64\wheel\feishu
+copying build\lib\feishu\dedup.py -> build\bdist.win-amd64\wheel\.\feishu
+copying build\lib\feishu\events.py -> build\bdist.win-amd64\wheel\.\feishu
+copying build\lib\feishu\main.py -> build\bdist.win-amd64\wheel\.\feishu
+copying build\lib\feishu\sender.py -> build\bdist.win-amd64\wheel\.\feishu
+copying build\lib\feishu\worker.py -> build\bdist.win-amd64\wheel\.\feishu
+copying build\lib\feishu\__init__.py -> build\bdist.win-amd64\wheel\.\feishu
+running install_egg_info
+Copying src\clinical_literature_agent.egg-info to build\bdist.win-amd64\wheel\.\clinical_literature_agent-0.1.0-py3.12.egg-info
+running install_scripts
+creating build\bdist.win-amd64\wheel\clinical_literature_agent-0.1.0.dist-info\WHEEL
+creating 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\feishu-phase4-build\\dist\\.tmp-f_6geibg\\clinical_literature_agent-0.1.0-py3-none-any.whl' and adding 'build\\bdist.win-amd64\\wheel' to it
+adding 'clinical_agent/__init__.py'
+adding 'clinical_agent/__main__.py'
+adding 'clinical_agent/api_runtime.py'
+adding 'clinical_agent/bootstrap.py'
+adding 'clinical_agent/cli.py'
+adding 'clinical_agent/command_runtime.py'
+adding 'clinical_agent/config.py'
+adding 'clinical_agent/logging_config.py'
+adding 'clinical_agent/research_runtime.py'
+adding 'clinical_agent/adapters/__init__.py'
+adding 'clinical_agent/adapters/embedding.py'
+adding 'clinical_agent/adapters/langchain_generation.py'
+adding 'clinical_agent/adapters/llm.py'
+adding 'clinical_agent/adapters/oa_fulltext.py'
+adding 'clinical_agent/adapters/offline.py'
+adding 'clinical_agent/adapters/openalex.py'
+adding 'clinical_agent/adapters/pdf.py'
+adding 'clinical_agent/adapters/pubmed_online.py'
+adding 'clinical_agent/adapters/pubmed_xml.py'
+adding 'clinical_agent/adapters/report_snapshot.py'
+adding 'clinical_agent/adapters/postgres/__init__.py'
+adding 'clinical_agent/adapters/postgres/connection.py'
+adding 'clinical_agent/adapters/postgres/fulltext.py'
+adding 'clinical_agent/adapters/postgres/governance.py'
+adding 'clinical_agent/adapters/postgres/maintenance.py'
+adding 'clinical_agent/adapters/postgres/models.py'
+adding 'clinical_agent/adapters/postgres/online_publication.py'
+adding 'clinical_agent/adapters/postgres/rebuild.py'
+adding 'clinical_agent/adapters/postgres/retrieval.py'
+adding 'clinical_agent/adapters/postgres/store.py'
+adding 'clinical_agent/adapters/postgres/update_runs.py'
+adding 'clinical_agent/adapters/postgres/versions.py'
+adding 'clinical_agent/agents/__init__.py'
+adding 'clinical_agent/agents/graph.py'
+adding 'clinical_agent/agents/nodes.py'
+adding 'clinical_agent/agents/state.py'
+adding 'clinical_agent/api/__init__.py'
+adding 'clinical_agent/api/app.py'
+adding 'clinical_agent/api/execution.py'
+adding 'clinical_agent/api/middleware.py'
+adding 'clinical_agent/api/routes.py'
+adding 'clinical_agent/api/runtime.py'
+adding 'clinical_agent/api/schemas.py'
+adding 'clinical_agent/application/__init__.py'
+adding 'clinical_agent/application/agents.py'
+adding 'clinical_agent/application/analysis.py'
+adding 'clinical_agent/application/evaluation.py'
+adding 'clinical_agent/application/fulltext.py'
+adding 'clinical_agent/application/ingestion.py'
+adding 'clinical_agent/application/oa_fulltext.py'
+adding 'clinical_agent/application/online_updates.py'
+adding 'clinical_agent/application/openalex.py'
+adding 'clinical_agent/application/pico.py'
+adding 'clinical_agent/application/pubmed.py'
+adding 'clinical_agent/application/report.py'
+adding 'clinical_agent/application/research.py'
+adding 'clinical_agent/application/retrieval.py'
+adding 'clinical_agent/application/updates.py'
+adding 'clinical_agent/application/workflow.py'
+adding 'clinical_agent/channels/__init__.py'
+adding 'clinical_agent/channels/feishu/__init__.py'
+adding 'clinical_agent/channels/feishu/dedup.py'
+adding 'clinical_agent/channels/feishu/events.py'
+adding 'clinical_agent/channels/feishu/main.py'
+adding 'clinical_agent/channels/feishu/sender.py'
+adding 'clinical_agent/channels/feishu/worker.py'
+adding 'clinical_agent/db/__init__.py'
+adding 'clinical_agent/db/connection.py'
+adding 'clinical_agent/db/fulltext.py'
+adding 'clinical_agent/db/governance.py'
+adding 'clinical_agent/db/maintenance.py'
+adding 'clinical_agent/db/models.py'
+adding 'clinical_agent/db/online_publication.py'
+adding 'clinical_agent/db/rebuild.py'
+adding 'clinical_agent/db/retrieval.py'
+adding 'clinical_agent/db/store.py'
+adding 'clinical_agent/db/update_runs.py'
+adding 'clinical_agent/db/versions.py'
+adding 'clinical_agent/domain/__init__.py'
+adding 'clinical_agent/domain/analysis.py'
+adding 'clinical_agent/domain/chunking.py'
+adding 'clinical_agent/domain/citations.py'
+adding 'clinical_agent/domain/embedding.py'
+adding 'clinical_agent/domain/fulltext.py'
+adding 'clinical_agent/domain/governance.py'
+adding 'clinical_agent/domain/hybrid.py'
+adding 'clinical_agent/domain/ingestion.py'
+adding 'clinical_agent/domain/maintenance.py'
+adding 'clinical_agent/domain/models.py'
+adding 'clinical_agent/domain/openalex.py'
+adding 'clinical_agent/domain/pico.py'
+adding 'clinical_agent/domain/pubmed.py'
+adding 'clinical_agent/domain/report.py'
+adding 'clinical_agent/domain/research.py'
+adding 'clinical_agent/domain/retrieval.py'
+adding 'clinical_agent/domain/updates.py'
+adding 'clinical_agent/integrations/__init__.py'
+adding 'clinical_agent/integrations/langchain_generation.py'
+adding 'clinical_agent/integrations/llm.py'
+adding 'clinical_agent/integrations/oa_fulltext.py'
+adding 'clinical_agent/integrations/openalex.py'
+adding 'clinical_agent/integrations/pubmed_online.py'
+adding 'clinical_agent/integrations/report_snapshot.py'
+adding 'clinical_agent/rag/__init__.py'
+adding 'clinical_agent/rag/embedding.py'
+adding 'clinical_agent/rag/offline.py'
+adding 'clinical_agent/rag/pdf.py'
+adding 'clinical_agent/rag/pubmed_xml.py'
+adding 'feishu/__init__.py'
+adding 'feishu/dedup.py'
+adding 'feishu/events.py'
+adding 'feishu/main.py'
+adding 'feishu/sender.py'
+adding 'feishu/worker.py'
+adding 'clinical_literature_agent-0.1.0.dist-info/METADATA'
+adding 'clinical_literature_agent-0.1.0.dist-info/WHEEL'
+adding 'clinical_literature_agent-0.1.0.dist-info/entry_points.txt'
+adding 'clinical_literature_agent-0.1.0.dist-info/top_level.txt'
+adding 'clinical_literature_agent-0.1.0.dist-info/RECORD'
+removing build\bdist.win-amd64\wheel
+clinical_literature_agent-0.1.0-py3-none-any.whl
+

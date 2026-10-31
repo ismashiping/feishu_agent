@@ -9,7 +9,7 @@
 旧精确位置、作者和内部标识断言迁到显式审计模式，未删除；默认模式保留安全 URL、转义、整段超限回退与大小门禁测试。
 
 ## 变更及保护
-生产代码仅 src/feishu/sender.py；测试 tests/unit/test_feishu_sender.py。修改前副本和 SHA256 位于 .quality-backup/feishu-readable-20261029。未修改模型调用、查询规则、请求预算和消息字节上限。
+生产代码仅 src/feishu/sender.py；测试 tests/unit/test_feishu_sender.py。修改前副本和 SHA256 位于 docs/archive/quality-backup/feishu-readable-20261029。未修改模型调用、查询规则、请求预算和消息字节上限。
 固定 Compose 项目 clinical-agent-e2e 复用 feishu_bot 容器并 restart，无构建、无新建容器、无数据卷变更。其余服务未重启。
 
 ## 验证边界

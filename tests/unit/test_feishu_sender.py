@@ -9,10 +9,10 @@ from uuid import NAMESPACE_URL, uuid4, uuid5
 import httpx
 import pytest
 
+from clinical_agent.channels.feishu.dedup import AcquireResult, DedupPolicy, Lease
+from clinical_agent.channels.feishu.events import MessageEnvelope
+from clinical_agent.channels.feishu.worker import Delivery, Dispatcher
 from clinical_agent.domain.research import ResearchAnswer
-from feishu.dedup import AcquireResult, DedupPolicy, Lease
-from feishu.events import MessageEnvelope
-from feishu.worker import Delivery, Dispatcher
 
 
 def message(index=1, *, event_only=False):
@@ -141,7 +141,7 @@ class Transport:
 
 @pytest.fixture
 def rig():
-    from feishu.sender import Sender, SenderPolicy
+    from clinical_agent.channels.feishu.sender import Sender, SenderPolicy
 
     dedup, transport, now = Dedup(), Transport(), [0.0]
     sender = Sender(
@@ -155,7 +155,7 @@ def rig():
 
 
 def test_default_render_is_readable_and_preserves_citations():
-    from feishu.sender import render_answer
+    from clinical_agent.channels.feishu.sender import render_answer
 
     dto = answer(answered=True)
     text = render_answer(dto)
@@ -168,7 +168,7 @@ def test_default_render_is_readable_and_preserves_citations():
 
 
 def test_render_preserves_claim_links_sources_and_limitations():
-    from feishu.sender import render_answer
+    from clinical_agent.channels.feishu.sender import render_answer
 
     dto = answer(answered=True)
     text = render_answer(dto, include_audit=True)
@@ -201,7 +201,7 @@ def test_render_preserves_claim_links_sources_and_limitations():
 
 
 def test_render_pdf_location_unknown_metadata_and_shared_numbering():
-    from feishu.sender import render_answer
+    from clinical_agent.channels.feishu.sender import render_answer
 
     dto = answer(answered=True)
     source = dto.sources[0]
@@ -218,7 +218,7 @@ def test_render_pdf_location_unknown_metadata_and_shared_numbering():
 
 
 def test_render_insufficient_and_utf8_overflow_is_whole_fallback():
-    from feishu.sender import MAX_CONTENT_BYTES, render_answer, text_content
+    from clinical_agent.channels.feishu.sender import MAX_CONTENT_BYTES, render_answer, text_content
 
     assert "不代表" in render_answer(answer())
     dto = answer(answered=True)
@@ -230,7 +230,7 @@ def test_render_insufficient_and_utf8_overflow_is_whole_fallback():
 
 
 def test_render_checks_outer_json_escaping_budget_too():
-    from feishu.sender import render_answer
+    from clinical_agent.channels.feishu.sender import render_answer
 
     dto = answer(answered=True)
     dto.sources[0].title = '"' * 9000
@@ -241,7 +241,7 @@ def test_render_checks_outer_json_escaping_budget_too():
     "url", ["file:///private.pdf", "https://name:secret@host/a", "javascript:x"]
 )
 def test_render_does_not_emit_unsafe_source_urls(url):
-    from feishu.sender import render_answer
+    from clinical_agent.channels.feishu.sender import render_answer
 
     dto = answer(answered=True)
     dto.sources[0].source_url = url
@@ -372,7 +372,7 @@ def test_notices_are_bounded_without_fake_lease(rig, code):
     ],
 )
 def test_strict_policy(field, value):
-    from feishu.sender import SenderPolicy
+    from clinical_agent.channels.feishu.sender import SenderPolicy
 
     with pytest.raises(ValueError):
         SenderPolicy(**{field: value})
@@ -386,7 +386,7 @@ def test_invalid_close_timeout(rig, timeout):
 
 @pytest.mark.parametrize("event_only", [False, True])
 def test_official_api_routes_serialization_auth_and_timeout(event_only):
-    from feishu.sender import OfficialMessageAPI
+    from clinical_agent.channels.feishu.sender import OfficialMessageAPI
 
     requests, now, guards = [], [0.0], []
 
@@ -438,7 +438,7 @@ def test_official_api_routes_serialization_auth_and_timeout(event_only):
     ],
 )
 def test_official_response_boundary(status, body, expected):
-    from feishu.sender import OfficialMessageAPI
+    from clinical_agent.channels.feishu.sender import OfficialMessageAPI
 
     calls = []
 
@@ -460,7 +460,7 @@ def test_official_response_boundary(status, body, expected):
     "error", [httpx.ReadTimeout("secret"), httpx.ConnectError("secret"), httpx.WriteError("secret")]
 )
 def test_official_network_unknown_no_retry(error):
-    from feishu.sender import OfficialMessageAPI
+    from clinical_agent.channels.feishu.sender import OfficialMessageAPI
 
     calls = []
 
@@ -484,7 +484,7 @@ def test_official_network_unknown_no_retry(error):
     ],
 )
 def test_token_and_final_guard_prevent_http(mode, expected):
-    from feishu.sender import OfficialMessageAPI
+    from clinical_agent.channels.feishu.sender import OfficialMessageAPI
 
     calls, now = [], [0.0]
 
@@ -512,7 +512,7 @@ def test_token_and_final_guard_prevent_http(mode, expected):
 
 @pytest.mark.parametrize("fail", [False, True])
 def test_dispatcher_sender_handoff_and_error_reply(fail):
-    from feishu.sender import Sender
+    from clinical_agent.channels.feishu.sender import Sender
 
     dedup, transport = Dedup(), Transport()
     transport.finish.clear()
@@ -541,7 +541,7 @@ def test_dispatcher_sender_handoff_and_error_reply(fail):
 
 
 def test_multiple_sources_keep_stable_numbers_and_exact_locations():
-    from feishu.sender import render_answer
+    from clinical_agent.channels.feishu.sender import render_answer
 
     dto = answer(answered=True)
     second = dto.sources[0].model_copy(deep=True)
@@ -560,7 +560,7 @@ def test_multiple_sources_keep_stable_numbers_and_exact_locations():
 
 @pytest.mark.parametrize("state", ["lost", "unavailable"])
 def test_sender_official_api_rechecks_owner_after_token_wait(state):
-    from feishu.sender import OfficialMessageAPI, Sender
+    from clinical_agent.channels.feishu.sender import OfficialMessageAPI, Sender
 
     calls, dedup = [], Dedup()
 
@@ -613,7 +613,7 @@ def test_failed_cleanup_error_is_contained_and_next_item_runs(rig):
 
 
 def test_official_api_initial_expiry_oversize_and_guard_exception_are_unsent():
-    from feishu.sender import OfficialMessageAPI
+    from clinical_agent.channels.feishu.sender import OfficialMessageAPI
 
     calls = []
 
@@ -634,7 +634,7 @@ def test_official_api_initial_expiry_oversize_and_guard_exception_are_unsent():
 
 
 def test_late_confirmed_response_is_completed_not_retried(caplog):
-    from feishu.sender import OfficialMessageAPI, Sender
+    from clinical_agent.channels.feishu.sender import OfficialMessageAPI, Sender
 
     caplog.set_level(logging.INFO, logger="feishu.sender")
     now, calls, dedup = [0.0], [], Dedup()

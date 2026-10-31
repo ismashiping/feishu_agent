@@ -7,7 +7,7 @@ from pydantic import ValidationError
 
 
 def api():
-    from feishu import dedup
+    from clinical_agent.channels.feishu import dedup
 
     return dedup
 

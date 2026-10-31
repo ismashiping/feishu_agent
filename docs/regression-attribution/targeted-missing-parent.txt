@@ -1,0 +1,116 @@
+.........EEEEE..EEE.................E..EEEE....E...............          [100%]
+=================================== ERRORS ====================================
+________ ERROR at setup of test_settings_are_bounded[max_in_flight-0] _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+________ ERROR at setup of test_settings_are_bounded[max_in_flight-5] _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+_______ ERROR at setup of test_settings_are_bounded[max_in_flight-True] _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+______ ERROR at setup of test_settings_are_bounded[max_request_bytes-0] _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+____ ERROR at setup of test_settings_are_bounded[max_request_bytes-65537] _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+_________ ERROR at setup of test_shared_runtime_one_model_engine_http _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+_______ ERROR at setup of test_startup_failure_is_sanitized_and_unwinds _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+____________ ERROR at setup of test_shutdown_failure_is_sanitized _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+_______ ERROR at setup of test_pdf_pages_sections_headers_and_identity ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+_____ ERROR at setup of test_null_license_and_closed_flag_still_download ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+____ ERROR at setup of test_content_url_failure_falls_back_to_location_pdf ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+__________ ERROR at setup of test_external_pdf_is_parsed_and_indexed __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+___________ ERROR at setup of test_first_url_failure_tries_the_next ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+______________ ERROR at setup of test_identity_mismatch_and_ssrf ______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-targeted'
+=========================== short test summary info ===========================
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_in_flight-0]
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_in_flight-5]
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_in_flight-True]
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_request_bytes-0]
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_request_bytes-65537]
+ERROR tests/unit/test_api_runtime.py::test_shared_runtime_one_model_engine_http
+ERROR tests/unit/test_api_runtime.py::test_startup_failure_is_sanitized_and_unwinds
+ERROR tests/unit/test_api_runtime.py::test_shutdown_failure_is_sanitized - Fi...
+ERROR tests/unit/test_oa_fulltext.py::test_pdf_pages_sections_headers_and_identity
+ERROR tests/unit/test_oa_fulltext.py::test_null_license_and_closed_flag_still_download
+ERROR tests/unit/test_oa_fulltext.py::test_content_url_failure_falls_back_to_location_pdf
+ERROR tests/unit/test_oa_fulltext.py::test_external_pdf_is_parsed_and_indexed
+ERROR tests/unit/test_oa_fulltext.py::test_first_url_failure_tries_the_next
+ERROR tests/unit/test_oa_fulltext.py::test_identity_mismatch_and_ssrf - FileN...
+49 passed, 14 errors in 11.67s

@@ -1,0 +1,6 @@
+usage: main.py [-h]
+
+Clinical Literature Feishu bot
+
+options:
+  -h, --help  show this help message and exit

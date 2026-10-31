@@ -6,7 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from clinical_agent.adapters.openalex import open_openalex
+from clinical_agent.integrations.openalex import open_openalex
 
 
 def main():

@@ -180,8 +180,8 @@ def test_total_deadline_and_safe_exception():
 def test_model_messages_are_data_and_use_existing_json_transport(monkeypatch):
     from langchain_core.language_models.fake_chat_models import FakeListChatModel
 
-    from clinical_agent.adapters.langchain_generation import LangChainAnswerGenerator
     from clinical_agent.domain.pico import ClassificationRequest
+    from clinical_agent.integrations.langchain_generation import LangChainAnswerGenerator
 
     seen = []
     original = FakeListChatModel._generate
@@ -210,8 +210,8 @@ def test_model_messages_are_data_and_use_existing_json_transport(monkeypatch):
 def test_graph_clarifies_without_retrieval_or_claim_generation():
     from clinical_agent.application.pico import PicoPlanner
     from clinical_agent.application.research import ResearchService
+    from clinical_agent.channels.feishu.sender import render_answer
     from clinical_agent.domain.research import QuestionRequest
-    from feishu.sender import render_answer
 
     value = payload(CASES["cases"][0])
     value.update(question_type="uncertain", ambiguities=["请明确干预方案。"])

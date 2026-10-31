@@ -3,7 +3,7 @@
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.schema import CreateTable
 
-from clinical_agent.adapters.postgres.models import DocumentVersionRecord
+from clinical_agent.db.models import DocumentVersionRecord
 
 if __name__ == "__main__":
     print(CreateTable(DocumentVersionRecord.__table__).compile(dialect=postgresql.dialect()))

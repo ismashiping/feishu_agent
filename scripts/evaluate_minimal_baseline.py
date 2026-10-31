@@ -6,8 +6,8 @@ from collections import Counter
 from hashlib import sha256
 from pathlib import Path
 
-from clinical_agent.adapters.pubmed_xml import parse_pubmed_response
 from clinical_agent.domain.pubmed import PubMedSearchResult
+from clinical_agent.rag.pubmed_xml import parse_pubmed_response
 
 
 def read(root: Path, name: str):

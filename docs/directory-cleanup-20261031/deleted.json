@@ -1,0 +1,272 @@
+[
+  {
+    "path": ".pytest_feishu_diagnostics",
+    "files": 0,
+    "bytes": null
+  },
+  {
+    "path": ".pytest_feishu_plan_fix",
+    "files": 0,
+    "bytes": null
+  },
+  {
+    "path": ".pytest_final_acceptance",
+    "files": 110,
+    "bytes": 456931.0
+  },
+  {
+    "path": ".pytest_fulltext_boundary_final",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_fulltext_regression",
+    "files": 209,
+    "bytes": 592973.0
+  },
+  {
+    "path": ".pytest_oa_stage3",
+    "files": 1,
+    "bytes": 1093.0
+  },
+  {
+    "path": ".pytest_oa_stage3_affected",
+    "files": 5,
+    "bytes": 5887.0
+  },
+  {
+    "path": ".pytest_oa_stage3_core",
+    "files": 1,
+    "bytes": 1093.0
+  },
+  {
+    "path": ".pytest_oa_stage3_final_affected",
+    "files": 5,
+    "bytes": 5887.0
+  },
+  {
+    "path": ".pytest_oa_stage3_regression",
+    "files": 210,
+    "bytes": 594682.0
+  },
+  {
+    "path": ".pytest_oa_stage3_regression_final",
+    "files": 210,
+    "bytes": 594678.0
+  },
+  {
+    "path": ".pytest_oa_stage3_section_fix",
+    "files": 5,
+    "bytes": 5887.0
+  },
+  {
+    "path": ".pytest_openalex_affected",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_openalex_followup",
+    "files": 0,
+    "bytes": null
+  },
+  {
+    "path": ".pytest_openalex_regression",
+    "files": 209,
+    "bytes": 593335.0
+  },
+  {
+    "path": ".pytest_openalex_regression_final",
+    "files": 209,
+    "bytes": 593334.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_all",
+    "files": 210,
+    "bytes": 594677.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_architecture",
+    "files": 5,
+    "bytes": 5887.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_attribution",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_core",
+    "files": 1,
+    "bytes": 1093.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_core2",
+    "files": 1,
+    "bytes": 1093.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_coverage_fix",
+    "files": 1,
+    "bytes": 1093.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_final_contracts",
+    "files": 5,
+    "bytes": 5887.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_fixes",
+    "files": 1,
+    "bytes": 1093.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_fixes2",
+    "files": 1,
+    "bytes": 1093.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_focus",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_frozen_final",
+    "files": 210,
+    "bytes": 594676.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_priority",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_regression_final",
+    "files": 210,
+    "bytes": 594679.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_release",
+    "files": 210,
+    "bytes": 594679.0
+  },
+  {
+    "path": ".pytest_openalex_stage4_release2",
+    "files": 210,
+    "bytes": 594678.0
+  },
+  {
+    "path": ".pytest_plan_a_all",
+    "files": 110,
+    "bytes": 456931.0
+  },
+  {
+    "path": ".pytest_quality_all",
+    "files": 110,
+    "bytes": 456931.0
+  },
+  {
+    "path": ".pytest_quality_d",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_quality_final",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_quality_fix",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_refactor_final",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_refactor_full_utf8",
+    "files": 210,
+    "bytes": 594681.0
+  },
+  {
+    "path": ".pytest_refactor_targeted",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": ".pytest_synthesis_finalfull",
+    "files": 110,
+    "bytes": 456931.0
+  },
+  {
+    "path": ".pytest_synthesis_full",
+    "files": 110,
+    "bytes": 456931.0
+  },
+  {
+    "path": ".pytest_tmp_investigation",
+    "files": 4,
+    "bytes": 4794.0
+  },
+  {
+    "path": "src\\clinical_agent\\__pycache__",
+    "files": 10,
+    "bytes": 64764.0
+  },
+  {
+    "path": "src\\clinical_agent\\adapters\\__pycache__",
+    "files": 13,
+    "bytes": 158889.0
+  },
+  {
+    "path": "src\\clinical_agent\\adapters\\postgres\\__pycache__",
+    "files": 12,
+    "bytes": 108125.0
+  },
+  {
+    "path": "src\\clinical_agent\\application\\__pycache__",
+    "files": 16,
+    "bytes": 248555.0
+  },
+  {
+    "path": "src\\clinical_agent\\domain\\__pycache__",
+    "files": 18,
+    "bytes": 231503.0
+  },
+  {
+    "path": "src\\feishu\\__pycache__",
+    "files": 6,
+    "bytes": 106095.0
+  },
+  {
+    "path": "tests\\__pycache__",
+    "files": 1,
+    "bytes": 8095.0
+  },
+  {
+    "path": "tests\\integration\\__pycache__",
+    "files": 27,
+    "bytes": 919942.0
+  },
+  {
+    "path": "tests\\unit\\__pycache__",
+    "files": 59,
+    "bytes": 1958875.0
+  },
+  {
+    "path": "scripts\\__pycache__",
+    "files": 7,
+    "bytes": 48141.0
+  },
+  {
+    "path": "alembic\\__pycache__",
+    "files": 1,
+    "bytes": 2024.0
+  },
+  {
+    "path": "alembic\\versions\\__pycache__",
+    "files": 9,
+    "bytes": 25539.0
+  }
+]

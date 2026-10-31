@@ -19,7 +19,7 @@ from pydantic import ValidationError
     ],
 )
 def test_settings_are_bounded(tmp_path, field, value):
-    from clinical_agent.api_runtime import ApiSettings
+    from clinical_agent.api.schemas import ApiSettings
 
     with pytest.raises(ValidationError):
         ApiSettings(
@@ -32,7 +32,7 @@ def test_settings_are_bounded(tmp_path, field, value):
 
 @pytest.mark.asyncio
 async def test_cancelling_wait_does_not_release_running_work():
-    from clinical_agent.api_runtime import BusyError, WorkerPool
+    from clinical_agent.api.execution import BusyError, WorkerPool
 
     pool = WorkerPool(1)
     entered, release = threading.Event(), threading.Event()
@@ -60,7 +60,7 @@ async def test_cancelling_wait_does_not_release_running_work():
 
 
 def test_submit_failure_returns_capacity(monkeypatch):
-    from clinical_agent.api_runtime import WorkerPool
+    from clinical_agent.api.execution import WorkerPool
 
     pool = WorkerPool(1)
     submit = pool._executor.submit
@@ -77,12 +77,13 @@ def test_submit_failure_returns_capacity(monkeypatch):
 
 
 def test_shared_runtime_one_model_engine_http(monkeypatch, tmp_path):
-    from clinical_agent.adapters import embedding
-    from clinical_agent.adapters import llm as llm_api
-    from clinical_agent.adapters.postgres import connection
-    from clinical_agent.api_runtime import ApiSettings, open_api_runtime
+    from clinical_agent.api.runtime import open_api_runtime
+    from clinical_agent.api.schemas import ApiSettings
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.application.research import ResearchService
+    from clinical_agent.db import connection
+    from clinical_agent.integrations import llm as llm_api
+    from clinical_agent.rag import embedding
 
     events = []
     monkeypatch.setattr(
@@ -133,7 +134,7 @@ def test_startup_failure_is_sanitized_and_unwinds(tmp_path):
     from fastapi.testclient import TestClient
 
     from clinical_agent.api import create_app
-    from clinical_agent.api_runtime import ApiSettings
+    from clinical_agent.api.schemas import ApiSettings
 
     events = []
 
@@ -158,7 +159,8 @@ def test_shutdown_failure_is_sanitized(tmp_path):
     from fastapi.testclient import TestClient
 
     from clinical_agent.api import create_app
-    from clinical_agent.api_runtime import ApiSettings, ServiceBundle
+    from clinical_agent.api.runtime import ServiceBundle
+    from clinical_agent.api.schemas import ApiSettings
 
     @contextmanager
     def factory(settings):
@@ -177,7 +179,7 @@ def test_shutdown_failure_is_sanitized(tmp_path):
 
 
 def test_pool_shutdown_waits_for_actual_work(monkeypatch):
-    from clinical_agent.api_runtime import BusyError, WorkerPool
+    from clinical_agent.api.execution import BusyError, WorkerPool
 
     pool = WorkerPool(1)
     entered, release, closing, closed = [threading.Event() for _ in range(4)]

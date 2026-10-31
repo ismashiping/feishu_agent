@@ -1,0 +1,3 @@
+PDF pages: 15
+tables: 10
+legacy embedding is canonical: True

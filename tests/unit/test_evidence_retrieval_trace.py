@@ -4,7 +4,6 @@ import logging
 
 from langchain_core.language_models.fake_chat_models import FakeListChatModel
 
-from clinical_agent.adapters.langchain_generation import LangChainAnswerGenerator
 from clinical_agent.application.openalex import compile_queries, method_names
 from clinical_agent.domain.pico import (
     PICO_INSTRUCTIONS,
@@ -13,6 +12,7 @@ from clinical_agent.domain.pico import (
     PaperTarget,
 )
 from clinical_agent.domain.research import ResearchError
+from clinical_agent.integrations.langchain_generation import LangChainAnswerGenerator
 from tests.unit.test_openalex import Screening, plan
 from tests.unit.test_research_identity import retrieve
 

@@ -28,7 +28,7 @@ answer 分支：_prepare → generate → parse_draft → build_answer；analyze
 .\.venv\Scripts\python.exe -m pytest tests/unit/test_pubmed_concept_groups.py tests/unit/test_pubmed_online.py tests/unit/test_pubmed_contracts.py tests/unit/test_exploratory_discovery.py tests/unit/test_research.py tests/unit/test_evidence_analysis.py tests/unit/test_citation_report.py -q --basetemp=.pytest_tmp_investigation --tb=short
 ```
 
-结果：176 passed，7 failed，6.18秒。完整输出位于根目录 investigation-baseline.txt。首轮默认临时目录权限导致4项setup错误；指定工作区basetemp后消失，不属于业务失败。
+结果：176 passed，7 failed，6.18秒。完整输出位于docs/archive/investigation/investigation-baseline.txt。首轮默认临时目录权限导致4项setup错误；指定工作区basetemp后消失，不属于业务失败。
 
 7项失败均在 test_exploratory_discovery：1项直接查询断言，6项在线/混合分发组合。后6项 Search替身先断言英文扩展存在，断言失败被Scout包装为retrieval_failed；不是6种独立网络故障。当前分组专用测试只有字段存在及显式query覆盖，不验证真实分组行为或召回质量。
 

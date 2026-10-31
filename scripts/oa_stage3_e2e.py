@@ -9,7 +9,7 @@ from uuid import uuid4
 import httpx
 
 from clinical_agent.domain.research import ResearchAnswer
-from feishu.sender import render_answer
+from clinical_agent.channels.feishu.sender import render_answer
 
 QUESTIONS = [
     "肝脏分割最新研究有哪些？",

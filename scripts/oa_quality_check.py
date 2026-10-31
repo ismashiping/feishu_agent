@@ -12,7 +12,7 @@ from clinical_agent.command_runtime import open_research
 from clinical_agent.domain.citations import build_answer, parse_draft
 from clinical_agent.domain.research import QuestionRequest, ResearchAnswer, ResearchError
 from clinical_agent.domain.retrieval import RetrievalOptions, RetrievalResult
-from feishu.sender import render_answer
+from clinical_agent.channels.feishu.sender import render_answer
 
 
 def main():

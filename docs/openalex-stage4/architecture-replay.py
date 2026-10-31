@@ -5,9 +5,9 @@ from pathlib import Path
 from time import monotonic
 from uuid import uuid4
 
-from clinical_agent.adapters.llm import LLMSettings, open_llm
-from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-from clinical_agent.adapters.postgres.fulltext import PostgresFulltextStore
+from clinical_agent.integrations.llm import LLMSettings, open_llm
+from clinical_agent.db.connection import DatabaseSettings, database_engine
+from clinical_agent.db.fulltext import PostgresFulltextStore
 from clinical_agent.application.oa_fulltext import SIGNATURE, rerank_passages
 from clinical_agent.application.openalex import record_hit
 from clinical_agent.application.research import ResearchService
@@ -15,7 +15,7 @@ from clinical_agent.domain.citations import build_answer, parse_draft
 from clinical_agent.domain.fulltext import FulltextPassage
 from clinical_agent.domain.research import QuestionRequest, ResearchAnswer
 from clinical_agent.domain.retrieval import RetrievalOptions, RetrievalResult
-from feishu.sender import render_answer
+from clinical_agent.channels.feishu.sender import render_answer
 
 root = Path("/tmp/oa_architecture_20261029_1")
 old = ResearchAnswer.model_validate_json((root / "source.json").read_text())

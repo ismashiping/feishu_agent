@@ -11,7 +11,7 @@ from clinical_agent.command_runtime import open_research
 from clinical_agent.domain.report import ResearchReport, render_report
 from clinical_agent.domain.research import QuestionRequest, ResearchError
 from clinical_agent.domain.retrieval import RetrievalError
-from feishu.sender import render_answer, split_report_text
+from clinical_agent.channels.feishu.sender import render_answer, split_report_text
 
 QUESTIONS = [
     "MedSAM与nnU-Net用于医学图像分割有什么区别？",

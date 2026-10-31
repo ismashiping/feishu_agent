@@ -6,8 +6,8 @@ from uuid import NAMESPACE_URL, uuid5
 
 from dotenv import dotenv_values
 
-from clinical_agent.adapters.llm import LLMSettings, open_llm
-from clinical_agent.adapters.pubmed_xml import parse_pubmed_response
+from clinical_agent.integrations.llm import LLMSettings, open_llm
+from clinical_agent.rag.pubmed_xml import parse_pubmed_response
 from clinical_agent.domain.citations import parse_draft
 from clinical_agent.domain.research import GenerationInput, ResearchError
 

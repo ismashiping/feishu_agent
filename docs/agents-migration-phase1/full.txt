@@ -1,0 +1,298 @@
+.F...................FFFFFFFFFFFF....................................... [  4%]
+........................................................................ [  9%]
+....F.F............................................................F.... [ 14%]
+........................................................................ [ 19%]
+........................................................................ [ 23%]
+....F..............FFF.F................................................ [ 28%]
+........................................................................ [ 33%]
+..F................FFFFFF............................................... [ 38%]
+........................................................................ [ 42%]
+........................................................................ [ 47%]
+........................................................................ [ 52%]
+........................................................................ [ 57%]
+...........................F........................F................... [ 61%]
+........................................................................ [ 66%]
+........................................................................ [ 71%]
+........................................................................ [ 76%]
+........................................................................ [ 80%]
+........................................................................ [ 85%]
+........................................................................ [ 90%]
+........................................................................ [ 95%]
+........................................................................ [ 99%]
+..                                                                       [100%]
+================================== FAILURES ===================================
+____________ test_question_contract_correlation_and_empty_success _____________
+tests\integration\test_api.py:96: in test_question_contract_correlation_and_empty_success
+    assert response.status_code == 200
+E   assert 502 == 200
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "12345678-1234-4234-8234-123456789abc", "level": "warning", "timestamp": "2026-10-31T02:16:03.640042Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+___ test_error_mapping_never_publishes_raw_exception[retrieval_failed-503] ____
+tests\integration\test_api.py:227: in test_error_mapping_never_publishes_raw_exception
+    assert response.status_code == status
+E   assert 502 == 503
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "e5a42000-96b2-4dfd-abaa-2dcf7836b128", "level": "warning", "timestamp": "2026-10-31T02:16:05.200346Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+___ test_error_mapping_never_publishes_raw_exception[retrieval_timeout-504] ___
+tests\integration\test_api.py:227: in test_error_mapping_never_publishes_raw_exception
+    assert response.status_code == status
+E   assert 502 == 504
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "da6fdfaa-a908-464c-b0eb-80d9b2e9760f", "level": "warning", "timestamp": "2026-10-31T02:16:05.256066Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+___ test_error_mapping_never_publishes_raw_exception[retrieval_corrupt-500] ___
+tests\integration\test_api.py:227: in test_error_mapping_never_publishes_raw_exception
+    assert response.status_code == status
+E   assert 502 == 500
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "272a6de9-ede0-4e34-a1d1-572f1e6255a2", "level": "warning", "timestamp": "2026-10-31T02:16:05.327578Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+___ test_error_mapping_never_publishes_raw_exception[generation_failed-503] ___
+tests\integration\test_api.py:227: in test_error_mapping_never_publishes_raw_exception
+    assert response.status_code == status
+E   assert 502 == 503
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "0f3d1db7-eecc-4f0d-9fb4-65043680fbd7", "level": "warning", "timestamp": "2026-10-31T02:16:05.385578Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+__ test_error_mapping_never_publishes_raw_exception[generation_timeout-504] ___
+tests\integration\test_api.py:227: in test_error_mapping_never_publishes_raw_exception
+    assert response.status_code == status
+E   assert 502 == 504
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "ea711be1-e3a4-45ff-a2b7-acdd6730d6e2", "level": "warning", "timestamp": "2026-10-31T02:16:05.443157Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+_ test_error_mapping_never_publishes_raw_exception[model_output_invalid-502] __
+tests\integration\test_api.py:229: in test_error_mapping_never_publishes_raw_exception
+    assert response.json()["error_code"] == ("internal_error" if fault == "unknown" else fault)
+E   AssertionError: assert 'local_corpus_not_evidence' == 'model_output_invalid'
+E     
+E     - model_output_invalid
+E     + local_corpus_not_evidence
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "873e9f4d-4ddf-43d3-9fd1-40890e47d9db", "level": "warning", "timestamp": "2026-10-31T02:16:05.499180Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+___ test_error_mapping_never_publishes_raw_exception[citation_invalid-502] ____
+tests\integration\test_api.py:229: in test_error_mapping_never_publishes_raw_exception
+    assert response.json()["error_code"] == ("internal_error" if fault == "unknown" else fault)
+E   AssertionError: assert 'local_corpus_not_evidence' == 'citation_invalid'
+E     
+E     - citation_invalid
+E     + local_corpus_not_evidence
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "bdbe6a96-ec45-4313-afb5-536f7c906b38", "level": "warning", "timestamp": "2026-10-31T02:16:05.549406Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+_____ test_error_mapping_never_publishes_raw_exception[context_limit-422] _____
+tests\integration\test_api.py:227: in test_error_mapping_never_publishes_raw_exception
+    assert response.status_code == status
+E   assert 502 == 422
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "da6ebf16-f1e5-4bb5-8fb0-ff0c8d178853", "level": "warning", "timestamp": "2026-10-31T02:16:05.603094Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+________ test_error_mapping_never_publishes_raw_exception[unknown-500] ________
+tests\integration\test_api.py:227: in test_error_mapping_never_publishes_raw_exception
+    assert response.status_code == status
+E   assert 502 == 500
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "d4320fbd-217a-40b6-a987-dd43a7bc3d37", "level": "warning", "timestamp": "2026-10-31T02:16:05.667706Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+__________________ test_full_answer_source_fields_preserved ___________________
+tests\integration\test_api.py:275: in test_full_answer_source_fields_preserved
+    assert response.status_code == 200
+E   assert 502 == 200
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "4710d574-a277-41e5-8622-ec1a6d883ea7", "level": "warning", "timestamp": "2026-10-31T02:16:05.736326Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+___________ test_busy_rejects_without_blocking_health_and_recovers ____________
+tests\integration\test_api.py:300: in test_busy_rejects_without_blocking_health_and_recovers
+    assert started.wait(5)
+E   assert False
+E    +  where False = wait(5)
+E    +    where wait = <threading.Event at 0x1c5bf691310: unset>.wait
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "3d0e064d-ee10-43ec-918d-d2a8ddf952ef", "level": "warning", "timestamp": "2026-10-31T02:16:05.795073Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+___________________ test_wrong_answer_id_is_internal_error ____________________
+tests\integration\test_api.py:328: in test_wrong_answer_id_is_internal_error
+    assert response.status_code == 500 and response.json()["error_code"] == "internal_error"
+E   assert (502 == 500)
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "local_corpus_not_evidence", "request_id": "927040db-3744-4448-af55-c24dc83adca2", "level": "warning", "timestamp": "2026-10-31T02:16:10.848917Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+__________ test_online_graph_keeps_provenance_and_never_calls_local ___________
+tests\integration\test_pubmed_online.py:59: in test_online_graph_keeps_provenance_and_never_calls_local
+    ).answer(
+src\clinical_agent\application\research.py:431: in answer
+    raise ResearchError(error.code) from None
+E   clinical_agent.domain.research.ResearchError: openalex_required
+_____________ test_online_cli_api_and_feishu_render_empty_search ______________
+tests\integration\test_pubmed_online.py:167: in test_online_cli_api_and_feishu_render_empty_search
+    assert response.status_code == 200
+E   assert 502 == 200
+E    +  where 502 = <Response [502 Bad Gateway]>.status_code
+---------------------------- Captured stderr call -----------------------------
+{"event": "api_request_failed", "error_code": "openalex_required", "request_id": "5345c37f-af9f-4d0b-8fef-37782b9e083f", "level": "warning", "timestamp": "2026-10-31T02:16:51.570384Z"}
+------------------------------ Captured log call ------------------------------
+WARNING  clinical_agent:api.py:52 api_request_failed
+__________________ test_public_signatures_and_api_unchanged ___________________
+tests\unit\test_agents_migration.py:55: in test_public_signatures_and_api_unchanged
+    assert {
+E   AssertionError: assert {'__init__': ...sResult', ...} == {'__init__': ...sResult', ...}
+E     
+E     Omitting 4 identical items, use -vv to show
+E     Differing items:
+E     {'__init__': '(self, *, retriever: clinical_agent.agents.nodes.RetrievalPort, generator: clinical_agent.application.re...ic>, now: collections.abc.Callable[[], datetime.datetime] = <function ResearchService.<lambda> at 0xADDRESS>) -> None'} != {'__init__': '(self, *, retriever: clinical_agent.agents.nodes.RetrievalPort, generator: clinical_agent.application.re... now: collections.abc.Callable[[], datetime.datetime] = <function ResearchService.<lambda> at 0xADDRESSRESS>) -> None'}
+E     Use -v to get more diff
+__________________ test_ask_reuses_dto_and_preserves_unicode __________________
+tests\unit\test_command_cli.py:141: in test_ask_reuses_dto_and_preserves_unicode
+    assert (
+E   AssertionError: assert 1 == 0
+E    +  where 1 = <function main at 0x000001C5BF7CCA40>((['ask', '--scope', 'local', '--question', '  中文问题  ', '--model-dir', ...] + ['--top-k', '3', '--min-similarity', '0.6']), research_factory=<function test_ask_reuses_dto_and_preserves_unicode.<locals>.factory at 0x000001C5C2950180>)
+E    +    where ['ask', '--scope', 'local', '--question', '  中文问题  ', '--model-dir', ...] = ask_args()
+---------------------------- Captured stderr call -----------------------------
+{"request_id": "12345678-1234-4234-8234-123456789abc", "error_code": "local_corpus_not_evidence"}
+_____________ test_ask_errors_are_closed_and_sanitized[retrieval] _____________
+tests\unit\test_command_cli.py:243: in test_ask_errors_are_closed_and_sanitized
+    assert json.loads(output.err.splitlines()[-1])["error_code"] in {
+E   AssertionError: assert 'local_corpus_not_evidence' in {'citation_invalid', 'command_failed', 'retrieval_failed'}
+____________ test_ask_errors_are_closed_and_sanitized[generation] _____________
+tests\unit\test_command_cli.py:243: in test_ask_errors_are_closed_and_sanitized
+    assert json.loads(output.err.splitlines()[-1])["error_code"] in {
+E   AssertionError: assert 'local_corpus_not_evidence' in {'citation_invalid', 'command_failed', 'retrieval_failed'}
+______________ test_ask_errors_are_closed_and_sanitized[unknown] ______________
+tests\unit\test_command_cli.py:243: in test_ask_errors_are_closed_and_sanitized
+    assert json.loads(output.err.splitlines()[-1])["error_code"] in {
+E   AssertionError: assert 'local_corpus_not_evidence' in {'citation_invalid', 'command_failed', 'retrieval_failed'}
+__________ test_answered_cli_preserves_all_claim_and_citation_fields __________
+tests\unit\test_command_cli.py:321: in test_answered_cli_preserves_all_claim_and_citation_fields
+    assert main(ask_args(), research_factory=factory) == 0
+E   AssertionError: assert 1 == 0
+E    +  where 1 = <function main at 0x000001C5BF7CCA40>(['ask', '--scope', 'local', '--question', '  中文问题  ', '--model-dir', ...], research_factory=<function test_answered_cli_preserves_all_claim_and_citation_fields.<locals>.factory at 0x000001C5C2952D40>)
+E    +    where ['ask', '--scope', 'local', '--question', '  中文问题  ', '--model-dir', ...] = ask_args()
+---------------------------- Captured stderr call -----------------------------
+{"request_id": "12345678-1234-4234-8234-123456789abc", "error_code": "local_corpus_not_evidence"}
+_____________________ test_evidence_analysis_cli_and_http _____________________
+tests\unit\test_evidence_analysis.py:369: in test_evidence_analysis_cli_and_http
+    assert (
+E   AssertionError: assert 1 == 0
+E    +  where 1 = <function main at 0x000001C5BF7CCA40>(['ask', '--scope', 'local', '--question', 'Study MRI in a cohort', '--model-dir', ...], research_factory=<function test_evidence_analysis_cli_and_http.<locals>.factory at 0x000001C5C27EB740>)
+---------------------------- Captured stderr call -----------------------------
+{"request_id": "bb93f072-6bdd-43f9-a99f-1d2886351d2e", "error_code": "local_corpus_not_evidence"}
+___ test_online_dispatch_receives_plan_even_without_local_hits[None-online] ___
+tests\unit\test_exploratory_discovery.py:178: in test_online_dispatch_receives_plan_even_without_local_hits
+    answer = service.answer(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\research.py:431: in answer
+    raise ResearchError(error.code) from None
+E   clinical_agent.domain.research.ResearchError: openalex_required
+___ test_online_dispatch_receives_plan_even_without_local_hits[None-hybrid] ___
+tests\unit\test_exploratory_discovery.py:178: in test_online_dispatch_receives_plan_even_without_local_hits
+    answer = service.answer(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\research.py:431: in answer
+    raise ResearchError(error.code) from None
+E   clinical_agent.domain.research.ResearchError: openalex_required
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-online] _
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    with pytest.raises(ResearchError, match=failure):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'pubmed_timeout'
+E     Actual message: 'openalex_required'
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-hybrid] _
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    with pytest.raises(ResearchError, match=failure):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'pubmed_timeout'
+E     Actual message: 'openalex_required'
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-online] _
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    with pytest.raises(ResearchError, match=failure):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'pubmed_failed'
+E     Actual message: 'openalex_required'
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-hybrid] _
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    with pytest.raises(ResearchError, match=failure):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'pubmed_failed'
+E     Actual message: 'openalex_required'
+______________ test_cli_passes_default_or_explicit_scope[local] _______________
+tests\unit\test_hybrid_default.py:28: in test_cli_passes_default_or_explicit_scope
+    assert len(seen) == 1 and seen[0].scope == (scope or "hybrid")
+E   assert (0 == 1)
+E    +  where 0 = len([])
+---------------------------- Captured stderr call -----------------------------
+{"request_id": "8366d512-2662-4a51-b33f-9ca57b961c87", "error_code": "local_corpus_not_evidence"}
+________________ test_cli_api_and_graph_keep_keyword_strategy _________________
+tests\unit\test_hybrid_retrieval.py:189: in test_cli_api_and_graph_keep_keyword_strategy
+    assert (
+E   AssertionError: assert 1 == 0
+E    +  where 1 = <function main at 0x000001C5BF7CCA40>(['ask', '--scope', 'local', '--model-dir', '.', '--question', ...], research_factory=<function test_cli_api_and_graph_keep_keyword_strategy.<locals>.cli_runtime at 0x000001C5DBD7E3E0>)
+---------------------------- Captured stderr call -----------------------------
+{"request_id": "46b20df2-c957-4fe6-a022-45426d3908bf", "error_code": "local_corpus_not_evidence"}
+============================== warnings summary ===============================
+tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[accepted-None]
+  E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\lark_oapi\ws\pb\google\protobuf\internal\well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/integration/test_api.py::test_question_contract_correlation_and_empty_success
+FAILED tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[retrieval_failed-503]
+FAILED tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[retrieval_timeout-504]
+FAILED tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[retrieval_corrupt-500]
+FAILED tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[generation_failed-503]
+FAILED tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[generation_timeout-504]
+FAILED tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[model_output_invalid-502]
+FAILED tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[citation_invalid-502]
+FAILED tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[context_limit-422]
+FAILED tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[unknown-500]
+FAILED tests/integration/test_api.py::test_full_answer_source_fields_preserved
+FAILED tests/integration/test_api.py::test_busy_rejects_without_blocking_health_and_recovers
+FAILED tests/integration/test_api.py::test_wrong_answer_id_is_internal_error
+FAILED tests/integration/test_pubmed_online.py::test_online_graph_keeps_provenance_and_never_calls_local
+FAILED tests/integration/test_pubmed_online.py::test_online_cli_api_and_feishu_render_empty_search
+FAILED tests/unit/test_agents_migration.py::test_public_signatures_and_api_unchanged
+FAILED tests/unit/test_command_cli.py::test_ask_reuses_dto_and_preserves_unicode
+FAILED tests/unit/test_command_cli.py::test_ask_errors_are_closed_and_sanitized[retrieval]
+FAILED tests/unit/test_command_cli.py::test_ask_errors_are_closed_and_sanitized[generation]
+FAILED tests/unit/test_command_cli.py::test_ask_errors_are_closed_and_sanitized[unknown]
+FAILED tests/unit/test_command_cli.py::test_answered_cli_preserves_all_claim_and_citation_fields
+FAILED tests/unit/test_evidence_analysis.py::test_evidence_analysis_cli_and_http
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[None-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[None-hybrid]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-hybrid]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-hybrid]
+FAILED tests/unit/test_hybrid_default.py::test_cli_passes_default_or_explicit_scope[local]
+FAILED tests/unit/test_hybrid_retrieval.py::test_cli_api_and_graph_keep_keyword_strategy
+30 failed, 1484 passed, 122 deselected, 1 warning in 154.29s (0:02:34)

@@ -136,6 +136,9 @@ def scan():
             (
                 "clinical_agent.application",
                 "clinical_agent.adapters",
+                "clinical_agent.rag",
+                "clinical_agent.integrations",
+                "clinical_agent.db",
                 "langgraph",
                 "langchain",
                 "sqlalchemy",

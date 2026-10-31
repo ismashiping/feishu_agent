@@ -16,8 +16,8 @@ def main() -> int:
     resolve.add_argument("--value", required=True)
     sub.add_parser("inspect").add_argument("--document-id", type=UUID, required=True)
     args = parser.parse_args()
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-    from clinical_agent.adapters.postgres.governance import SourceGovernance
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.governance import SourceGovernance
     from clinical_agent.domain.governance import AliasClaim, StatusChange
 
     try:

@@ -42,6 +42,20 @@ def ask_args():
     ]
 
 
+def ask_online_args():
+    args = ask_args()
+    args[args.index("local")] = "online"
+    return args
+
+
+def online_provenance():
+    from clinical_agent.domain.openalex import OpenAlexProvenance
+
+    return OpenAlexProvenance(
+        query_sent="synthetic", fetched_at=datetime.now(UTC), date_from=None, date_to=None
+    )
+
+
 def batch(status="imported"):
     from clinical_agent.domain.ingestion import BatchIngestionResult
 
@@ -123,7 +137,7 @@ def test_ask_reuses_dto_and_preserves_unicode(capsys):
     class Service:
         def answer(self, request):
             assert request.question == "中文问题" and request.request_id == UUID(ID)
-            assert request.options.top_k == 3 and request.options.min_similarity == 0.6
+            assert request.options.top_k == 3 and request.scope == "online"
             return ResearchAnswer(
                 request_id=request.request_id,
                 status="insufficient_evidence",
@@ -131,6 +145,8 @@ def test_ask_reuses_dto_and_preserves_unicode(capsys):
                 sources=[],
                 limitations=["未检索到证据"],
                 generated_at=datetime.now(UTC),
+                retrieval_scope="online",
+                search_provenance=online_provenance(),
             )
 
     @contextmanager
@@ -138,10 +154,7 @@ def test_ask_reuses_dto_and_preserves_unicode(capsys):
         assert path.name == "model"
         yield Service()
 
-    assert (
-        main(ask_args() + ["--top-k", "3", "--min-similarity", "0.6"], research_factory=factory)
-        == 0
-    )
+    assert main(ask_online_args() + ["--top-k", "3"], research_factory=factory) == 0
     payload = json.loads(capsys.readouterr().out)
     assert payload["status"] == "insufficient_evidence" and payload["limitations"] == [
         "未检索到证据"
@@ -237,14 +250,14 @@ def test_ask_errors_are_closed_and_sanitized(fault, capsys):
     def factory(path):
         yield Service()
 
-    assert main(ask_args(), research_factory=factory) == 1
+    assert main(ask_online_args(), research_factory=factory) == 1
     output = capsys.readouterr()
     assert output.out == "" and "private" not in output.err
-    assert json.loads(output.err.splitlines()[-1])["error_code"] in {
-        "retrieval_failed",
-        "citation_invalid",
-        "command_failed",
-    }
+    assert json.loads(output.err.splitlines()[-1])["error_code"] == {
+        "retrieval": "retrieval_failed",
+        "generation": "citation_invalid",
+        "unknown": "command_failed",
+    }[fault]
 
 
 def test_wrong_request_answer_rejected(capsys):
@@ -266,8 +279,20 @@ def test_wrong_request_answer_rejected(capsys):
     def factory(path):
         yield Service()
 
-    assert main(ask_args(), research_factory=factory) == 1
+    assert main(ask_online_args(), research_factory=factory) == 1
     assert capsys.readouterr().out == ""
+
+
+def test_local_corpus_scope_is_rejected_before_resources(capsys):
+    from clinical_agent.cli import main
+
+    def forbidden(*args):
+        pytest.fail("Local scope assembled resources")
+
+    assert main(ask_args(), research_factory=forbidden) == 1
+    assert json.loads(capsys.readouterr().err.splitlines()[-1])["error_code"] == (
+        "local_corpus_not_evidence"
+    )
 
 
 def test_answered_cli_preserves_all_claim_and_citation_fields(
@@ -307,18 +332,22 @@ def test_answered_cli_preserves_all_claim_and_citation_fields(
                     ]
                 }
             )
-            return build_answer(
-                request,
+            built = build_answer(
+                request.model_copy(update={"scope": "local", "openalex": None}),
                 retrieval,
                 parse_draft(raw, max_bytes=32000),
                 generated_at=datetime.now(UTC),
+            )
+            # Only CLI serialization is under test; the CLI requires the requested scope.
+            return built.model_copy(
+                update={"retrieval_scope": "online", "search_provenance": online_provenance()}
             )
 
     @contextmanager
     def factory(path):
         yield Service()
 
-    assert main(ask_args(), research_factory=factory) == 0
+    assert main(ask_online_args(), research_factory=factory) == 0
     output = json.loads(capsys.readouterr().out)
     assert output["claims"][0]["kind"] == "uncertainty"
     assert output["claims"][0]["limitations"] == ["仅摘要"]

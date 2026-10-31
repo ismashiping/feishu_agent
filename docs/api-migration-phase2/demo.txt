@@ -1,0 +1,2 @@
+inside: ['enter'] ok
+after: ['enter', 'exit']

@@ -2,7 +2,7 @@
 
 日期：2026-10-29。状态：SPEC；尚未实施或验收。
 
-基线采用当前工作区及 investigation-baseline.txt，不采用 HEAD。既有176通过、7失败为同一旧计划兼容问题的基线，不能计为新增RED。不得覆盖已有修改。每组变更前保存涉及文件的工作区副本及SHA256，完成后比较副本而非仅比较HEAD。
+基线采用当前工作区及 docs/archive/investigation/investigation-baseline.txt，不采用 HEAD。既有176通过、7失败为同一旧计划兼容问题的基线，不能计为新增RED。不得覆盖已有修改。每组变更前保存涉及文件的工作区副本及SHA256，完成后比较副本而非仅比较HEAD。
 
 ## A. 查询兼容（先执行）
 

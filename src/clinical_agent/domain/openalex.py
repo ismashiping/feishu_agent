@@ -172,6 +172,12 @@ class OpenAlexRecord(DTO):
             content_hash=sha256(snapshot.encode()).hexdigest(),
         )
 
+    def content_maps(self) -> tuple[dict, dict]:
+        work = json.loads(self.snapshot_json)
+        has = work.get("has_content") or {}
+        urls = work.get("content_urls") or {}
+        return has if isinstance(has, dict) else {}, urls if isinstance(urls, dict) else {}
+
     def verify_snapshot(self) -> None:
         expected = self.from_work(json.loads(self.snapshot_json))
         if expected != self:

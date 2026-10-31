@@ -40,8 +40,8 @@ def logical_content(prepared: PreparedIngestion) -> object:
 def dry_plan(request: UpdateRequest, reader: HistoricalReader) -> list[dict[str, object]]:
     from hashlib import sha256
 
-    from clinical_agent.adapters.pdf import parse_pdf
-    from clinical_agent.adapters.pubmed_xml import parse_pubmed_xml
+    from clinical_agent.rag.pdf import parse_pdf
+    from clinical_agent.rag.pubmed_xml import parse_pubmed_xml
 
     root = request.allowed_root.resolve(strict=True)
     items: list[dict[str, object]] = []

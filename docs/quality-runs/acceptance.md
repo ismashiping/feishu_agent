@@ -1,6 +1,6 @@
 # 第二阶段实际验收记录
 
-2026-10-29。本轮未新增Agent、表、依赖、模型调用或搜索轮次，未修改任何预算常量。工作区既有修改保留，涉及文件初始副本在 `.quality-backup`；hashes.json与changes.patch相对这些副本，不以HEAD冒充基线。
+2026-10-29。本轮未新增Agent、表、依赖、模型调用或搜索轮次，未修改任何预算常量。工作区既有修改保留，涉及文件初始副本在 `docs/archive/quality-backup`；hashes.json与changes.patch相对这些副本，不以HEAD冒充基线。
 
 ## 按阶段结果
 

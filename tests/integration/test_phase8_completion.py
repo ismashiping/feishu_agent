@@ -12,17 +12,17 @@ pytestmark = [pytest.mark.integration, pytest.mark.database]
 def test_online_real_db_freezes_and_replays(engine, tmp_path, fake_embedder):
     import httpx
 
-    from clinical_agent.adapters.offline import OfflineReader
-    from clinical_agent.adapters.postgres.governance import SourceGovernance
-    from clinical_agent.adapters.postgres.maintenance import OnlineBatchRepository
-    from clinical_agent.adapters.postgres.store import PostgresStore
-    from clinical_agent.adapters.postgres.update_runs import PostgresUpdateLedger
-    from clinical_agent.adapters.pubmed_online import PubMedClient, PubMedSettings
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.application.online_updates import OnlineUpdateService
     from clinical_agent.application.updates import UpdateService
+    from clinical_agent.db.governance import SourceGovernance
+    from clinical_agent.db.maintenance import OnlineBatchRepository
+    from clinical_agent.db.store import PostgresStore
+    from clinical_agent.db.update_runs import PostgresUpdateLedger
     from clinical_agent.domain.ingestion import document_id_for
     from clinical_agent.domain.maintenance import OnlineUpdateRequest
+    from clinical_agent.integrations.pubmed_online import PubMedClient, PubMedSettings
+    from clinical_agent.rag.offline import OfflineReader
 
     xml = (
         b"<PubmedArticleSet>"
@@ -52,7 +52,7 @@ def test_online_real_db_freezes_and_replays(engine, tmp_path, fake_embedder):
             else httpx.Response(200, content=xml)
         )
 
-    from clinical_agent.adapters.postgres.online_publication import OnlinePublicationStore
+    from clinical_agent.db.online_publication import OnlinePublicationStore
 
     store = OnlinePublicationStore(engine)
     ingestion = IngestionService(
@@ -119,7 +119,7 @@ def test_online_real_db_freezes_and_replays(engine, tmp_path, fake_embedder):
         )
         from sqlalchemy import func, select
 
-        from clinical_agent.adapters.postgres.models import DocumentVersionRecord
+        from clinical_agent.db.models import DocumentVersionRecord
 
         with engine.connect() as conn:
             count = conn.scalar(
@@ -147,9 +147,9 @@ def test_online_real_db_freezes_and_replays(engine, tmp_path, fake_embedder):
 def test_rebuild_stage_atomic_activation_and_stale_guard(
     engine, source_factory, prepared_factory, fake_embedder
 ):
-    from clinical_agent.adapters.postgres.rebuild import KnowledgeRebuilder
-    from clinical_agent.adapters.postgres.store import PostgresStore
-    from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
+    from clinical_agent.db.rebuild import KnowledgeRebuilder
+    from clinical_agent.db.store import PostgresStore
+    from clinical_agent.db.versions import VersionedPostgresStore
     from clinical_agent.domain.chunking import ChunkingPolicy
     from clinical_agent.domain.maintenance import RebuildRequest
 
@@ -198,7 +198,7 @@ def test_rebuild_stage_atomic_activation_and_stale_guard(
 
 
 def test_rebuild_model_guard_and_no_evaluation(engine, fake_embedder):
-    from clinical_agent.adapters.postgres.rebuild import KnowledgeRebuilder
+    from clinical_agent.db.rebuild import KnowledgeRebuilder
     from clinical_agent.domain.maintenance import RebuildRequest
 
     fake_embedder.tokenizer_profile = fake_embedder.tokenizer_profile.model_copy(
@@ -216,23 +216,23 @@ def test_official_window_real_e5_and_database_rebuild(engine, tmp_path):
     import os
     from pathlib import Path
 
-    from clinical_agent.adapters.embedding import LocalModelConfig, load_local_embedder
-    from clinical_agent.adapters.offline import OfflineReader
-    from clinical_agent.adapters.postgres.governance import SourceGovernance
-    from clinical_agent.adapters.postgres.maintenance import OnlineBatchRepository
-    from clinical_agent.adapters.postgres.online_publication import OnlinePublicationStore
-    from clinical_agent.adapters.postgres.rebuild import KnowledgeRebuilder
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
-    from clinical_agent.adapters.postgres.store import PostgresStore
-    from clinical_agent.adapters.postgres.update_runs import PostgresUpdateLedger
-    from clinical_agent.adapters.pubmed_online import open_pubmed
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.application.online_updates import OnlineUpdateService
     from clinical_agent.application.updates import UpdateService
+    from clinical_agent.db.governance import SourceGovernance
+    from clinical_agent.db.maintenance import OnlineBatchRepository
+    from clinical_agent.db.online_publication import OnlinePublicationStore
+    from clinical_agent.db.rebuild import KnowledgeRebuilder
+    from clinical_agent.db.retrieval import PostgresRetriever
+    from clinical_agent.db.store import PostgresStore
+    from clinical_agent.db.update_runs import PostgresUpdateLedger
     from clinical_agent.domain.chunking import ChunkingPolicy
     from clinical_agent.domain.ingestion import document_id_for
     from clinical_agent.domain.maintenance import OnlineUpdateRequest, RebuildRequest
     from clinical_agent.domain.retrieval import RetrievalOptions
+    from clinical_agent.integrations.pubmed_online import open_pubmed
+    from clinical_agent.rag.embedding import LocalModelConfig, load_local_embedder
+    from clinical_agent.rag.offline import OfflineReader
 
     root = Path(__file__).resolve().parents[2]
     model = root / "models/multilingual-e5-base/d128750597153bb5987e10b1c3493a34e5a4502a"
@@ -283,7 +283,7 @@ def test_official_window_real_e5_and_database_rebuild(engine, tmp_path):
     active = rebuilder.activate(rebuild_request.run_id)
     assert active["status"] == "activated"
     assert retriever.search(query, RetrievalOptions(document_ids=[identity])).hits
-    from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
+    from clinical_agent.db.versions import VersionedPostgresStore
 
     history = VersionedPostgresStore(engine).load_version(store.version_id(before))
     assert [str(v.evidence.chunk_id) for v in history.embedded] == old_chunks

@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from pydantic import ValidationError
-from clinical_agent.adapters.llm import LLMSettings, open_llm
+from clinical_agent.integrations.llm import LLMSettings, open_llm
 from clinical_agent.domain.pico import ClassificationRequest, ExtractionDraft
 with open_llm(LLMSettings()) as generator:
     raw = generator.extract(ClassificationRequest(question='MedSAM与nnU-Net用于医学图像分割有什么区别？'), timeout_seconds=20)

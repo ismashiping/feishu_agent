@@ -93,7 +93,7 @@ def test_real_transport_shape_supplement_and_dedup():
 
     import httpx
 
-    from clinical_agent.adapters.pubmed_online import PubMedClient, PubMedSettings
+    from clinical_agent.integrations.pubmed_online import PubMedClient, PubMedSettings
 
     calls = []
 

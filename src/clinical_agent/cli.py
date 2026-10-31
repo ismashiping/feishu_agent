@@ -27,6 +27,7 @@ from clinical_agent.domain.openalex import OpenAlexOptions
 from clinical_agent.domain.report import ReportResult
 from clinical_agent.domain.research import QuestionRequest, ResearchAnswer, ResearchError
 from clinical_agent.domain.retrieval import RetrievalError, RetrievalOptions
+from clinical_agent.logging_config import log_unexpected
 
 RuntimeFactory = Callable[[], AbstractContextManager[Runtime]]
 IngestionFactory = Callable[[IngestionCommand], AbstractContextManager[IngestionPort]]
@@ -101,6 +102,11 @@ def _business(
                     date_to=arguments.local_date_to,
                 ),
             )
+            if question.scope == "local":
+                raise ResearchError("local_corpus_not_evidence")
+    except ResearchError as error:
+        _error(request_id, error.code)
+        return 1
     except (ValueError, TypeError):
         _error(request_id, "invalid_arguments")
         return 2
@@ -192,6 +198,8 @@ def _business(
                 else ResearchError(error.code)
             )
             error_code = safe.code
+        if error_code == "command_failed":
+            log_unexpected("cli", error)
         _error(request_id, error_code)
         return exit_code
 

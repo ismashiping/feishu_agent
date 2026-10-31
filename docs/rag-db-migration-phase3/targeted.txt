@@ -1,0 +1,83 @@
+.........................F..F..FFF......F...F........................... [ 73%]
+..........................                                               [100%]
+================================== FAILURES ===================================
+_ test_only_import_locations_changed[clinical_agent.adapters.offline-clinical_agent.rag.offline] _
+tests\unit\test_rag_db_migration.py:88: in test_only_import_locations_changed
+    assert ast.dump(ast.parse(before), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 314 identical leading characters in diff, use -v to show
+E     Skipping 16320 identical trailing characters in diff, use -v to show
+E     - cal_agent.domain.ingestion', names=[alias(name='ImportRequest'), alias(name='IngestionError'), alias(name='ParsedBatch'), alias(name='ParsedEntry'), alias(name='ParsedSource'), alias(name='document_id_for')], level=0), ImportFrom(module='clinical_agent.domain.models', names=[alias(name='LiteratureDocument'), alias(name='ParsedPdf')], level=0), ImportFrom(module='clinical_agent.rag.pdf', names=[alias(name='PdfMetadataOverrides'), alias(na...
+E     
+E     ...Full output truncated (2 lines hidden), use '-vv' to show
+_ test_only_import_locations_changed[clinical_agent.adapters.llm-clinical_agent.integrations.llm] _
+tests\unit\test_rag_db_migration.py:88: in test_only_import_locations_changed
+    assert ast.dump(ast.parse(before), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 917 identical leading characters in diff, use -v to show
+E     Skipping 28371 identical trailing characters in diff, use -v to show
+E     - cal_agent.domain.research', names=[alias(name='ResearchError')], level=0), ImportFrom(module='clinical_agent.integrations.langchain_generation', names=[alias(name='LangChainAnswerGenerator')], le
+E     + cal_agent.integrations.langchain_generation', names=[alias(name='LangChainAnswerGenerator')], level=0), ImportFrom(module='clinical_agent.domain.research', names=[alias(name='ResearchError')], le
+_ test_only_import_locations_changed[clinical_agent.adapters.pubmed_online-clinical_agent.integrations.pubmed_online] _
+tests\unit\test_rag_db_migration.py:88: in test_only_import_locations_changed
+    assert ast.dump(ast.parse(before), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 1235 identical leading characters in diff, use -v to show
+E     Skipping 55405 identical trailing characters in diff, use -v to show
+E     - cal_agent.domain.pubmed', names=[alias(name='PubMedRecord'), alias(name='PubMedSearchRequest'), alias(name='PubMedSearchResult')], level=0), ImportFrom(module='clinical_agent.domain.research', names=[alias(name='ResearchError')], level=0), ImportFrom(module='clinical_agent.rag.pubmed_xml', names=[alias(name='parse_pubmed_response')], leve
+E     + cal_agent.rag.pubmed_xml', names=[alias(name='parse_pubmed_response')], level=0), ImportFrom(modul...
+E     
+E     ...Full output truncated (1 line hidden), use '-vv' to show
+_ test_only_import_locations_changed[clinical_agent.adapters.oa_fulltext-clinical_agent.integrations.oa_fulltext] _
+tests\unit\test_rag_db_migration.py:88: in test_only_import_locations_changed
+    assert ast.dump(ast.parse(before), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 1579 identical leading characters in diff, use -v to show
+E     Skipping 79713 identical trailing characters in diff, use -v to show
+E     - cal_agent.domain.fulltext', names=[alias(name='FulltextUnit')], level=0), ImportFrom(module='clinical_agent.domain.openalex', names=[alias(name='OpenAlexRecord'), alias(name='normalize_doi')], level=0), ImportFrom(module='clinical_agent.rag.pdf', names=[alias(name='PdfMetadataOverrides'), alias(name='PdfParseError'), alias(name='PdfParseLimits'), alias(name='parse_pdf')], leve
+E     + cal_agent.rag.pdf', names=[alias(name='PdfMetadataOverrides...
+E     
+E     ...Full output truncated (1 line hidden), use '-vv' to show
+_ test_only_import_locations_changed[clinical_agent.adapters.report_snapshot-clinical_agent.integrations.report_snapshot] _
+tests\unit\test_rag_db_migration.py:88: in test_only_import_locations_changed
+    assert ast.dump(ast.parse(before), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 11697 identical leading characters in diff, use -v to show
+E     Skipping 2350 identical trailing characters in diff, use -v to show
+E     - cal_agent.domain.ingestion', names=[alias(name='document_id_for')], level=0), ImportFrom(module='clinical_agent.rag.pubmed_xml', names=[alias(name='parse_pubmed_xml')], leve
+E     + cal_agent.rag.pubmed_xml', names=[alias(name='parse_pubmed_xml')], level=0), ImportFrom(module='clinical_agent.domain.ingestion', names=[alias(name='document_id_for')], leve
+_ test_only_import_locations_changed[clinical_agent.adapters.postgres.rebuild-clinical_agent.db.rebuild] _
+tests\unit\test_rag_db_migration.py:88: in test_only_import_locations_changed
+    assert ast.dump(ast.parse(before), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 708 identical leading characters in diff, use -v to show
+E     Skipping 36065 identical trailing characters in diff, use -v to show
+E     - cal_agent.application.ingestion', names=[alias(name='Embedder')], level=0), ImportFrom(module='clinical_agent.db.models', names=[alias(name='ChunkRecord'), alias(name='DocumentRecord'), alias(name='DocumentVersionRecord'), alias(name='RebuildRunRecord')], level=0), ImportFrom(module='clinical_agent.db.store', names=[alias(name='_read'), alias(name='records_for')], level=0), ImportFrom(module='clinical_agent.db.versions', names=[alias(nam...
+E     
+E     ...Full output truncated (2 lines hidden), use '-vv' to show
+_ test_only_import_locations_changed[clinical_agent.adapters.postgres.versions-clinical_agent.db.versions] _
+tests\unit\test_rag_db_migration.py:88: in test_only_import_locations_changed
+    assert ast.dump(ast.parse(before), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 740 identical leading characters in diff, use -v to show
+E     Skipping 23647 identical trailing characters in diff, use -v to show
+E     - cal_agent.application.updates', names=[alias(name='logical_content')], level=0), ImportFrom(module='clinical_agent.db.models', names=[alias(name='ChunkRecord'), alias(name='DocumentRecord'), alias(name='DocumentVersionRecord')], level=0), ImportFrom(module='clinical_agent.db.store', names=[alias(name='PostgresStore'), alias(name='_read'), alias(name='records_for')], leve
+E     + cal_agent.db.models', names=[alias(name='ChunkRecord'), alias(name...
+E     
+E     ...Full output truncated (1 line hidden), use '-vv' to show
+=========================== short test summary info ===========================
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.offline-clinical_agent.rag.offline]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.llm-clinical_agent.integrations.llm]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.pubmed_online-clinical_agent.integrations.pubmed_online]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.oa_fulltext-clinical_agent.integrations.oa_fulltext]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.report_snapshot-clinical_agent.integrations.report_snapshot]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.postgres.rebuild-clinical_agent.db.rebuild]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.postgres.versions-clinical_agent.db.versions]
+7 failed, 91 passed in 47.68s

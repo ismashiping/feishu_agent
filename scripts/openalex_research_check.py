@@ -9,13 +9,13 @@ from dotenv import dotenv_values
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from clinical_agent.adapters.llm import LLMSettings, open_llm
-from clinical_agent.adapters.openalex import OpenAlexSettings, open_openalex
 from clinical_agent.application.openalex import OpenAlexRetrievalService
 from clinical_agent.application.pico import PicoPlanner
 from clinical_agent.domain.pico import ClassificationRequest
 from clinical_agent.domain.research import ResearchError
 from clinical_agent.domain.retrieval import RetrievalRequest
+from clinical_agent.integrations.llm import LLMSettings, open_llm
+from clinical_agent.integrations.openalex import OpenAlexSettings, open_openalex
 
 QUESTIONS = [
     "肝脏分割最新研究有哪些？",

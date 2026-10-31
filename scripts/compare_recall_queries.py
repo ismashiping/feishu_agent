@@ -1,13 +1,15 @@
-"""Real API query compiler comparison; fixed plans, no model/medical acceptance claim."""
+"""Retired PubMed query comparison. Research discovery uses OpenAlex."""
+
+raise SystemExit("PubMed retrieval scripts were removed. Use OpenAlex.")
 
 import json
 import time
 from pathlib import Path
 
-from clinical_agent.adapters.pubmed_online import open_pubmed
 from clinical_agent.application.pico import PicoPlanner
 from clinical_agent.domain.pico import ClassificationRequest
 from clinical_agent.domain.pubmed import PubMedOptions, PubMedSearchRequest
+from clinical_agent.integrations.pubmed_online import open_pubmed
 
 CASES = [
     (

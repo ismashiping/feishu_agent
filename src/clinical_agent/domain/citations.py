@@ -6,6 +6,7 @@ from uuid import UUID
 
 from pydantic import ValidationError
 
+from clinical_agent.domain.fulltext import paper_key
 from clinical_agent.domain.models import EvidenceLocation
 from clinical_agent.domain.openalex import OpenAlexProvenance
 from clinical_agent.domain.research import (
@@ -16,6 +17,7 @@ from clinical_agent.domain.research import (
     QuestionRequest,
     ResearchAnswer,
     ResearchError,
+    UnobtainedWork,
 )
 from clinical_agent.domain.retrieval import DocumentSummary, RetrievalResult
 
@@ -24,6 +26,8 @@ BASE_LIMITATIONS = [
     "已检查引用标识与来源关联，尚未自动验证结论的医学语义支持关系，需人工复核。",
     "本结果用于医学科研辅助，不用于个体诊断或治疗决策。",
 ]
+OPENALEX_FULLTEXT_LIMITATION = "已查询 OpenAlex；科研结论仅依据已验证并引用的全文段落，不保证检全。"
+OPENALEX_NO_FULLTEXT_LIMITATION = "已查询 OpenAlex；未获得可用全文，不能依据摘要生成科研结论。"
 
 
 def _pairs(items: list[tuple[str, object]]) -> dict[str, object]:
@@ -53,6 +57,41 @@ def parse_draft(raw: str, *, max_bytes: int) -> GenerationDraft:
     return result
 
 
+def unobtained_works(retrieval: RetrievalResult) -> list[UnobtainedWork]:
+    if not isinstance(retrieval.search_provenance, OpenAlexProvenance):
+        return []
+    reasons, details = {}, {}
+    for warning in retrieval.warnings:
+        marker = ":fulltext_"
+        index = warning.find(marker)
+        if index < 0:
+            continue
+        key = warning[:index]
+        reason, _, detail = warning[index + 1 :].partition(";")
+        if reason == "fulltext_available":
+            continue
+        reasons[key] = reason
+        if detail:
+            details[key] = detail
+    found, seen = [], set()
+    for hit in retrieval.hits:
+        record = hit.document.openalex_record
+        if record is None or hit.fulltext or record.openalex_id in seen:
+            continue
+        seen.add(record.openalex_id)
+        found.append(
+            UnobtainedWork(
+                openalex_id=record.openalex_id,
+                title=record.title,
+                doi=record.doi,
+                year=record.publication_date.year,
+                reason=reasons.get(paper_key(record), "fulltext_failed"),
+                detail=details.get(paper_key(record)),
+            )
+        )
+    return found
+
+
 def build_answer(
     request: QuestionRequest,
     retrieval: RetrievalResult,
@@ -66,8 +105,14 @@ def build_answer(
         if retrieval.options != request.options or retrieval.scope != request.scope:
             raise ValueError("Mismatched retrieval options")
         limitations = list(BASE_LIMITATIONS)
-        if isinstance(retrieval.search_provenance, OpenAlexProvenance):
-            limitations[0] = "已查询 OpenAlex，证据限于本次检索与已获取摘要，不保证检全。"
+        openalex = isinstance(retrieval.search_provenance, OpenAlexProvenance)
+        if openalex:
+            if any(hit.fulltext for hit in retrieval.hits):
+                limitations[0] = OPENALEX_FULLTEXT_LIMITATION
+            elif retrieval.hits:
+                limitations[0] = OPENALEX_NO_FULLTEXT_LIMITATION
+            else:
+                limitations[0] = "已查询 OpenAlex，未发现可进入回答的论文，不保证检全。"
             if retrieval.search_provenance.evidence_gaps:
                 limitations.append(
                     "证据尚未充分覆盖：" + "、".join(retrieval.search_provenance.evidence_gaps)
@@ -112,6 +157,7 @@ def build_answer(
                 status="insufficient_evidence",
                 claims=[],
                 sources=[],
+                unobtained_works=unobtained_works(retrieval),
                 generated_at=generated_at,
                 local_channel_status=retrieval.channel_status
                 if retrieval.scope != "online"
@@ -122,6 +168,26 @@ def build_answer(
                 retrieval_scope=retrieval.scope,
                 search_provenance=retrieval.search_provenance,
                 limitations=[*limitations, "未检索到符合条件的证据，不代表证据证明无效。"],
+            )
+        if openalex and not any(hit.fulltext for hit in retrieval.hits):
+            if draft is not None:
+                raise ValueError("OpenAlex fulltext mode cannot answer from abstracts")
+            return ResearchAnswer(
+                request_id=request.request_id,
+                status="insufficient_evidence",
+                claims=[],
+                sources=[],
+                unobtained_works=unobtained_works(retrieval),
+                generated_at=generated_at,
+                local_channel_status=retrieval.channel_status
+                if retrieval.scope != "online"
+                else None,
+                local_retrieval_mode=retrieval.options.mode,
+                local_retrieval_strategy=retrieval.strategy_version,
+                retrieval_warnings=retrieval.warnings,
+                retrieval_scope=retrieval.scope,
+                search_provenance=retrieval.search_provenance,
+                limitations=limitations,
             )
         if draft is None:
             raise ValueError("A nonempty retrieval requires a draft")
@@ -171,6 +237,8 @@ def build_answer(
             for identity in claim.evidence_chunk_ids:
                 if identity not in by_id:
                     raise ValueError("Unknown evidence identity")
+                if openalex and identity not in fulltext_by_id:
+                    raise ValueError("OpenAlex claims require fulltext passages")
                 hit = by_id[identity]
                 if identity in used:
                     continue
@@ -206,12 +274,12 @@ def build_answer(
             for source in sources.values()
         ):
             limitations.append("部分来源仅包含摘要，不能视为已阅读全文。")
-        if isinstance(retrieval.search_provenance, OpenAlexProvenance) and any(
+        if openalex and any(
             evidence.location.kind == "fulltext"
             for source in sources.values()
             for evidence in source.evidence
         ):
-            limitations[0] = "已查询 OpenAlex；证据限于实际引用的摘要或全文段落，不保证检全。"
+            limitations[0] = OPENALEX_FULLTEXT_LIMITATION
         if "extracted_text" in scopes:
             limitations.append("部分来源为PDF文本层提取，未验证版面、表格或全文完整性。")
         return ResearchAnswer(
@@ -219,6 +287,7 @@ def build_answer(
             status="answered",
             claims=claims,
             sources=list(sources.values()),
+            unobtained_works=unobtained_works(retrieval),
             limitations=limitations,
             generated_at=generated_at,
             local_channel_status=retrieval.channel_status if retrieval.scope != "online" else None,

@@ -2,7 +2,7 @@
 
 import httpx
 
-from clinical_agent.adapters.pubmed_online import PubMedClient, PubMedSettings
+from clinical_agent.integrations.pubmed_online import PubMedClient, PubMedSettings
 from clinical_agent.domain.pubmed import PubMedSearchRequest
 
 

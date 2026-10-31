@@ -1,0 +1,117 @@
+{
+  "modules": {
+    "feishu.main": "clinical_agent.channels.feishu.main",
+    "feishu.events": "clinical_agent.channels.feishu.events",
+    "feishu.dedup": "clinical_agent.channels.feishu.dedup",
+    "feishu.worker": "clinical_agent.channels.feishu.worker",
+    "feishu.sender": "clinical_agent.channels.feishu.sender"
+  },
+  "settings_schema": {
+    "additionalProperties": false,
+    "properties": {
+      "app_id": {
+        "maxLength": 256,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "title": "App Id",
+        "type": "string"
+      },
+      "app_secret": {
+        "format": "password",
+        "minLength": 1,
+        "title": "App Secret",
+        "type": "string",
+        "writeOnly": true
+      },
+      "bot_open_id": {
+        "maxLength": 256,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9_-]+$",
+        "title": "Bot Open Id",
+        "type": "string"
+      },
+      "model_dir": {
+        "format": "directory-path",
+        "title": "Model Dir",
+        "type": "string"
+      },
+      "redis_url": {
+        "format": "password",
+        "minLength": 1,
+        "title": "Redis Url",
+        "type": "string",
+        "writeOnly": true
+      },
+      "capacity": {
+        "default": 2,
+        "maximum": 4,
+        "minimum": 1,
+        "title": "Capacity",
+        "type": "integer"
+      },
+      "sender_capacity": {
+        "default": 8,
+        "maximum": 64,
+        "minimum": 1,
+        "title": "Sender Capacity",
+        "type": "integer"
+      },
+      "shutdown_seconds": {
+        "default": 5.0,
+        "maximum": 120,
+        "minimum": 0,
+        "title": "Shutdown Seconds",
+        "type": "number"
+      }
+    },
+    "required": [
+      "app_id",
+      "app_secret",
+      "bot_open_id",
+      "model_dir",
+      "redis_url"
+    ],
+    "title": "FeishuSettings",
+    "type": "object"
+  },
+  "redis_script_hash": "4c729e444839f41d1350ca7af7d186caa08ec29a1c7c7886f65c63a0254af720",
+  "fixed_file_hashes": {
+    "uv.lock": "5721e08900724cf2f6768bd65150b797e16913e45b83158db7425071152f183b",
+    "Dockerfile": "bd14b9f1a6ad03d6b441e64563c6004264144a9f9203e13723523af580323746",
+    "docker-compose.yml": "8db16097078ce108c5e2cca7c56ad133e73b58fe8160a0d94ae733dc1f8521bc"
+  },
+  "optional_dependencies": {
+    "feishu": [
+      "lark-oapi==1.7.5",
+      "httpx==0.28.1",
+      "redis==8.1.0"
+    ],
+    "dedup": [
+      "redis==8.1.0"
+    ],
+    "api": [
+      "fastapi==0.162.0",
+      "uvicorn==0.54.0",
+      "httpx==0.28.1"
+    ],
+    "rag": [
+      "llama-index-core==0.14.22",
+      "langchain-core==1.7.0",
+      "langchain-openai==1.7.3",
+      "langgraph==1.2.17",
+      "langsmith==0.14.12",
+      "httpx==0.28.1"
+    ],
+    "db": [
+      "SQLAlchemy==2.1.6",
+      "alembic==1.20.1",
+      "psycopg[binary]==3.3.6",
+      "pgvector==0.5.1"
+    ],
+    "ml": [
+      "sentence-transformers==6.2.0",
+      "transformers==5.21.0",
+      "torch==2.14.1"
+    ]
+  }
+}

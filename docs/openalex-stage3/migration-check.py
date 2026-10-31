@@ -3,7 +3,7 @@ from pathlib import Path
 from alembic import command
 from alembic.config import Config
 from sqlalchemy import text
-from clinical_agent.adapters.postgres.connection import DatabaseSettings,database_engine
+from clinical_agent.db.connection import DatabaseSettings,database_engine
 root=Path(sys.argv[1]);settings=DatabaseSettings();assert settings.name.startswith('clinical_agent_test_oa_stage3_')
 config=Config(str(root/'alembic.ini'))
 with database_engine(settings) as engine:

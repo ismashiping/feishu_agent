@@ -33,11 +33,11 @@ def main() -> int:
         parser.error("dry-run is single-shot")
     if not args.dry_run and (args.model_dir is None or args.snapshot_dir is None):
         parser.error("Publishing requires model-dir and snapshot-dir")
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-    from clinical_agent.adapters.postgres.store import PostgresStore
-    from clinical_agent.adapters.postgres.update_runs import PostgresUpdateLedger
     from clinical_agent.application.updates import UpdateService
     from clinical_agent.command_runtime import IngestionCommand, open_ingestion
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.store import PostgresStore
+    from clinical_agent.db.update_runs import PostgresUpdateLedger
     from clinical_agent.domain.updates import UpdateRequest
 
     try:

@@ -1,0 +1,19 @@
+{
+  "wheel": "E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\feishu-phase4-build\\dist\\clinical_literature_agent-0.1.0-py3-none-any.whl",
+  "required_files": [
+    "clinical_agent/channels/feishu/__init__.py",
+    "clinical_agent/channels/feishu/main.py",
+    "clinical_agent/channels/feishu/events.py",
+    "clinical_agent/channels/feishu/dedup.py",
+    "clinical_agent/channels/feishu/worker.py",
+    "clinical_agent/channels/feishu/sender.py",
+    "feishu/__init__.py",
+    "feishu/main.py",
+    "feishu/events.py",
+    "feishu/dedup.py",
+    "feishu/worker.py",
+    "feishu/sender.py",
+    "clinical_agent/channels/__init__.py"
+  ],
+  "entry_point": "clinical_agent.channels.feishu.main:main"
+}

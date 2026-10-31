@@ -3,8 +3,8 @@
 from sqlalchemy import Connection
 
 from alembic import context
-from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-from clinical_agent.adapters.postgres.models import Base
+from clinical_agent.db.connection import DatabaseSettings, database_engine
+from clinical_agent.db.models import Base
 
 config = context.config
 

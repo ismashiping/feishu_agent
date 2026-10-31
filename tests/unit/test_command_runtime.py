@@ -7,8 +7,8 @@ import pytest
 
 
 def patch_components(monkeypatch):
-    from clinical_agent.adapters import embedding
-    from clinical_agent.adapters.postgres import connection
+    from clinical_agent.db import connection
+    from clinical_agent.rag import embedding
 
     events = []
 
@@ -50,9 +50,9 @@ def test_ingestion_assembly_has_no_llm(monkeypatch):
 
 @pytest.mark.parametrize("fail", [False, True])
 def test_research_assembly_closes_http_before_engine(monkeypatch, fail):
-    from clinical_agent.adapters import llm as llm_api
     from clinical_agent.application.research import ResearchService
     from clinical_agent.command_runtime import open_research
+    from clinical_agent.integrations import llm as llm_api
 
     events = patch_components(monkeypatch)
 
@@ -88,8 +88,8 @@ def test_research_assembly_closes_http_before_engine(monkeypatch, fail):
 
 
 def test_configuration_failure_precedes_model_loading(monkeypatch):
-    from clinical_agent.adapters import llm as llm_api
     from clinical_agent.command_runtime import open_research
+    from clinical_agent.integrations import llm as llm_api
 
     events = patch_components(monkeypatch)
 

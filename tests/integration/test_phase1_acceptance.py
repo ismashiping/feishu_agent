@@ -47,12 +47,12 @@ def test_phase1_learning_demo_and_navigation(tmp_path):
 def test_real_redis_worker_sender_dedup_capacity_and_drain():
     from datetime import UTC, datetime
 
+    from clinical_agent.channels.feishu.dedup import DedupPolicy, create_deduplicator
+    from clinical_agent.channels.feishu.events import MessageEnvelope
+    from clinical_agent.channels.feishu.sender import Sender
+    from clinical_agent.channels.feishu.worker import Dispatcher, WorkerPolicy
     from clinical_agent.domain.citations import build_answer
     from clinical_agent.domain.retrieval import RetrievalResult, retrieval_embedding_info
-    from feishu.dedup import DedupPolicy, create_deduplicator
-    from feishu.events import MessageEnvelope
-    from feishu.sender import Sender
-    from feishu.worker import Dispatcher, WorkerPolicy
 
     url = os.environ.get("CLINICAL_AGENT_TEST_REDIS_URL")
     assert url, "Explicit isolated Redis required"
@@ -135,18 +135,18 @@ def test_real_e5_postgres_model_api_pipeline(tmp_path, pdf_factory):
 
     from sqlalchemy import delete, func, select
 
-    from clinical_agent.adapters.embedding import REVISION, LocalModelConfig, load_local_embedder
-    from clinical_agent.adapters.llm import LLMSettings, open_llm
-    from clinical_agent.adapters.offline import OfflineReader
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-    from clinical_agent.adapters.postgres.models import DocumentRecord
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
-    from clinical_agent.adapters.postgres.store import PostgresStore
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.application.research import ResearchService
     from clinical_agent.application.retrieval import RetrievalService
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.models import DocumentRecord
+    from clinical_agent.db.retrieval import PostgresRetriever
+    from clinical_agent.db.store import PostgresStore
     from clinical_agent.domain.ingestion import ImportRequest
     from clinical_agent.domain.research import QuestionRequest
+    from clinical_agent.integrations.llm import LLMSettings, open_llm
+    from clinical_agent.rag.embedding import REVISION, LocalModelConfig, load_local_embedder
+    from clinical_agent.rag.offline import OfflineReader
 
     assert os.environ.get("CLINICAL_AGENT_P117_PAID_CALLS") == "1"
     settings = DatabaseSettings()

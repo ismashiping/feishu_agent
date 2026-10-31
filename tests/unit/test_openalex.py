@@ -69,8 +69,8 @@ def test_dates_are_calendar_months_and_intersections():
 
 
 def test_transport_filters_auth_and_classifies_without_leaking():
-    from clinical_agent.adapters.openalex import OpenAlexClient
     from clinical_agent.domain.openalex import OpenAlexError
+    from clinical_agent.integrations.openalex import OpenAlexClient
 
     def handle(request):
         assert request.headers["Authorization"] == "Bearer test-secret"
@@ -127,10 +127,13 @@ def test_assessment_requires_actual_quotes_and_complete_ids():
 
 def test_new_runtime_contains_no_pubmed_discovery():
     root = Path(__file__).parents[2] / "src" / "clinical_agent"
-    for name in ["command_runtime.py", "api_runtime.py"]:
-        source = (root / name).read_text()
+    for name in ["command_runtime.py", "api/runtime.py", "research_runtime.py"]:
+        source = (root / name).read_text(encoding="utf-8")
         assert "open_pubmed" not in source
-        assert "OpenAlexRetrievalService" in source
+        if name == "research_runtime.py":
+            assert "OpenAlexRetrievalService" in source
+        else:
+            assert "open_research_service" in source
 
 
 def plan(question="segmentation", **kwargs):
@@ -226,12 +229,12 @@ def test_openalex_citation_and_snapshot_roundtrip():
     from datetime import UTC, datetime
     from uuid import uuid4
 
-    from clinical_agent.adapters.report_snapshot import SnapshotVerifier
     from clinical_agent.application.openalex import OpenAlexRetrievalService
+    from clinical_agent.channels.feishu.sender import render_answer
     from clinical_agent.domain.citations import build_answer
     from clinical_agent.domain.research import DraftClaim, GenerationDraft, QuestionRequest
     from clinical_agent.domain.retrieval import RetrievalRequest
-    from feishu.sender import render_answer
+    from clinical_agent.integrations.report_snapshot import SnapshotVerifier
 
     service = OpenAlexRetrievalService(Search(), Screening())
     request = QuestionRequest(question="segmentation", scope="online", request_id=uuid4())
@@ -241,6 +244,44 @@ def test_openalex_citation_and_snapshot_roundtrip():
     assert result.hits
     assert result.search_provenance.http_attempts == 4  # soft independent-evidence coverage
     hit = result.hits[0]
+    from hashlib import sha256
+
+    from clinical_agent.domain.fulltext import FulltextPassage, paper_key
+    from clinical_agent.domain.research import ResearchError
+
+    text = "Synthetic fulltext sentence."
+    passage = FulltextPassage(
+        chunk_id=uuid4(),
+        paper_key=paper_key(hit.document.openalex_record),
+        openalex_id=hit.document.openalex_record.openalex_id,
+        title=hit.document.title,
+        doi=hit.document.doi,
+        section="Results",
+        start=0,
+        end=len(text),
+        text=text,
+        content_hash=sha256(text.encode()).hexdigest(),
+        representation_hash=sha256(b"rep").hexdigest(),
+        source_url="https://pmc.ncbi.nlm.nih.gov/api/oai",
+        license="cc-by",
+    )
+    hit.fulltext = [passage]
+    with pytest.raises(ResearchError, match="citation_invalid"):
+        build_answer(
+            request,
+            result,
+            GenerationDraft(
+                claims=[
+                    DraftClaim(
+                        text="Abstracts are not evidence.",
+                        kind="evidence",
+                        evidence_chunk_ids=[hit.chunk.chunk_id],
+                        limitations=[],
+                    )
+                ]
+            ),
+            generated_at=datetime.now(UTC),
+        )
     answer = build_answer(
         request,
         result,
@@ -249,7 +290,7 @@ def test_openalex_citation_and_snapshot_roundtrip():
                 DraftClaim(
                     text="Test data flow only.",
                     kind="evidence",
-                    evidence_chunk_ids=[hit.chunk.chunk_id],
+                    evidence_chunk_ids=[passage.chunk_id],
                     limitations=[],
                 )
             ]
@@ -361,7 +402,8 @@ def test_cli_api_and_generation_context_keep_snapshots_out_of_prompt(tmp_path, c
     from fastapi.testclient import TestClient
 
     from clinical_agent.api import create_app
-    from clinical_agent.api_runtime import ApiSettings, ServiceBundle
+    from clinical_agent.api.runtime import ServiceBundle
+    from clinical_agent.api.schemas import ApiSettings
     from clinical_agent.application.openalex import OpenAlexRetrievalService
     from clinical_agent.application.research import ResearchService
     from clinical_agent.cli import main
@@ -371,7 +413,10 @@ def test_cli_api_and_generation_context_keep_snapshots_out_of_prompt(tmp_path, c
             return plan(request.question)
 
     class Generator:
+        called = False
+
         def generate(self, context, *, timeout_seconds):
+            self.called = True
             assert context.search_provenance.records == []
             return json.dumps(
                 {
@@ -403,6 +448,9 @@ def test_cli_api_and_generation_context_keep_snapshots_out_of_prompt(tmp_path, c
         == 0
     )
     answer = json.loads(capsys.readouterr().out)
+    assert answer["status"] == "insufficient_evidence"
+    assert answer["sources"] == []
+    assert answer["unobtained_works"]
     assert answer["search_provenance"]["endpoint"] == "https://api.openalex.org/works"
 
     @contextmanager
@@ -416,7 +464,10 @@ def test_cli_api_and_generation_context_keep_snapshots_out_of_prompt(tmp_path, c
     with TestClient(create_app(settings=settings, runtime_factory=runtime)) as api:
         response = api.post("/v1/questions", json={"question": "segmentation", "scope": "online"})
         assert response.status_code == 200
-        assert response.json()["sources"][0]["source_type"] == "openalex"
+        body = response.json()
+        assert body["status"] == "insufficient_evidence"
+        assert body["sources"] == []
+        assert body["unobtained_works"][0]["openalex_id"].startswith("https://openalex.org/W")
 
 
 def test_query_time_words_are_not_literature_concepts():
@@ -549,7 +600,7 @@ def test_hybrid_reuses_selected_local_evidence(source_factory, prepared_factory)
         RetrievalRequest(question="segmentation", scope="hybrid"), query_plan=plan(), local=local
     )
     assert result.scope == "hybrid"
-    assert result.hits[0].chunk.chunk_id == local_hit.chunk.chunk_id
+    assert result.hits == []
 
 
 def test_expired_budget_makes_no_http_call():

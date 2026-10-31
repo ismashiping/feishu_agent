@@ -46,7 +46,7 @@ class Clock:
 
 
 def client(handler, **kwargs):
-    from clinical_agent.adapters.pubmed_online import PubMedClient, PubMedSettings, RequestGate
+    from clinical_agent.integrations.pubmed_online import PubMedClient, PubMedSettings, RequestGate
 
     clock = kwargs.pop("clock", Clock())
     session = httpx.Client(transport=httpx.MockTransport(handler))
@@ -251,8 +251,8 @@ def test_total_timeout_and_response_size_limit():
 
 
 def test_safe_online_parser_reuses_offline_mapping():
-    from clinical_agent.adapters.pubmed_xml import parse_pubmed_response
     from clinical_agent.domain.research import ResearchError
+    from clinical_agent.rag.pubmed_xml import parse_pubmed_response
 
     records = parse_pubmed_response(xml(article()), fetched_at=datetime.now(UTC))
     assert (
@@ -266,7 +266,7 @@ def test_safe_online_parser_reuses_offline_mapping():
 
 
 def test_shared_gate_serializes_two_clients():
-    from clinical_agent.adapters.pubmed_online import PubMedClient, PubMedSettings, RequestGate
+    from clinical_agent.integrations.pubmed_online import PubMedClient, PubMedSettings, RequestGate
 
     clock = Clock()
     starts = []
@@ -361,8 +361,8 @@ def test_partial_without_acquired_records_is_error_not_insufficient_evidence():
 
 
 def test_parser_obeys_remaining_search_deadline():
-    from clinical_agent.adapters.pubmed_xml import parse_pubmed_response
     from clinical_agent.domain.research import ResearchError
+    from clinical_agent.rag.pubmed_xml import parse_pubmed_response
 
     def expired():
         raise ResearchError("pubmed_timeout")

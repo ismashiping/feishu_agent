@@ -1,0 +1,13 @@
+# 运行与排错
+
+使用仓库.venv Python3.12和锁定依赖。缺sqlalchemy/httpx等时按项目可选依赖安装，不伪造通过。动态sentence_transformers导入仍只在显式模型加载时发生，不在rag包导入时加载。
+
+旧monkeypatch失效：首先检查importlib.import_module(旧路径) is importlib.import_module(新路径)，不要添加第二套实现或不同全局缓存。ORM重复表：确认旧postgres包没有整体指向db后又以旧完整名重跑新文件。
+
+连接关闭：db.connection.database_engine finally中dispose；模型HTTP、OpenAlex和全文HTTP由research_runtime上下文关闭；业务用例借用engine。不为了修复目录问题修改事务和重试。
+
+AST失败：允许明确模块映射和Ruff导入块排序，不忽略可执行语句。DDL/hash失败：先核查是否越界改了模型或迁移，不更新fixture使其通过。真实数据库未连接时不能声称事务集成验收通过。
+
+历史29失败及类型错误与结构迁移基线分开记录，见阶段acceptance.md；旧兼容路径不能未经确认删除。
+
+PDF Demo使用现有15页fixture，当前环境pypdf提示缺少可选fontTools，Demo退出成功但不据此声称所有字体编码提取完整；本轮未安装新依赖或变更解析器。

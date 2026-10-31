@@ -17,8 +17,8 @@ def main() -> int:
     stage.add_argument("--evaluate", action="store_true")
     sub.add_parser("activate").add_argument("--run-id", type=UUID, required=True)
     args = parser.parse_args()
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-    from clinical_agent.adapters.postgres.rebuild import KnowledgeRebuilder
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.rebuild import KnowledgeRebuilder
     from clinical_agent.domain.chunking import ChunkingPolicy
     from clinical_agent.domain.maintenance import RebuildRequest
 
@@ -30,7 +30,7 @@ def main() -> int:
             elif args.action == "activate":
                 result = rebuilder.activate(args.run_id)
             else:
-                from clinical_agent.adapters.embedding import LocalModelConfig, load_local_embedder
+                from clinical_agent.rag.embedding import LocalModelConfig, load_local_embedder
 
                 policy = ChunkingPolicy(max_tokens=args.max_tokens)
                 if policy.max_tokens > 512:

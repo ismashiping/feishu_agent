@@ -1,0 +1,13 @@
+usage: clinical-agent [-h] {doctor,ingest,ask} ...
+
+Clinical literature tooling: doctor, offline ingest and local RAG.
+
+positional arguments:
+  {doctor,ingest,ask}
+    doctor             Check the local environment without external services.
+    ingest             Import one local PDF or PubMed XML file.
+    ask                Local RAG; sends retrieved excerpts to configured model
+                       API.
+
+options:
+  -h, --help           show this help message and exit

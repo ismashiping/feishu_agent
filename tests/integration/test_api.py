@@ -16,8 +16,10 @@ ID = "12345678-1234-4234-8234-123456789abc"
 @pytest.fixture
 def setup_api(tmp_path):
     from clinical_agent.api import create_app
-    from clinical_agent.api_runtime import ApiSettings, ServiceBundle
+    from clinical_agent.api.runtime import ServiceBundle
+    from clinical_agent.api.schemas import ApiSettings
     from clinical_agent.domain.ingestion import BatchIngestionResult
+    from clinical_agent.domain.openalex import OpenAlexProvenance
     from clinical_agent.domain.research import ResearchAnswer
 
     events = []
@@ -41,6 +43,13 @@ def setup_api(tmp_path):
                 sources=[],
                 limitations=["未检索到证据"],
                 generated_at=datetime.now(UTC),
+                retrieval_scope=request.scope,
+                search_provenance=OpenAlexProvenance(
+                    query_sent="synthetic",
+                    fetched_at=datetime.now(UTC),
+                    date_from=None,
+                    date_to=None,
+                ),
             )
 
     services = ServiceBundle(ingestion=Ingestion(), research=Research())
@@ -88,9 +97,9 @@ def test_question_contract_correlation_and_empty_success(setup_api):
             "/v1/questions",
             headers={"X-Request-ID": ID},
             json={
-                "scope": "local",
+                "scope": "online",
                 "question": "  中文问题  ",
-                "options": {"top_k": 3, "min_similarity": 0.6},
+                "options": {"top_k": 3},
             },
         )
     assert response.status_code == 200
@@ -100,17 +109,28 @@ def test_question_contract_correlation_and_empty_success(setup_api):
     assert services.research.calls[0].options.top_k == 3
 
 
+def test_local_corpus_scope_is_rejected_before_research(setup_api):
+    from fastapi.testclient import TestClient
+
+    app, services, _ = setup_api
+    with TestClient(app) as client:
+        response = client.post("/v1/questions", json={"scope": "local", "question": "q"})
+    assert response.status_code == 502
+    assert response.json()["error_code"] == "local_corpus_not_evidence"
+    assert services.research.calls == []
+
+
 @pytest.mark.parametrize(
     "data",
     [
-        {"scope": "local", "question": " "},
-        {"scope": "local", "question": "x" * 4001},
-        {"scope": "local", "question": 123},
+        {"scope": "online", "question": " "},
+        {"scope": "online", "question": "x" * 4001},
+        {"scope": "online", "question": 123},
         {"question": "private", "scope": "unavailable_scope"},
-        {"scope": "local", "question": "private", "options": {"top_k": 0}},
-        {"scope": "local", "question": "private", "options": {"min_similarity": "nan"}},
-        {"scope": "local", "question": "private", "api_key": "secret-value"},
-        {"scope": "local", "question": "private", "request_id": ID},
+        {"scope": "online", "question": "private", "options": {"top_k": 0}},
+        {"scope": "online", "question": "private", "options": {"min_similarity": "nan"}},
+        {"scope": "online", "question": "private", "api_key": "secret-value"},
+        {"scope": "online", "question": "private", "request_id": ID},
     ],
 )
 def test_invalid_inputs_do_not_echo_private_values(setup_api, data):
@@ -222,7 +242,7 @@ def test_error_mapping_never_publishes_raw_exception(setup_api, fault, status):
     services.research.answer = fail
     with TestClient(app) as client:
         response = client.post(
-            "/v1/questions", json={"scope": "local", "question": "private-question"}
+            "/v1/questions", json={"scope": "online", "question": "private-question"}
         )
     assert response.status_code == status
     assert "private" not in response.text
@@ -233,6 +253,7 @@ def test_full_answer_source_fields_preserved(setup_api, source_factory, prepared
     from fastapi.testclient import TestClient
 
     from clinical_agent.domain.citations import build_answer, parse_draft
+    from clinical_agent.domain.openalex import OpenAlexProvenance
     from clinical_agent.domain.retrieval import (
         DocumentSummary,
         EvidenceHit,
@@ -265,13 +286,26 @@ def test_full_answer_source_fields_preserved(setup_api, source_factory, prepared
                 ]
             }
         )
-        return build_answer(
-            request, result, parse_draft(raw, max_bytes=32000), generated_at=datetime.now(UTC)
+        local = request.model_copy(update={"scope": "local"})
+        built = build_answer(
+            local, result, parse_draft(raw, max_bytes=32000), generated_at=datetime.now(UTC)
+        )
+        # Only HTTP serialization is under test; the route requires the requested scope.
+        return built.model_copy(
+            update={
+                "retrieval_scope": request.scope,
+                "search_provenance": OpenAlexProvenance(
+                    query_sent="synthetic",
+                    fetched_at=datetime.now(UTC),
+                    date_from=None,
+                    date_to=None,
+                ),
+            }
         )
 
     services.research.answer = answer
     with TestClient(app) as client:
-        response = client.post("/v1/questions", json={"scope": "local", "question": "synthetic"})
+        response = client.post("/v1/questions", json={"scope": "online", "question": "synthetic"})
     assert response.status_code == 200
     assert response.json()["claims"][0]["kind"] == "uncertainty"
     assert response.json()["sources"][0]["content_scope"] == "abstract"
@@ -294,19 +328,19 @@ def test_busy_rejects_without_blocking_health_and_recovers(setup_api):
     services.research.answer = blocking
     with TestClient(app) as client, ThreadPoolExecutor(max_workers=1) as pool:
         first = pool.submit(
-            client.post, "/v1/questions", json={"scope": "local", "question": "first"}
+            client.post, "/v1/questions", json={"scope": "online", "question": "first"}
         )
         try:
             assert started.wait(5)
             assert client.get("/health/live").status_code == 200
-            response = client.post("/v1/questions", json={"scope": "local", "question": "second"})
+            response = client.post("/v1/questions", json={"scope": "online", "question": "second"})
             assert response.status_code == 503 and response.json()["error_code"] == "busy"
             assert response.headers["retry-after"] == "1"
         finally:
             release.set()
         assert first.result(5).status_code == 200
         assert (
-            client.post("/v1/questions", json={"scope": "local", "question": "third"}).status_code
+            client.post("/v1/questions", json={"scope": "online", "question": "third"}).status_code
             == 200
         )
 
@@ -324,7 +358,7 @@ def test_wrong_answer_id_is_internal_error(setup_api):
 
     services.research.answer = wrong
     with TestClient(app) as client:
-        response = client.post("/v1/questions", json={"scope": "local", "question": "private"})
+        response = client.post("/v1/questions", json={"scope": "online", "question": "private"})
     assert response.status_code == 500 and response.json()["error_code"] == "internal_error"
 
 
@@ -426,7 +460,7 @@ async def test_without_lifespan_is_not_ready(setup_api):
     ) as client:
         assert (await client.get("/health/live")).status_code == 200
         assert (await client.get("/health/ready")).status_code == 503
-        response = await client.post("/v1/questions", json={"scope": "local", "question": "test"})
+        response = await client.post("/v1/questions", json={"scope": "online", "question": "test"})
         assert response.status_code == 503 and response.json()["error_code"] == "not_ready"
     assert events == [] and services.research.calls == []
 

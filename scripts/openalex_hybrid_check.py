@@ -9,7 +9,7 @@ from uuid import uuid4
 from clinical_agent.command_runtime import open_research
 from clinical_agent.domain.research import QuestionRequest, ResearchError
 from clinical_agent.domain.retrieval import RetrievalError
-from feishu.sender import render_answer
+from clinical_agent.channels.feishu.sender import render_answer
 
 
 def main():

@@ -15,4 +15,4 @@ RUN uv sync --frozen --no-dev --no-editable --extra api --extra rag --extra db -
     && mkdir -p /app/data/incoming /app/data/snapshots \
     && chown -R agent:agent /app/data
 USER agent
-CMD ["python", "-m", "feishu.main"]
+CMD ["python", "-m", "clinical_agent.channels.feishu.main"]

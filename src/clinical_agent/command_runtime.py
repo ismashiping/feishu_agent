@@ -47,18 +47,18 @@ def _require(*names: str) -> None:
 def open_ingestion(options: IngestionCommand) -> Iterator[IngestionPort]:
     options = IngestionCommand.model_validate(options)
     _require("sqlalchemy", "psycopg", "pgvector", "sentence_transformers", "transformers", "torch")
-    from clinical_agent.adapters.embedding import LocalModelConfig, load_local_embedder
-    from clinical_agent.adapters.offline import OfflineReader
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-    from clinical_agent.adapters.postgres.store import PostgresStore
     from clinical_agent.application.ingestion import IngestionService
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.store import PostgresStore
+    from clinical_agent.rag.embedding import LocalModelConfig, load_local_embedder
+    from clinical_agent.rag.offline import OfflineReader
 
     # BaseSettings fills required constructor fields from explicit process environment.
     database = cast(Callable[[], DatabaseSettings], DatabaseSettings)()
     model = LocalModelConfig(snapshot_dir=options.model_dir)
     embedder = load_local_embedder(model)
     with database_engine(database) as engine:
-        from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
+        from clinical_agent.db.versions import VersionedPostgresStore
 
         version_store = (
             VersionedPostgresStore(engine) if options.update_existing else PostgresStore(engine)
@@ -89,67 +89,18 @@ def open_research(
         "httpx",
         "llama_index",
     )
-    import httpx
-
-    from clinical_agent.adapters.embedding import LocalModelConfig, load_local_embedder
-    from clinical_agent.adapters.llm import RESPONSE_BYTE_LIMIT, LLMSettings, open_llm
-    from clinical_agent.adapters.oa_fulltext import OAFulltextSource
-    from clinical_agent.adapters.openalex import OpenAlexSettings, open_openalex
-    from clinical_agent.adapters.pmc_fulltext import PMCSource
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-    from clinical_agent.adapters.postgres.fulltext import PostgresFulltextStore
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
-    from clinical_agent.adapters.report_snapshot import SnapshotVerifier
-    from clinical_agent.application.analysis import EvidenceAnalyzer
-    from clinical_agent.application.fulltext import FulltextService
-    from clinical_agent.application.openalex import OpenAlexRetrievalService
-    from clinical_agent.application.pico import PicoPlanner
-    from clinical_agent.application.report import ReportBuilder
-    from clinical_agent.application.research import ResearchService
-    from clinical_agent.application.retrieval import RetrievalService
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
+    from clinical_agent.integrations.llm import LLMSettings
+    from clinical_agent.integrations.openalex import OpenAlexSettings
+    from clinical_agent.rag.embedding import LocalModelConfig, load_local_embedder
+    from clinical_agent.research_runtime import open_research_service
 
     database = cast(Callable[[], DatabaseSettings], DatabaseSettings)()
     llm = cast(Callable[[], LLMSettings], LLMSettings)()
-    model = LocalModelConfig(snapshot_dir=model_dir)
-    embedder = load_local_embedder(model)
+    openalex_settings = OpenAlexSettings()
+    embedder = load_local_embedder(LocalModelConfig(snapshot_dir=model_dir))
     with database_engine(database) as engine:
-        postgres_retriever = PostgresRetriever(engine)
-        retrieval = RetrievalService(
-            embedder=embedder, retriever=postgres_retriever, hybrid_retriever=postgres_retriever
-        )
-        with (
-            open_llm(llm) as generator,
-            open_openalex() as openalex,
-            httpx.Client(trust_env=False) as pmc_client,
-        ):
-            yield ResearchService(
-                fulltext=FulltextService(
-                    PMCSource(pmc_client),
-                    PostgresFulltextStore(engine),
-                    embedder,
-                    oa_source=OAFulltextSource(pmc_client),
-                    oa_store=PostgresFulltextStore(engine, openalex=True),
-                ),
-                retriever=retrieval,
-                generator=generator,
-                limits=limits,
-                planner=PicoPlanner(extractor=generator),
-                reporter=ReportBuilder(
-                    reviewer=generator,
-                    snapshots=SnapshotVerifier(),
-                    metadata=None,
-                    model_id=getattr(llm, "model", None),
-                ),
-                analyzer=EvidenceAnalyzer(
-                    model=generator,
-                    model_id=getattr(llm, "model", None),
-                    timeout_seconds=180,
-                    limits=ResearchLimits(generation_seconds=180),
-                    analysis_max_tokens=getattr(llm, "analysis_max_tokens", 16384),
-                    analysis_retry_max_tokens=getattr(llm, "analysis_retry_max_tokens", 32768),
-                    max_output_bytes=RESPONSE_BYTE_LIMIT,
-                ),
-                online_retriever=OpenAlexRetrievalService(
-                    openalex, generator, recent_months=OpenAlexSettings().recent_months
-                ),
-            )
+        with open_research_service(
+            engine, embedder, llm, openalex_settings, limits=limits
+        ) as research:
+            yield research

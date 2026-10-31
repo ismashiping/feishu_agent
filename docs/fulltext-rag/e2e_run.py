@@ -1,4 +1,6 @@
-"""Real-source E2E in existing PostgreSQL, isolated schema; no container changes."""
+"""Retired PMC/PubMed end-to-end script. Research full text uses OpenAlex content."""
+
+raise SystemExit("PMC and PubMed acquisition was removed. Use the OpenAlex content API.")
 
 import json
 import os
@@ -10,12 +12,12 @@ from uuid import uuid4
 import httpx
 from sqlalchemy import URL, create_engine, text
 
-from clinical_agent.adapters.embedding import LocalModelConfig, load_local_embedder
-from clinical_agent.adapters.llm import LLMSettings, open_llm
+from clinical_agent.rag.embedding import LocalModelConfig, load_local_embedder
+from clinical_agent.integrations.llm import LLMSettings, open_llm
 from clinical_agent.adapters.pmc_fulltext import PMCSource
-from clinical_agent.adapters.postgres.fulltext import PostgresFulltextStore
-from clinical_agent.adapters.postgres.governance import SourceGovernance
-from clinical_agent.adapters.pubmed_online import open_pubmed
+from clinical_agent.db.fulltext import PostgresFulltextStore
+from clinical_agent.db.governance import SourceGovernance
+from clinical_agent.integrations.pubmed_online import open_pubmed
 from clinical_agent.application.fulltext import FulltextService
 from clinical_agent.application.pubmed import PubMedRetrievalService
 from clinical_agent.application.research import ResearchService

@@ -4,7 +4,7 @@ import subprocess
 from uuid import uuid4
 
 from sqlalchemy import create_engine, text
-from clinical_agent.adapters.postgres.fulltext import PostgresFulltextStore
+from clinical_agent.db.fulltext import PostgresFulltextStore
 
 raw = subprocess.run(['docker','inspect','clinical-agent-e2e-postgres-1'],
                      capture_output=True, check=True, text=True)

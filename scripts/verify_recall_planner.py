@@ -1,3 +1,5 @@
+raise SystemExit("PubMed retrieval scripts were removed. Use OpenAlex.")
+
 import json
 import os
 import time
@@ -5,11 +7,11 @@ from pathlib import Path
 
 from dotenv import dotenv_values
 
-from clinical_agent.adapters.llm import LLMSettings, open_llm
-from clinical_agent.adapters.pubmed_online import open_pubmed
 from clinical_agent.application.pico import PicoPlanner
 from clinical_agent.domain.pico import ClassificationRequest
 from clinical_agent.domain.pubmed import PubMedOptions, PubMedSearchRequest
+from clinical_agent.integrations.llm import LLMSettings, open_llm
+from clinical_agent.integrations.pubmed_online import open_pubmed
 
 values = dotenv_values(".env")
 for key, value in values.items():

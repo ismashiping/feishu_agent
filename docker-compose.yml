@@ -52,9 +52,6 @@ services:
       LLM_MAX_TOKENS: ${LLM_MAX_TOKENS:-4096}
       OPENALEX_API_KEY: ${OPENALEX_API_KEY:-}
       OPENALEX_RECENT_MONTHS: ${OPENALEX_RECENT_MONTHS:-24}
-      PUBMED_TOOL: ${PUBMED_TOOL:-clinical-literature-agent}
-      PUBMED_EMAIL: ${PUBMED_EMAIL:-}
-      PUBMED_API_KEY: ${PUBMED_API_KEY:-}
       CLINICAL_AGENT_API_MODEL_DIR: /app/model
       CLINICAL_AGENT_API_IMPORT_ROOT: /app/data/incoming
       CLINICAL_AGENT_API_SNAPSHOT_DIR: /app/data/snapshots
@@ -74,7 +71,7 @@ services:
     image: clinical-literature-agent:local
     build: .
     init: true
-    command: ["python", "-m", "feishu.main"]
+    command: ["python", "-m", "clinical_agent.channels.feishu.main"]
     depends_on:
       postgres:
         condition: service_healthy

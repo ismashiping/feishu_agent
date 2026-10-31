@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 from hashlib import sha256
 from uuid import uuid4
 
-from clinical_agent.adapters.report_snapshot import SnapshotVerifier
+from clinical_agent.integrations.report_snapshot import SnapshotVerifier
 from clinical_agent.application.analysis import EvidenceAnalyzer
 from clinical_agent.application.report import ReportBuilder
 from clinical_agent.domain.analysis import DIMENSIONS, METHOD_FIELDS

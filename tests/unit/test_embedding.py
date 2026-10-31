@@ -32,7 +32,7 @@ class Backend:
 
 
 def instance(backend=None, **limits):
-    from clinical_agent.adapters.embedding import EmbeddingLimits, LocalEmbedder
+    from clinical_agent.rag.embedding import EmbeddingLimits, LocalEmbedder
 
     return LocalEmbedder(
         backend if backend is not None else Backend(), limits=EmbeddingLimits(**limits)
@@ -91,7 +91,7 @@ def chunks(texts=("中文 α🙂", "English evidence")):
     ],
 )
 def test_limits_are_explicit_and_strict(field, value):
-    from clinical_agent.adapters.embedding import EmbeddingLimits
+    from clinical_agent.rag.embedding import EmbeddingLimits
 
     with pytest.raises(ValidationError):
         EmbeddingLimits(**{field: value})
@@ -152,7 +152,7 @@ def test_empty_batch_does_not_call_backend():
     ],
 )
 def test_preflight_rejects_before_encode(kind, code):
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     backend = Backend()
     source = chunks(("x",)) if kind == "long" else chunks()
@@ -173,7 +173,7 @@ def test_preflight_rejects_before_encode(kind, code):
 
 
 def test_query_over_model_limit_is_rejected_without_truncation():
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     backend = Backend()
     assert len(instance(backend).embed_query("x" * 503).vector) == 768  # 7 prefix + 503 + 2
@@ -192,7 +192,7 @@ def test_query_over_model_limit_is_rejected_without_truncation():
     ],
 )
 def test_request_limits(limits, query):
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     backend = Backend()
     with pytest.raises(EmbeddingError, match="^embedding_input_limit$"):
@@ -216,7 +216,7 @@ def test_request_limits(limits, query):
     ],
 )
 def test_malformed_backend_vectors_are_rejected(output):
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     backend = Backend()
     backend.output = output
@@ -225,7 +225,7 @@ def test_malformed_backend_vectors_are_rejected(output):
 
 
 def test_backend_failure_is_sanitized_and_lock_released():
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     backend = Backend()
     original = backend.encode
@@ -244,7 +244,7 @@ def test_backend_failure_is_sanitized_and_lock_released():
 
 @pytest.mark.parametrize("field,value", [("dimension", 2), ("max_tokens", 128)])
 def test_model_shape_checked(field, value):
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     backend = Backend()
     setattr(backend, field, value)
@@ -253,7 +253,7 @@ def test_model_shape_checked(field, value):
 
 
 def test_cooperative_timeout_after_inference():
-    from clinical_agent.adapters.embedding import EmbeddingError, EmbeddingLimits, LocalEmbedder
+    from clinical_agent.rag.embedding import EmbeddingError, EmbeddingLimits, LocalEmbedder
 
     now = [0.0]
     backend = Backend()
@@ -272,7 +272,7 @@ def test_cooperative_timeout_after_inference():
 
 
 def test_same_instance_concurrent_call_is_bounded():
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     entered, release = threading.Event(), threading.Event()
     backend = Backend()
@@ -307,7 +307,7 @@ def test_same_instance_concurrent_call_is_bounded():
 
 @pytest.mark.parametrize("case", ["missing", "invalid_json", "identity", "escape", "hash"])
 def test_local_snapshot_validation(tmp_path, case):
-    from clinical_agent.adapters.embedding import (
+    from clinical_agent.rag.embedding import (
         EmbeddingError,
         LocalModelConfig,
         load_local_embedder,
@@ -354,7 +354,7 @@ def local_fixture_snapshot(tmp_path, monkeypatch):
     """Small integrity fixture; explicitly replace only the trusted weight digest."""
     import hashlib
 
-    from clinical_agent.adapters import embedding
+    from clinical_agent.rag import embedding
 
     digests = {}
     for name in embedding.SNAPSHOT_FILES:
@@ -370,7 +370,7 @@ def local_fixture_snapshot(tmp_path, monkeypatch):
 
 
 def test_validated_snapshot_loader_receives_local_path(local_fixture_snapshot):
-    from clinical_agent.adapters.embedding import LocalModelConfig, load_local_embedder
+    from clinical_agent.rag.embedding import LocalModelConfig, load_local_embedder
 
     seen = []
     backend = Backend()
@@ -384,7 +384,7 @@ def test_validated_snapshot_loader_receives_local_path(local_fixture_snapshot):
 
 @pytest.mark.parametrize("case", ["missing_file", "corrupt", "manifest_size", "bytes"])
 def test_snapshot_integrity_before_backend_loading(local_fixture_snapshot, case):
-    from clinical_agent.adapters.embedding import (
+    from clinical_agent.rag.embedding import (
         EmbeddingError,
         EmbeddingLimits,
         LocalModelConfig,
@@ -412,7 +412,7 @@ def test_snapshot_integrity_before_backend_loading(local_fixture_snapshot, case)
 
 
 def test_loader_error_is_sanitized(local_fixture_snapshot):
-    from clinical_agent.adapters.embedding import (
+    from clinical_agent.rag.embedding import (
         EmbeddingError,
         LocalModelConfig,
         load_local_embedder,
@@ -428,7 +428,7 @@ def test_loader_error_is_sanitized(local_fixture_snapshot):
 
 @pytest.mark.parametrize("when", ["before", "after"])
 def test_load_cooperative_budget(local_fixture_snapshot, when):
-    from clinical_agent.adapters.embedding import (
+    from clinical_agent.rag.embedding import (
         EmbeddingError,
         LocalModelConfig,
         load_local_embedder,
@@ -453,7 +453,7 @@ def test_load_cooperative_budget(local_fixture_snapshot, when):
 
 @pytest.mark.parametrize("value", [True, 0, -1, "3", 1.2])
 def test_backend_count_contract(value):
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     backend = Backend()
     backend.count_tokens = lambda _: value
@@ -462,7 +462,7 @@ def test_backend_count_contract(value):
 
 
 def test_count_budget_checked_before_backend():
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     backend = Backend()
     with pytest.raises(EmbeddingError, match="^embedding_input_limit$"):
@@ -483,7 +483,7 @@ def test_input_error_does_not_leak_or_decode_bytes(method):
 
 
 def test_failure_in_later_batch_leaves_input_unencoded():
-    from clinical_agent.adapters.embedding import EmbeddingError
+    from clinical_agent.rag.embedding import EmbeddingError
 
     backend = Backend()
     original = backend.encode

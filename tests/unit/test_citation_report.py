@@ -176,8 +176,6 @@ def test_citation_report_validated_all_claims_can_be_verified(report_case):
 def test_citation_report_actual_pdf_hash_and_location(tmp_path, pdf_factory, prepared_factory):
     from datetime import UTC, datetime
 
-    from clinical_agent.adapters.offline import OfflineReader
-    from clinical_agent.adapters.report_snapshot import SnapshotVerifier
     from clinical_agent.domain.citations import build_answer
     from clinical_agent.domain.ingestion import ImportRequest
     from clinical_agent.domain.research import DraftClaim, GenerationDraft, QuestionRequest
@@ -187,6 +185,8 @@ def test_citation_report_actual_pdf_hash_and_location(tmp_path, pdf_factory, pre
         RetrievalResult,
         retrieval_embedding_info,
     )
+    from clinical_agent.integrations.report_snapshot import SnapshotVerifier
+    from clinical_agent.rag.offline import OfflineReader
 
     path = tmp_path / "sample.pdf"
     pdf_factory(path, texts=("Synthetic cohort of 20.",))
@@ -233,8 +233,8 @@ def test_citation_report_actual_pdf_hash_and_location(tmp_path, pdf_factory, pre
 def test_citation_report_official_metadata(report_case, fault):
     from datetime import UTC, datetime
 
-    from clinical_agent.adapters.pubmed_xml import parse_pubmed_response
     from clinical_agent.application.report import ReportBuilder
+    from clinical_agent.rag.pubmed_xml import parse_pubmed_response
     from tests.unit.test_pubmed_online import article, xml
 
     case, analysis = report_case
@@ -291,9 +291,9 @@ def test_citation_report_bounded_efetch():
 
 
 def test_citation_report_hypothesis_and_complete_feishu_text(report_case):
+    from clinical_agent.channels.feishu.sender import split_report_text
     from clinical_agent.domain.analysis import CandidateGap
     from clinical_agent.domain.report import render_report
-    from feishu.sender import split_report_text
 
     _, analysis = report_case
     item = (
@@ -346,7 +346,8 @@ def test_citation_report_cli_and_api(report_case, tmp_path, capsys):
     from fastapi.testclient import TestClient
 
     from clinical_agent.api import create_app
-    from clinical_agent.api_runtime import ApiSettings, ServiceBundle
+    from clinical_agent.api.runtime import ServiceBundle
+    from clinical_agent.api.schemas import ApiSettings
     from clinical_agent.application.analysis import EvidenceAnalyzer
     from clinical_agent.application.report import ReportBuilder
     from clinical_agent.application.research import ResearchService
@@ -383,9 +384,9 @@ def test_citation_report_cli_and_api(report_case, tmp_path, capsys):
             ],
             research_factory=factory,
         )
-        == 0
+        != 0
     )
-    cli = json.loads(capsys.readouterr().out)
+    assert "local_corpus_not_evidence" in capsys.readouterr().err
 
     @contextmanager
     def runtime(settings):
@@ -400,8 +401,8 @@ def test_citation_report_cli_and_api(report_case, tmp_path, capsys):
         response = session.post(
             "/v1/reports", json={"scope": "local", "question": case[0].question}
         )
-        assert response.status_code == 200, response.text
-        assert response.json()["report"]["claims"] == cli["report"]["claims"]
+        assert response.status_code == 502, response.text
+        assert response.json()["error_code"] == "local_corpus_not_evidence"
         assert (
             session.post(
                 "/v1/reports", content="invalid", headers={"Content-Type": "text/plain"}
@@ -411,9 +412,9 @@ def test_citation_report_cli_and_api(report_case, tmp_path, capsys):
 
 
 def test_citation_report_feishu_worker_and_sender(report_case):
+    from clinical_agent.channels.feishu.sender import Sender
+    from clinical_agent.channels.feishu.worker import Dispatcher
     from clinical_agent.domain.report import ReportResult, render_report
-    from feishu.sender import Sender
-    from feishu.worker import Dispatcher
     from tests.unit.test_feishu_sender import Transport
     from tests.unit.test_feishu_worker import Dedup, Sink, envelope
 
@@ -457,12 +458,12 @@ def test_citation_report_feishu_worker_and_sender(report_case):
 def test_citation_report_online_multisection_snapshot():
     from datetime import UTC, datetime
 
-    from clinical_agent.adapters.pubmed_xml import parse_pubmed_response
-    from clinical_agent.adapters.report_snapshot import SnapshotVerifier
     from clinical_agent.application.pubmed import PubMedRetrievalService
     from clinical_agent.domain.citations import build_answer
     from clinical_agent.domain.pubmed import PubMedSearchResult
     from clinical_agent.domain.research import DraftClaim, GenerationDraft, QuestionRequest
+    from clinical_agent.integrations.report_snapshot import SnapshotVerifier
+    from clinical_agent.rag.pubmed_xml import parse_pubmed_response
     from tests.unit.test_pubmed_online import article, xml
 
     record_text = article("123").replace(
@@ -517,8 +518,6 @@ def test_citation_report_online_multisection_snapshot():
 def test_citation_report_local_multirecord_xml(tmp_path, prepared_factory):
     from datetime import UTC, datetime
 
-    from clinical_agent.adapters.offline import OfflineReader
-    from clinical_agent.adapters.report_snapshot import SnapshotVerifier
     from clinical_agent.domain.citations import build_answer
     from clinical_agent.domain.ingestion import ImportRequest
     from clinical_agent.domain.research import DraftClaim, GenerationDraft, QuestionRequest
@@ -528,6 +527,8 @@ def test_citation_report_local_multirecord_xml(tmp_path, prepared_factory):
         RetrievalResult,
         retrieval_embedding_info,
     )
+    from clinical_agent.integrations.report_snapshot import SnapshotVerifier
+    from clinical_agent.rag.offline import OfflineReader
     from tests.unit.test_pubmed_online import article, xml
 
     now = datetime.now(UTC)
@@ -569,9 +570,9 @@ def test_citation_report_oversize_sends_explicit_whole_notice(report_case):
     from time import monotonic
     from uuid import uuid4
 
-    from feishu.dedup import Lease
-    from feishu.sender import Sender
-    from feishu.worker import Delivery
+    from clinical_agent.channels.feishu.dedup import Lease
+    from clinical_agent.channels.feishu.sender import Sender
+    from clinical_agent.channels.feishu.worker import Delivery
     from tests.unit.test_feishu_sender import Transport, message
 
     report = build(report_case)

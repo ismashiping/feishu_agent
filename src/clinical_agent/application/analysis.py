@@ -34,6 +34,7 @@ from clinical_agent.domain.analysis import (
     consistent_relation,
 )
 from clinical_agent.domain.citations import build_answer
+from clinical_agent.domain.openalex import OpenAlexProvenance
 from clinical_agent.domain.pico import QueryPlan
 from clinical_agent.domain.research import (
     DraftClaim,
@@ -191,10 +192,17 @@ _NEXT_CHECKS = {
 }
 
 
+def _evidence_text(chunk_id: UUID, hit: Any) -> tuple[str, str, str]:
+    if hit.document.source_type == "openalex":
+        passage = next(item for item in hit.fulltext if item.chunk_id == chunk_id)
+        return passage.text, "full_text", "fulltext"
+    return hit.chunk.text, hit.document.content_scope, hit.chunk.location.kind
+
+
 def quote_catalog(hits: dict[UUID, Any]) -> dict[str, dict[str, Any]]:
     catalog: dict[str, dict[str, Any]] = {}
     for chunk_id, hit in hits.items():
-        text = hit.chunk.text
+        text, content_scope, location_kind = _evidence_text(chunk_id, hit)
         index = 0
         start = 0
         spans: list[str] = []
@@ -213,8 +221,8 @@ def quote_catalog(hits: dict[UUID, Any]) -> dict[str, dict[str, Any]]:
                 "document_id": hit.document.document_id,
                 "chunk_id": chunk_id,
                 "text": sentence,
-                "content_scope": hit.document.content_scope,
-                "location_kind": hit.chunk.location.kind,
+                "content_scope": content_scope,
+                "location_kind": location_kind,
             }
             index += 1
     return catalog
@@ -603,6 +611,13 @@ class EvidenceAnalyzer:
         deadline = self.clock() + budget
         if query_plan is not None and query_plan.original_question != request.question:
             raise ResearchError("model_output_invalid")
+        openalex = isinstance(retrieval.search_provenance, OpenAlexProvenance)
+        evidence_ids = []
+        for hit in retrieval.hits:
+            if openalex:
+                evidence_ids.extend(passage.chunk_id for passage in hit.fulltext[:1])
+            else:
+                evidence_ids.append(hit.chunk.chunk_id)
         # Reuse the existing trusted-source gate, including scope, hash and identity checks.
         try:
             answer = build_answer(
@@ -613,13 +628,13 @@ class EvidenceAnalyzer:
                         DraftClaim(
                             text="Supplied research passage.",
                             kind="evidence",
-                            evidence_chunk_ids=[h.chunk.chunk_id],
+                            evidence_chunk_ids=[identity],
                             limitations=[],
                         )
-                        for h in retrieval.hits
+                        for identity in evidence_ids
                     ]
                 )
-                if retrieval.hits
+                if evidence_ids
                 else None,
                 generated_at=datetime.now(UTC),
             )
@@ -680,7 +695,7 @@ class EvidenceAnalyzer:
                     strict=True,
                 )
             ]
-        if not retrieval.hits:
+        if not evidence_ids:
             log_evidence_trace(
                 stage="analyze",
                 counts={"hits": 0, "sources": 0},
@@ -702,7 +717,15 @@ class EvidenceAnalyzer:
                 request_id=str(request.request_id),
             )
             return AnalysisResult(**base, **empty, analysis_status="not_evaluated")
-        hits = {h.chunk.chunk_id: h for h in retrieval.hits if h.document.document_id in eligible}
+        hits = {}
+        for hit in retrieval.hits:
+            if hit.document.document_id not in eligible:
+                continue
+            if hit.document.source_type == "openalex":
+                for passage in hit.fulltext:
+                    hits[passage.chunk_id] = hit
+            else:
+                hits[hit.chunk.chunk_id] = hit
         catalog = quote_catalog(hits)
         sources = []
         for source in eligible.values():
@@ -793,7 +816,7 @@ class EvidenceAnalyzer:
                         if (
                             hit is None
                             or hit.document.document_id not in allowed
-                            or ref.quote not in hit.chunk.text
+                            or ref.quote not in _evidence_text(ref.chunk_id, hit)[0]
                         ):
                             raise AnalysisFailure(
                                 "evidence_validation", "evidence_pointer_invalid", path
@@ -1005,7 +1028,14 @@ class EvidenceAnalyzer:
             or any(x.status == "unknown" for x in draft.feasibility)
             or any(s.study_type == "unknown" for s in draft.studies)
             or len(eligible) != len(documents)
-            or any(s.source_notices or s.content_scope == "abstract" for s in documents.values())
+            or any(
+                s.source_notices
+                or (
+                    s.content_scope == "abstract"
+                    and not any(e.location.kind == "fulltext" for e in s.evidence)
+                )
+                for s in documents.values()
+            )
             or any(i.value is None for s in draft.studies for i in s.fields.values())
             or any(s.overall_relation == "unknown" for s in draft.idea_similarities)
             or (

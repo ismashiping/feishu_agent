@@ -43,7 +43,7 @@ def test_page_units_preserve_whitespace_and_empty_pages():
     ],
 )
 def test_parse_limits_are_explicit_and_bounded(field, value):
-    from clinical_agent.adapters.pdf import PdfParseLimits
+    from clinical_agent.rag.pdf import PdfParseLimits
 
     with pytest.raises(ValidationError):
         PdfParseLimits(**{field: value})

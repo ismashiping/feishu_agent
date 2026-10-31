@@ -175,7 +175,7 @@ def test_batch_cannot_mix_sources_or_identities(case):
     "field,value", [("max_depth", 0), ("max_records", True), ("max_seconds", float("inf"))]
 )
 def test_xml_limits_are_bounded(field, value):
-    from clinical_agent.adapters.pubmed_xml import PubmedXmlLimits
+    from clinical_agent.rag.pubmed_xml import PubmedXmlLimits
 
     with pytest.raises(ValidationError):
         PubmedXmlLimits(**{field: value})

@@ -3,9 +3,10 @@
 from collections.abc import Callable
 from datetime import UTC, datetime
 from time import monotonic
-from typing import TYPE_CHECKING, Protocol
+from typing import Any, Protocol, TypeVar
 
-from clinical_agent.application.agents import (
+from clinical_agent.agents.graph import build_research_graph
+from clinical_agent.agents.nodes import (
     EvidenceReviewerAgent,
     IdeaPlannerAgent,
     LiteratureScoutAgent,
@@ -14,16 +15,17 @@ from clinical_agent.application.agents import (
     ResearchDesignAgent,
     RetrievalPort,
 )
+from clinical_agent.agents.state import WorkflowState as State
 from clinical_agent.application.analysis import EvidenceAnalyzer
-from clinical_agent.application.openalex import OpenAlexRetrievalService, log_evidence_trace
+from clinical_agent.application.openalex import OpenAlexRetrievalService
 from clinical_agent.application.pico import PicoPlanner, log_extraction_rejection
-from clinical_agent.application.pubmed import PubMedRetrievalService
 from clinical_agent.application.report import ReportBuilder
-from clinical_agent.application.workflow import WorkflowState as State
 from clinical_agent.domain.analysis import AnalysisResult
 from clinical_agent.domain.citations import build_answer, parse_draft
 from clinical_agent.domain.report import ReportResult, ResearchReport, render_report
 from clinical_agent.domain.research import (
+    INSTRUCTIONS,
+    OPENALEX_FULLTEXT_INSTRUCTIONS,
     GenerationEvidence,
     GenerationInput,
     QuestionRequest,
@@ -32,9 +34,9 @@ from clinical_agent.domain.research import (
     ResearchLimits,
 )
 from clinical_agent.domain.retrieval import RetrievalError
+from clinical_agent.logging_config import log_unexpected
 
-if TYPE_CHECKING:
-    from langgraph.graph.state import CompiledStateGraph
+T = TypeVar("T")
 
 
 class AnswerGenerator(Protocol):
@@ -52,13 +54,11 @@ class ResearchService:
         max_feedback_rounds: int = 1,
         analyzer: EvidenceAnalyzer | None = None,
         reporter: ReportBuilder | None = None,
-        online_retriever: PubMedRetrievalService | OpenAlexRetrievalService | None = None,
+        online_retriever: OpenAlexRetrievalService | None = None,
         fulltext=None,
         clock: Callable[[], float] = monotonic,
         now: Callable[[], datetime] = lambda: datetime.now(UTC),
     ) -> None:
-        from langgraph.graph import END, START, StateGraph
-
         if type(max_feedback_rounds) is not int or not 0 <= max_feedback_rounds <= 2:
             raise ValueError("Feedback rounds must be an integer from 0 to 2")
         self._fulltext = fulltext
@@ -76,54 +76,7 @@ class ResearchService:
         self._clock, self._now = clock, now
         self._idea_agent = IdeaPlannerAgent(planner, clock=clock) if planner is not None else None
         self._scout_agent = LiteratureScoutAgent(retriever, online=online_retriever, clock=clock)
-        graph = StateGraph(State)
-        graph.add_node("retrieve", self._retrieve)
-        graph.add_node("prepare", self._prepare)
-        graph.add_node("generate", self._generate)
-        graph.add_node("validate", self._validate)
-        graph.add_node("empty", self._empty)
-        graph.add_node("analyze", self._analyze)
-        graph.add_node("report", self._report)
-        graph.add_node("prior_art", self._prior_agent)
-        graph.add_node("design", self._design_agent)
-        graph.add_node("feedback", self._feedback)
-        graph.add_edge("analyze", "prior_art")
-        graph.add_conditional_edges(
-            "prior_art",
-            lambda state: "design" if state.get("report_requested") else "end",
-            {"design": "design", "end": END},
-        )
-        graph.add_edge("design", "report")
-        graph.add_conditional_edges(
-            "report", self._feedback_route, {"feedback": "feedback", "end": END}
-        )
-        graph.add_conditional_edges(
-            "feedback",
-            lambda state: state["feedback_history"][-1]["target"],
-            {"methods": "analyze", "scout": "retrieve"},
-        )
-        if planner is not None:
-            graph.add_node("plan", self._plan)
-            graph.add_node("clarify", self._clarify)
-            graph.add_edge(START, "plan")
-            graph.add_conditional_edges(
-                "plan", self._plan_route, {"retrieve": "retrieve", "clarify": "clarify"}
-            )
-            graph.add_conditional_edges(
-                "clarify",
-                lambda state: "report" if state.get("report_requested") else "end",
-                {"report": "report", "end": END},
-            )
-        else:
-            graph.add_edge(START, "retrieve")
-        graph.add_conditional_edges(
-            "retrieve", self._route, {"empty": "empty", "prepare": "prepare", "analyze": "analyze"}
-        )
-        graph.add_edge("prepare", "generate")
-        graph.add_edge("generate", "validate")
-        graph.add_edge("validate", END)
-        graph.add_edge("empty", END)
-        self._graph: CompiledStateGraph[State, None, State, State] = graph.compile()
+        self._graph = build_research_graph(self, with_planner=planner is not None)
 
     def _plan(self, state: State) -> dict[str, object]:
         assert self._idea_agent is not None
@@ -197,50 +150,61 @@ class ResearchService:
 
     def _retrieve(self, state: State) -> dict[str, object]:
         patch = dict(self._scout_agent(state))
-        if state.get("analysis_requested"):
-            log_evidence_trace(
-                stage="fulltext",
-                counts={"calls": 0},
-                failure_kind="not_requested",
-                request_id=str(state["request"].request_id),
-            )
-        if self._fulltext is not None and not state.get("analysis_requested"):
+        if self._fulltext is not None:
             try:
                 patch["retrieval"] = self._fulltext.enrich(
                     state["request"].question,
                     patch["retrieval"],
-                    deadline=min(state["deadline"] - 25.0, self._clock() + 35.0),
+                    deadline=min(state["deadline"] - 30.0, self._clock() + 60.0),
                 )
-            except Exception:
+            except Exception as error:
+                # Degrades to insufficient_evidence; the cause must stay diagnosable.
+                log_unexpected("fulltext", error)
                 patch["retrieval"].warnings.append("fulltext_unavailable")
         return patch
 
     def _route(self, state: State) -> str:
+        from clinical_agent.domain.openalex import OpenAlexProvenance
+
         if state.get("analysis_requested"):
             return "analyze"
-        return "prepare" if state["retrieval"].hits else "empty"
+        retrieval = state["retrieval"]
+        if isinstance(retrieval.search_provenance, OpenAlexProvenance) and not any(
+            hit.fulltext for hit in retrieval.hits
+        ):
+            return "empty"
+        return "prepare" if retrieval.hits else "empty"
 
     def _prepare(self, state: State) -> dict[str, object]:
         self._remaining(state)
+        from clinical_agent.domain.models import EvidenceLocation
         from clinical_agent.domain.openalex import OpenAlexProvenance
 
-        provenance = state["retrieval"].search_provenance
+        retrieval = state["retrieval"].model_copy(deep=True)
+        provenance = retrieval.search_provenance
         evidence_groups = {}
         study_roles = {}
-        if isinstance(provenance, OpenAlexProvenance):
+        openalex = isinstance(provenance, OpenAlexProvenance)
+        hits = [hit for hit in retrieval.hits if hit.fulltext] if openalex else retrieval.hits
+        if openalex and not hits:
+            raise ResearchError("research_failed")
+        if openalex:
             by_identity = {
                 (
                     h.document.openalex_record.openalex_id
                     if h.document.openalex_record
                     else str(h.document.document_id)
-                ): h.chunk.chunk_id
-                for h in state["retrieval"].hits
+                ): h
+                for h in hits
             }
             for assessment in provenance.assessments:
-                if assessment.id in by_identity:
-                    study_roles[by_identity[assessment.id]] = assessment.study_role
-                    for dimension in assessment.covered_dimensions:
-                        evidence_groups.setdefault(dimension, []).append(by_identity[assessment.id])
+                hit = by_identity.get(assessment.id)
+                if hit is None:
+                    continue
+                study_roles[hit.chunk.chunk_id] = assessment.study_role
+                anchor = hit.fulltext[0].chunk_id
+                for dimension in assessment.covered_dimensions:
+                    evidence_groups.setdefault(dimension, []).append(anchor)
             # Raw snapshots belong to audit/citations, not to the model context.
             provenance = provenance.model_copy(
                 update={
@@ -250,24 +214,44 @@ class ResearchService:
                     "candidate_outcomes": {},
                 }
             )
+
+        def generation_evidence(hit):
+            if openalex:
+                passage = hit.fulltext[0]
+                return GenerationEvidence(
+                    study_role=study_roles.get(hit.chunk.chunk_id, "other"),
+                    fulltext=hit.fulltext,
+                    title=hit.document.title,
+                    pmid=hit.document.pmid,
+                    chunk_id=passage.chunk_id,
+                    text=passage.text,
+                    location=EvidenceLocation(
+                        kind="fulltext",
+                        page=passage.page,
+                        section=passage.section,
+                        start=passage.start,
+                        end=passage.end,
+                    ),
+                    content_scope="full_text",
+                )
+            return GenerationEvidence(
+                study_role=study_roles.get(hit.chunk.chunk_id, "other"),
+                fulltext=hit.fulltext,
+                title=hit.document.title,
+                pmid=hit.document.pmid,
+                chunk_id=hit.chunk.chunk_id,
+                text=hit.chunk.text,
+                location=hit.chunk.location,
+                content_scope=hit.document.content_scope,
+            )
+
         context = GenerationInput(
             evidence_groups=evidence_groups,
             query_plan=state.get("query_plan"),
             search_provenance=provenance,
             question=state["request"].question,
-            evidence=[
-                GenerationEvidence(
-                    study_role=study_roles.get(h.chunk.chunk_id, "other"),
-                    fulltext=h.fulltext,
-                    title=h.document.title,
-                    pmid=h.document.pmid,
-                    chunk_id=h.chunk.chunk_id,
-                    text=h.chunk.text,
-                    location=h.chunk.location,
-                    content_scope=h.document.content_scope,
-                )
-                for h in state["retrieval"].hits
-            ],
+            evidence=[generation_evidence(hit) for hit in hits],
+            instructions=OPENALEX_FULLTEXT_INSTRUCTIONS if openalex else INSTRUCTIONS,
         )
         while len(context.model_dump_json()) > self._limits.max_context_characters:
             item = max(
@@ -278,10 +262,12 @@ class ResearchService:
             if item is None:
                 raise ResearchError("context_limit")
             removed = item.fulltext.pop()
-            for hit in state["retrieval"].hits:
-                hit.fulltext = [p for p in hit.fulltext if p.chunk_id != removed.chunk_id]
-            state["retrieval"].warnings.append("fulltext_context_trimmed")
-        return {"context": context}
+            # The anchor passage stays in context as item.text and stays citable.
+            if removed.chunk_id != item.chunk_id:
+                for hit in retrieval.hits:
+                    hit.fulltext = [p for p in hit.fulltext if p.chunk_id != removed.chunk_id]
+            retrieval.warnings.append("fulltext_context_trimmed")
+        return {"context": context, "retrieval": retrieval}
 
     def _generate(self, state: State) -> dict[str, object]:
         remaining = min(self._remaining(state), self._limits.generation_seconds)
@@ -291,7 +277,8 @@ class ResearchService:
             )
         except ResearchError as error:
             raise ResearchError(error.code) from None
-        except Exception:
+        except Exception as error:
+            log_unexpected("generate", error)
             raise ResearchError("generation_failed") from None
         self._remaining(state)
         return {"draft": parse_draft(raw, max_bytes=self._limits.max_output_bytes)}
@@ -318,13 +305,12 @@ class ResearchService:
         return self._methods_agent(state)
 
     def _report(self, state: State) -> dict[str, object]:
+        """Build the report and decide the bounded feedback step in the node, not the router."""
         if self._review_agent is None:
             raise ResearchError("generation_failed")
-        return self._review_agent(state)
-
-    def _feedback_route(self, state: State) -> str:
-        report = state["report"]
-        target = EvidenceReviewerAgent.feedback(state)
+        patch = self._review_agent(state)
+        report = patch["report"]
+        target = EvidenceReviewerAgent.feedback(report)
         exhausted = state.get("feedback_rounds", 0) >= self._max_feedback_rounds
         if target != "stop" and exhausted and report.status != "rejected":
             report.status = "verification_incomplete"
@@ -333,34 +319,31 @@ class ResearchService:
             "round_limit" if target != "stop" and exhausted else "no_actionable_feedback"
         )
         if target == "stop" or exhausted or report.content_status == "needs_clarification":
-            return "end"
-        self._remaining(state)
-        return "feedback"
+            patch["feedback_target"] = "stop"
+        else:
+            patch["feedback_target"] = target
+        return patch
 
     def _feedback(self, state: State) -> dict[str, object]:
         self._remaining(state)
-        target = EvidenceReviewerAgent.feedback(state)
         return {
             "feedback_rounds": state.get("feedback_rounds", 0) + 1,
             "feedback_history": [
                 *state.get("feedback_history", []),
-                {"target": target, "reason": "evidence_review"},
+                {"target": state["feedback_target"], "reason": "evidence_review"},
             ],
             "research_designs": [],
         }
 
-    def respond(self, request: QuestionRequest) -> ResearchAnswer | ResearchReport:
-        """Route natural language within one graph run and one planning budget."""
+    def _run(self, request: QuestionRequest, finish: Callable[[Any], T], **flags: bool) -> T:
+        """Invoke the graph once under one deadline and convert unknown failures to a code."""
         from langsmith import tracing_context
 
-        if self._planner is None:
-            raise ValueError("Natural-language routing requires a planner")
-        request = QuestionRequest.model_validate(request).model_copy(deep=True)
         state: State = {
-            "request": request,
+            "request": QuestionRequest.model_validate(request).model_copy(deep=True),
             "deadline": self._clock() + self._limits.max_seconds,
             "started_at": self._now(),
-            "auto_route": True,
+            **flags,  # type: ignore[typeddict-item]
         }
         with tracing_context(enabled=False):
             try:
@@ -369,83 +352,48 @@ class ResearchService:
                     config={"recursion_limit": 12 + 8 * self._max_feedback_rounds, "callbacks": []},
                 )
                 self._remaining(state)
-                if output.get("report_requested"):
-                    return ResearchReport.model_validate(output["report"])
-                answer = output["answer"].model_dump()
-                answer["query_plan"] = output["query_plan"]
-                return ResearchAnswer.model_validate(answer)
-            except (RetrievalError, ResearchError):
-                raise
-            except Exception:
-                raise ResearchError("research_failed") from None
-
-    def report(self, request: QuestionRequest) -> ReportResult:
-        from langsmith import tracing_context
-
-        request = QuestionRequest.model_validate(request).model_copy(deep=True)
-        state: State = {
-            "request": request,
-            "deadline": self._clock() + self._limits.max_seconds,
-            "analysis_requested": True,
-            "report_requested": True,
-            "started_at": self._now(),
-        }
-        with tracing_context(enabled=False):
-            try:
-                output = self._graph.invoke(
-                    state,
-                    config={"recursion_limit": 12 + 8 * self._max_feedback_rounds, "callbacks": []},
-                )
-                self._remaining(state)
-                report = ResearchReport.model_validate(output["report"])
-                return ReportResult(report=report, markdown=render_report(report))
-            except (RetrievalError, ResearchError):
-                raise
-            except Exception:
-                raise ResearchError("research_failed") from None
-
-    def analyze(self, request: QuestionRequest) -> AnalysisResult:
-        """Use the existing graph with an explicit Phase 6 branch."""
-        from langsmith import tracing_context
-
-        request = QuestionRequest.model_validate(request).model_copy(deep=True)
-        state: State = {
-            "request": request,
-            "deadline": self._clock() + self._limits.max_seconds,
-            "analysis_requested": True,
-        }
-        with tracing_context(enabled=False):
-            try:
-                output = self._graph.invoke(
-                    state,
-                    config={"recursion_limit": 12 + 8 * self._max_feedback_rounds, "callbacks": []},
-                )
-                self._remaining(state)
-                return AnalysisResult.model_validate(output["analysis"])
-            except (RetrievalError, ResearchError):
-                raise
-            except Exception:
-                raise ResearchError("research_failed") from None
-
-    def answer(self, request: QuestionRequest) -> ResearchAnswer:
-        from langsmith import tracing_context
-
-        request = QuestionRequest.model_validate(request).model_copy(deep=True)
-        state: State = {"request": request, "deadline": self._clock() + self._limits.max_seconds}
-        with tracing_context(enabled=False):
-            try:
-                output = self._graph.invoke(
-                    state,
-                    config={"recursion_limit": 12 + 8 * self._max_feedback_rounds, "callbacks": []},
-                )
-                self._remaining(state)
-                answer = output["answer"].model_dump()
-                if "query_plan" in output:
-                    answer["query_plan"] = output["query_plan"]
-                return ResearchAnswer.model_validate(answer)
+                return finish(output)
+            # Re-raise clean copies: LangGraph attaches task notes to node exceptions.
             except RetrievalError as error:
                 raise RetrievalError(error.code) from None
             except ResearchError as error:
-                raise ResearchError(error.code) from None
-            except Exception:
+                raise ResearchError(error.code, error.details) from None
+            except Exception as error:
+                log_unexpected("graph", error)
                 raise ResearchError("research_failed") from None
+
+    @staticmethod
+    def _answer_output(output: Any) -> ResearchAnswer:
+        answer = output["answer"].model_dump()
+        if "query_plan" in output:
+            answer["query_plan"] = output["query_plan"]
+        return ResearchAnswer.model_validate(answer)
+
+    def respond(self, request: QuestionRequest) -> ResearchAnswer | ResearchReport:
+        """Route natural language within one graph run and one planning budget."""
+        if self._planner is None:
+            raise ValueError("Natural-language routing requires a planner")
+
+        def finish(output: Any) -> ResearchAnswer | ResearchReport:
+            if output.get("report_requested"):
+                return ResearchReport.model_validate(output["report"])
+            return self._answer_output(output)
+
+        return self._run(request, finish, auto_route=True)
+
+    def report(self, request: QuestionRequest) -> ReportResult:
+        def finish(output: Any) -> ReportResult:
+            report = ResearchReport.model_validate(output["report"])
+            return ReportResult(report=report, markdown=render_report(report))
+
+        return self._run(request, finish, analysis_requested=True, report_requested=True)
+
+    def analyze(self, request: QuestionRequest) -> AnalysisResult:
+        return self._run(
+            request,
+            lambda output: AnalysisResult.model_validate(output["analysis"]),
+            analysis_requested=True,
+        )
+
+    def answer(self, request: QuestionRequest) -> ResearchAnswer:
+        return self._run(request, self._answer_output)

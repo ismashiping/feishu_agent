@@ -57,8 +57,8 @@ def _parse(module, path, root, **kwargs):
 
 
 def test_real_multi_article_metadata_sections_hash_and_roundtrip(tmp_path):
-    from clinical_agent.adapters import pubmed_xml
     from clinical_agent.domain.models import PubmedXmlBatch
+    from clinical_agent.rag import pubmed_xml
 
     path = _write(tmp_path / "fixture.xml", _article() + _article("1234567891"))
     batch = _parse(pubmed_xml, path, tmp_path)
@@ -122,7 +122,7 @@ def test_real_multi_article_metadata_sections_hash_and_roundtrip(tmp_path):
     ],
 )
 def test_publication_precision_is_not_invented(tmp_path, date, precision, year, month, day, raw):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     batch = _parse(pubmed_xml, _write(tmp_path / "date.xml", _article(date=date)), tmp_path)
     value = batch.entries[0].article.document.publication_date
@@ -147,7 +147,7 @@ def test_publication_precision_is_not_invented(tmp_path, date, precision, year, 
     ],
 )
 def test_bad_dates_reject_only_the_article(tmp_path, date):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     batch = _parse(
         pubmed_xml,
@@ -174,7 +174,7 @@ def test_bad_dates_reject_only_the_article(tmp_path, date):
     ],
 )
 def test_mapping_rejections_are_per_record_and_do_not_allocate_identity(tmp_path, case, code):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     article = _article()
     if case == "missing_pmid":
@@ -214,7 +214,7 @@ def test_mapping_rejections_are_per_record_and_do_not_allocate_identity(tmp_path
 
 
 def test_duplicates_unsupported_and_missing_optional_metadata(tmp_path):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     article = _article()
     article = article.replace('<ELocationID EIdType="doi">10.fixture/source</ELocationID>', "")
@@ -235,7 +235,7 @@ def test_duplicates_unsupported_and_missing_optional_metadata(tmp_path):
 
 
 def test_author_initials_suffix_invalid_author_and_journal_abbreviation(tmp_path):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     article = (
         _article()
@@ -257,7 +257,7 @@ def test_author_initials_suffix_invalid_author_and_journal_abbreviation(tmp_path
 
 
 def test_doctype_does_not_fetch_network_or_external_file(tmp_path, monkeypatch):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     def forbidden(*args, **kwargs):
         pytest.fail("XML parsing attempted external access")
@@ -275,7 +275,7 @@ def test_doctype_does_not_fetch_network_or_external_file(tmp_path, monkeypatch):
     "entity", ['"PRIVATE_ENTITY_SENTINEL"', 'SYSTEM "file:///not-opened-secret"']
 )
 def test_entity_declarations_are_rejected_before_expansion(tmp_path, encoding, entity):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     prefix = f"<!DOCTYPE PubmedArticleSet [<!ENTITY private {entity}>]>"
     path = _write(
@@ -297,7 +297,7 @@ def test_entity_declarations_are_rejected_before_expansion(tmp_path, encoding, e
     ],
 )
 def test_whole_file_failures_do_not_return_partial_results_or_call_factory(tmp_path, content, code):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     path = tmp_path / "PRIVATE_FILE.xml"
     path.write_bytes(content)
@@ -319,7 +319,7 @@ def test_whole_file_failures_do_not_return_partial_results_or_call_factory(tmp_p
     ],
 )
 def test_global_budgets_are_not_silent_truncation(tmp_path, field, value, code):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     path = _write(tmp_path / "budget.xml", _article() + _article("1234567891"))
     with pytest.raises(pubmed_xml.PubmedXmlError, match="^" + code + "$"):
@@ -327,7 +327,7 @@ def test_global_budgets_are_not_silent_truncation(tmp_path, field, value, code):
 
 
 def test_abstract_budget_is_a_per_article_rejection(tmp_path):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     path = _write(tmp_path / "text-budget.xml", _article())
     result = _parse(
@@ -337,7 +337,7 @@ def test_abstract_budget_is_a_per_article_rejection(tmp_path):
 
 
 def test_clock_checked_after_mapping_and_callback_errors_not_swallowed(tmp_path, monkeypatch):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     path = _write(tmp_path / "clock.xml", _article())
     done = []
@@ -359,7 +359,7 @@ def test_clock_checked_after_mapping_and_callback_errors_not_swallowed(tmp_path,
 
 
 def test_snapshot_and_empty_batch_and_closed_input(tmp_path, monkeypatch):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     path = _write(tmp_path / "snapshot.xml", _article())
     snapshot = path.read_bytes()
@@ -388,7 +388,7 @@ def test_snapshot_and_empty_batch_and_closed_input(tmp_path, monkeypatch):
 
 @pytest.mark.parametrize("case", ["missing", "directory", "outside"])
 def test_input_must_be_under_allowed_root(tmp_path, case):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     allowed = tmp_path / "allowed"
     allowed.mkdir()
@@ -402,7 +402,7 @@ def test_input_must_be_under_allowed_root(tmp_path, case):
 
 
 def test_blank_section_attributes_mean_unknown_not_batch_failure(tmp_path):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     article = (
         _article()
@@ -423,7 +423,7 @@ def test_blank_section_attributes_mean_unknown_not_batch_failure(tmp_path):
     ],
 )
 def test_invalid_known_year_is_not_hidden_by_unknown_precision(tmp_path, date):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     result = _parse(
         pubmed_xml, _write(tmp_path / "invalid-year.xml", _article(date=date)), tmp_path
@@ -433,7 +433,7 @@ def test_invalid_known_year_is_not_hidden_by_unknown_precision(tmp_path, date):
 
 
 def test_invalid_known_day_is_not_hidden_by_unknown_month(tmp_path):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     date = "<Year>2020</Year><Month>Unknown</Month><Day>99</Day>"
     result = _parse(pubmed_xml, _write(tmp_path / "invalid-day.xml", _article(date=date)), tmp_path)
@@ -441,7 +441,7 @@ def test_invalid_known_day_is_not_hidden_by_unknown_month(tmp_path):
 
 
 def test_valid_utf16_unicode_abstract(tmp_path):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     path = _write(tmp_path / "utf16.xml", _article(), encoding="utf-16")
     result = _parse(pubmed_xml, path, tmp_path)
@@ -449,7 +449,7 @@ def test_valid_utf16_unicode_abstract(tmp_path):
 
 
 def test_file_read_error_has_only_a_safe_code(tmp_path, monkeypatch):
-    from clinical_agent.adapters import pubmed_xml
+    from clinical_agent.rag import pubmed_xml
 
     path = _write(tmp_path / "permission.xml", _article())
 

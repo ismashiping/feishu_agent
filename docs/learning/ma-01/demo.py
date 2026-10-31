@@ -4,10 +4,10 @@ import json
 from pathlib import Path
 from uuid import uuid4
 
-from clinical_agent.application.agents import IdeaPlannerAgent, LiteratureScoutAgent
+from clinical_agent.agents.nodes import IdeaPlannerAgent, LiteratureScoutAgent
 from clinical_agent.application.pico import PicoPlanner
 from clinical_agent.application.pubmed import PubMedRetrievalService
-from clinical_agent.application.workflow import WorkflowState
+from clinical_agent.agents.state import WorkflowState
 from clinical_agent.domain.pubmed import PubMedSearchResult
 from clinical_agent.domain.research import QuestionRequest
 

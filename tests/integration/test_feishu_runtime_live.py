@@ -12,12 +12,12 @@ pytestmark = [pytest.mark.external, pytest.mark.integration, pytest.mark.redis]
 
 
 def test_official_long_connection_and_reply(monkeypatch, tmp_path):
+    from clinical_agent.channels.feishu import main
+    from clinical_agent.channels.feishu.dedup import DedupPolicy, create_deduplicator
+    from clinical_agent.channels.feishu.events import EventPolicy, filter_event
+    from clinical_agent.channels.feishu.sender import OfficialMessageAPI, Sender
+    from clinical_agent.channels.feishu.worker import Dispatcher
     from clinical_agent.domain.research import ResearchAnswer
-    from feishu import main
-    from feishu.dedup import DedupPolicy, create_deduplicator
-    from feishu.events import EventPolicy, filter_event
-    from feishu.sender import OfficialMessageAPI, Sender
-    from feishu.worker import Dispatcher
 
     if os.environ.get("CLINICAL_AGENT_FEISHU_LIVE_CONFIRM") != "1":
         pytest.skip("Explicit live test confirmation is required")

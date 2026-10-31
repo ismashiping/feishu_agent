@@ -1,6 +1,6 @@
 import json,logging,time
 from pathlib import Path
-from clinical_agent.adapters.llm import LLMSettings,open_llm
+from clinical_agent.integrations.llm import LLMSettings,open_llm
 from clinical_agent.application.pico import PicoPlanner
 from clinical_agent.domain.pico import ClassificationRequest
 from clinical_agent.domain.research import ResearchError

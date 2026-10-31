@@ -10,15 +10,15 @@ from sqlalchemy import text
 from sqlalchemy.exc import DataError
 
 from alembic import command
-from clinical_agent.adapters.embedding import LocalModelConfig, load_local_embedder
-from clinical_agent.adapters.oa_fulltext import parse_jats
-from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
-from clinical_agent.adapters.postgres.fulltext import PostgresFulltextStore
 from clinical_agent.application.fulltext import FulltextService
 from clinical_agent.application.oa_fulltext import SIGNATURE
 from clinical_agent.application.openalex import record_hit
+from clinical_agent.db.connection import DatabaseSettings, database_engine
+from clinical_agent.db.fulltext import PostgresFulltextStore
 from clinical_agent.domain.openalex import OpenAlexProvenance, OpenAlexRecord
 from clinical_agent.domain.retrieval import RetrievalOptions, RetrievalResult
+from clinical_agent.integrations.oa_fulltext import parse_tei
+from clinical_agent.rag.embedding import LocalModelConfig, load_local_embedder
 
 
 def main():
@@ -41,7 +41,18 @@ def main():
 
         def fetch_record(self, selected, deadline, count):
             self.calls += 1
-            return manifest["license"], manifest["source_url"], raw, parse_jats(raw, selected)
+            tei = (
+                "<TEI><teiHeader><fileDesc><titleStmt><title>"
+                + selected.title
+                + "</title></titleStmt><sourceDesc><biblStruct><idno type=\"DOI\">"
+                + selected.doi
+                + "</idno></biblStruct></sourceDesc></fileDesc></teiHeader><text><body>"
+                + "<div><head>Methods</head><p>Synthetic methods paragraph.</p></div>"
+                + "</body></text></TEI>"
+            ).encode()
+            work = selected.openalex_id.rsplit("/", 1)[-1]
+            url = f"https://content.openalex.org/works/{work}.grobid-xml"
+            return "cc-by", url, tei, parse_tei(tei, selected)
 
     with database_engine(settings) as engine:
         config = Config(str(root / "alembic.ini"))
@@ -70,7 +81,7 @@ def main():
 
         embedder = MeteredEmbedder()
         store = PostgresFulltextStore(engine, openalex=True)
-        service = FulltextService(None, None, embedder, oa_source=source, oa_store=store)
+        service = FulltextService(source, store, embedder)
         from datetime import UTC, datetime
 
         retrieval = RetrievalResult(

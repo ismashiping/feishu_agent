@@ -48,8 +48,8 @@ def _parse(module, path, root, **kwargs):
 
 
 def test_real_pdf_retains_pages_snapshot_metadata_and_roundtrip(tmp_path):
-    from clinical_agent.adapters import pdf
     from clinical_agent.domain.models import ParsedPdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(
         tmp_path / "synthetic.pdf",
@@ -81,8 +81,8 @@ def test_real_pdf_retains_pages_snapshot_metadata_and_roundtrip(tmp_path):
 
 
 def test_filename_fallback_and_manual_overrides(tmp_path):
-    from clinical_agent.adapters import pdf
     from clinical_agent.domain.models import PublicationDate
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "fixture title.pdf", texts=("Alpha",))
     fallback = _parse(pdf, path, tmp_path)
@@ -109,7 +109,7 @@ def test_filename_fallback_and_manual_overrides(tmp_path):
 
 @pytest.mark.parametrize("contents", [b"", b"not a PDF PRIVATE_SENTINEL", b"%PDF-1.7\nbroken"])
 def test_damaged_pdf_has_safe_error(tmp_path, contents):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = tmp_path / "PRIVATE_FILENAME.pdf"
     path.write_bytes(contents)
@@ -121,7 +121,7 @@ def test_damaged_pdf_has_safe_error(tmp_path, contents):
 
 @pytest.mark.parametrize("password", ["", "fixture-password"])
 def test_encrypted_pdf_is_rejected_even_with_empty_password(tmp_path, password):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "encrypted.pdf", password=password)
     with pytest.raises(pdf.PdfParseError, match="^pdf_encrypted$"):
@@ -130,7 +130,7 @@ def test_encrypted_pdf_is_rejected_even_with_empty_password(tmp_path, password):
 
 @pytest.mark.parametrize("texts,code", [((), "pdf_no_pages"), (("", ""), "pdf_no_text")])
 def test_empty_documents_are_not_success(tmp_path, texts, code):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "empty.pdf", texts=texts)
     with pytest.raises(pdf.PdfParseError, match="^" + code + "$"):
@@ -138,7 +138,7 @@ def test_empty_documents_are_not_success(tmp_path, texts, code):
 
 
 def test_image_only_document_has_no_text_and_no_ocr(tmp_path):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = tmp_path / "image-only.pdf"
     with PdfWriter() as writer:
@@ -172,7 +172,7 @@ def test_image_only_document_has_no_text_and_no_ocr(tmp_path):
 
 @pytest.mark.parametrize("case", ["missing", "directory", "outside"])
 def test_paths_must_be_real_files_under_explicit_root(tmp_path, case):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     allowed = tmp_path / "allowed"
     allowed.mkdir()
@@ -195,7 +195,7 @@ def test_paths_must_be_real_files_under_explicit_root(tmp_path, case):
     ],
 )
 def test_budgets_reject_instead_of_returning_partial_documents(tmp_path, name, value, code):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "budget.pdf")
     limits = pdf.PdfParseLimits(**{name: value})
@@ -204,7 +204,7 @@ def test_budgets_reject_instead_of_returning_partial_documents(tmp_path, name, v
 
 
 def test_cooperative_deadline_checked_after_extraction(tmp_path, monkeypatch):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "timeout.pdf", texts=("Alpha",))
     done = []
@@ -223,7 +223,7 @@ def test_cooperative_deadline_checked_after_extraction(tmp_path, monkeypatch):
 
 @pytest.mark.parametrize("failure", [False, True])
 def test_files_streams_and_reader_close_on_success_or_failure(tmp_path, monkeypatch, failure):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "closing.pdf")
     streams, readers, closed, files = [], [], [], []
@@ -263,7 +263,7 @@ def test_files_streams_and_reader_close_on_success_or_failure(tmp_path, monkeypa
 
 
 def test_hash_and_parse_share_one_snapshot_even_if_original_changes(tmp_path, monkeypatch):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "snapshot.pdf", texts=("Original",))
     snapshot = path.read_bytes()
@@ -279,7 +279,7 @@ def test_hash_and_parse_share_one_snapshot_even_if_original_changes(tmp_path, mo
 
 
 def test_normalization_is_minimal_and_versioned(tmp_path, monkeypatch):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "normalization.pdf", texts=("Alpha",))
     monkeypatch.setattr(PageObject, "extract_text", lambda *args, **kwargs: "  A\r\nB\rC\0 ")
@@ -289,7 +289,7 @@ def test_normalization_is_minimal_and_versioned(tmp_path, monkeypatch):
 
 
 def test_file_io_failure_is_safe(tmp_path, monkeypatch):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "io.pdf")
 
@@ -302,7 +302,7 @@ def test_file_io_failure_is_safe(tmp_path, monkeypatch):
 
 
 def test_total_text_budget_includes_page_separators(tmp_path):
-    from clinical_agent.adapters import pdf
+    from clinical_agent.rag import pdf
 
     path = _write_pdf(tmp_path / "separators.pdf", texts=("A", "B"))
     with pytest.raises(pdf.PdfParseError, match="^pdf_text_limit$"):

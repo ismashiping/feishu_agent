@@ -4,13 +4,17 @@
 # Isolated tools, interpreter, environments and generated artifacts.
 .tools/
 .venv/
-.artifacts/
+# Reproducible scratch/cache only for new runs; permanent evidence belongs in docs.
+# Existing .artifacts acceptance records are preserved, not cleanup candidates.
+/.artifacts/
 dist/
 build/
 *.egg-info/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+# Disposable root-level pytest basetemp directories; historical tracked files stay tracked.
+/.pytest_*/
 .ruff_cache/
 .mypy_cache/
 .coverage

@@ -119,71 +119,9 @@ def test_local_empty_does_not_use_online_and_displays_scope():
     assert result.status == "insufficient_evidence" and result.retrieval_scope == "local"
 
 
-@pytest.mark.parametrize("scope", ["online", "hybrid"])
-@pytest.mark.parametrize("failure", [None, "pubmed_timeout", "pubmed_failed"])
-def test_online_dispatch_receives_plan_even_without_local_hits(scope, failure):
-    from datetime import UTC, datetime
-
-    from clinical_agent.application.pubmed import PubMedRetrievalService
-    from clinical_agent.domain.pubmed import PubMedSearchResult
-    from clinical_agent.domain.research import ResearchError
-
-    calls = []
-
-    class Local:
-        def retrieve(self, request):
-            assert scope == "hybrid"
-            calls.append("local")
-            return RetrievalResult(
-                options=request.options, embedding_info=retrieval_embedding_info(), hits=[]
-            )
-
-    class Search:
-        def search(self, request, *, timeout_seconds):
-            calls.append("online")
-            assert request.query_plan.original_question == QUESTION
-            assert request.query_text() == QUESTION
-            assert 0 < timeout_seconds <= 90
-            if failure:
-                raise ResearchError(failure)
-            return PubMedSearchResult(
-                query_sent=request.query_text(),
-                query_translation=None,
-                total_count=0,
-                requested_limit=10,
-                returned_count=0,
-                truncated=False,
-                fetched_at=datetime.now(UTC),
-                date_from=None,
-                date_to=None,
-                date_field="pdat",
-                sort="relevance",
-                status="complete",
-                warnings=[],
-                missing_pmids=[],
-                records=[],
-            )
-
-    service = ResearchService(
-        retriever=Local(),
-        online_retriever=PubMedRetrievalService(Search()),
-        generator=object(),
-        planner=planner(),
-    )
-    request = QuestionRequest(question=QUESTION, request_id=uuid4(), scope=scope)
-    if failure:
-        with pytest.raises(ResearchError, match=failure):
-            service.answer(request)
-    else:
-        answer = service.answer(request)
-        assert answer.status == "insufficient_evidence"
-        assert answer.retrieval_scope == scope and answer.search_provenance.total_count == 0
-    assert calls == (["local", "online"] if scope == "hybrid" else ["online"])
-
-
 def test_user_entry_default_is_hybrid_and_internal_request_stays_compatible():
-    from clinical_agent.api_runtime import QuestionBody
-    from feishu.sender import render_answer
+    from clinical_agent.api.schemas import QuestionBody
+    from clinical_agent.channels.feishu.sender import render_answer
 
     assert QuestionBody(question=QUESTION).scope == "hybrid"
     assert QuestionBody(question=QUESTION, scope="local").scope == "local"

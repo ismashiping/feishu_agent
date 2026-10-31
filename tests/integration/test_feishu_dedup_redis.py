@@ -14,7 +14,7 @@ IDENTITY = ("cli_test", "message", "om_1")
 
 @pytest.fixture
 def service():
-    from feishu.dedup import DedupPolicy, create_deduplicator
+    from clinical_agent.channels.feishu.dedup import DedupPolicy, create_deduplicator
 
     url = os.environ.get("CLINICAL_AGENT_TEST_REDIS_URL")
     if not url:
@@ -37,7 +37,7 @@ def service():
 def test_concurrent_clients_acquire_once(service):
     import redis
 
-    from feishu.dedup import RedisDeduplicator
+    from clinical_agent.channels.feishu.dedup import RedisDeduplicator
 
     url = os.environ["CLINICAL_AGENT_TEST_REDIS_URL"]
     clients = [
@@ -113,7 +113,7 @@ def test_renew_keeps_alive_but_cannot_extend_total_deadline(service):
 
 @pytest.mark.parametrize("value", ["broken-json", '{"state":"processing"}'])
 def test_corrupt_state_is_unavailable_without_mutation(service, value):
-    from feishu.dedup import dedup_key
+    from clinical_agent.channels.feishu.dedup import dedup_key
 
     lease = service.acquire(IDENTITY).lease
     key = dedup_key(IDENTITY, prefix=service.policy.prefix)
@@ -123,7 +123,7 @@ def test_corrupt_state_is_unavailable_without_mutation(service, value):
 
 
 def test_wrong_key_type_is_unavailable(service):
-    from feishu.dedup import dedup_key
+    from clinical_agent.channels.feishu.dedup import dedup_key
 
     lease = service.acquire(IDENTITY).lease
     key = dedup_key(IDENTITY, prefix=service.policy.prefix)
@@ -137,7 +137,7 @@ def test_wrong_key_type_is_unavailable(service):
 def test_connection_refused_is_unavailable():
     import socket
 
-    from feishu.dedup import create_deduplicator
+    from clinical_agent.channels.feishu.dedup import create_deduplicator
 
     # Occupy without listening, guaranteeing this loopback port refuses TCP.
     with socket.socket() as reserved:
@@ -152,7 +152,7 @@ def test_connection_refused_is_unavailable():
 def test_response_lost_after_commit_does_not_release_or_retry(service):
     import redis
 
-    from feishu.dedup import RedisDeduplicator
+    from clinical_agent.channels.feishu.dedup import RedisDeduplicator
 
     class LostResponse:
         calls = 0
@@ -176,7 +176,7 @@ def test_response_lost_after_commit_does_not_release_or_retry(service):
 
 
 def test_unbounded_corrupt_lease_cannot_be_used(service):
-    from feishu.dedup import dedup_key
+    from clinical_agent.channels.feishu.dedup import dedup_key
 
     lease = service.acquire(IDENTITY).lease
     key = dedup_key(IDENTITY, prefix=service.policy.prefix)
@@ -187,7 +187,7 @@ def test_unbounded_corrupt_lease_cannot_be_used(service):
 
 
 def test_check_does_not_renew_and_completed_ttl_is_independent(service):
-    from feishu.dedup import dedup_key
+    from clinical_agent.channels.feishu.dedup import dedup_key
 
     lease = service.acquire(IDENTITY).lease
     key = dedup_key(IDENTITY, prefix=service.policy.prefix)

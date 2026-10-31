@@ -154,7 +154,7 @@ def test_result_revalidates_all_hits_and_query_contract(prepared_factory, source
     ],
 )
 def test_query_identity_rejected_before_database_connection(field, value):
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalError, RetrievalOptions
 
     class NoConnection:
@@ -274,7 +274,7 @@ def test_untrusted_boundary_error_code_cannot_publish_private_details():
 
 
 def test_dimension_mismatch_with_otherwise_valid_vector_is_rejected_before_connection():
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.embedding import QueryEmbedding
     from clinical_agent.domain.retrieval import (
         RetrievalError,

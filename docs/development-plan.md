@@ -1,5 +1,15 @@
 # 当前状态与开发计划
 
+> 2026-10-31 回归归因/产物治理：37项逐项归因完成，8项CLI非法输入验证顺序已修复；最新完整离线1480通过、29失败、122排除、0跳过。29项为旧PubMed契约8项及local业务范围冲突21项，保持开放。清理11个空测试目录、3个缓存及build副本，证据/环境/备份/数据保留。详见[本轮记录](regression-attribution/README.md)。未部署、未进入新Phase。
+
+> 2026-10-31 专项架构收敛：已统一 API/CLI/飞书科研装配、清理全文旧参数；受影响专项54项及入口检查1项通过。默认回归1468通过、41失败，其中本轮四项迁移失败已专项修复复验；其余37项待定位，整库未验收。未部署、未变更数据库、未推进业务阶段。见[实际报告](architecture-convergence.md)。
+
+> 2026-10-30 OpenAlex 全文地址：缓存之后按 `content_urls.grobid_xml`、`content_urls.pdf`、`best_oa_location.pdf_url`、`locations[].pdf_url` 尝试实际给出的 HTTPS 地址。不因域名、`is_oa` 或许可字段拒下；许可只作元数据。成功后仍分块、Embedding 并写入 pgvector。失败分开记录为无地址、下载失败、无效文件、身份不符、解析失败、向量化失败。比较题会继续选择另一侧论文。相关单元测试已通过。`W3014974815` 的真实下载、解析和召回未完成，未部署。
+
+> 2026-10-30 飞书端到端准备：当前工作区已装入镜像 `feishu-e2e-20261030`（`sha256:46274483a2c1…`）并重建 API/机器人。API healthy，机器人 `feishu_connected`（源时间 2026-10-30T09:03:47Z）。未迁移、未清卷、未跑 pytest。四题实收尚未开始，不标端到端或医学通过。见 [续验](openalex-stage4/feishu-e2e-20261030.md)。
+
+> 2026-10-30 OpenAlex-only 全文：科研链路改为 Works API 发现、Content API 获取 TEI/PDF、既有 pgvector 缓存和生成。运行时不再装配 PMC。历史 PubMed 客户端和库表仍在仓库中，供既有离线解析与历史测试使用，科研回答不调用它们。本轮未重建镜像、未改生产库。见当前架构。
+
 > 2026-10-30 分析确定性构造：模型选择 quote_id，程序写入逐字事实、缺失方法字段和总体关系。真实三题均生成合法 AnalysisResult，状态为 partial，总体关系均为 unknown。MedSAM 本轮 eligible=4、命中 4，命中变化来自筛选可用数和 top_k=5，不是分析丢文献。图神经网络规划失败未改。见[任务记录](specs/tasks/analysis-structured-assembly.md)。未部署。
 
 > 2026-10-30 分析事实与推断：事实值必须逐字等于引文，推断必须带验证说明。生成说明已分开这两类；业务规则失败可修正一次。真实三题在修正后仍未生成 AnalysisResult。见[任务记录](specs/tasks/analysis-epistemic-contract.md)。未部署。
@@ -163,3 +173,19 @@
 
 ## 科研可行性系统重构设计（2026-10-30）
 用户重新明确产品定位，整体设计见[重构SPEC](specs/research-feasibility-refactor.md)。当前仅设计冻结及飞书错误分类日志补丁，95项受影响测试通过，补丁未部署；四题业务缺陷、意图路由、科研报告质量与独立签署仍开放。下一任务为单次规划与意图路由，不将设计标记为实现。
+
+## 架构迁移 Phase 1（2026-10-31，本次专项）
+
+用户确认后完成Agents状态/角色迁移与Graph组装提取，ResearchService和旧导入兼容保留。[SPEC](agents-migration-phase1/spec.md)、[实际验收](agents-migration-phase1/acceptance.md)、[教材](learning/phase-01/agents-migration/README.md)。全量1484通过/30失败/122排除，其中29项与Phase0一致，新增签名测试比较缺陷已修复，受影响9项全部重跑通过；未再次全量，不重写首轮失败。Mypy仍193错误，归一后无新增；Ruff src/tests通过。结构兼容专项交付，整库/真实依赖/医学未验收，未部署，停止等待用户确认API架构Phase2。本专项编号不改变历史业务Phase1验收事实。
+
+## 架构迁移 Phase 2（2026-10-31，本次专项）
+
+用户确认后完成API包职责拆分及旧工厂/运行时导入兼容。[SPEC](api-migration-phase2/spec.md)、[实际验收](api-migration-phase2/acceptance.md)、[教材](learning/phase-02/api-migration/README.md)。完整离线1524通过/29失败/122排除，失败身份与Phase0完全一致；API补充契约36通过，扩展专项101通过，Ruff src/tests通过。Mypy仍193错误，无新增。相对基线结构兼容专项交付，整库、真实依赖和医学未验收；未部署、未迁移数据库，停止等待架构Phase3确认。本记录不改变历史业务Phase2状态。
+
+## 架构迁移 Phase 3（2026-10-31，本次专项）
+
+完成21模块渐进迁移至rag/integrations/db，旧模块同对象兼容保留；未改算法、数据库Schema/事务/迁移原文。[SPEC](rag-db-migration-phase3/spec.md)、[映射](rag-db-migration-phase3/migration-map.md)、[实际验收](rag-db-migration-phase3/acceptance.md)、[教材](learning/phase-03/rag-db-migration/README.md)。完整离线1595通过/29失败/122排除，原失败身份不变，新增70项检查全部通过。Ruff源码/测试通过；Mypy仍193错误无新增，scripts仍17个旧E402。结构兼容专项交付，不代表整库、真实依赖或医学通过；未部署、未迁移数据库，停止等待架构Phase4确认。本编号不改变历史PICO业务Phase3状态。
+
+## 架构迁移 Phase 4（2026-10-31，本次专项）
+
+完成飞书main/events/dedup/worker/sender迁入`clinical_agent.channels.feishu`，顶层`feishu`以同模块对象保留旧导入与`python -m`兼容；`clinical-feishu`指向canonical入口。事件、Redis owner租约、工作/发送容量、未知交付语义、日志命名空间及关闭顺序保持。[SPEC](feishu-migration-phase4/spec.md)、[映射](feishu-migration-phase4/migration-map.md)、[实际验收](feishu-migration-phase4/acceptance.md)、[教材](learning/phase-04/feishu-migration/README.md)。专项409通过；完整离线1622通过/29失败/122排除，失败身份与Phase3一致。Ruff和锁检查通过，Mypy仍193错误；wheel构建和静态内容检查通过。真实Redis/飞书收发、部署、数据库/模型及医学未验证，未运行迁移；停止等待架构Phase5明确确认。本编号不改变历史业务Phase4状态。

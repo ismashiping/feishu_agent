@@ -26,14 +26,14 @@ ROOT = Path(__file__).resolve().parents[2]
     ],
 )
 def test_database_config_rejects_invalid_values(field, value):
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings
+    from clinical_agent.db.connection import DatabaseSettings
 
     with pytest.raises(ValidationError):
         DatabaseSettings(**{"password": "synthetic-secret", field: value})
 
 
 def test_database_config_is_explicit_and_password_hidden(monkeypatch, tmp_path):
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings
+    from clinical_agent.db.connection import DatabaseSettings
 
     for name in tuple(os.environ):
         if name.startswith("CLINICAL_AGENT_DB_"):
@@ -52,7 +52,7 @@ def test_database_config_is_explicit_and_password_hidden(monkeypatch, tmp_path):
 
 
 def test_engine_options_and_finally_dispose(monkeypatch):
-    from clinical_agent.adapters.postgres import connection
+    from clinical_agent.db import connection
 
     seen = []
 
@@ -87,7 +87,7 @@ def test_postgres_ddl_and_metadata_are_distinct_from_dtos():
     from sqlalchemy.dialects import postgresql
     from sqlalchemy.schema import CreateTable
 
-    from clinical_agent.adapters.postgres.models import Base, ChunkRecord, DocumentRecord
+    from clinical_agent.db.models import Base, ChunkRecord, DocumentRecord
 
     assert set(Base.metadata.tables) == {
         "documents",

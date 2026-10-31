@@ -178,6 +178,60 @@ def test_chinese_acquisition_prefers_actual_protocol_to_patient_cohort():
     assert len(selected) == POLICY["fulltext_passages_per_paper"]
 
 
+def test_comparison_still_selects_the_side_without_official_content():
+    def titled(index, title, *, content):
+        work = json.loads(synthetic_record(index).snapshot_json)
+        work["title"] = title
+        work["has_content"] = {"pdf": content, "grobid_xml": False}
+        location = {
+            "is_oa": content,
+            "license": "cc-by" if content else None,
+            "pdf_url": (
+                "https://content.openalex.org/works/official.pdf"
+                if content
+                else "https://arxiv.org/pdf/1904.08128"
+            ),
+        }
+        work["content_urls"] = {"pdf": location["pdf_url"]} if content else None
+        work["best_oa_location"] = location
+        work["locations"] = [location]
+        return OpenAlexRecord.from_work(work)
+
+    papers = [
+        titled(1, "MedSAM segment anything in medical images", content=True),
+        titled(2, "MedSAM prompt encoder for medical images", content=True),
+        titled(3, "MedSAM mask decoder training setup", content=True),
+        titled(
+            4,
+            "nnU-Net a self-configuring method for biomedical image segmentation",
+            content=False,
+        ),
+    ]
+    question = "MedSAM与nnU-Net有什么区别？"
+    planned = plan(question, answer_dimensions=["MedSAM", "nnU-Net"]).model_copy(
+        update={"research_intent": "comparison", "concept_groups": [["MedSAM"], ["nnU-Net"]]}
+    )
+
+    class BothDimensions(Screening):
+        def screen_candidates(self, context, **kwargs):
+            data = json.loads(super().screen_candidates(context, **kwargs))
+            for item in data["assessments"]:
+                item["covered_dimensions"] = ["MedSAM", "nnU-Net"]
+                item["study_role"] = "comparison"
+            return json.dumps(data)
+
+    result = OpenAlexRetrievalService(
+        SimpleNamespace(search=lambda *args, **kwargs: (papers, len(papers), [])),
+        BothDimensions(covered=["MedSAM", "nnU-Net"]),
+    ).retrieve(
+        RetrievalRequest(question=question, scope="online", options=RetrievalOptions(top_k=2)),
+        query_plan=planned,
+    )
+    titles = [hit.document.title for hit in result.hits]
+    assert any(title.startswith("MedSAM") for title in titles)
+    assert any(title.startswith("nnU-Net") for title in titles)
+
+
 def test_comparison_includes_model_architecture_not_only_baseline_training():
     candidates = [
         SimpleNamespace(
@@ -249,7 +303,7 @@ def test_denied_licenses_do_not_consume_actual_download_paper_budget():
         },
     )
     source, store = Source(), Store()
-    service = FulltextService(None, None, Embedder(), oa_source=source, oa_store=store)
+    service = FulltextService(source, store, Embedder())
     enriched = service.enrich("methods", result, deadline=monotonic() + 30)
     assert len(source.fetched) == POLICY["fulltext_download_papers"]
     assert sum(bool(h.fulltext) for h in enriched.hits) == 3
@@ -268,6 +322,31 @@ def test_generation_groups_are_grounded_in_screened_papers():
     request = QuestionRequest(question="segmentation", scope="online", request_id=uuid4())
     result.search_provenance.query_rounds = [{"synthetic_trace": "x" * 32000}]
     result.search_provenance.assessments[0].study_role = "method_origin"
+    from hashlib import sha256
+
+    from clinical_agent.domain.fulltext import FulltextPassage, paper_key
+
+    passages = []
+    for hit in result.hits:
+        text = "Synthetic method evidence."
+        record = hit.document.openalex_record
+        passage = FulltextPassage(
+            chunk_id=uuid4(),
+            paper_key=paper_key(record),
+            openalex_id=record.openalex_id,
+            title=record.title,
+            doi=record.doi,
+            section="Methods",
+            start=0,
+            end=len(text),
+            text=text,
+            content_hash=sha256(text.encode()).hexdigest(),
+            representation_hash=sha256(record.openalex_id.encode()).hexdigest(),
+            source_url="https://pmc.ncbi.nlm.nih.gov/api/oai",
+            license="cc-by",
+        )
+        hit.fulltext = [passage]
+        passages.append(passage)
     context = ResearchService(retriever=object(), generator=object())._prepare(
         {
             "request": request,
@@ -276,22 +355,46 @@ def test_generation_groups_are_grounded_in_screened_papers():
             "deadline": monotonic() + 30,
         }
     )["context"]
-    assert set(context.evidence_groups["methods"]) == {h.chunk.chunk_id for h in result.hits}
+    assert set(context.evidence_groups["methods"]) == {passage.chunk_id for passage in passages}
     assert context.search_provenance.query_rounds == []
     role_by_id = {e.chunk_id: e.study_role for e in context.evidence}
-    assert role_by_id[result.hits[0].chunk.chunk_id] == "method_origin"
+    assert role_by_id[passages[0].chunk_id] == "method_origin"
+    assert result.hits[0].chunk.text not in context.model_dump_json()
+    assert "Abstract text is withheld" in context.instructions
     assert result.search_provenance.query_rounds  # audit record remains intact
 
 
 def test_openalex_readable_output_groups_sections_without_internal_counts():
+    from clinical_agent.channels.feishu.sender import render_answer
     from clinical_agent.domain.citations import build_answer
     from clinical_agent.domain.research import GenerationDraft
-    from feishu.sender import render_answer
 
     result = OpenAlexRetrievalService(
         SimpleNamespace(search=lambda *a, **k: ([synthetic_record(1)], 100, [])), Screening()
     ).retrieve(RetrievalRequest(question="segmentation", scope="online"), query_plan=plan())
     request = QuestionRequest(question="segmentation", scope="online", request_id=uuid4())
+    from hashlib import sha256
+
+    from clinical_agent.domain.fulltext import FulltextPassage, paper_key
+
+    hit = result.hits[0]
+    text = "Synthetic comparison evidence."
+    passage = FulltextPassage(
+        chunk_id=uuid4(),
+        paper_key=paper_key(hit.document.openalex_record),
+        openalex_id=hit.document.openalex_record.openalex_id,
+        title=hit.document.title,
+        doi=hit.document.doi,
+        section="Discussion",
+        start=0,
+        end=len(text),
+        text=text,
+        content_hash=sha256(text.encode()).hexdigest(),
+        representation_hash=sha256(b"rep").hexdigest(),
+        source_url="https://pmc.ncbi.nlm.nih.gov/api/oai",
+        license="cc-by",
+    )
+    hit.fulltext = [passage]
     answer = build_answer(
         request,
         result,
@@ -302,7 +405,7 @@ def test_openalex_readable_output_groups_sections_without_internal_counts():
                         "text": "Synthetic comparison only.",
                         "kind": "evidence",
                         "section": "技术路线",
-                        "evidence_chunk_ids": [str(result.hits[0].chunk.chunk_id)],
+                        "evidence_chunk_ids": [str(passage.chunk_id)],
                         "limitations": ["独立外部验证不足"],
                     }
                 ]
@@ -322,3 +425,83 @@ def test_openalex_readable_output_groups_sections_without_internal_counts():
     assert "https://doi.org/" in text
     assert text.count("不用于个体诊断或治疗决策") == 1
     assert "100" in render_answer(answer, include_audit=True)
+
+
+def test_openalex_without_fulltext_skips_generation():
+    result = OpenAlexRetrievalService(
+        SimpleNamespace(search=lambda *a, **k: ([synthetic_record(1)], 1, [])), Screening()
+    ).retrieve(RetrievalRequest(question="segmentation", scope="online"), query_plan=plan())
+    request = QuestionRequest(question="segmentation", scope="online", request_id=uuid4())
+
+    class Generator:
+        def generate(self, *args, **kwargs):
+            raise AssertionError("abstract must not be sent to generation")
+
+    service = ResearchService(retriever=object(), generator=Generator())
+    state = {"request": request, "retrieval": result, "deadline": monotonic() + 30}
+    assert service._route(state) == "empty"
+    answer = service._empty(state)["answer"]
+    assert answer.status == "insufficient_evidence"
+    assert answer.claims == [] and answer.sources == []
+    assert answer.unobtained_works[0].title == result.hits[0].document.title
+
+
+def test_context_trim_keeps_the_cited_anchor_passage():
+    from hashlib import sha256
+
+    from clinical_agent.domain.citations import build_answer
+    from clinical_agent.domain.fulltext import FulltextPassage, paper_key
+    from clinical_agent.domain.research import GenerationDraft, ResearchLimits
+
+    result = OpenAlexRetrievalService(
+        SimpleNamespace(search=lambda *a, **k: ([synthetic_record(1)], 1, [])), Screening()
+    ).retrieve(RetrievalRequest(question="segmentation", scope="online"), query_plan=plan())
+    request = QuestionRequest(question="segmentation", scope="online", request_id=uuid4())
+    record = result.hits[0].document.openalex_record
+    text = "Synthetic anchor method evidence. " * 100
+    anchor = FulltextPassage(
+        chunk_id=uuid4(),
+        paper_key=paper_key(record),
+        openalex_id=record.openalex_id,
+        title=record.title,
+        doi=record.doi,
+        section="Methods",
+        start=0,
+        end=len(text),
+        text=text,
+        content_hash=sha256(text.encode()).hexdigest(),
+        representation_hash=sha256(b"rep").hexdigest(),
+        source_url="https://pmc.ncbi.nlm.nih.gov/api/oai",
+        license="cc-by",
+    )
+    result.hits[0].fulltext = [anchor]
+    state = {"request": request, "retrieval": result, "deadline": monotonic() + 30}
+    full = ResearchService(retriever=object(), generator=object())._prepare(state)["context"]
+    limit = len(full.model_dump_json()) - len(text) // 2
+    service = ResearchService(
+        retriever=object(),
+        generator=object(),
+        limits=ResearchLimits(max_context_characters=limit),
+    )
+
+    patch = service._prepare(state)
+
+    assert patch["context"].evidence[0].chunk_id == anchor.chunk_id
+    assert patch["context"].evidence[0].text == text
+    assert patch["context"].evidence[0].fulltext == []
+    assert "fulltext_context_trimmed" in patch["retrieval"].warnings
+    assert result.hits[0].fulltext == [anchor] and not result.warnings
+    draft = GenerationDraft.model_validate(
+        {
+            "claims": [
+                {
+                    "text": "Synthetic method only.",
+                    "kind": "evidence",
+                    "evidence_chunk_ids": [str(anchor.chunk_id)],
+                    "limitations": [],
+                }
+            ]
+        }
+    )
+    answer = build_answer(request, patch["retrieval"], draft, generated_at=datetime.now(UTC))
+    assert answer.status == "answered"

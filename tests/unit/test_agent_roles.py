@@ -12,7 +12,7 @@ EVIDENCE = ROOT / "evaluation/minimal-v1/evidence"
 
 @pytest.mark.parametrize("number,valid", [(1, False), (2, True), (3, True), (4, True)])
 def test_agent_planner_preserves_frozen_provenance_gates(number, valid):
-    from clinical_agent.application.agents import IdeaPlannerAgent
+    from clinical_agent.agents.nodes import IdeaPlannerAgent
     from clinical_agent.application.pico import PicoPlanner
     from clinical_agent.domain.research import QuestionRequest, ResearchError
 
@@ -48,46 +48,36 @@ def test_agent_planner_preserves_frozen_provenance_gates(number, valid):
     assert replay.calls == 1 and state["agent_steps"] == []
 
 
-@pytest.mark.parametrize("case_id", ["blood-pressure", "sepsis"])
-def test_agent_scout_preserves_real_snapshot_identity_and_order(case_id):
-    from clinical_agent.application.agents import LiteratureScoutAgent
+def test_agent_scout_rejects_pubmed_client():
+    from clinical_agent.agents.nodes import LiteratureScoutAgent
     from clinical_agent.application.pubmed import PubMedRetrievalService
-    from clinical_agent.domain.pubmed import PubMedSearchResult
-    from clinical_agent.domain.research import QuestionRequest
-
-    captured = PubMedSearchResult.model_validate_json(
-        (EVIDENCE / f"{case_id}-pubmed.json").read_text(encoding="utf-8")
-    )
+    from clinical_agent.domain.research import QuestionRequest, ResearchError
 
     class Local:
         def retrieve(self, request):
-            raise AssertionError("online must not call local")
+            raise AssertionError("stored corpus is not research evidence")
 
     class Search:
-        calls = 0
-
         def search(self, *args, **kwargs):
-            self.calls += 1
-            return captured
+            raise AssertionError("PubMed must not be called")
 
-    search = Search()
-    agent = LiteratureScoutAgent(Local(), online=PubMedRetrievalService(search), clock=lambda: 1.0)
-    state = {
-        "request": QuestionRequest(
-            request_id=uuid4(), question="Frozen replay", scope="online", options={"top_k": 2}
-        ),
-        "deadline": 10.0,
-    }
-    patch = agent(state)
-    hits = patch["retrieval"].hits
-    assert [h.document.pmid for h in hits] == [r.pmid for r in captured.records]
-    assert [h.document.content_hash for h in hits] == [r.content_hash for r in captured.records]
-    assert search.calls == 1 and "retrieval" not in state
+    agent = LiteratureScoutAgent(
+        Local(), online=PubMedRetrievalService(Search()), clock=lambda: 1.0
+    )
+    with pytest.raises(ResearchError, match="openalex_required"):
+        agent(
+            {
+                "request": QuestionRequest(
+                    request_id=uuid4(), question="Frozen replay", scope="online"
+                ),
+                "deadline": 10.0,
+            }
+        )
 
 
 @pytest.mark.parametrize("expired_before", [True, False])
 def test_agent_scout_obeys_shared_deadline(expired_before):
-    from clinical_agent.application.agents import LiteratureScoutAgent
+    from clinical_agent.agents.nodes import LiteratureScoutAgent
     from clinical_agent.domain.research import QuestionRequest, ResearchError
     from clinical_agent.domain.retrieval import RetrievalResult, retrieval_embedding_info
 

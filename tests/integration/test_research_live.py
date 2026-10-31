@@ -12,7 +12,6 @@ pytestmark = [pytest.mark.integration, pytest.mark.external]
 
 
 def test_real_model_api_synthetic_evidence(source_factory, prepared_factory):
-    from clinical_agent.adapters.llm import LLMSettings, open_llm
     from clinical_agent.application.research import ResearchService
     from clinical_agent.domain.research import QuestionRequest
     from clinical_agent.domain.retrieval import (
@@ -21,6 +20,7 @@ def test_real_model_api_synthetic_evidence(source_factory, prepared_factory):
         RetrievalResult,
         retrieval_embedding_info,
     )
+    from clinical_agent.integrations.llm import LLMSettings, open_llm
 
     # Missing configuration is a failed opt-in test, never a passing skip.
     settings = LLMSettings()

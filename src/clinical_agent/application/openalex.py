@@ -367,6 +367,59 @@ def record_hit(record: OpenAlexRecord, fetched_at: datetime) -> EvidenceHit:
     )
 
 
+def _term_in_title(term: str, title: str) -> bool:
+    letters = re.sub(r"[\W_]+", "", unicodedata.normalize("NFKC", term).casefold())
+    if len(letters) < 3:
+        return False
+    pattern = r"(?<![\w-])" + r"[\W_]*".join(re.escape(char) for char in letters) + r"(?![\w-])"
+    return re.search(pattern, title.casefold()) is not None
+
+
+def _exclusive_sides(plan: QueryPlan, title: str) -> set[int]:
+    matched = {
+        index
+        for index, group in enumerate(plan.concept_groups)
+        if any(_term_in_title(term, title) for term in group)
+    }
+    return matched if len(matched) == 1 else set()
+
+
+def _missing_comparison_side(plan: QueryPlan, title: str, selected) -> int:
+    """Prefer a paper for a method side that is not yet selected.
+
+    A MedSAM paper whose screening marks both dimensions still does not stand
+    in for nnU-Net. Official full text on one side does not fill the other.
+    """
+    if plan.research_intent != "comparison" or len(plan.concept_groups) < 2:
+        return 0
+    have: set[int] = set()
+    for chosen in selected:
+        have |= _exclusive_sides(plan, chosen[1].document.title)
+    need = set(range(len(plan.concept_groups))) - have
+    if need and _exclusive_sides(plan, title) & need:
+        return 0
+    return 1 if need else 0
+
+
+def _has_fulltext_url(record: OpenAlexRecord | None) -> bool:
+    if record is None:
+        return False
+    has, urls = record.content_maps()
+    if has.get("pdf") is True or has.get("grobid_xml") is True:
+        return True
+    if any(
+        isinstance(urls.get(key), str) and urls.get(key).strip() for key in ("pdf", "grobid_xml")
+    ):
+        return True
+    locations = []
+    if isinstance(record.best_oa_location, dict):
+        locations.append(record.best_oa_location)
+    locations.extend(item for item in record.locations if isinstance(item, dict))
+    return any(
+        isinstance(item.get("pdf_url"), str) and item.get("pdf_url").strip() for item in locations
+    )
+
+
 class OpenAlexRetrievalService:
     def __init__(
         self,
@@ -391,6 +444,11 @@ class OpenAlexRetrievalService:
     ) -> RetrievalResult:
         if request.pubmed is not None:
             raise ResearchError("openalex_options_retired")
+        if request.scope == "local" or (
+            request.scope != "online" and request.options.mode != "vector"
+        ):
+            raise ResearchError("local_corpus_not_evidence")
+        del local
         if query_plan is None or query_plan.research_constraints is None:
             raise ResearchError("openalex_plan_required")
         if query_plan.original_question != request.question:
@@ -475,10 +533,6 @@ class OpenAlexRetrievalService:
             if pmid:
                 seen_pmids[pmid] = identity
             pool[identity] = hit
-
-        if local:
-            for hit in local.hits:
-                add(str(hit.document.document_id), hit)
 
         for round_index in range(2):
             prior_round_ids = set(pool)
@@ -708,7 +762,7 @@ class OpenAlexRetrievalService:
             return (
                 not assessment.experimental_information,
                 not assessment.representative,
-                not bool(r and r.best_oa_location),
+                not _has_fulltext_url(r),
                 -(hit.document.publication_date.year or 0),
                 item[0],
             )
@@ -720,6 +774,7 @@ class OpenAlexRetrievalService:
             item = min(
                 remaining,
                 key=lambda x: (
+                    _missing_comparison_side(query_plan, x[1].document.title, selected),
                     query_plan.research_intent == "comparison"
                     and x[2].study_role != "method_origin",
                     -len(set(x[2].covered_dimensions) - covered),
@@ -763,13 +818,11 @@ class OpenAlexRetrievalService:
             request_id=request_id,
         )
         return RetrievalResult(
-            scope="hybrid" if local else "online",
+            scope=request.scope,
             options=request.options,
-            embedding_info=local.embedding_info if local else None,
-            channel_status=local.channel_status
-            if local
-            else {"keyword": "not_requested", "vector": "ok"},
-            strategy_version=local.strategy_version if local else "vector-v1",
+            embedding_info=None,
+            channel_status={"keyword": "not_requested", "vector": "ok"},
+            strategy_version="vector-v1",
             hits=[h.model_copy(update={"rank": i}) for i, h in enumerate(hits, 1)],
             search_provenance=provenance,
             warnings=list(dict.fromkeys(provenance.warnings)),

@@ -90,11 +90,11 @@ def test_known_governance_applies_to_online_copies(status, expected):
     from datetime import UTC, datetime
     from uuid import uuid4
 
-    from clinical_agent.adapters.pubmed_xml import parse_pubmed_response
     from clinical_agent.application.pubmed import PubMedRetrievalService
     from clinical_agent.domain.governance import EvidenceBasis, GovernanceState
     from clinical_agent.domain.pubmed import PubMedSearchResult
     from clinical_agent.domain.retrieval import RetrievalRequest
+    from clinical_agent.rag.pubmed_xml import parse_pubmed_response
 
     body = (
         b"<PubmedArticleSet>"

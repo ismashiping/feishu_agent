@@ -1,10 +1,12 @@
+raise SystemExit("PubMed live checks were removed. Use OpenAlex.")
+
 import json
 from pathlib import Path
 from uuid import uuid4
 from time import monotonic
 from dotenv import dotenv_values
-from clinical_agent.adapters.llm import LLMSettings, open_llm
-from clinical_agent.adapters.pubmed_online import open_pubmed
+from clinical_agent.integrations.llm import LLMSettings, open_llm
+from clinical_agent.integrations.pubmed_online import open_pubmed
 from clinical_agent.application.pico import PicoPlanner
 from clinical_agent.application.pubmed import PubMedRetrievalService
 from clinical_agent.application.research import ResearchService

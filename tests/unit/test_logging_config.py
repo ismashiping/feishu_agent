@@ -157,3 +157,19 @@ def test_sensitive_fields_are_not_emitted(tmp_path: Path) -> None:
         assert record["error_code"] == "upstream_failed"
         assert record["exception_type"] == "RuntimeError"
         assert record["level"] == "error"
+
+
+def test_unexpected_error_logs_type_but_not_message(tmp_path: Path) -> None:
+    result = _run_logging_program(
+        """
+        from clinical_agent.logging_config import log_unexpected
+
+        configure_logging(Settings(log_level="INFO"))
+        log_unexpected("graph", RuntimeError("PRIVATE_QUESTION_SENTINEL"))
+        """,
+        tmp_path,
+    )
+    assert "PRIVATE_QUESTION_SENTINEL" not in result.stderr
+    record = json.loads(result.stderr)
+    assert record["event"] == "unexpected_error"
+    assert record["stage"] == "graph" and record["exception_type"] == "RuntimeError"

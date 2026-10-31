@@ -51,14 +51,14 @@ def _peak_memory_bytes():
 
 @pytest.mark.usefixtures("release_model_memory")
 def test_fixed_e5_cpu_snapshot_tokenizer_chunk_and_vectors(tmp_path, monkeypatch):
-    from clinical_agent.adapters.embedding import (
+    from clinical_agent.domain.chunking import ChunkingPolicy, chunk_source
+    from clinical_agent.rag.embedding import (
         EmbeddingError,
         EmbeddingLimits,
         LocalModelConfig,
         load_local_embedder,
     )
-    from clinical_agent.adapters.pubmed_xml import parse_pubmed_xml
-    from clinical_agent.domain.chunking import ChunkingPolicy, chunk_source
+    from clinical_agent.rag.pubmed_xml import parse_pubmed_xml
 
     attempts = []
 

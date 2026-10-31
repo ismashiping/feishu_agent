@@ -21,7 +21,7 @@ def context():
 
 
 def test_standard_chat_model_can_replace_model_api():
-    from clinical_agent.adapters.langchain_generation import LangChainAnswerGenerator
+    from clinical_agent.integrations.langchain_generation import LangChainAnswerGenerator
 
     model = FakeListChatModel(responses=['{"claims":[]}'])
     generator = LangChainAnswerGenerator(model)
@@ -30,7 +30,7 @@ def test_standard_chat_model_can_replace_model_api():
 
 @pytest.mark.parametrize("budget", [0, -1, float("nan"), float("inf")])
 def test_invalid_budget_does_not_call_model(budget):
-    from clinical_agent.adapters.langchain_generation import LangChainAnswerGenerator
+    from clinical_agent.integrations.langchain_generation import LangChainAnswerGenerator
 
     model = FakeListChatModel(responses=["{}"])
     with pytest.raises(ResearchError, match="generation_timeout"):
@@ -38,7 +38,7 @@ def test_invalid_budget_does_not_call_model(budget):
 
 
 def test_empty_standard_message_is_rejected():
-    from clinical_agent.adapters.langchain_generation import LangChainAnswerGenerator
+    from clinical_agent.integrations.langchain_generation import LangChainAnswerGenerator
 
     with pytest.raises(ResearchError, match="model_output_invalid"):
         LangChainAnswerGenerator(FakeListChatModel(responses=[" "])).generate(
@@ -49,7 +49,7 @@ def test_empty_standard_message_is_rejected():
 def test_standard_messages_json_mode_and_budget_reach_model(monkeypatch):
     from langchain_core.messages import HumanMessage, SystemMessage
 
-    from clinical_agent.adapters.langchain_generation import LangChainAnswerGenerator
+    from clinical_agent.integrations.langchain_generation import LangChainAnswerGenerator
 
     seen = []
     original = FakeListChatModel._generate
@@ -72,7 +72,7 @@ def test_standard_messages_json_mode_and_budget_reach_model(monkeypatch):
 
 
 def test_completed_call_still_must_meet_total_budget(monkeypatch):
-    from clinical_agent.adapters import langchain_generation
+    from clinical_agent.integrations import langchain_generation
 
     times = iter([0.0, 3.0])
     monkeypatch.setattr(langchain_generation, "monotonic", lambda: next(times))

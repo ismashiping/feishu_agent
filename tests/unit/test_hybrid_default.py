@@ -31,7 +31,7 @@ def test_cli_passes_default_or_explicit_scope(scope, capsys):
 
 @pytest.mark.parametrize("scope", [None, "local", "online", "hybrid"])
 def test_api_default_and_explicit_scope(scope):
-    from clinical_agent.api_runtime import QuestionBody
+    from clinical_agent.api.schemas import QuestionBody
 
     data = {"question": "literature discovery"}
     if scope:
@@ -41,8 +41,8 @@ def test_api_default_and_explicit_scope(scope):
 
 @pytest.mark.parametrize("report", [False, True])
 def test_feishu_text_and_report_default_to_hybrid(report):
+    from clinical_agent.channels.feishu.worker import Dispatcher
     from clinical_agent.domain.research import ResearchError
-    from feishu.worker import Dispatcher
     from tests.unit.test_feishu_worker import Dedup, Sink, envelope
 
     seen = []

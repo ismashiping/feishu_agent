@@ -8,8 +8,8 @@ pytestmark = [pytest.mark.integration, pytest.mark.database]
 def test_update_resume_dry_run_and_rescan(engine, tmp_path, pdf_factory):
     from uuid import uuid4
 
-    from clinical_agent.adapters.postgres.update_runs import PostgresUpdateLedger
     from clinical_agent.application.updates import UpdateService
+    from clinical_agent.db.update_runs import PostgresUpdateLedger
     from clinical_agent.domain.ingestion import BatchIngestionResult, IngestionResult
     from clinical_agent.domain.updates import UpdateRequest
 
@@ -62,8 +62,8 @@ def test_update_resume_dry_run_and_rescan(engine, tmp_path, pdf_factory):
 def test_evaluation_failure_is_not_quality_pass(engine, tmp_path, pdf_factory):
     from uuid import uuid4
 
-    from clinical_agent.adapters.postgres.update_runs import PostgresUpdateLedger
     from clinical_agent.application.updates import UpdateService
+    from clinical_agent.db.update_runs import PostgresUpdateLedger
     from clinical_agent.domain.ingestion import BatchIngestionResult, IngestionResult
     from clinical_agent.domain.updates import UpdateRequest
 
@@ -92,13 +92,13 @@ def test_publication_commit_before_cursor_crash_replays_idempotently(
 ):
     from sqlalchemy import func, select
 
-    from clinical_agent.adapters.offline import OfflineReader
-    from clinical_agent.adapters.postgres.models import DocumentVersionRecord
-    from clinical_agent.adapters.postgres.update_runs import PostgresUpdateLedger
-    from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.application.updates import UpdateService
+    from clinical_agent.db.models import DocumentVersionRecord
+    from clinical_agent.db.update_runs import PostgresUpdateLedger
+    from clinical_agent.db.versions import VersionedPostgresStore
     from clinical_agent.domain.updates import UpdateRequest
+    from clinical_agent.rag.offline import OfflineReader
 
     pdf_factory(tmp_path / "pipeline.pdf", texts=("Local update pipeline evidence.",))
     snapshots = tmp_path / "snapshots"
@@ -146,12 +146,12 @@ def test_publication_commit_before_cursor_crash_replays_idempotently(
 
 
 def test_xml_metadata_plan_matches_real_publication(engine, tmp_path, fake_embedder):
-    from clinical_agent.adapters.offline import OfflineReader
-    from clinical_agent.adapters.postgres.update_runs import PostgresUpdateLedger
-    from clinical_agent.adapters.postgres.versions import VersionedPostgresStore
     from clinical_agent.application.ingestion import IngestionService
     from clinical_agent.application.updates import UpdateService
+    from clinical_agent.db.update_runs import PostgresUpdateLedger
+    from clinical_agent.db.versions import VersionedPostgresStore
     from clinical_agent.domain.updates import UpdateRequest
+    from clinical_agent.rag.offline import OfflineReader
     from tests.unit.test_pubmed_online import article, xml
 
     path = tmp_path / "metadata.xml"

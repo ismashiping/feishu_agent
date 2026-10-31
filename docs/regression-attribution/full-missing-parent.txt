@@ -1,0 +1,2817 @@
+EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE... [  4%]
+..EEEEEEEEEE......E....................EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE. [  9%]
+.EEEF.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE............... [ 14%]
+................................................EEEEE..EEE...FFFFF...... [ 19%]
+...............................................E........E..E...........F [ 23%]
+..............FFF.F.......EEEEEEEEEEEEEEEEE............................. [ 28%]
+.........EEEEE.EEEEEEEE..............................................E.. [ 33%]
+..............FFFFFF.................................................... [ 38%]
+........................................................................ [ 42%]
+..................................................................EEEEEE [ 47%]
+EEEEEEEEEEEEEEEEEEEEEEEEEEEE.E.E....EEEE.E.............................. [ 52%]
+........................................................................ [ 57%]
+......................F........................E........................ [ 62%]
+.........................EE............................................. [ 66%]
+..............................................................EEE..EE... [ 71%]
+.........E..EEEE....E.......................E.........EEEEEEEEEEEEEEEEEE [ 76%]
+EEEEEEEEEEEEEEEEEEEEEEEEEEE.....................EE.....E................ [ 81%]
+...................................................E..E................. [ 85%]
+................................................................E....... [ 90%]
+........................................................................ [ 95%]
+.....................................................................    [100%]
+=================================== ERRORS ====================================
+_____ ERROR at setup of test_lifespan_health_and_no_per_request_assembly ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_question_contract_correlation_and_empty_success ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_invalid_inputs_do_not_echo_private_values[data0] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_invalid_inputs_do_not_echo_private_values[data1] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_invalid_inputs_do_not_echo_private_values[data2] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_invalid_inputs_do_not_echo_private_values[data3] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_invalid_inputs_do_not_echo_private_values[data4] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_invalid_inputs_do_not_echo_private_values[data5] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_invalid_inputs_do_not_echo_private_values[data6] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_invalid_inputs_do_not_echo_private_values[data7] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____________ ERROR at setup of test_import_uses_only_server_root _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_source_paths_fail_without_calling_service[../private.pdf] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_source_paths_fail_without_calling_service[/private.pdf] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_source_paths_fail_without_calling_service[C:/private.pdf] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_source_paths_fail_without_calling_service[C:\\private.pdf] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_source_paths_fail_without_calling_service[missing.pdf] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_headers_and_body_limits_are_controlled[headers0-400-invalid_request_id] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_headers_and_body_limits_are_controlled[headers1-415-unsupported_media_type] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_headers_and_body_limits_are_controlled[headers2-415-unsupported_media_type] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_headers_and_body_limits_are_controlled[headers3-413-request_too_large] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_actual_chunked_body_size_is_checked __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_error_mapping_never_publishes_raw_exception[retrieval_failed-503] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_error_mapping_never_publishes_raw_exception[retrieval_timeout-504] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_error_mapping_never_publishes_raw_exception[retrieval_corrupt-500] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_error_mapping_never_publishes_raw_exception[generation_failed-503] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_error_mapping_never_publishes_raw_exception[generation_timeout-504] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_error_mapping_never_publishes_raw_exception[model_output_invalid-502] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_error_mapping_never_publishes_raw_exception[citation_invalid-502] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_error_mapping_never_publishes_raw_exception[context_limit-422] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_error_mapping_never_publishes_raw_exception[unknown-500] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_full_answer_source_fields_preserved __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_busy_rejects_without_blocking_health_and_recovers ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_wrong_answer_id_is_internal_error ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_not_found_and_method_error_are_json __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_openapi_describes_actual_error_contract ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_import_batch_status_is_preserved_in_200[imported] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_import_batch_status_is_preserved_in_200[already_present] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_import_batch_status_is_preserved_in_200[needs_update] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_import_batch_status_is_preserved_in_200[conflict] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_import_batch_status_is_preserved_in_200[rejected] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_import_batch_status_is_preserved_in_200[failed] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_duplicate_id_and_bad_length_do_not_echo_values[headers0] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_duplicate_id_and_bad_length_do_not_echo_values[headers1] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_duplicate_id_and_bad_length_do_not_echo_values[headers2] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________________ ERROR at setup of test_malformed_json_no_echo ________________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____________ ERROR at setup of test_without_lifespan_is_not_ready _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:559: in setup
+    return super().setup()
+           ^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________ ERROR at setup of test_resolved_source_outside_root_rejected _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_unhandled_framework_exception_uses_safe_json _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____________ ERROR at setup of test_non_utf8_json_is_controlled ______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_real_pdf_keeps_blank_page_number_and_exact_slices ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_real_xml_sections_keep_global_offsets_and_metadata __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_help_does_not_build_runtime[arguments0-module] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_help_does_not_build_runtime[arguments0-console] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_help_does_not_build_runtime[arguments1-module] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_help_does_not_build_runtime[arguments1-console] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_help_does_not_build_runtime[arguments2-module] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_help_does_not_build_runtime[arguments2-console] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_doctor_json_and_logs[INFO-module] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_doctor_json_and_logs[INFO-console] __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_doctor_json_and_logs[WARNING-module] _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________ ERROR at setup of test_doctor_json_and_logs[WARNING-console] _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_cli_and_config_are_safe[arguments0-settings0-module] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_cli_and_config_are_safe[arguments0-settings0-console] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_cli_and_config_are_safe[arguments1-settings1-module] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_cli_and_config_are_safe[arguments1-settings1-console] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_cli_and_config_are_safe[arguments2-settings2-module] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_cli_and_config_are_safe[arguments2-settings2-console] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_cli_and_config_are_safe[arguments3-settings3-module] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_cli_and_config_are_safe[arguments3-settings3-console] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________ ERROR at setup of test_doctor_does_not_use_network_or_threads ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_command_help_without_configuration[ingest-module] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_command_help_without_configuration[ingest-console] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_command_help_without_configuration[ask-module] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_command_help_without_configuration[ask-console] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_invalid_syntax_does_not_echo_private_input[module] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_syntax_does_not_echo_private_input[console] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_missing_configuration_does_not_load_model_or_dotenv[module] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_missing_configuration_does_not_load_model_or_dotenv[console] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_evaluation_cli_writes_failed_fixture_with_provenance _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_settings_are_explicit_secret_and_environment_only ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_real_pdf_snapshot_retains_original_filename_and_survives_source_removal _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_concurrent_snapshot_publication_is_atomic _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_existing_corrupt_snapshot_is_not_overwritten _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_snapshot_source_limits[outside] ____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____________ ERROR at setup of test_snapshot_source_limits[size] _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_real_xml_mixed_parsed_and_rejected_entries ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_actual_xml_application_batch_limit_is_explicit ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_real_pdf_retains_pages_snapshot_metadata_and_roundtrip _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________ ERROR at setup of test_filename_fallback_and_manual_overrides ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____________ ERROR at setup of test_damaged_pdf_has_safe_error[] _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_damaged_pdf_has_safe_error[not a PDF PRIVATE_SENTINEL] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_damaged_pdf_has_safe_error[%PDF-1.7\nbroken] _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_encrypted_pdf_is_rejected_even_with_empty_password[] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_encrypted_pdf_is_rejected_even_with_empty_password[fixture-password] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_empty_documents_are_not_success[texts0-pdf_no_pages] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_empty_documents_are_not_success[texts1-pdf_no_text] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_image_only_document_has_no_text_and_no_ocr ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_paths_must_be_real_files_under_explicit_root[missing] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_paths_must_be_real_files_under_explicit_root[directory] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_paths_must_be_real_files_under_explicit_root[outside] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_budgets_reject_instead_of_returning_partial_documents[max_file_bytes-1-pdf_too_large] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_budgets_reject_instead_of_returning_partial_documents[max_pages-1-pdf_page_limit] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_budgets_reject_instead_of_returning_partial_documents[max_page_stream_bytes-1-pdf_stream_limit] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_budgets_reject_instead_of_returning_partial_documents[max_total_characters-1-pdf_text_limit] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_cooperative_deadline_checked_after_extraction _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_files_streams_and_reader_close_on_success_or_failure[False] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_files_streams_and_reader_close_on_success_or_failure[True] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_hash_and_parse_share_one_snapshot_even_if_original_changes _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________ ERROR at setup of test_normalization_is_minimal_and_versioned ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______________ ERROR at setup of test_file_io_failure_is_safe ________________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_total_text_budget_includes_page_separators ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_phase1_learning_demo_and_navigation __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_pico_api_and_feishu_share_clarification ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_pico_api_error_contract[extraction_failed-502] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_pico_api_error_contract[extraction_timeout-504] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_online_cli_api_and_feishu_render_empty_search _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_api_pubmed_error_mapping[pubmed_failed-503] ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_api_pubmed_error_mapping[pubmed_invalid-502] _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_api_pubmed_error_mapping[pubmed_timeout-504] _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_real_multi_article_metadata_sections_hash_and_roundtrip _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_publication_precision_is_not_invented[-unknown-None-None-None-None] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_publication_precision_is_not_invented[<Year>2020</Year>-year-2020-None-None-2020] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_publication_precision_is_not_invented[<Year>2020</Year><Month>12</Month>-month-2020-12-None-2020 12] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_publication_precision_is_not_invented[<Year>2020</Year><Month>January</Month><Day>2</Day>-day-2020-1-2-2020 January 2] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_publication_precision_is_not_invented[<MedlineDate>2020 Dec-2021 Jan</MedlineDate>-unknown-None-None-None-2020 Dec-2021 Jan] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_publication_precision_is_not_invented[<Year>2020</Year><Season>Winter</Season>-unknown-None-None-None-2020 Winter] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_publication_precision_is_not_invented[<Year>2020</Year><Month>Feb-Mar</Month>-unknown-None-None-None-2020 Feb-Mar] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_bad_dates_reject_only_the_article[<Year>2021</Year><Month>Feb</Month><Day>29</Day>] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_bad_dates_reject_only_the_article[<Year>2020</Year><Month>13</Month>] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_bad_dates_reject_only_the_article[<Year>0</Year>] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_bad_dates_reject_only_the_article[<Month>Feb</Month>] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_bad_dates_reject_only_the_article[<Year>2020</Year><Day>1</Day>] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_bad_dates_reject_only_the_article[<Year>2020</Year><MedlineDate>2021</MedlineDate>] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_mapping_rejections_are_per_record_and_do_not_allocate_identity[missing_pmid-pubmed_invalid_pmid] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_mapping_rejections_are_per_record_and_do_not_allocate_identity[invalid_pmid-pubmed_invalid_pmid] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_mapping_rejections_are_per_record_and_do_not_allocate_identity[conflicting_pmid-pubmed_pmid_conflict] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_mapping_rejections_are_per_record_and_do_not_allocate_identity[title-pubmed_missing_title] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_mapping_rejections_are_per_record_and_do_not_allocate_identity[abstract-pubmed_no_abstract] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_mapping_rejections_are_per_record_and_do_not_allocate_identity[author-pubmed_invalid_author] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_mapping_rejections_are_per_record_and_do_not_allocate_identity[doi-pubmed_doi_conflict] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_duplicates_unsupported_and_missing_optional_metadata _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_author_initials_suffix_invalid_author_and_journal_abbreviation _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_doctype_does_not_fetch_network_or_external_file ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_entity_declarations_are_rejected_before_expansion["PRIVATE_ENTITY_SENTINEL"-utf-8] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_entity_declarations_are_rejected_before_expansion["PRIVATE_ENTITY_SENTINEL"-utf-16] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_entity_declarations_are_rejected_before_expansion[SYSTEM "file:///not-opened-secret"-utf-8] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_entity_declarations_are_rejected_before_expansion[SYSTEM "file:///not-opened-secret"-utf-16] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_whole_file_failures_do_not_return_partial_results_or_call_factory[-xml_invalid] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_whole_file_failures_do_not_return_partial_results_or_call_factory[<Other/>-xml_root_invalid] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_whole_file_failures_do_not_return_partial_results_or_call_factory[<PubmedArticleSet><PubmedArticle><MedlineCitation><PMID>1234567890</PMID>\n    <Article><Journal><Title>Fixture Journal</Title>\n    <JournalIssue><PubDate><Year>2020</Year><Month>Feb</Month><Day>29</Day></PubDate></JournalIssue></Journal>\n    <ArticleTitle>Synthetic <i>alpha</i> title</ArticleTitle>\n    <ELocationID EIdType="doi">10.fixture/source</ELocationID>\n    <Abstract><AbstractText Label="BACKGROUND"\n    NlmCategory="BACKGROUND">A <i>mixed</i> text.</AbstractText>\n    <AbstractText Label="EMPTY">   </AbstractText>\n    <AbstractText Label="RESULTS" NlmCategory="RESULTS">Result &#945;\xf0\x9f\x99\x82 &amp; tail.</AbstractText>\n    </Abstract>\n    <AuthorList><Author><LastName>Example</LastName><ForeName>Ada</ForeName><Initials>A</Initials></Author>\n    <Author><CollectiveName>Fixture Group</CollectiveName></Author></AuthorList>\n    <ArticleDate><Year>1999</Year><Month>1</Month><Day>1</Day></ArticleDate>\n    </Article></MedlineCitation><PubmedData><ArticleIdList>\n    <ArticleId IdType="pubmed">1234567890</ArticleId>\n    <ArticleId IdType="doi">10.fixture/source</ArticleId>\n    </ArticleIdList><History><PubMedPubDate PubStatus="pubmed"><Year>2030</Year></PubMedPubDate>\n    </History>\n    </PubmedData></PubmedArticle><bad-xml_invalid] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_global_budgets_are_not_silent_truncation[max_file_bytes-1-xml_too_large] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_global_budgets_are_not_silent_truncation[max_records-1-xml_record_limit] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_global_budgets_are_not_silent_truncation[max_depth-2-xml_depth_limit] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_global_budgets_are_not_silent_truncation[max_nodes-3-xml_node_limit] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_abstract_budget_is_a_per_article_rejection ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_clock_checked_after_mapping_and_callback_errors_not_swallowed _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_snapshot_and_empty_batch_and_closed_input _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_input_must_be_under_allowed_root[missing] _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_input_must_be_under_allowed_root[directory] ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_input_must_be_under_allowed_root[outside] _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_blank_section_attributes_mean_unknown_not_batch_failure _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_known_year_is_not_hidden_by_unknown_precision[<Year>0000</Year><Season>Winter</Season>] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_known_year_is_not_hidden_by_unknown_precision[<Year>0000</Year><Month>Unknown</Month>] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_invalid_known_day_is_not_hidden_by_unknown_month ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____________ ERROR at setup of test_valid_utf16_unicode_abstract _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_file_read_error_has_only_a_safe_code _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________ ERROR at setup of test_settings_are_bounded[max_in_flight-0] _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________ ERROR at setup of test_settings_are_bounded[max_in_flight-5] _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_settings_are_bounded[max_in_flight-True] _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_settings_are_bounded[max_request_bytes-0] _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_settings_are_bounded[max_request_bytes-65537] _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_shared_runtime_one_model_engine_http _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_startup_failure_is_sanitized_and_unwinds _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____________ ERROR at setup of test_shutdown_failure_is_sanitized _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_citation_report_actual_pdf_hash_and_location _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____________ ERROR at setup of test_citation_report_cli_and_api ______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+---------------------------- Captured stderr setup ----------------------------
+--- Logging error ---
+Traceback (most recent call last):
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.tools\p117-python31216\python\Lib\logging\__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pytest\__main__.py", line 9, in <module>
+    raise SystemExit(_console_main())
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\config\__init__.py", line 253, in _console_main
+    code = _main(prog=_get_prog_name(sys.argv))
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\config\__init__.py", line 229, in _main
+    ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\main.py", line 377, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\main.py", line 330, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\main.py", line 384, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\main.py", line 408, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 118, in pytest_runtest_protocol
+    runtestprotocol(item, nextitem=nextitem)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 132, in runtestprotocol
+    rep = call_and_report(item, "setup", log)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 249, in call_and_report
+    call = CallInfo.from_call(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 361, in from_call
+    result: TResult | None = func()
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 250, in <lambda>
+    lambda: runtest_hook(item=item, **kwds),
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 170, in pytest_runtest_setup
+    item.session._setupstate.setup(item)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 536, in setup
+    col.setup()
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\python.py", line 1710, in setup
+    self._request._fillfixtures()
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\fixtures.py", line 806, in _fillfixtures
+    item.funcargs[argname] = self.getfixturevalue(argname)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\fixtures.py", line 630, in getfixturevalue
+    fixturedef = self._get_active_fixturedef(argname)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\fixtures.py", line 726, in _get_active_fixturedef
+    fixturedef.execute(request=subrequest)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\fixtures.py", line 1232, in execute
+    result: FixtureValue = ihook.pytest_fixture_setup(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\fixtures.py", line 1328, in pytest_fixture_setup
+    result = call_fixture_func(fixturefunc, request, kwargs)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\fixtures.py", line 1005, in call_fixture_func
+    fixture_result = fixturefunc(**kwargs)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\tests\unit\test_citation_report.py", line 37, in report_case
+    analysis = EvidenceAnalyzer(model=Model(case[2])).analyze(case[0], case[1])
+  File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\application\analysis.py", line 1047, in analyze
+    self._log_call(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\application\analysis.py", line 586, in _log_call
+    log_evidence_trace(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\application\openalex.py", line 124, in log_evidence_trace
+    logging.getLogger(__name__).info(
+Message: 'Evidence trace stage=analyze failure_kind=partial counts=hits=1,max_output=16384,configured_max_output=16384,retries=0,schema=accepted,schema_status=accepted,content_chars=unknown,output_character_count=unknown,input_tokens=unknown,output_tokens=unknown,reasoning_tokens=unknown'
+Arguments: ()
+----------------------------- Captured log setup ------------------------------
+INFO     clinical_agent.application.openalex:openalex.py:124 Evidence trace stage=analyze failure_kind=partial counts=hits=1,max_output=16384,configured_max_output=16384,retries=0,schema=accepted,schema_status=accepted,content_chars=unknown,output_character_count=unknown,input_tokens=unknown,output_tokens=unknown,reasoning_tokens=unknown
+________ ERROR at setup of test_citation_report_local_multirecord_xml _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________ ERROR at setup of test_defaults_without_external_credentials _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_environment_overrides_and_reloads[development-DEBUG-upper] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_environment_overrides_and_reloads[test-INFO-lower] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_environment_overrides_and_reloads[production-WARNING-mixed] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_environment_overrides_and_reloads[test-ERROR-upper] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_environment_overrides_and_reloads[development-CRITICAL-upper] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_invalid_values_are_rejected[app_env-staging] _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_invalid_values_are_rejected[app_env-TEST] _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_invalid_values_are_rejected[app_env-123] _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________ ERROR at setup of test_invalid_values_are_rejected[app_env-] _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_invalid_values_are_rejected[log_level-TRACE] _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_invalid_values_are_rejected[log_level-info] ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_invalid_values_are_rejected[log_level-123] ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_invalid_values_are_rejected[log_level-] ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_values_are_rejected[log_level-CONFIG_TEST_SECRET_SENTINEL] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____________ ERROR at setup of test_no_implicit_dotenv[current] ______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____________ ERROR at setup of test_no_implicit_dotenv[ancestor] _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_local_snapshot_validation[missing] __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_local_snapshot_validation[invalid_json] ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_local_snapshot_validation[identity] __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_local_snapshot_validation[escape] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_local_snapshot_validation[hash] ____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_validated_snapshot_loader_receives_local_path _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_snapshot_integrity_before_backend_loading[missing_file] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_snapshot_integrity_before_backend_loading[corrupt] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_snapshot_integrity_before_backend_loading[manifest_size] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_snapshot_integrity_before_backend_loading[bytes] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______________ ERROR at setup of test_loader_error_is_sanitized _______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_load_cooperative_budget[before] ____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____________ ERROR at setup of test_load_cooperative_budget[after] ____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____________ ERROR at setup of test_evidence_analysis_cli_and_http ____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______________ ERROR at setup of test_invalid_policy[capacity-0] ______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____________ ERROR at setup of test_invalid_policy[capacity-True] _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_invalid_policy[sender_capacity-65] __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_invalid_policy[shutdown_seconds--1] __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_invalid_policy[shutdown_seconds-inf] _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______________ ERROR at setup of test_settings_env_and_secrets _______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_invalid_redis_url[http://localhost] __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_invalid_redis_url[redis://localhost/0?socket_timeout=0] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_invalid_redis_url[redis://localhost/#x] ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_sdk_callback_routes_without_waiting[accepted-None] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_sdk_callback_routes_without_waiting[duplicate-None] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_sdk_callback_routes_without_waiting[closed-None] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_sdk_callback_routes_without_waiting[busy-busy] ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_sdk_callback_routes_without_waiting[unavailable-unavailable] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_sdk_callback_routes_without_waiting[submit_failed-unavailable] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_callback_filters_sdk_objects[bot] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_callback_filters_sdk_objects[self] __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_callback_filters_sdk_objects[image] __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_callback_filters_sdk_objects[group] __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_callback_filters_sdk_objects[missing_header] _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_________ ERROR at setup of test_callback_filters_sdk_objects[schema] _________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_callback_filters_sdk_objects[other_app] ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_callback_filters_sdk_objects[bad_content] _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________________ ERROR at setup of test_sdk_group_mention ___________________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____________ ERROR at setup of test_callback_exception_is_private _____________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____________ ERROR at setup of test_token_protocol_and_deadline ______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_token_rejects_failure[body0-200] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_token_rejects_failure[body1-200] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_token_rejects_failure[body2-200] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_token_rejects_failure[body3-200] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_token_rejects_failure[body4-200] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_token_rejects_failure[body5-302] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_token_rejects_failure[body6-500] ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______________ ERROR at setup of test_token_rejects_late_success ______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_composition_rollback_and_shared_service ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_sdk_discovery_uses_bounded_http_and_real_handler ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_real_receiver_worker_sender_chain ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_sdk_runner_restores_signals_logger_and_loop[False] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_sdk_runner_restores_signals_logger_and_loop[True] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_official_sdk_data_frame_acknowledges_synthetic_event _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_entry_cleanup_error_is_private_and_nonzero ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_cli_api_and_graph_keep_keyword_strategy ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_update_request_rejects_escape_and_duplicates _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_dry_run_does_not_load_embedder_or_write ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+________________ ERROR at setup of test_json_fields_and_stderr ________________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_level_filter_and_reconfiguration ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_sensitive_fields_are_not_emitted ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_tampered_evidence_is_not_evaluated_as_valid ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_manifest_path_cannot_escape_bundle __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_______ ERROR at setup of test_pdf_pages_sections_headers_and_identity ________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_null_license_and_closed_flag_still_download ______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+____ ERROR at setup of test_content_url_failure_falls_back_to_location_pdf ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__________ ERROR at setup of test_external_pdf_is_parsed_and_indexed __________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___________ ERROR at setup of test_first_url_failure_tries_the_next ___________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______________ ERROR at setup of test_identity_mismatch_and_ssrf ______________
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_cli_api_and_generation_context_keep_snapshots_out_of_prompt _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.config] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.logging_config] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.bootstrap] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.cli] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.__main__] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.models] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.chunking] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.embedding] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.pdf] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.pubmed_xml] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.embedding] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres.models] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres.connection] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.ingestion] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.application] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.application.ingestion] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.offline] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres.store] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.retrieval] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.application.retrieval] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres.retrieval] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.hybrid] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.pubmed] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.pubmed_online] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.application.pubmed] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.pico] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.application.pico] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.research] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.domain.citations] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.application.research] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.llm] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.adapters.langchain_generation] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.command_runtime] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.api_runtime] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[clinical_agent.api] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_____ ERROR at setup of test_package_import_is_isolated_and_quiet[feishu] _____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[feishu.events] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_package_import_is_isolated_and_quiet[feishu.dedup] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[feishu.worker] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_package_import_is_isolated_and_quiet[feishu.sender] __
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+__ ERROR at setup of test_package_import_is_isolated_and_quiet[feishu.main] ___
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_incomplete_online_results_never_freeze_or_publish[False-True] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_incomplete_online_results_never_freeze_or_publish[True-False] _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_online_snapshot_write_failure_leaves_no_partial_target _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+___ ERROR at setup of test_database_config_is_explicit_and_password_hidden ____
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+_ ERROR at setup of test_offline_migration_is_complete_without_database_config _
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+______ ERROR at setup of test_formatter_emits_tokens_and_drops_payloads _______
+.venv\Lib\site-packages\pytest_asyncio\plugin.py:925: in pytest_fixture_setup
+    return (yield)
+            ^^^^^
+.tools\p117-python31216\python\Lib\pathlib.py:1311: in mkdir
+    os.mkdir(self, mode)
+E   FileNotFoundError: [WinError 3] 系统找不到指定的路径。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\attribution-full'
+================================== FAILURES ===================================
+__________ test_online_graph_keeps_provenance_and_never_calls_local ___________
+tests\integration\test_pubmed_online.py:59: in test_online_graph_keeps_provenance_and_never_calls_local
+    ).answer(
+src\clinical_agent\application\research.py:482: in answer
+    raise ResearchError(error.code) from None
+E   clinical_agent.domain.research.ResearchError: openalex_required
+_________________ test_cli_runtime_factory_lifecycle[success] _________________
+tests\unit\test_bootstrap.py:129: in test_cli_runtime_factory_lifecycle
+    assert "Traceback" not in captured.err
+E   assert 'Traceback' not in '--- Logging...uments: ()\n'
+E     
+E     'Traceback' is contained here:
+E       --- Logging error ---
+E       Traceback (most recent call last):
+E     ? +++++++++
+E         File "E:\02_Projects\chatgpt_project\clinical_agent\.tools\p117-python31216\python\Lib\logging\__init__.py", line 1163, in emit
+E           stream.write(msg + self.terminator)...
+E     
+E     ...Full output truncated (70 lines hidden), use '-vv' to show
+------------------------------ Captured log call ------------------------------
+INFO     clinical_agent:cli.py:289 local_check_completed
+_______________ test_cli_runtime_factory_lifecycle[body_error] ________________
+tests\unit\test_bootstrap.py:128: in test_cli_runtime_factory_lifecycle
+    assert sentinel not in captured.out + captured.err
+E   AssertionError: assert 'CLI_TEST_SECRET_SENTINEL' not in '--- Logging...ck failed.\n'
+E     
+E     'CLI_TEST_SECRET_SENTINEL' is contained here:
+E       imeError: CLI_TEST_SECRET_SENTINEL
+E       
+E       During handling of the above exception, another exception occurred:
+E       
+E       Traceback (most recent call last):...
+E     
+E     ...Full output truncated (73 lines hidden), use '-vv' to show
+------------------------------ Captured log call ------------------------------
+ERROR    clinical_agent:cli.py:299 local_check_failed
+_____________ test_cli_runtime_factory_lifecycle[body_validation] _____________
+tests\unit\test_bootstrap.py:129: in test_cli_runtime_factory_lifecycle
+    assert "Traceback" not in captured.err
+E   assert 'Traceback' not in '--- Logging...ck failed.\n'
+E     
+E     'Traceback' is contained here:
+E       --- Logging error ---
+E       Traceback (most recent call last):
+E     ? +++++++++
+E         File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\cli.py", line 288, in main
+E           report = build_doctor_report(runtime)...
+E     
+E     ...Full output truncated (91 lines hidden), use '-vv' to show
+------------------------------ Captured log call ------------------------------
+ERROR    clinical_agent:cli.py:299 local_check_failed
+_______________ test_cli_runtime_factory_lifecycle[exit_error] ________________
+tests\unit\test_bootstrap.py:128: in test_cli_runtime_factory_lifecycle
+    assert sentinel not in captured.out + captured.err
+E   AssertionError: assert 'CLI_TEST_SECRET_SENTINEL' not in '--- Logging...ck failed.\n'
+E     
+E     'CLI_TEST_SECRET_SENTINEL' is contained here:
+E       imeError: CLI_TEST_SECRET_SENTINEL
+E       
+E       During handling of the above exception, another exception occurred:
+E       
+E       Traceback (most recent call last):...
+E     
+E     ...Full output truncated (73 lines hidden), use '-vv' to show
+------------------------------ Captured log call ------------------------------
+ERROR    clinical_agent:cli.py:299 local_check_failed
+_____________ test_cli_runtime_factory_lifecycle[exit_validation] _____________
+tests\unit\test_bootstrap.py:129: in test_cli_runtime_factory_lifecycle
+    assert "Traceback" not in captured.err
+E   assert 'Traceback' not in '--- Logging...ck failed.\n'
+E     
+E     'Traceback' is contained here:
+E       --- Logging error ---
+E       Traceback (most recent call last):
+E     ? +++++++++
+E         File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\cli.py", line 286, in main
+E           with factory() as runtime:...
+E     
+E     ...Full output truncated (93 lines hidden), use '-vv' to show
+------------------------------ Captured log call ------------------------------
+ERROR    clinical_agent:cli.py:299 local_check_failed
+__________________ test_ask_reuses_dto_and_preserves_unicode __________________
+tests\unit\test_command_cli.py:141: in test_ask_reuses_dto_and_preserves_unicode
+    assert (
+E   AssertionError: assert 1 == 0
+E    +  where 1 = <function main at 0x000001EB9FE3C360>((['ask', '--scope', 'local', '--question', '  中文问题  ', '--model-dir', ...] + ['--top-k', '3', '--min-similarity', '0.6']), research_factory=<function test_ask_reuses_dto_and_preserves_unicode.<locals>.factory at 0x000001EBA1A08B80>)
+E    +    where ['ask', '--scope', 'local', '--question', '  中文问题  ', '--model-dir', ...] = ask_args()
+---------------------------- Captured stderr call -----------------------------
+{"request_id": "12345678-1234-4234-8234-123456789abc", "error_code": "local_corpus_not_evidence"}
+_____________ test_ask_errors_are_closed_and_sanitized[retrieval] _____________
+tests\unit\test_command_cli.py:243: in test_ask_errors_are_closed_and_sanitized
+    assert json.loads(output.err.splitlines()[-1])["error_code"] in {
+E   AssertionError: assert 'local_corpus_not_evidence' in {'citation_invalid', 'command_failed', 'retrieval_failed'}
+____________ test_ask_errors_are_closed_and_sanitized[generation] _____________
+tests\unit\test_command_cli.py:243: in test_ask_errors_are_closed_and_sanitized
+    assert json.loads(output.err.splitlines()[-1])["error_code"] in {
+E   AssertionError: assert 'local_corpus_not_evidence' in {'citation_invalid', 'command_failed', 'retrieval_failed'}
+______________ test_ask_errors_are_closed_and_sanitized[unknown] ______________
+tests\unit\test_command_cli.py:243: in test_ask_errors_are_closed_and_sanitized
+    assert json.loads(output.err.splitlines()[-1])["error_code"] in {
+E   AssertionError: assert 'local_corpus_not_evidence' in {'citation_invalid', 'command_failed', 'retrieval_failed'}
+__________ test_answered_cli_preserves_all_claim_and_citation_fields __________
+tests\unit\test_command_cli.py:321: in test_answered_cli_preserves_all_claim_and_citation_fields
+    assert main(ask_args(), research_factory=factory) == 0
+E   AssertionError: assert 1 == 0
+E    +  where 1 = <function main at 0x000001EB9FE3C360>(['ask', '--scope', 'local', '--question', '  中文问题  ', '--model-dir', ...], research_factory=<function test_answered_cli_preserves_all_claim_and_citation_fields.<locals>.factory at 0x000001EBA1A08F40>)
+E    +    where ['ask', '--scope', 'local', '--question', '  中文问题  ', '--model-dir', ...] = ask_args()
+---------------------------- Captured stderr call -----------------------------
+{"request_id": "12345678-1234-4234-8234-123456789abc", "error_code": "local_corpus_not_evidence"}
+___ test_online_dispatch_receives_plan_even_without_local_hits[None-online] ___
+tests\unit\test_exploratory_discovery.py:178: in test_online_dispatch_receives_plan_even_without_local_hits
+    answer = service.answer(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\research.py:482: in answer
+    raise ResearchError(error.code) from None
+E   clinical_agent.domain.research.ResearchError: openalex_required
+___ test_online_dispatch_receives_plan_even_without_local_hits[None-hybrid] ___
+tests\unit\test_exploratory_discovery.py:178: in test_online_dispatch_receives_plan_even_without_local_hits
+    answer = service.answer(request)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\clinical_agent\application\research.py:482: in answer
+    raise ResearchError(error.code) from None
+E   clinical_agent.domain.research.ResearchError: openalex_required
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-online] _
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    with pytest.raises(ResearchError, match=failure):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'pubmed_timeout'
+E     Actual message: 'openalex_required'
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-hybrid] _
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    with pytest.raises(ResearchError, match=failure):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'pubmed_timeout'
+E     Actual message: 'openalex_required'
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-online] _
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    with pytest.raises(ResearchError, match=failure):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'pubmed_failed'
+E     Actual message: 'openalex_required'
+_ test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-hybrid] _
+tests\unit\test_exploratory_discovery.py:175: in test_online_dispatch_receives_plan_even_without_local_hits
+    with pytest.raises(ResearchError, match=failure):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'pubmed_failed'
+E     Actual message: 'openalex_required'
+______________ test_cli_passes_default_or_explicit_scope[local] _______________
+tests\unit\test_hybrid_default.py:28: in test_cli_passes_default_or_explicit_scope
+    assert len(seen) == 1 and seen[0].scope == (scope or "hybrid")
+E   assert (0 == 1)
+E    +  where 0 = len([])
+---------------------------- Captured stderr call -----------------------------
+{"request_id": "fd2d2fdf-b172-41fc-b3c4-8099bc50f3b1", "error_code": "local_corpus_not_evidence"}
+=========================== short test summary info ===========================
+FAILED tests/integration/test_pubmed_online.py::test_online_graph_keeps_provenance_and_never_calls_local
+FAILED tests/unit/test_bootstrap.py::test_cli_runtime_factory_lifecycle[success]
+FAILED tests/unit/test_bootstrap.py::test_cli_runtime_factory_lifecycle[body_error]
+FAILED tests/unit/test_bootstrap.py::test_cli_runtime_factory_lifecycle[body_validation]
+FAILED tests/unit/test_bootstrap.py::test_cli_runtime_factory_lifecycle[exit_error]
+FAILED tests/unit/test_bootstrap.py::test_cli_runtime_factory_lifecycle[exit_validation]
+FAILED tests/unit/test_command_cli.py::test_ask_reuses_dto_and_preserves_unicode
+FAILED tests/unit/test_command_cli.py::test_ask_errors_are_closed_and_sanitized[retrieval]
+FAILED tests/unit/test_command_cli.py::test_ask_errors_are_closed_and_sanitized[generation]
+FAILED tests/unit/test_command_cli.py::test_ask_errors_are_closed_and_sanitized[unknown]
+FAILED tests/unit/test_command_cli.py::test_answered_cli_preserves_all_claim_and_citation_fields
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[None-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[None-hybrid]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_timeout-hybrid]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-online]
+FAILED tests/unit/test_exploratory_discovery.py::test_online_dispatch_receives_plan_even_without_local_hits[pubmed_failed-hybrid]
+FAILED tests/unit/test_hybrid_default.py::test_cli_passes_default_or_explicit_scope[local]
+ERROR tests/integration/test_api.py::test_lifespan_health_and_no_per_request_assembly
+ERROR tests/integration/test_api.py::test_question_contract_correlation_and_empty_success
+ERROR tests/integration/test_api.py::test_invalid_inputs_do_not_echo_private_values[data0]
+ERROR tests/integration/test_api.py::test_invalid_inputs_do_not_echo_private_values[data1]
+ERROR tests/integration/test_api.py::test_invalid_inputs_do_not_echo_private_values[data2]
+ERROR tests/integration/test_api.py::test_invalid_inputs_do_not_echo_private_values[data3]
+ERROR tests/integration/test_api.py::test_invalid_inputs_do_not_echo_private_values[data4]
+ERROR tests/integration/test_api.py::test_invalid_inputs_do_not_echo_private_values[data5]
+ERROR tests/integration/test_api.py::test_invalid_inputs_do_not_echo_private_values[data6]
+ERROR tests/integration/test_api.py::test_invalid_inputs_do_not_echo_private_values[data7]
+ERROR tests/integration/test_api.py::test_import_uses_only_server_root - File...
+ERROR tests/integration/test_api.py::test_invalid_source_paths_fail_without_calling_service[../private.pdf]
+ERROR tests/integration/test_api.py::test_invalid_source_paths_fail_without_calling_service[/private.pdf]
+ERROR tests/integration/test_api.py::test_invalid_source_paths_fail_without_calling_service[C:/private.pdf]
+ERROR tests/integration/test_api.py::test_invalid_source_paths_fail_without_calling_service[C:\\private.pdf]
+ERROR tests/integration/test_api.py::test_invalid_source_paths_fail_without_calling_service[missing.pdf]
+ERROR tests/integration/test_api.py::test_headers_and_body_limits_are_controlled[headers0-400-invalid_request_id]
+ERROR tests/integration/test_api.py::test_headers_and_body_limits_are_controlled[headers1-415-unsupported_media_type]
+ERROR tests/integration/test_api.py::test_headers_and_body_limits_are_controlled[headers2-415-unsupported_media_type]
+ERROR tests/integration/test_api.py::test_headers_and_body_limits_are_controlled[headers3-413-request_too_large]
+ERROR tests/integration/test_api.py::test_actual_chunked_body_size_is_checked
+ERROR tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[retrieval_failed-503]
+ERROR tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[retrieval_timeout-504]
+ERROR tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[retrieval_corrupt-500]
+ERROR tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[generation_failed-503]
+ERROR tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[generation_timeout-504]
+ERROR tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[model_output_invalid-502]
+ERROR tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[citation_invalid-502]
+ERROR tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[context_limit-422]
+ERROR tests/integration/test_api.py::test_error_mapping_never_publishes_raw_exception[unknown-500]
+ERROR tests/integration/test_api.py::test_full_answer_source_fields_preserved
+ERROR tests/integration/test_api.py::test_busy_rejects_without_blocking_health_and_recovers
+ERROR tests/integration/test_api.py::test_wrong_answer_id_is_internal_error
+ERROR tests/integration/test_api.py::test_not_found_and_method_error_are_json
+ERROR tests/integration/test_api.py::test_openapi_describes_actual_error_contract
+ERROR tests/integration/test_api.py::test_import_batch_status_is_preserved_in_200[imported]
+ERROR tests/integration/test_api.py::test_import_batch_status_is_preserved_in_200[already_present]
+ERROR tests/integration/test_api.py::test_import_batch_status_is_preserved_in_200[needs_update]
+ERROR tests/integration/test_api.py::test_import_batch_status_is_preserved_in_200[conflict]
+ERROR tests/integration/test_api.py::test_import_batch_status_is_preserved_in_200[rejected]
+ERROR tests/integration/test_api.py::test_import_batch_status_is_preserved_in_200[failed]
+ERROR tests/integration/test_api.py::test_duplicate_id_and_bad_length_do_not_echo_values[headers0]
+ERROR tests/integration/test_api.py::test_duplicate_id_and_bad_length_do_not_echo_values[headers1]
+ERROR tests/integration/test_api.py::test_duplicate_id_and_bad_length_do_not_echo_values[headers2]
+ERROR tests/integration/test_api.py::test_malformed_json_no_echo - FileNotFou...
+ERROR tests/integration/test_api.py::test_without_lifespan_is_not_ready - Fil...
+ERROR tests/integration/test_api.py::test_resolved_source_outside_root_rejected
+ERROR tests/integration/test_api.py::test_unhandled_framework_exception_uses_safe_json
+ERROR tests/integration/test_api.py::test_non_utf8_json_is_controlled - FileN...
+ERROR tests/integration/test_chunking.py::test_real_pdf_keeps_blank_page_number_and_exact_slices
+ERROR tests/integration/test_chunking.py::test_real_xml_sections_keep_global_offsets_and_metadata
+ERROR tests/integration/test_cli.py::test_help_does_not_build_runtime[arguments0-module]
+ERROR tests/integration/test_cli.py::test_help_does_not_build_runtime[arguments0-console]
+ERROR tests/integration/test_cli.py::test_help_does_not_build_runtime[arguments1-module]
+ERROR tests/integration/test_cli.py::test_help_does_not_build_runtime[arguments1-console]
+ERROR tests/integration/test_cli.py::test_help_does_not_build_runtime[arguments2-module]
+ERROR tests/integration/test_cli.py::test_help_does_not_build_runtime[arguments2-console]
+ERROR tests/integration/test_cli.py::test_doctor_json_and_logs[INFO-module]
+ERROR tests/integration/test_cli.py::test_doctor_json_and_logs[INFO-console]
+ERROR tests/integration/test_cli.py::test_doctor_json_and_logs[WARNING-module]
+ERROR tests/integration/test_cli.py::test_doctor_json_and_logs[WARNING-console]
+ERROR tests/integration/test_cli.py::test_invalid_cli_and_config_are_safe[arguments0-settings0-module]
+ERROR tests/integration/test_cli.py::test_invalid_cli_and_config_are_safe[arguments0-settings0-console]
+ERROR tests/integration/test_cli.py::test_invalid_cli_and_config_are_safe[arguments1-settings1-module]
+ERROR tests/integration/test_cli.py::test_invalid_cli_and_config_are_safe[arguments1-settings1-console]
+ERROR tests/integration/test_cli.py::test_invalid_cli_and_config_are_safe[arguments2-settings2-module]
+ERROR tests/integration/test_cli.py::test_invalid_cli_and_config_are_safe[arguments2-settings2-console]
+ERROR tests/integration/test_cli.py::test_invalid_cli_and_config_are_safe[arguments3-settings3-module]
+ERROR tests/integration/test_cli.py::test_invalid_cli_and_config_are_safe[arguments3-settings3-console]
+ERROR tests/integration/test_cli.py::test_doctor_does_not_use_network_or_threads
+ERROR tests/integration/test_command_entrypoints.py::test_command_help_without_configuration[ingest-module]
+ERROR tests/integration/test_command_entrypoints.py::test_command_help_without_configuration[ingest-console]
+ERROR tests/integration/test_command_entrypoints.py::test_command_help_without_configuration[ask-module]
+ERROR tests/integration/test_command_entrypoints.py::test_command_help_without_configuration[ask-console]
+ERROR tests/integration/test_command_entrypoints.py::test_invalid_syntax_does_not_echo_private_input[module]
+ERROR tests/integration/test_command_entrypoints.py::test_invalid_syntax_does_not_echo_private_input[console]
+ERROR tests/integration/test_command_entrypoints.py::test_missing_configuration_does_not_load_model_or_dotenv[module]
+ERROR tests/integration/test_command_entrypoints.py::test_missing_configuration_does_not_load_model_or_dotenv[console]
+ERROR tests/integration/test_evaluation.py::test_evaluation_cli_writes_failed_fixture_with_provenance
+ERROR tests/integration/test_llm.py::test_settings_are_explicit_secret_and_environment_only
+ERROR tests/integration/test_offline_reader.py::test_real_pdf_snapshot_retains_original_filename_and_survives_source_removal
+ERROR tests/integration/test_offline_reader.py::test_concurrent_snapshot_publication_is_atomic
+ERROR tests/integration/test_offline_reader.py::test_existing_corrupt_snapshot_is_not_overwritten
+ERROR tests/integration/test_offline_reader.py::test_snapshot_source_limits[outside]
+ERROR tests/integration/test_offline_reader.py::test_snapshot_source_limits[size]
+ERROR tests/integration/test_offline_reader.py::test_real_xml_mixed_parsed_and_rejected_entries
+ERROR tests/integration/test_offline_reader.py::test_actual_xml_application_batch_limit_is_explicit
+ERROR tests/integration/test_pdf.py::test_real_pdf_retains_pages_snapshot_metadata_and_roundtrip
+ERROR tests/integration/test_pdf.py::test_filename_fallback_and_manual_overrides
+ERROR tests/integration/test_pdf.py::test_damaged_pdf_has_safe_error[] - File...
+ERROR tests/integration/test_pdf.py::test_damaged_pdf_has_safe_error[not a PDF PRIVATE_SENTINEL]
+ERROR tests/integration/test_pdf.py::test_damaged_pdf_has_safe_error[%PDF-1.7\nbroken]
+ERROR tests/integration/test_pdf.py::test_encrypted_pdf_is_rejected_even_with_empty_password[]
+ERROR tests/integration/test_pdf.py::test_encrypted_pdf_is_rejected_even_with_empty_password[fixture-password]
+ERROR tests/integration/test_pdf.py::test_empty_documents_are_not_success[texts0-pdf_no_pages]
+ERROR tests/integration/test_pdf.py::test_empty_documents_are_not_success[texts1-pdf_no_text]
+ERROR tests/integration/test_pdf.py::test_image_only_document_has_no_text_and_no_ocr
+ERROR tests/integration/test_pdf.py::test_paths_must_be_real_files_under_explicit_root[missing]
+ERROR tests/integration/test_pdf.py::test_paths_must_be_real_files_under_explicit_root[directory]
+ERROR tests/integration/test_pdf.py::test_paths_must_be_real_files_under_explicit_root[outside]
+ERROR tests/integration/test_pdf.py::test_budgets_reject_instead_of_returning_partial_documents[max_file_bytes-1-pdf_too_large]
+ERROR tests/integration/test_pdf.py::test_budgets_reject_instead_of_returning_partial_documents[max_pages-1-pdf_page_limit]
+ERROR tests/integration/test_pdf.py::test_budgets_reject_instead_of_returning_partial_documents[max_page_stream_bytes-1-pdf_stream_limit]
+ERROR tests/integration/test_pdf.py::test_budgets_reject_instead_of_returning_partial_documents[max_total_characters-1-pdf_text_limit]
+ERROR tests/integration/test_pdf.py::test_cooperative_deadline_checked_after_extraction
+ERROR tests/integration/test_pdf.py::test_files_streams_and_reader_close_on_success_or_failure[False]
+ERROR tests/integration/test_pdf.py::test_files_streams_and_reader_close_on_success_or_failure[True]
+ERROR tests/integration/test_pdf.py::test_hash_and_parse_share_one_snapshot_even_if_original_changes
+ERROR tests/integration/test_pdf.py::test_normalization_is_minimal_and_versioned
+ERROR tests/integration/test_pdf.py::test_file_io_failure_is_safe - FileNotFo...
+ERROR tests/integration/test_pdf.py::test_total_text_budget_includes_page_separators
+ERROR tests/integration/test_phase1_acceptance.py::test_phase1_learning_demo_and_navigation
+ERROR tests/integration/test_pico.py::test_pico_api_and_feishu_share_clarification
+ERROR tests/integration/test_pico.py::test_pico_api_error_contract[extraction_failed-502]
+ERROR tests/integration/test_pico.py::test_pico_api_error_contract[extraction_timeout-504]
+ERROR tests/integration/test_pubmed_online.py::test_online_cli_api_and_feishu_render_empty_search
+ERROR tests/integration/test_pubmed_online.py::test_api_pubmed_error_mapping[pubmed_failed-503]
+ERROR tests/integration/test_pubmed_online.py::test_api_pubmed_error_mapping[pubmed_invalid-502]
+ERROR tests/integration/test_pubmed_online.py::test_api_pubmed_error_mapping[pubmed_timeout-504]
+ERROR tests/integration/test_pubmed_xml.py::test_real_multi_article_metadata_sections_hash_and_roundtrip
+ERROR tests/integration/test_pubmed_xml.py::test_publication_precision_is_not_invented[-unknown-None-None-None-None]
+ERROR tests/integration/test_pubmed_xml.py::test_publication_precision_is_not_invented[<Year>2020</Year>-year-2020-None-None-2020]
+ERROR tests/integration/test_pubmed_xml.py::test_publication_precision_is_not_invented[<Year>2020</Year><Month>12</Month>-month-2020-12-None-2020 12]
+ERROR tests/integration/test_pubmed_xml.py::test_publication_precision_is_not_invented[<Year>2020</Year><Month>January</Month><Day>2</Day>-day-2020-1-2-2020 January 2]
+ERROR tests/integration/test_pubmed_xml.py::test_publication_precision_is_not_invented[<MedlineDate>2020 Dec-2021 Jan</MedlineDate>-unknown-None-None-None-2020 Dec-2021 Jan]
+ERROR tests/integration/test_pubmed_xml.py::test_publication_precision_is_not_invented[<Year>2020</Year><Season>Winter</Season>-unknown-None-None-None-2020 Winter]
+ERROR tests/integration/test_pubmed_xml.py::test_publication_precision_is_not_invented[<Year>2020</Year><Month>Feb-Mar</Month>-unknown-None-None-None-2020 Feb-Mar]
+ERROR tests/integration/test_pubmed_xml.py::test_bad_dates_reject_only_the_article[<Year>2021</Year><Month>Feb</Month><Day>29</Day>]
+ERROR tests/integration/test_pubmed_xml.py::test_bad_dates_reject_only_the_article[<Year>2020</Year><Month>13</Month>]
+ERROR tests/integration/test_pubmed_xml.py::test_bad_dates_reject_only_the_article[<Year>0</Year>]
+ERROR tests/integration/test_pubmed_xml.py::test_bad_dates_reject_only_the_article[<Month>Feb</Month>]
+ERROR tests/integration/test_pubmed_xml.py::test_bad_dates_reject_only_the_article[<Year>2020</Year><Day>1</Day>]
+ERROR tests/integration/test_pubmed_xml.py::test_bad_dates_reject_only_the_article[<Year>2020</Year><MedlineDate>2021</MedlineDate>]
+ERROR tests/integration/test_pubmed_xml.py::test_mapping_rejections_are_per_record_and_do_not_allocate_identity[missing_pmid-pubmed_invalid_pmid]
+ERROR tests/integration/test_pubmed_xml.py::test_mapping_rejections_are_per_record_and_do_not_allocate_identity[invalid_pmid-pubmed_invalid_pmid]
+ERROR tests/integration/test_pubmed_xml.py::test_mapping_rejections_are_per_record_and_do_not_allocate_identity[conflicting_pmid-pubmed_pmid_conflict]
+ERROR tests/integration/test_pubmed_xml.py::test_mapping_rejections_are_per_record_and_do_not_allocate_identity[title-pubmed_missing_title]
+ERROR tests/integration/test_pubmed_xml.py::test_mapping_rejections_are_per_record_and_do_not_allocate_identity[abstract-pubmed_no_abstract]
+ERROR tests/integration/test_pubmed_xml.py::test_mapping_rejections_are_per_record_and_do_not_allocate_identity[author-pubmed_invalid_author]
+ERROR tests/integration/test_pubmed_xml.py::test_mapping_rejections_are_per_record_and_do_not_allocate_identity[doi-pubmed_doi_conflict]
+ERROR tests/integration/test_pubmed_xml.py::test_duplicates_unsupported_and_missing_optional_metadata
+ERROR tests/integration/test_pubmed_xml.py::test_author_initials_suffix_invalid_author_and_journal_abbreviation
+ERROR tests/integration/test_pubmed_xml.py::test_doctype_does_not_fetch_network_or_external_file
+ERROR tests/integration/test_pubmed_xml.py::test_entity_declarations_are_rejected_before_expansion["PRIVATE_ENTITY_SENTINEL"-utf-8]
+ERROR tests/integration/test_pubmed_xml.py::test_entity_declarations_are_rejected_before_expansion["PRIVATE_ENTITY_SENTINEL"-utf-16]
+ERROR tests/integration/test_pubmed_xml.py::test_entity_declarations_are_rejected_before_expansion[SYSTEM "file:///not-opened-secret"-utf-8]
+ERROR tests/integration/test_pubmed_xml.py::test_entity_declarations_are_rejected_before_expansion[SYSTEM "file:///not-opened-secret"-utf-16]
+ERROR tests/integration/test_pubmed_xml.py::test_whole_file_failures_do_not_return_partial_results_or_call_factory[-xml_invalid]
+ERROR tests/integration/test_pubmed_xml.py::test_whole_file_failures_do_not_return_partial_results_or_call_factory[<Other/>-xml_root_invalid]
+ERROR tests/integration/test_pubmed_xml.py::test_whole_file_failures_do_not_return_partial_results_or_call_factory[<PubmedArticleSet><PubmedArticle><MedlineCitation><PMID>1234567890</PMID>\n    <Article><Journal><Title>Fixture Journal</Title>\n    <JournalIssue><PubDate><Year>2020</Year><Month>Feb</Month><Day>29</Day></PubDate></JournalIssue></Journal>\n    <ArticleTitle>Synthetic <i>alpha</i> title</ArticleTitle>\n    <ELocationID EIdType="doi">10.fixture/source</ELocationID>\n    <Abstract><AbstractText Label="BACKGROUND"\n    NlmCategory="BACKGROUND">A <i>mixed</i> text.</AbstractText>\n    <AbstractText Label="EMPTY">   </AbstractText>\n    <AbstractText Label="RESULTS" NlmCategory="RESULTS">Result &#945;\xf0\x9f\x99\x82 &amp; tail.</AbstractText>\n    </Abstract>\n    <AuthorList><Author><LastName>Example</LastName><ForeName>Ada</ForeName><Initials>A</Initials></Author>\n    <Author><CollectiveName>Fixture Group</CollectiveName></Author></AuthorList>\n    <ArticleDate><Year>1999</Year><Month>1</Month><Day>1</Day></ArticleDate>\n    </Article></MedlineCitation><PubmedData><ArticleIdList>\n    <ArticleId IdType="pubmed">1234567890</ArticleId>\n    <ArticleId IdType="doi">10.fixture/source</ArticleId>\n    </ArticleIdList><History><PubMedPubDate PubStatus="pubmed"><Year>2030</Year></PubMedPubDate>\n    </History>\n    </PubmedData></PubmedArticle><bad-xml_invalid]
+ERROR tests/integration/test_pubmed_xml.py::test_global_budgets_are_not_silent_truncation[max_file_bytes-1-xml_too_large]
+ERROR tests/integration/test_pubmed_xml.py::test_global_budgets_are_not_silent_truncation[max_records-1-xml_record_limit]
+ERROR tests/integration/test_pubmed_xml.py::test_global_budgets_are_not_silent_truncation[max_depth-2-xml_depth_limit]
+ERROR tests/integration/test_pubmed_xml.py::test_global_budgets_are_not_silent_truncation[max_nodes-3-xml_node_limit]
+ERROR tests/integration/test_pubmed_xml.py::test_abstract_budget_is_a_per_article_rejection
+ERROR tests/integration/test_pubmed_xml.py::test_clock_checked_after_mapping_and_callback_errors_not_swallowed
+ERROR tests/integration/test_pubmed_xml.py::test_snapshot_and_empty_batch_and_closed_input
+ERROR tests/integration/test_pubmed_xml.py::test_input_must_be_under_allowed_root[missing]
+ERROR tests/integration/test_pubmed_xml.py::test_input_must_be_under_allowed_root[directory]
+ERROR tests/integration/test_pubmed_xml.py::test_input_must_be_under_allowed_root[outside]
+ERROR tests/integration/test_pubmed_xml.py::test_blank_section_attributes_mean_unknown_not_batch_failure
+ERROR tests/integration/test_pubmed_xml.py::test_invalid_known_year_is_not_hidden_by_unknown_precision[<Year>0000</Year><Season>Winter</Season>]
+ERROR tests/integration/test_pubmed_xml.py::test_invalid_known_year_is_not_hidden_by_unknown_precision[<Year>0000</Year><Month>Unknown</Month>]
+ERROR tests/integration/test_pubmed_xml.py::test_invalid_known_day_is_not_hidden_by_unknown_month
+ERROR tests/integration/test_pubmed_xml.py::test_valid_utf16_unicode_abstract
+ERROR tests/integration/test_pubmed_xml.py::test_file_read_error_has_only_a_safe_code
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_in_flight-0]
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_in_flight-5]
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_in_flight-True]
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_request_bytes-0]
+ERROR tests/unit/test_api_runtime.py::test_settings_are_bounded[max_request_bytes-65537]
+ERROR tests/unit/test_api_runtime.py::test_shared_runtime_one_model_engine_http
+ERROR tests/unit/test_api_runtime.py::test_startup_failure_is_sanitized_and_unwinds
+ERROR tests/unit/test_api_runtime.py::test_shutdown_failure_is_sanitized - Fi...
+ERROR tests/unit/test_citation_report.py::test_citation_report_actual_pdf_hash_and_location
+ERROR tests/unit/test_citation_report.py::test_citation_report_cli_and_api - ...
+ERROR tests/unit/test_citation_report.py::test_citation_report_local_multirecord_xml
+ERROR tests/unit/test_config.py::test_defaults_without_external_credentials
+ERROR tests/unit/test_config.py::test_environment_overrides_and_reloads[development-DEBUG-upper]
+ERROR tests/unit/test_config.py::test_environment_overrides_and_reloads[test-INFO-lower]
+ERROR tests/unit/test_config.py::test_environment_overrides_and_reloads[production-WARNING-mixed]
+ERROR tests/unit/test_config.py::test_environment_overrides_and_reloads[test-ERROR-upper]
+ERROR tests/unit/test_config.py::test_environment_overrides_and_reloads[development-CRITICAL-upper]
+ERROR tests/unit/test_config.py::test_invalid_values_are_rejected[app_env-staging]
+ERROR tests/unit/test_config.py::test_invalid_values_are_rejected[app_env-TEST]
+ERROR tests/unit/test_config.py::test_invalid_values_are_rejected[app_env-123]
+ERROR tests/unit/test_config.py::test_invalid_values_are_rejected[app_env-]
+ERROR tests/unit/test_config.py::test_invalid_values_are_rejected[log_level-TRACE]
+ERROR tests/unit/test_config.py::test_invalid_values_are_rejected[log_level-info]
+ERROR tests/unit/test_config.py::test_invalid_values_are_rejected[log_level-123]
+ERROR tests/unit/test_config.py::test_invalid_values_are_rejected[log_level-]
+ERROR tests/unit/test_config.py::test_invalid_values_are_rejected[log_level-CONFIG_TEST_SECRET_SENTINEL]
+ERROR tests/unit/test_config.py::test_no_implicit_dotenv[current] - FileNotFo...
+ERROR tests/unit/test_config.py::test_no_implicit_dotenv[ancestor] - FileNotF...
+ERROR tests/unit/test_embedding.py::test_local_snapshot_validation[missing]
+ERROR tests/unit/test_embedding.py::test_local_snapshot_validation[invalid_json]
+ERROR tests/unit/test_embedding.py::test_local_snapshot_validation[identity]
+ERROR tests/unit/test_embedding.py::test_local_snapshot_validation[escape] - ...
+ERROR tests/unit/test_embedding.py::test_local_snapshot_validation[hash] - Fi...
+ERROR tests/unit/test_embedding.py::test_validated_snapshot_loader_receives_local_path
+ERROR tests/unit/test_embedding.py::test_snapshot_integrity_before_backend_loading[missing_file]
+ERROR tests/unit/test_embedding.py::test_snapshot_integrity_before_backend_loading[corrupt]
+ERROR tests/unit/test_embedding.py::test_snapshot_integrity_before_backend_loading[manifest_size]
+ERROR tests/unit/test_embedding.py::test_snapshot_integrity_before_backend_loading[bytes]
+ERROR tests/unit/test_embedding.py::test_loader_error_is_sanitized - FileNotF...
+ERROR tests/unit/test_embedding.py::test_load_cooperative_budget[before] - Fi...
+ERROR tests/unit/test_embedding.py::test_load_cooperative_budget[after] - Fil...
+ERROR tests/unit/test_evidence_analysis.py::test_evidence_analysis_cli_and_http
+ERROR tests/unit/test_feishu_main.py::test_invalid_policy[capacity-0] - FileN...
+ERROR tests/unit/test_feishu_main.py::test_invalid_policy[capacity-True] - Fi...
+ERROR tests/unit/test_feishu_main.py::test_invalid_policy[sender_capacity-65]
+ERROR tests/unit/test_feishu_main.py::test_invalid_policy[shutdown_seconds--1]
+ERROR tests/unit/test_feishu_main.py::test_invalid_policy[shutdown_seconds-inf]
+ERROR tests/unit/test_feishu_main.py::test_settings_env_and_secrets - FileNot...
+ERROR tests/unit/test_feishu_main.py::test_invalid_redis_url[http://localhost]
+ERROR tests/unit/test_feishu_main.py::test_invalid_redis_url[redis://localhost/0?socket_timeout=0]
+ERROR tests/unit/test_feishu_main.py::test_invalid_redis_url[redis://localhost/#x]
+ERROR tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[accepted-None]
+ERROR tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[duplicate-None]
+ERROR tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[closed-None]
+ERROR tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[busy-busy]
+ERROR tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[unavailable-unavailable]
+ERROR tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[submit_failed-unavailable]
+ERROR tests/unit/test_feishu_main.py::test_callback_filters_sdk_objects[bot]
+ERROR tests/unit/test_feishu_main.py::test_callback_filters_sdk_objects[self]
+ERROR tests/unit/test_feishu_main.py::test_callback_filters_sdk_objects[image]
+ERROR tests/unit/test_feishu_main.py::test_callback_filters_sdk_objects[group]
+ERROR tests/unit/test_feishu_main.py::test_callback_filters_sdk_objects[missing_header]
+ERROR tests/unit/test_feishu_main.py::test_callback_filters_sdk_objects[schema]
+ERROR tests/unit/test_feishu_main.py::test_callback_filters_sdk_objects[other_app]
+ERROR tests/unit/test_feishu_main.py::test_callback_filters_sdk_objects[bad_content]
+ERROR tests/unit/test_feishu_main.py::test_sdk_group_mention - FileNotFoundEr...
+ERROR tests/unit/test_feishu_main.py::test_callback_exception_is_private - Fi...
+ERROR tests/unit/test_feishu_main.py::test_token_protocol_and_deadline - File...
+ERROR tests/unit/test_feishu_main.py::test_token_rejects_failure[body0-200]
+ERROR tests/unit/test_feishu_main.py::test_token_rejects_failure[body1-200]
+ERROR tests/unit/test_feishu_main.py::test_token_rejects_failure[body2-200]
+ERROR tests/unit/test_feishu_main.py::test_token_rejects_failure[body3-200]
+ERROR tests/unit/test_feishu_main.py::test_token_rejects_failure[body4-200]
+ERROR tests/unit/test_feishu_main.py::test_token_rejects_failure[body5-302]
+ERROR tests/unit/test_feishu_main.py::test_token_rejects_failure[body6-500]
+ERROR tests/unit/test_feishu_main.py::test_token_rejects_late_success - FileN...
+ERROR tests/unit/test_feishu_main.py::test_composition_rollback_and_shared_service
+ERROR tests/unit/test_feishu_main.py::test_sdk_discovery_uses_bounded_http_and_real_handler
+ERROR tests/unit/test_feishu_main.py::test_real_receiver_worker_sender_chain
+ERROR tests/unit/test_feishu_main.py::test_sdk_runner_restores_signals_logger_and_loop[False]
+ERROR tests/unit/test_feishu_main.py::test_sdk_runner_restores_signals_logger_and_loop[True]
+ERROR tests/unit/test_feishu_main.py::test_official_sdk_data_frame_acknowledges_synthetic_event
+ERROR tests/unit/test_feishu_main.py::test_entry_cleanup_error_is_private_and_nonzero
+ERROR tests/unit/test_hybrid_retrieval.py::test_cli_api_and_graph_keep_keyword_strategy
+ERROR tests/unit/test_knowledge_update.py::test_update_request_rejects_escape_and_duplicates
+ERROR tests/unit/test_knowledge_update.py::test_dry_run_does_not_load_embedder_or_write
+ERROR tests/unit/test_logging_config.py::test_json_fields_and_stderr - FileNo...
+ERROR tests/unit/test_logging_config.py::test_level_filter_and_reconfiguration
+ERROR tests/unit/test_logging_config.py::test_sensitive_fields_are_not_emitted
+ERROR tests/unit/test_minimal_baseline.py::test_tampered_evidence_is_not_evaluated_as_valid
+ERROR tests/unit/test_minimal_baseline.py::test_manifest_path_cannot_escape_bundle
+ERROR tests/unit/test_oa_fulltext.py::test_pdf_pages_sections_headers_and_identity
+ERROR tests/unit/test_oa_fulltext.py::test_null_license_and_closed_flag_still_download
+ERROR tests/unit/test_oa_fulltext.py::test_content_url_failure_falls_back_to_location_pdf
+ERROR tests/unit/test_oa_fulltext.py::test_external_pdf_is_parsed_and_indexed
+ERROR tests/unit/test_oa_fulltext.py::test_first_url_failure_tries_the_next
+ERROR tests/unit/test_oa_fulltext.py::test_identity_mismatch_and_ssrf - FileN...
+ERROR tests/unit/test_openalex.py::test_cli_api_and_generation_context_keep_snapshots_out_of_prompt
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.config]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.logging_config]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.bootstrap]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.cli]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.__main__]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.models]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.chunking]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.embedding]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.pdf]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.pubmed_xml]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.embedding]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres.models]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres.connection]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.ingestion]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.application]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.application.ingestion]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.offline]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres.store]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.retrieval]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.application.retrieval]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.postgres.retrieval]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.hybrid]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.pubmed]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.pubmed_online]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.application.pubmed]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.pico]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.application.pico]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.research]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.domain.citations]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.application.research]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.llm]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.adapters.langchain_generation]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.command_runtime]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.api_runtime]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[clinical_agent.api]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[feishu]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[feishu.events]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[feishu.dedup]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[feishu.worker]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[feishu.sender]
+ERROR tests/unit/test_package.py::test_package_import_is_isolated_and_quiet[feishu.main]
+ERROR tests/unit/test_phase8_completion.py::test_incomplete_online_results_never_freeze_or_publish[False-True]
+ERROR tests/unit/test_phase8_completion.py::test_incomplete_online_results_never_freeze_or_publish[True-False]
+ERROR tests/unit/test_phase8_completion.py::test_online_snapshot_write_failure_leaves_no_partial_target
+ERROR tests/unit/test_postgres.py::test_database_config_is_explicit_and_password_hidden
+ERROR tests/unit/test_postgres.py::test_offline_migration_is_complete_without_database_config
+ERROR tests/unit/test_query_plan_diagnostics.py::test_formatter_emits_tokens_and_drops_payloads
+18 failed, 1176 passed, 122 deselected, 315 errors in 48.69s

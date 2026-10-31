@@ -1,0 +1,4517 @@
+{
+  "graphs": {
+    "False": {
+      "nodes": [
+        "__end__",
+        "__start__",
+        "analyze",
+        "design",
+        "empty",
+        "feedback",
+        "generate",
+        "prepare",
+        "prior_art",
+        "report",
+        "retrieve",
+        "validate"
+      ],
+      "edges": [
+        [
+          "__start__",
+          "retrieve",
+          false
+        ],
+        [
+          "analyze",
+          "prior_art",
+          false
+        ],
+        [
+          "design",
+          "report",
+          false
+        ],
+        [
+          "empty",
+          "__end__",
+          false
+        ],
+        [
+          "feedback",
+          "analyze",
+          true
+        ],
+        [
+          "feedback",
+          "retrieve",
+          true
+        ],
+        [
+          "generate",
+          "validate",
+          false
+        ],
+        [
+          "prepare",
+          "generate",
+          false
+        ],
+        [
+          "prior_art",
+          "__end__",
+          true
+        ],
+        [
+          "prior_art",
+          "design",
+          true
+        ],
+        [
+          "report",
+          "__end__",
+          true
+        ],
+        [
+          "report",
+          "feedback",
+          true
+        ],
+        [
+          "retrieve",
+          "analyze",
+          true
+        ],
+        [
+          "retrieve",
+          "empty",
+          true
+        ],
+        [
+          "retrieve",
+          "prepare",
+          true
+        ],
+        [
+          "validate",
+          "__end__",
+          false
+        ]
+      ]
+    },
+    "True": {
+      "nodes": [
+        "__end__",
+        "__start__",
+        "analyze",
+        "clarify",
+        "design",
+        "empty",
+        "feedback",
+        "generate",
+        "plan",
+        "prepare",
+        "prior_art",
+        "report",
+        "retrieve",
+        "validate"
+      ],
+      "edges": [
+        [
+          "__start__",
+          "plan",
+          false
+        ],
+        [
+          "analyze",
+          "prior_art",
+          false
+        ],
+        [
+          "clarify",
+          "__end__",
+          true
+        ],
+        [
+          "clarify",
+          "report",
+          true
+        ],
+        [
+          "design",
+          "report",
+          false
+        ],
+        [
+          "empty",
+          "__end__",
+          false
+        ],
+        [
+          "feedback",
+          "analyze",
+          true
+        ],
+        [
+          "feedback",
+          "retrieve",
+          true
+        ],
+        [
+          "generate",
+          "validate",
+          false
+        ],
+        [
+          "plan",
+          "clarify",
+          true
+        ],
+        [
+          "plan",
+          "retrieve",
+          true
+        ],
+        [
+          "prepare",
+          "generate",
+          false
+        ],
+        [
+          "prior_art",
+          "__end__",
+          true
+        ],
+        [
+          "prior_art",
+          "design",
+          true
+        ],
+        [
+          "report",
+          "__end__",
+          true
+        ],
+        [
+          "report",
+          "feedback",
+          true
+        ],
+        [
+          "retrieve",
+          "analyze",
+          true
+        ],
+        [
+          "retrieve",
+          "empty",
+          true
+        ],
+        [
+          "retrieve",
+          "prepare",
+          true
+        ],
+        [
+          "validate",
+          "__end__",
+          false
+        ]
+      ]
+    }
+  },
+  "state": {
+    "WorkflowState": {
+      "auto_route": "typing.NotRequired[bool]",
+      "feedback_rounds": "typing.NotRequired[int]",
+      "feedback_history": "typing.NotRequired[list[dict[str, str]]]",
+      "research_designs": "typing.NotRequired[list[dict[str, object]]]",
+      "agent_steps": "typing.NotRequired[list[clinical_agent.application.workflow.AgentStep]]",
+      "report_requested": "typing.NotRequired[bool]",
+      "report": "typing.NotRequired[clinical_agent.domain.report.ResearchReport]",
+      "started_at": "typing.NotRequired[datetime.datetime]",
+      "analysis_requested": "typing.NotRequired[bool]",
+      "analysis": "typing.NotRequired[clinical_agent.domain.analysis.AnalysisResult]",
+      "request": "<class 'clinical_agent.domain.research.QuestionRequest'>",
+      "deadline": "<class 'float'>",
+      "query_plan": "typing.NotRequired[clinical_agent.domain.pico.QueryPlan]",
+      "retrieval": "typing.NotRequired[clinical_agent.domain.retrieval.RetrievalResult]",
+      "context": "typing.NotRequired[clinical_agent.domain.research.GenerationInput]",
+      "draft": "typing.NotRequired[clinical_agent.domain.research.GenerationDraft]",
+      "answer": "typing.NotRequired[clinical_agent.domain.research.ResearchAnswer]"
+    },
+    "AgentStep": {
+      "role": "typing.Literal['idea_planner', 'literature_scout', 'methods', 'prior_art', 'research_design', 'evidence_reviewer']",
+      "elapsed_seconds": "<class 'float'>"
+    },
+    "AgentPatch": {
+      "query_plan": "<class 'clinical_agent.domain.pico.QueryPlan'>",
+      "retrieval": "<class 'clinical_agent.domain.retrieval.RetrievalResult'>",
+      "agent_steps": "list[clinical_agent.application.workflow.AgentStep]"
+    }
+  },
+  "openapi": {
+    "openapi": "3.1.0",
+    "info": {
+      "title": "Clinical Literature Agent",
+      "version": "0.1.0"
+    },
+    "paths": {
+      "/health/live": {
+        "get": {
+          "summary": "Live",
+          "operationId": "live_health_live_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HealthReport"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "408": {
+              "description": "Request Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "413": {
+              "description": "Request Entity Too Large",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "502": {
+              "description": "Bad Gateway",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service Unavailable",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "504": {
+              "description": "Gateway Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/health/ready": {
+        "get": {
+          "summary": "Ready",
+          "operationId": "ready_health_ready_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HealthReport"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "408": {
+              "description": "Request Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "413": {
+              "description": "Request Entity Too Large",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "502": {
+              "description": "Bad Gateway",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service Unavailable",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "504": {
+              "description": "Gateway Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/questions": {
+        "post": {
+          "summary": "Question",
+          "operationId": "question_v1_questions_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionBody"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ResearchAnswer"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "408": {
+              "description": "Request Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "413": {
+              "description": "Request Entity Too Large",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "502": {
+              "description": "Bad Gateway",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service Unavailable",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "504": {
+              "description": "Gateway Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/reports": {
+        "post": {
+          "summary": "Report",
+          "operationId": "report_v1_reports_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionBody"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ReportResult"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "408": {
+              "description": "Request Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "413": {
+              "description": "Request Entity Too Large",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "502": {
+              "description": "Bad Gateway",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service Unavailable",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "504": {
+              "description": "Gateway Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/analyses": {
+        "post": {
+          "summary": "Analysis",
+          "operationId": "analysis_v1_analyses_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionBody"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AnalysisResult"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "408": {
+              "description": "Request Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "413": {
+              "description": "Request Entity Too Large",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "502": {
+              "description": "Bad Gateway",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service Unavailable",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "504": {
+              "description": "Gateway Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/v1/documents/import": {
+        "post": {
+          "summary": "Ingest",
+          "operationId": "ingest_v1_documents_import_post",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImportBody"
+                }
+              }
+            },
+            "required": true
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ImportResponse"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Not Found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "405": {
+              "description": "Method Not Allowed",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "408": {
+              "description": "Request Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "413": {
+              "description": "Request Entity Too Large",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "415": {
+              "description": "Unsupported Media Type",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Unprocessable Entity",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "502": {
+              "description": "Bad Gateway",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "503": {
+              "description": "Service Unavailable",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            },
+            "504": {
+              "description": "Gateway Timeout",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ApiError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "AnalysisItem": {
+          "properties": {
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 2000,
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Value"
+            },
+            "epistemic_kind": {
+              "type": "string",
+              "enum": [
+                "reported_fact",
+                "model_inference",
+                "unverified_hypothesis"
+              ],
+              "title": "Epistemic Kind"
+            },
+            "evidence": {
+              "items": {
+                "$ref": "#/components/schemas/EvidencePointer"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Evidence"
+            },
+            "basis": {
+              "type": "string",
+              "enum": [
+                "text",
+                "model_inference",
+                "not_reported",
+                "unknown"
+              ],
+              "title": "Basis"
+            },
+            "verification_needed": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 2000,
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Verification Needed"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "value",
+            "epistemic_kind",
+            "evidence",
+            "basis",
+            "verification_needed"
+          ],
+          "title": "AnalysisItem"
+        },
+        "AnalysisResult": {
+          "properties": {
+            "feasibility": {
+              "items": {
+                "$ref": "#/components/schemas/FeasibilityAssessment"
+              },
+              "type": "array",
+              "maxItems": 4,
+              "title": "Feasibility"
+            },
+            "experiments": {
+              "items": {
+                "$ref": "#/components/schemas/CandidateExperiment"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Experiments"
+            },
+            "studies": {
+              "items": {
+                "$ref": "#/components/schemas/StudyAssessment"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Studies"
+            },
+            "idea_similarities": {
+              "items": {
+                "$ref": "#/components/schemas/IdeaSimilarity"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Idea Similarities"
+            },
+            "candidate_gaps": {
+              "items": {
+                "$ref": "#/components/schemas/CandidateGap"
+              },
+              "type": "array",
+              "maxItems": 10,
+              "title": "Candidate Gaps"
+            },
+            "comparisons": {
+              "items": {
+                "$ref": "#/components/schemas/StudyComparison"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Comparisons"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Request Id"
+            },
+            "original_idea": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "Original Idea"
+            },
+            "query_plan": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/QueryPlan"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "analysis_status": {
+              "type": "string",
+              "enum": [
+                "completed",
+                "partial",
+                "insufficient_evidence",
+                "not_evaluated",
+                "needs_clarification"
+              ],
+              "title": "Analysis Status"
+            },
+            "analysis_scope": {
+              "type": "string",
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Analysis Scope"
+            },
+            "limitations": {
+              "items": {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              "type": "array",
+              "title": "Limitations"
+            },
+            "unresolved_questions": {
+              "items": {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              "type": "array",
+              "title": "Unresolved Questions"
+            },
+            "sources": {
+              "items": {
+                "$ref": "#/components/schemas/CitationSource"
+              },
+              "type": "array",
+              "title": "Sources"
+            },
+            "retrieval": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/AnalysisRetrieval"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "generated_at": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Generated At"
+            },
+            "analysis_version": {
+              "type": "string",
+              "title": "Analysis Version",
+              "default": "evidence-analysis-v1"
+            },
+            "model_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Model Id"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "studies",
+            "idea_similarities",
+            "candidate_gaps",
+            "comparisons",
+            "request_id",
+            "original_idea",
+            "query_plan",
+            "analysis_status",
+            "analysis_scope",
+            "limitations",
+            "unresolved_questions",
+            "sources",
+            "retrieval",
+            "generated_at"
+          ],
+          "title": "AnalysisResult"
+        },
+        "AnalysisRetrieval": {
+          "properties": {
+            "scope": {
+              "type": "string",
+              "enum": [
+                "local",
+                "online",
+                "hybrid"
+              ],
+              "title": "Scope"
+            },
+            "options": {
+              "$ref": "#/components/schemas/RetrievalOptions"
+            },
+            "search_provenance": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/SearchProvenance"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenAlexProvenance"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search Provenance"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "scope",
+            "options",
+            "search_provenance"
+          ],
+          "title": "AnalysisRetrieval"
+        },
+        "ApiError": {
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Request Id"
+            },
+            "error_code": {
+              "type": "string",
+              "title": "Error Code"
+            },
+            "message": {
+              "type": "string",
+              "title": "Message"
+            },
+            "retryable": {
+              "type": "boolean",
+              "title": "Retryable"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "request_id",
+            "error_code",
+            "message",
+            "retryable"
+          ],
+          "title": "ApiError"
+        },
+        "BatchIngestionResult": {
+          "properties": {
+            "entries": {
+              "items": {
+                "$ref": "#/components/schemas/IngestionResult"
+              },
+              "type": "array",
+              "title": "Entries"
+            },
+            "error_code": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "source_failed",
+                    "ingestion_invalid",
+                    "chunking_failed",
+                    "embedding_failed",
+                    "storage_failed",
+                    "ingestion_timeout",
+                    "batch_limit",
+                    "storage_corrupt",
+                    "storage_conflict",
+                    "storage_unavailable",
+                    "source_invalid"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error Code"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "entries"
+          ],
+          "title": "BatchIngestionResult"
+        },
+        "CandidateAssessment": {
+          "properties": {
+            "origin_quote": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 1500,
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Origin Quote"
+            },
+            "study_role": {
+              "type": "string",
+              "enum": [
+                "method_origin",
+                "comparison",
+                "other"
+              ],
+              "title": "Study Role",
+              "default": "other"
+            },
+            "id": {
+              "type": "string",
+              "title": "Id"
+            },
+            "relevance": {
+              "type": "string",
+              "enum": [
+                "direct",
+                "partial",
+                "irrelevant",
+                "uncertain"
+              ],
+              "title": "Relevance"
+            },
+            "quote": {
+              "type": "string",
+              "maxLength": 1500,
+              "minLength": 1,
+              "title": "Quote"
+            },
+            "constraints_match": {
+              "type": "boolean",
+              "title": "Constraints Match"
+            },
+            "experimental_information": {
+              "type": "boolean",
+              "title": "Experimental Information"
+            },
+            "representative": {
+              "type": "boolean",
+              "title": "Representative"
+            },
+            "covered_dimensions": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Covered Dimensions"
+            },
+            "reason": {
+              "type": "string",
+              "maxLength": 1000,
+              "minLength": 1,
+              "title": "Reason"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "id",
+            "relevance",
+            "quote",
+            "constraints_match",
+            "experimental_information",
+            "representative",
+            "covered_dimensions",
+            "reason"
+          ],
+          "title": "CandidateAssessment"
+        },
+        "CandidateExperiment": {
+          "properties": {
+            "gap_index": {
+              "type": "integer",
+              "minimum": 0.0,
+              "title": "Gap Index"
+            },
+            "hypothesis": {
+              "$ref": "#/components/schemas/AnalysisItem"
+            },
+            "baseline": {
+              "$ref": "#/components/schemas/AnalysisItem"
+            },
+            "experiment": {
+              "$ref": "#/components/schemas/AnalysisItem"
+            },
+            "metrics": {
+              "$ref": "#/components/schemas/AnalysisItem"
+            },
+            "failure_criterion": {
+              "$ref": "#/components/schemas/AnalysisItem"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "gap_index",
+            "hypothesis",
+            "baseline",
+            "experiment",
+            "metrics",
+            "failure_criterion"
+          ],
+          "title": "CandidateExperiment"
+        },
+        "CandidateGap": {
+          "properties": {
+            "description": {
+              "$ref": "#/components/schemas/AnalysisItem"
+            },
+            "counter_evidence": {
+              "items": {
+                "$ref": "#/components/schemas/EvidencePointer"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Counter Evidence"
+            },
+            "reasoning": {
+              "type": "string",
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Reasoning"
+            },
+            "scope": {
+              "type": "string",
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Scope"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "description",
+            "counter_evidence",
+            "reasoning",
+            "scope"
+          ],
+          "title": "CandidateGap"
+        },
+        "CitationEvidence": {
+          "properties": {
+            "fulltext": {
+              "items": {
+                "$ref": "#/components/schemas/FulltextPassage"
+              },
+              "type": "array",
+              "title": "Fulltext"
+            },
+            "chunk_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Chunk Id"
+            },
+            "text": {
+              "type": "string",
+              "title": "Text"
+            },
+            "location": {
+              "$ref": "#/components/schemas/EvidenceLocation"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "chunk_id",
+            "text",
+            "location"
+          ],
+          "title": "CitationEvidence"
+        },
+        "CitationSource": {
+          "properties": {
+            "openalex_record": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/OpenAlexRecord"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "governance": {
+              "$ref": "#/components/schemas/GovernanceState"
+            },
+            "snapshot_xml": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Snapshot Xml"
+            },
+            "publication_types": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Publication Types"
+            },
+            "source_notices": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Source Notices"
+            },
+            "document_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "title": "Title"
+            },
+            "title_origin": {
+              "type": "string",
+              "enum": [
+                "manual",
+                "document_metadata",
+                "filename",
+                "pubmed_metadata",
+                "openalex_metadata"
+              ],
+              "title": "Title Origin"
+            },
+            "authors": {
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "type": "array",
+              "title": "Authors"
+            },
+            "publication_date": {
+              "$ref": "#/components/schemas/PublicationDate"
+            },
+            "journal": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Journal"
+            },
+            "doi": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Doi"
+            },
+            "pmid": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[1-9][0-9]*$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pmid"
+            },
+            "source_type": {
+              "type": "string",
+              "enum": [
+                "pdf",
+                "pubmed",
+                "openalex"
+              ],
+              "title": "Source Type"
+            },
+            "source_url": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Source Url"
+            },
+            "content_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Content Hash"
+            },
+            "content_scope": {
+              "type": "string",
+              "enum": [
+                "abstract",
+                "extracted_text",
+                "full_text"
+              ],
+              "title": "Content Scope"
+            },
+            "evidence": {
+              "items": {
+                "$ref": "#/components/schemas/CitationEvidence"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "minItems": 1,
+              "title": "Evidence"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "document_id",
+            "title",
+            "title_origin",
+            "authors",
+            "publication_date",
+            "journal",
+            "doi",
+            "pmid",
+            "source_type",
+            "source_url",
+            "content_hash",
+            "content_scope",
+            "evidence"
+          ],
+          "title": "CitationSource"
+        },
+        "CitationVerification": {
+          "properties": {
+            "source_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Source Id"
+            },
+            "identity_status": {
+              "type": "string",
+              "enum": [
+                "valid",
+                "invalid",
+                "unavailable",
+                "not_applicable"
+              ],
+              "title": "Identity Status"
+            },
+            "metadata_status": {
+              "type": "string",
+              "enum": [
+                "valid",
+                "invalid",
+                "unavailable",
+                "not_applicable"
+              ],
+              "title": "Metadata Status"
+            },
+            "location_status": {
+              "type": "string",
+              "enum": [
+                "valid",
+                "invalid",
+                "unavailable"
+              ],
+              "title": "Location Status"
+            },
+            "checked_at": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Checked At"
+            },
+            "errors": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Errors"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_id",
+            "identity_status",
+            "metadata_status",
+            "location_status",
+            "checked_at",
+            "errors"
+          ],
+          "title": "CitationVerification"
+        },
+        "ConceptMapping": {
+          "properties": {
+            "source_text": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "Source Text"
+            },
+            "english_terms": {
+              "items": {
+                "type": "string",
+                "maxLength": 4000,
+                "minLength": 1
+              },
+              "type": "array",
+              "maxItems": 10,
+              "minItems": 1,
+              "title": "English Terms"
+            },
+            "role": {
+              "type": "string",
+              "enum": [
+                "population",
+                "topic",
+                "method",
+                "other"
+              ],
+              "title": "Role"
+            },
+            "required": {
+              "type": "boolean",
+              "title": "Required"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_text",
+            "english_terms",
+            "role",
+            "required"
+          ],
+          "title": "ConceptMapping"
+        },
+        "ConceptRelation": {
+          "properties": {
+            "source_text": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "Source Text"
+            },
+            "english_term": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "English Term"
+            },
+            "relation": {
+              "type": "string",
+              "enum": [
+                "exact_synonym",
+                "narrower_concept",
+                "broader_concept",
+                "related_concept",
+                "method",
+                "required_constraint",
+                "optional_constraint"
+              ],
+              "title": "Relation"
+            },
+            "concept_id": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "Concept Id"
+            },
+            "required": {
+              "type": "boolean",
+              "title": "Required"
+            },
+            "confidence": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "maximum": 1.0,
+                  "minimum": 0.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Confidence"
+            },
+            "verification": {
+              "type": "string",
+              "enum": [
+                "candidate",
+                "verified"
+              ],
+              "title": "Verification",
+              "default": "candidate"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_text",
+            "english_term",
+            "relation",
+            "concept_id",
+            "required"
+          ],
+          "title": "ConceptRelation"
+        },
+        "EvidenceBasis": {
+          "properties": {
+            "uri": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 2083,
+                  "minLength": 1,
+                  "format": "uri"
+                },
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "format": "uri"
+                }
+              ],
+              "title": "Uri"
+            },
+            "snapshot_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Snapshot Hash"
+            },
+            "quote": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "Quote"
+            },
+            "recorded_by": {
+              "type": "string",
+              "maxLength": 200,
+              "minLength": 1,
+              "title": "Recorded By"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "uri",
+            "snapshot_hash",
+            "quote",
+            "recorded_by"
+          ],
+          "title": "EvidenceBasis"
+        },
+        "EvidenceClaim": {
+          "properties": {
+            "section": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 80,
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Section"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Text"
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "evidence",
+                "inference",
+                "uncertainty"
+              ],
+              "title": "Kind"
+            },
+            "evidence_chunk_ids": {
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "minItems": 1,
+              "title": "Evidence Chunk Ids"
+            },
+            "limitations": {
+              "items": {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Limitations"
+            },
+            "claim_id": {
+              "type": "string",
+              "pattern": "^c[1-9][0-9]*$",
+              "title": "Claim Id"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "text",
+            "kind",
+            "evidence_chunk_ids",
+            "limitations",
+            "claim_id"
+          ],
+          "title": "EvidenceClaim"
+        },
+        "EvidenceLocation": {
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "pdf_page",
+                "abstract",
+                "fulltext"
+              ],
+              "title": "Kind"
+            },
+            "page": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "exclusiveMinimum": 0.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Page"
+            },
+            "section": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Section"
+            },
+            "start": {
+              "type": "integer",
+              "minimum": 0.0,
+              "title": "Start"
+            },
+            "end": {
+              "type": "integer",
+              "exclusiveMinimum": 0.0,
+              "title": "End"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "start",
+            "end"
+          ],
+          "title": "EvidenceLocation"
+        },
+        "EvidencePointer": {
+          "properties": {
+            "chunk_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Chunk Id"
+            },
+            "quote": {
+              "type": "string",
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Quote"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "chunk_id",
+            "quote"
+          ],
+          "title": "EvidencePointer"
+        },
+        "ExtractedField": {
+          "properties": {
+            "text": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "Text"
+            },
+            "origin": {
+              "type": "string",
+              "enum": [
+                "user_text",
+                "query_expansion"
+              ],
+              "title": "Origin"
+            },
+            "source_span": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/SourceSpan"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "text",
+            "origin",
+            "source_span"
+          ],
+          "title": "ExtractedField"
+        },
+        "FeasibilityAssessment": {
+          "properties": {
+            "dimension": {
+              "type": "string",
+              "enum": [
+                "data",
+                "methods",
+                "compute",
+                "validation"
+              ],
+              "title": "Dimension"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "unknown",
+                "conditional",
+                "reported_barrier"
+              ],
+              "title": "Status"
+            },
+            "assessment": {
+              "$ref": "#/components/schemas/AnalysisItem"
+            },
+            "next_check": {
+              "type": "string",
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Next Check"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "dimension",
+            "status",
+            "assessment",
+            "next_check"
+          ],
+          "title": "FeasibilityAssessment"
+        },
+        "FulltextPassage": {
+          "properties": {
+            "chunk_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Chunk Id"
+            },
+            "pmid": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[1-9][0-9]*$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pmid"
+            },
+            "pmcid": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Pmcid"
+            },
+            "paper_key": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Paper Key"
+            },
+            "openalex_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Openalex Id"
+            },
+            "page": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Page"
+            },
+            "representation_hash": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Representation Hash"
+            },
+            "title": {
+              "type": "string",
+              "title": "Title"
+            },
+            "doi": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Doi"
+            },
+            "section": {
+              "type": "string",
+              "title": "Section"
+            },
+            "start": {
+              "type": "integer",
+              "minimum": 0.0,
+              "title": "Start"
+            },
+            "end": {
+              "type": "integer",
+              "exclusiveMinimum": 0.0,
+              "title": "End"
+            },
+            "text": {
+              "type": "string",
+              "title": "Text"
+            },
+            "content_hash": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Content Hash"
+            },
+            "source_url": {
+              "type": "string",
+              "title": "Source Url"
+            },
+            "license": {
+              "type": "string",
+              "title": "License"
+            },
+            "content_scope": {
+              "type": "string",
+              "title": "Content Scope",
+              "default": "fulltext"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "chunk_id",
+            "title",
+            "section",
+            "start",
+            "end",
+            "text",
+            "content_hash",
+            "source_url",
+            "license"
+          ],
+          "title": "FulltextPassage"
+        },
+        "GovernanceState": {
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": [
+                "unreviewed",
+                "normal",
+                "corrected",
+                "retracted",
+                "withdrawn",
+                "expression_of_concern"
+              ],
+              "title": "Status",
+              "default": "unreviewed"
+            },
+            "event_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Event Id"
+            },
+            "evidence": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/EvidenceBasis"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "title": "GovernanceState"
+        },
+        "HealthReport": {
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Request Id"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "ok",
+                "not_ready"
+              ],
+              "title": "Status"
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "process",
+                "runtime"
+              ],
+              "title": "Scope"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "request_id",
+            "status",
+            "scope"
+          ],
+          "title": "HealthReport"
+        },
+        "IdeaSimilarity": {
+          "properties": {
+            "document_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            },
+            "dimensions": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/SimilarityDimension"
+              },
+              "type": "object",
+              "title": "Dimensions"
+            },
+            "overall_relation": {
+              "type": "string",
+              "enum": [
+                "overlap",
+                "partial_overlap",
+                "different",
+                "unknown"
+              ],
+              "title": "Overall Relation"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "document_id",
+            "dimensions",
+            "overall_relation"
+          ],
+          "title": "IdeaSimilarity"
+        },
+        "ImportBody": {
+          "properties": {
+            "source_type": {
+              "type": "string",
+              "enum": [
+                "pdf",
+                "pubmed_xml"
+              ],
+              "title": "Source Type"
+            },
+            "relative_path": {
+              "type": "string",
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Relative Path"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "source_type",
+            "relative_path"
+          ],
+          "title": "ImportBody"
+        },
+        "ImportResponse": {
+          "properties": {
+            "request_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Request Id"
+            },
+            "result": {
+              "$ref": "#/components/schemas/BatchIngestionResult"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "request_id",
+            "result"
+          ],
+          "title": "ImportResponse"
+        },
+        "IngestionResult": {
+          "properties": {
+            "index": {
+              "type": "integer",
+              "exclusiveMinimum": 0.0,
+              "title": "Index"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "imported",
+                "already_present",
+                "needs_update",
+                "conflict",
+                "updated",
+                "metadata_updated",
+                "rejected",
+                "failed"
+              ],
+              "title": "Status"
+            },
+            "document_id": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Document Id"
+            },
+            "chunk_count": {
+              "type": "integer",
+              "minimum": 0.0,
+              "title": "Chunk Count"
+            },
+            "error_code": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "source_failed",
+                    "ingestion_invalid",
+                    "chunking_failed",
+                    "embedding_failed",
+                    "storage_failed",
+                    "ingestion_timeout",
+                    "batch_limit",
+                    "storage_corrupt",
+                    "storage_conflict",
+                    "storage_unavailable",
+                    "source_invalid"
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "pubmed_unsupported_record",
+                    "pubmed_invalid_pmid",
+                    "pubmed_pmid_conflict",
+                    "pubmed_duplicate_pmid",
+                    "pubmed_missing_title",
+                    "pubmed_no_abstract",
+                    "pubmed_invalid_author",
+                    "pubmed_invalid_date",
+                    "pubmed_doi_conflict",
+                    "pubmed_text_limit"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error Code"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "index",
+            "status",
+            "document_id",
+            "chunk_count",
+            "error_code"
+          ],
+          "title": "IngestionResult"
+        },
+        "OpenAlexOptions": {
+          "properties": {
+            "query": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 4000,
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            },
+            "date_from": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            },
+            "date_to": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "title": "OpenAlexOptions"
+        },
+        "OpenAlexProvenance": {
+          "properties": {
+            "endpoint": {
+              "type": "string",
+              "const": "https://api.openalex.org/works",
+              "title": "Endpoint",
+              "default": "https://api.openalex.org/works"
+            },
+            "query_sent": {
+              "type": "string",
+              "title": "Query Sent"
+            },
+            "query_translation": {
+              "type": "null",
+              "title": "Query Translation"
+            },
+            "total_count": {
+              "type": "integer",
+              "title": "Total Count",
+              "default": 0
+            },
+            "returned_count": {
+              "type": "integer",
+              "title": "Returned Count",
+              "default": 0
+            },
+            "requested_limit": {
+              "type": "integer",
+              "title": "Requested Limit",
+              "default": 40
+            },
+            "truncated": {
+              "type": "boolean",
+              "title": "Truncated",
+              "default": false
+            },
+            "fetched_at": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Fetched At"
+            },
+            "date_from": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            },
+            "date_to": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            },
+            "date_field": {
+              "type": "string",
+              "const": "publication_date",
+              "title": "Date Field",
+              "default": "publication_date"
+            },
+            "sort": {
+              "type": "string",
+              "title": "Sort",
+              "default": "mixed"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "complete",
+                "partial"
+              ],
+              "title": "Status",
+              "default": "complete"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Warnings"
+            },
+            "query_rounds": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array",
+              "title": "Query Rounds"
+            },
+            "identity_checks": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object",
+              "title": "Identity Checks"
+            },
+            "candidate_outcomes": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object",
+              "title": "Candidate Outcomes"
+            },
+            "assessments": {
+              "items": {
+                "$ref": "#/components/schemas/CandidateAssessment"
+              },
+              "type": "array",
+              "title": "Assessments"
+            },
+            "evidence_gaps": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Evidence Gaps"
+            },
+            "http_attempts": {
+              "type": "integer",
+              "title": "Http Attempts",
+              "default": 0
+            },
+            "screening_calls": {
+              "type": "integer",
+              "title": "Screening Calls",
+              "default": 0
+            },
+            "records": {
+              "items": {
+                "$ref": "#/components/schemas/OpenAlexRecord"
+              },
+              "type": "array",
+              "maxItems": 40,
+              "title": "Records"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "query_sent",
+            "fetched_at",
+            "date_from",
+            "date_to"
+          ],
+          "title": "OpenAlexProvenance"
+        },
+        "OpenAlexRecord": {
+          "properties": {
+            "openalex_id": {
+              "type": "string",
+              "pattern": "^https://openalex\\.org/W[1-9][0-9]*$",
+              "title": "Openalex Id"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "title": "Title"
+            },
+            "authors": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Authors"
+            },
+            "doi": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Doi"
+            },
+            "journal": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Journal"
+            },
+            "publication_date": {
+              "$ref": "#/components/schemas/PublicationDate"
+            },
+            "abstract": {
+              "type": "string",
+              "title": "Abstract"
+            },
+            "abstract_status": {
+              "type": "string",
+              "enum": [
+                "available",
+                "missing",
+                "invalid_abstract"
+              ],
+              "title": "Abstract Status"
+            },
+            "work_type": {
+              "type": "string",
+              "title": "Work Type"
+            },
+            "is_retracted": {
+              "type": "boolean",
+              "title": "Is Retracted"
+            },
+            "open_access": {
+              "additionalProperties": true,
+              "type": "object",
+              "title": "Open Access"
+            },
+            "locations": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array",
+              "title": "Locations"
+            },
+            "best_oa_location": {
+              "anyOf": [
+                {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Best Oa Location"
+            },
+            "snapshot_json": {
+              "type": "string",
+              "title": "Snapshot Json"
+            },
+            "content_hash": {
+              "type": "string",
+              "title": "Content Hash"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "openalex_id",
+            "title",
+            "authors",
+            "doi",
+            "journal",
+            "publication_date",
+            "abstract",
+            "abstract_status",
+            "work_type",
+            "is_retracted",
+            "open_access",
+            "locations",
+            "best_oa_location",
+            "snapshot_json",
+            "content_hash"
+          ],
+          "title": "OpenAlexRecord"
+        },
+        "PICO": {
+          "properties": {
+            "population": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ExtractedField"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "intervention": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ExtractedField"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "comparison": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ExtractedField"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "outcome": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ExtractedField"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "population",
+            "intervention",
+            "comparison",
+            "outcome"
+          ],
+          "title": "PICO"
+        },
+        "PaperTarget": {
+          "properties": {
+            "kind": {
+              "type": "string",
+              "enum": [
+                "doi",
+                "title",
+                "method"
+              ],
+              "title": "Kind"
+            },
+            "source_text": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "Source Text"
+            },
+            "normalized_terms": {
+              "items": {
+                "type": "string",
+                "maxLength": 4000,
+                "minLength": 1
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Normalized Terms"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "kind",
+            "source_text"
+          ],
+          "title": "PaperTarget"
+        },
+        "PubMedOptions": {
+          "properties": {
+            "query": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 4000,
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query"
+            },
+            "date_from": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            },
+            "date_to": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            },
+            "date_field": {
+              "type": "string",
+              "enum": [
+                "pdat",
+                "edat"
+              ],
+              "title": "Date Field",
+              "default": "pdat"
+            },
+            "sort": {
+              "type": "string",
+              "enum": [
+                "relevance",
+                "pub_date"
+              ],
+              "title": "Sort",
+              "default": "relevance"
+            },
+            "max_results": {
+              "type": "integer",
+              "maximum": 20.0,
+              "exclusiveMinimum": 0.0,
+              "title": "Max Results",
+              "default": 10
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "title": "PubMedOptions"
+        },
+        "PublicationDate": {
+          "properties": {
+            "precision": {
+              "type": "string",
+              "enum": [
+                "unknown",
+                "year",
+                "month",
+                "day"
+              ],
+              "title": "Precision"
+            },
+            "raw": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Raw"
+            },
+            "year": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 9999.0,
+                  "minimum": 1.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Year"
+            },
+            "month": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 12.0,
+                  "minimum": 1.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Month"
+            },
+            "day": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 31.0,
+                  "minimum": 1.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Day"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "precision"
+          ],
+          "title": "PublicationDate"
+        },
+        "QueryPlan": {
+          "properties": {
+            "task_intent": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "feasibility",
+                    "comparison",
+                    "paper_explanation",
+                    "definition",
+                    "question_answer"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Task Intent"
+            },
+            "paper_target": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PaperTarget"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "research_constraints": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ResearchConstraints"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "concept_relations": {
+              "items": {
+                "$ref": "#/components/schemas/ConceptRelation"
+              },
+              "type": "array",
+              "maxItems": 30,
+              "title": "Concept Relations"
+            },
+            "research_intent": {
+              "type": "string",
+              "enum": [
+                "discovery",
+                "exploration",
+                "methods_review",
+                "comparison",
+                "design",
+                "unknown"
+              ],
+              "title": "Research Intent",
+              "default": "unknown"
+            },
+            "concept_mappings": {
+              "items": {
+                "$ref": "#/components/schemas/ConceptMapping"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Concept Mappings"
+            },
+            "concept_groups": {
+              "items": {
+                "items": {
+                  "type": "string",
+                  "maxLength": 4000,
+                  "minLength": 1
+                },
+                "type": "array",
+                "maxItems": 10,
+                "minItems": 1
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Concept Groups"
+            },
+            "version": {
+              "type": "string",
+              "const": "pico-v1",
+              "title": "Version",
+              "default": "pico-v1"
+            },
+            "original_question": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "Original Question"
+            },
+            "structured_question": {
+              "$ref": "#/components/schemas/StructuredQuestion"
+            },
+            "terms": {
+              "items": {
+                "$ref": "#/components/schemas/ExtractedField"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Terms"
+            },
+            "preserved_constraints": {
+              "items": {
+                "$ref": "#/components/schemas/ExtractedField"
+              },
+              "type": "array",
+              "maxItems": 1,
+              "minItems": 1,
+              "title": "Preserved Constraints"
+            },
+            "search_intent": {
+              "type": "string",
+              "enum": [
+                "intervention",
+                "diagnosis",
+                "prognosis",
+                "etiology",
+                "other",
+                "uncertain"
+              ],
+              "title": "Search Intent"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "original_question",
+            "structured_question",
+            "terms",
+            "preserved_constraints",
+            "search_intent"
+          ],
+          "title": "QueryPlan"
+        },
+        "QuestionBody": {
+          "properties": {
+            "question": {
+              "type": "string",
+              "maxLength": 4000,
+              "minLength": 1,
+              "title": "Question"
+            },
+            "scope": {
+              "type": "string",
+              "enum": [
+                "local",
+                "online",
+                "hybrid"
+              ],
+              "title": "Scope",
+              "default": "hybrid"
+            },
+            "options": {
+              "$ref": "#/components/schemas/RetrievalOptions"
+            },
+            "pubmed": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PubMedOptions"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "openalex": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/OpenAlexOptions"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "question"
+          ],
+          "title": "QuestionBody"
+        },
+        "Reference": {
+          "properties": {
+            "number": {
+              "type": "integer",
+              "title": "Number"
+            },
+            "source": {
+              "$ref": "#/components/schemas/CitationSource"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "number",
+            "source"
+          ],
+          "title": "Reference"
+        },
+        "ReportClaim": {
+          "properties": {
+            "claim_id": {
+              "type": "string",
+              "title": "Claim Id"
+            },
+            "section": {
+              "type": "integer",
+              "enum": [
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "title": "Section"
+            },
+            "text": {
+              "type": "string",
+              "maxLength": 10000,
+              "minLength": 1,
+              "title": "Text"
+            },
+            "epistemic_kind": {
+              "type": "string",
+              "enum": [
+                "reported_fact",
+                "model_inference",
+                "unverified_hypothesis"
+              ],
+              "title": "Epistemic Kind"
+            },
+            "evidence": {
+              "items": {
+                "$ref": "#/components/schemas/EvidencePointer"
+              },
+              "type": "array",
+              "title": "Evidence"
+            },
+            "information_missing": {
+              "type": "boolean",
+              "title": "Information Missing",
+              "default": false
+            },
+            "support_status": {
+              "type": "string",
+              "enum": [
+                "supported",
+                "partially_supported",
+                "unsupported",
+                "uncertain"
+              ],
+              "title": "Support Status",
+              "default": "uncertain"
+            },
+            "basis": {
+              "type": "string",
+              "title": "Basis",
+              "default": "not_reviewed"
+            },
+            "verification_needed": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Verification Needed"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "claim_id",
+            "section",
+            "text",
+            "epistemic_kind",
+            "evidence"
+          ],
+          "title": "ReportClaim"
+        },
+        "ReportResult": {
+          "properties": {
+            "report": {
+              "$ref": "#/components/schemas/ResearchReport"
+            },
+            "markdown": {
+              "type": "string",
+              "title": "Markdown"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "report",
+            "markdown"
+          ],
+          "title": "ReportResult"
+        },
+        "ResearchAnswer": {
+          "properties": {
+            "local_retrieval_mode": {
+              "type": "string",
+              "enum": [
+                "vector",
+                "keyword",
+                "hybrid"
+              ],
+              "title": "Local Retrieval Mode",
+              "default": "vector"
+            },
+            "local_retrieval_strategy": {
+              "type": "string",
+              "enum": [
+                "vector-v1",
+                "fts-simple-v1",
+                "rrf-v1"
+              ],
+              "title": "Local Retrieval Strategy",
+              "default": "vector-v1"
+            },
+            "retrieval_warnings": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Retrieval Warnings"
+            },
+            "local_channel_status": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "string",
+                    "enum": [
+                      "ok",
+                      "not_requested"
+                    ]
+                  },
+                  "propertyNames": {
+                    "enum": [
+                      "keyword",
+                      "vector"
+                    ]
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Local Channel Status"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Request Id"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "answered",
+                "insufficient_evidence",
+                "needs_clarification"
+              ],
+              "title": "Status"
+            },
+            "query_plan": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/QueryPlan"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "claims": {
+              "items": {
+                "$ref": "#/components/schemas/EvidenceClaim"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Claims"
+            },
+            "sources": {
+              "items": {
+                "$ref": "#/components/schemas/CitationSource"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Sources"
+            },
+            "unobtained_works": {
+              "items": {
+                "$ref": "#/components/schemas/UnobtainedWork"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Unobtained Works"
+            },
+            "limitations": {
+              "items": {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              "type": "array",
+              "maxItems": 10,
+              "minItems": 1,
+              "title": "Limitations"
+            },
+            "retrieval_scope": {
+              "type": "string",
+              "enum": [
+                "local",
+                "online",
+                "hybrid"
+              ],
+              "title": "Retrieval Scope",
+              "default": "local"
+            },
+            "search_provenance": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/SearchProvenance"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenAlexProvenance"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Search Provenance"
+            },
+            "generated_at": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Generated At"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "request_id",
+            "status",
+            "claims",
+            "sources",
+            "limitations",
+            "generated_at"
+          ],
+          "title": "ResearchAnswer"
+        },
+        "ResearchConstraints": {
+          "properties": {
+            "population": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Population"
+            },
+            "task": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Task"
+            },
+            "data_type": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Data Type"
+            },
+            "paper_type": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Paper Type"
+            },
+            "answer_dimensions": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Answer Dimensions"
+            },
+            "time_text": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Time Text"
+            },
+            "time_intent": {
+              "type": "string",
+              "enum": [
+                "unspecified",
+                "latest",
+                "relative_years",
+                "explicit_years",
+                "classic"
+              ],
+              "title": "Time Intent",
+              "default": "unspecified"
+            },
+            "years": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 100.0,
+                  "minimum": 1.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Years"
+            },
+            "year_from": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 9999.0,
+                  "minimum": 1.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Year From"
+            },
+            "year_to": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 9999.0,
+                  "minimum": 1.0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Year To"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "title": "ResearchConstraints"
+        },
+        "ResearchReport": {
+          "properties": {
+            "research_designs": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array",
+              "title": "Research Designs"
+            },
+            "feedback_history": {
+              "items": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "type": "array",
+              "title": "Feedback History"
+            },
+            "feedback_stop": {
+              "type": "string",
+              "title": "Feedback Stop",
+              "default": "not_requested"
+            },
+            "report_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Report Id"
+            },
+            "request_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Request Id"
+            },
+            "version": {
+              "type": "string",
+              "title": "Version",
+              "default": "research-report-v1"
+            },
+            "original_idea": {
+              "type": "string",
+              "title": "Original Idea"
+            },
+            "question": {
+              "type": "string",
+              "title": "Question"
+            },
+            "content_status": {
+              "type": "string",
+              "enum": [
+                "complete",
+                "partial",
+                "insufficient_evidence",
+                "needs_clarification"
+              ],
+              "title": "Content Status"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "verified",
+                "verification_incomplete",
+                "rejected"
+              ],
+              "title": "Status"
+            },
+            "analysis": {
+              "$ref": "#/components/schemas/AnalysisResult"
+            },
+            "search_started_at": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Search Started At"
+            },
+            "generated_at": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Generated At"
+            },
+            "claims": {
+              "items": {
+                "$ref": "#/components/schemas/ReportClaim"
+              },
+              "type": "array",
+              "title": "Claims"
+            },
+            "references": {
+              "items": {
+                "$ref": "#/components/schemas/Reference"
+              },
+              "type": "array",
+              "title": "References"
+            },
+            "verification": {
+              "items": {
+                "$ref": "#/components/schemas/CitationVerification"
+              },
+              "type": "array",
+              "title": "Verification"
+            },
+            "review_model_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Review Model Id"
+            },
+            "verification_notes": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Verification Notes"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "report_id",
+            "request_id",
+            "original_idea",
+            "question",
+            "content_status",
+            "status",
+            "analysis",
+            "search_started_at",
+            "generated_at",
+            "claims",
+            "references",
+            "verification",
+            "verification_notes"
+          ],
+          "title": "ResearchReport"
+        },
+        "RetrievalOptions": {
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "vector",
+                "keyword",
+                "hybrid"
+              ],
+              "title": "Mode",
+              "default": "vector"
+            },
+            "candidate_limit": {
+              "type": "integer",
+              "maximum": 100.0,
+              "exclusiveMinimum": 0.0,
+              "title": "Candidate Limit",
+              "default": 50
+            },
+            "keyword_query": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 4000,
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Keyword Query"
+            },
+            "date_from": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            },
+            "date_to": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            },
+            "top_k": {
+              "type": "integer",
+              "maximum": 20.0,
+              "exclusiveMinimum": 0.0,
+              "title": "Top K",
+              "default": 5
+            },
+            "min_similarity": {
+              "type": "number",
+              "maximum": 1.0,
+              "minimum": -1.0,
+              "title": "Min Similarity",
+              "default": 0.0
+            },
+            "source_types": {
+              "items": {
+                "type": "string",
+                "enum": [
+                  "pdf",
+                  "pubmed",
+                  "openalex"
+                ]
+              },
+              "type": "array",
+              "maxItems": 3,
+              "minItems": 1,
+              "title": "Source Types",
+              "default": [
+                "pdf",
+                "pubmed",
+                "openalex"
+              ]
+            },
+            "content_scopes": {
+              "items": {
+                "type": "string",
+                "enum": [
+                  "abstract",
+                  "extracted_text",
+                  "full_text"
+                ]
+              },
+              "type": "array",
+              "maxItems": 3,
+              "minItems": 1,
+              "title": "Content Scopes",
+              "default": [
+                "abstract",
+                "extracted_text",
+                "full_text"
+              ]
+            },
+            "document_ids": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "type": "array",
+                  "maxItems": 100,
+                  "minItems": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Document Ids"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "title": "RetrievalOptions"
+        },
+        "SearchProvenance": {
+          "properties": {
+            "trace_id": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Trace Id"
+            },
+            "query_rounds": {
+              "items": {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              "type": "array",
+              "title": "Query Rounds"
+            },
+            "searched_pmids": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]*$"
+                  },
+                  "type": "array",
+                  "maxItems": 20
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Searched Pmids"
+            },
+            "fetched_pmids": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[1-9][0-9]*$"
+                  },
+                  "type": "array",
+                  "maxItems": 20
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Fetched Pmids"
+            },
+            "candidate_outcomes": {
+              "patternProperties": {
+                "^[1-9][0-9]*$": {
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "maxProperties": 20,
+              "title": "Candidate Outcomes"
+            },
+            "endpoint": {
+              "type": "string",
+              "const": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/",
+              "title": "Endpoint",
+              "default": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
+            },
+            "search_warnings": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "maxItems": 10,
+              "title": "Search Warnings"
+            },
+            "query_sent": {
+              "type": "string",
+              "title": "Query Sent"
+            },
+            "query_translation": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Query Translation"
+            },
+            "total_count": {
+              "type": "integer",
+              "minimum": 0.0,
+              "title": "Total Count"
+            },
+            "requested_limit": {
+              "type": "integer",
+              "maximum": 20.0,
+              "exclusiveMinimum": 0.0,
+              "title": "Requested Limit"
+            },
+            "returned_count": {
+              "type": "integer",
+              "maximum": 20.0,
+              "minimum": 0.0,
+              "title": "Returned Count"
+            },
+            "truncated": {
+              "type": "boolean",
+              "title": "Truncated"
+            },
+            "fetched_at": {
+              "type": "string",
+              "format": "date-time",
+              "title": "Fetched At"
+            },
+            "date_from": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            },
+            "date_to": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            },
+            "date_field": {
+              "type": "string",
+              "enum": [
+                "pdat",
+                "edat"
+              ],
+              "title": "Date Field"
+            },
+            "sort": {
+              "type": "string",
+              "enum": [
+                "relevance",
+                "pub_date"
+              ],
+              "title": "Sort"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "complete",
+                "partial"
+              ],
+              "title": "Status"
+            },
+            "warnings": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "title": "Warnings"
+            },
+            "missing_pmids": {
+              "items": {
+                "type": "string",
+                "pattern": "^[1-9][0-9]*$"
+              },
+              "type": "array",
+              "title": "Missing Pmids"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "query_sent",
+            "query_translation",
+            "total_count",
+            "requested_limit",
+            "returned_count",
+            "truncated",
+            "fetched_at",
+            "date_from",
+            "date_to",
+            "date_field",
+            "sort",
+            "status",
+            "warnings",
+            "missing_pmids"
+          ],
+          "title": "SearchProvenance"
+        },
+        "SimilarityDimension": {
+          "properties": {
+            "relation": {
+              "type": "string",
+              "enum": [
+                "overlap",
+                "partial_overlap",
+                "different",
+                "unknown"
+              ],
+              "title": "Relation"
+            },
+            "idea_quote": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 2000,
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idea Quote"
+            },
+            "evidence": {
+              "items": {
+                "$ref": "#/components/schemas/EvidencePointer"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Evidence"
+            },
+            "reason": {
+              "type": "string",
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Reason"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "relation",
+            "idea_quote",
+            "evidence",
+            "reason"
+          ],
+          "title": "SimilarityDimension"
+        },
+        "SourceSpan": {
+          "properties": {
+            "start": {
+              "type": "integer",
+              "minimum": 0.0,
+              "title": "Start"
+            },
+            "end": {
+              "type": "integer",
+              "exclusiveMinimum": 0.0,
+              "title": "End"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "start",
+            "end"
+          ],
+          "title": "SourceSpan"
+        },
+        "StructuredQuestion": {
+          "properties": {
+            "question_type": {
+              "type": "string",
+              "enum": [
+                "intervention",
+                "diagnosis",
+                "prognosis",
+                "etiology",
+                "other",
+                "uncertain"
+              ],
+              "title": "Question Type"
+            },
+            "pico": {
+              "$ref": "#/components/schemas/PICO"
+            },
+            "ambiguities": {
+              "items": {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              "type": "array",
+              "maxItems": 5,
+              "title": "Ambiguities"
+            },
+            "extraction_status": {
+              "type": "string",
+              "enum": [
+                "complete",
+                "partial",
+                "needs_clarification"
+              ],
+              "title": "Extraction Status"
+            },
+            "blocking_ambiguities": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "minLength": 1
+                  },
+                  "type": "array",
+                  "maxItems": 5
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Blocking Ambiguities"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "question_type",
+            "pico",
+            "ambiguities",
+            "extraction_status"
+          ],
+          "title": "StructuredQuestion"
+        },
+        "StudyAssessment": {
+          "properties": {
+            "document_id": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Document Id"
+            },
+            "study_type": {
+              "type": "string",
+              "enum": [
+                "trial",
+                "cohort",
+                "case_control",
+                "cross_sectional",
+                "systematic_review",
+                "guideline",
+                "other",
+                "unknown"
+              ],
+              "title": "Study Type"
+            },
+            "type_basis": {
+              "type": "string",
+              "enum": [
+                "metadata",
+                "text",
+                "model_inference",
+                "unknown"
+              ],
+              "title": "Type Basis"
+            },
+            "type_evidence": {
+              "items": {
+                "$ref": "#/components/schemas/EvidencePointer"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Type Evidence"
+            },
+            "metadata_basis": {
+              "items": {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              "type": "array",
+              "maxItems": 20,
+              "title": "Metadata Basis"
+            },
+            "fields": {
+              "additionalProperties": {
+                "$ref": "#/components/schemas/AnalysisItem"
+              },
+              "type": "object",
+              "title": "Fields"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "document_id",
+            "study_type",
+            "type_basis",
+            "type_evidence",
+            "metadata_basis",
+            "fields"
+          ],
+          "title": "StudyAssessment"
+        },
+        "StudyComparison": {
+          "properties": {
+            "document_ids": {
+              "items": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "type": "array",
+              "maxItems": 2,
+              "minItems": 2,
+              "title": "Document Ids"
+            },
+            "relation": {
+              "type": "string",
+              "enum": [
+                "supports",
+                "inconsistent",
+                "potential_conflict",
+                "not_comparable",
+                "uncertain"
+              ],
+              "title": "Relation"
+            },
+            "comparability": {
+              "type": "string",
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Comparability"
+            },
+            "reason": {
+              "type": "string",
+              "maxLength": 2000,
+              "minLength": 1,
+              "title": "Reason"
+            },
+            "evidence": {
+              "items": {
+                "$ref": "#/components/schemas/EvidencePointer"
+              },
+              "type": "array",
+              "maxItems": 20,
+              "minItems": 2,
+              "title": "Evidence"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "document_ids",
+            "relation",
+            "comparability",
+            "reason",
+            "evidence"
+          ],
+          "title": "StudyComparison"
+        },
+        "UnobtainedWork": {
+          "properties": {
+            "openalex_id": {
+              "type": "string",
+              "title": "Openalex Id"
+            },
+            "title": {
+              "type": "string",
+              "title": "Title"
+            },
+            "doi": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Doi"
+            },
+            "year": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Year"
+            },
+            "reason": {
+              "type": "string",
+              "title": "Reason"
+            },
+            "detail": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Detail"
+            }
+          },
+          "additionalProperties": false,
+          "type": "object",
+          "required": [
+            "openalex_id",
+            "title",
+            "reason"
+          ],
+          "title": "UnobtainedWork",
+          "description": "A screened paper whose full text was not acquired. Not answer evidence."
+        }
+      }
+    }
+  },
+  "interfaces": {
+    "__init__": "(self, *, retriever: clinical_agent.application.agents.RetrievalPort, generator: clinical_agent.application.research.AnswerGenerator, limits: clinical_agent.domain.research.ResearchLimits | None = None, planner: clinical_agent.application.pico.PicoPlanner | None = None, max_feedback_rounds: int = 1, analyzer: clinical_agent.application.analysis.EvidenceAnalyzer | None = None, reporter: clinical_agent.application.report.ReportBuilder | None = None, online_retriever: clinical_agent.application.openalex.OpenAlexRetrievalService | None = None, fulltext=None, clock: collections.abc.Callable[[], float] = <built-in function monotonic>, now: collections.abc.Callable[[], datetime.datetime] = <function ResearchService.<lambda> at 0xADDRESS>) -> None",
+    "respond": "(self, request: clinical_agent.domain.research.QuestionRequest) -> clinical_agent.domain.research.ResearchAnswer | clinical_agent.domain.report.ResearchReport",
+    "answer": "(self, request: clinical_agent.domain.research.QuestionRequest) -> clinical_agent.domain.research.ResearchAnswer",
+    "analyze": "(self, request: clinical_agent.domain.research.QuestionRequest) -> clinical_agent.domain.analysis.AnalysisResult",
+    "report": "(self, request: clinical_agent.domain.research.QuestionRequest) -> clinical_agent.domain.report.ReportResult"
+  }
+}

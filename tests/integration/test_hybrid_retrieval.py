@@ -25,7 +25,7 @@ def migrate(engine, action, target="head"):
 
 @pytest.fixture(scope="module")
 def engine():
-    from clinical_agent.adapters.postgres.connection import DatabaseSettings, database_engine
+    from clinical_agent.db.connection import DatabaseSettings, database_engine
 
     settings = DatabaseSettings()
     assert os.environ.get("CLINICAL_AGENT_DB_ALLOW_TEST_RESET") == "1"
@@ -39,8 +39,8 @@ def engine():
 def seed(engine, source_factory, prepared_factory):
     from sqlalchemy import delete
 
-    from clinical_agent.adapters.postgres.models import DocumentRecord
-    from clinical_agent.adapters.postgres.store import PostgresStore
+    from clinical_agent.db.models import DocumentRecord
+    from clinical_agent.db.store import PostgresStore
     from clinical_agent.domain.ingestion import PreparedIngestion
 
     prepared = []
@@ -68,7 +68,7 @@ def query():
 
 
 def test_fixed_three_mode_comparison_and_source_chain(engine, seed, tmp_path):
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalOptions
 
     for row in CASES["documents"]:
@@ -138,7 +138,7 @@ def test_migration_backfills_keeps_ids_and_index_on_reupgrade(engine, seed):
     migrate(engine, "downgrade", "p107_0002")
     with engine.connect() as connection:
         assert connection.scalar(text("SELECT count(*) FROM chunks")) == 1
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalError, RetrievalOptions
 
     try:
@@ -175,7 +175,7 @@ def test_migration_backfills_keeps_ids_and_index_on_reupgrade(engine, seed):
 
 @pytest.mark.parametrize("mode", ["keyword", "hybrid"])
 def test_filters_and_precise_dates_apply_before_both_limits(engine, seed, mode):
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalOptions
 
     seed("aspirin unknown date", [1.0], 1)
@@ -226,7 +226,7 @@ def test_filters_and_precise_dates_apply_before_both_limits(engine, seed, mode):
 
 
 def test_exact_identifiers_and_ascii_language_boundary(engine, seed):
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalError, RetrievalOptions
 
     seed(
@@ -256,7 +256,7 @@ def test_exact_identifiers_and_ascii_language_boundary(engine, seed):
 def test_dual_channels_and_hydration_share_one_read_only_snapshot(engine, seed):
     from sqlalchemy import event
 
-    from clinical_agent.adapters.postgres.retrieval import PostgresRetriever
+    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.retrieval import RetrievalOptions
 
     seed("aspirin", [1.0], 1)
