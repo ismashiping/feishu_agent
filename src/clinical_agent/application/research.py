@@ -47,7 +47,7 @@ class ResearchService:
     def __init__(
         self,
         *,
-        retriever: RetrievalPort,
+        retriever: RetrievalPort | None = None,
         generator: AnswerGenerator,
         limits: ResearchLimits | None = None,
         planner: PicoPlanner | None = None,

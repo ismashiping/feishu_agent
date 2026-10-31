@@ -80,7 +80,6 @@
     "clinical_agent.integrations.llm",
     "clinical_agent.integrations.langchain_generation",
     "clinical_agent.integrations.openalex",
-    "clinical_agent.integrations.pubmed_online",
     "clinical_agent.integrations.oa_fulltext",
     "clinical_agent.integrations.report_snapshot",
     "clinical_agent.db.connection",

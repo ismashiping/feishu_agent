@@ -31,13 +31,12 @@ def envelope(index=1):
 
 
 def answer(request):
-    result = RetrievalResult(
-        options=request.options, embedding_info=retrieval_embedding_info(), hits=[]
-    )
-    if request.scope == "hybrid":
-        from clinical_agent.application.pubmed import merge_sources
-
-        result = merge_sources(result, EmptyOnline().retrieve(request))
+    if request.scope == "local":
+        result = RetrievalResult(
+            options=request.options, embedding_info=retrieval_embedding_info(), hits=[]
+        )
+    else:
+        result = EmptyOnline().retrieve(request)
     return build_answer(request, result, None, generated_at=datetime(2026, 10, 27, tzinfo=UTC))
 
 

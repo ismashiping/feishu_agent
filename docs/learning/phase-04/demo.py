@@ -1,4 +1,9 @@
-"""Offline PubMed metadata-only smoke using the actual HTTPX adapter."""
+"""Offline PubMed metadata-only smoke using the actual HTTPX adapter.
+
+Archived: PubMed online retrieval was removed on 2026-10-31; run this at commit 40a252a.
+"""
+
+raise SystemExit("PubMed online retrieval was removed. Check out commit 40a252a to run this demo.")
 
 import httpx
 

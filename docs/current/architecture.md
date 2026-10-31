@@ -1,5 +1,7 @@
 # 当前实现与研究工作流
 
+> 2026-10-31 检索收敛第 1 层（工作区，未部署；回滚点 `40a252a`）：删除 `application/pubmed.py`、`integrations/pubmed_online.py` 及两个 PubMed 召回脚本；`research_runtime` 不再装配本地 `RetrievalService`/`PostgresRetriever`，`ResearchService(retriever=None)` 为生产默认。Scout 对 online/hybrid 只调用 OpenAlex，缺失时报 `openalex_required`；`scope=local` 报 `local_corpus_not_evidence`（CLI 先拒绝）。HTTP OpenAPI 与 Graph 拓扑不变。下文“本地RetrievalService”与“Scout按scope调度”两段描述的能力仅剩 `db/rebuild`、离线 PubMed XML 解析/快照与历史测试使用，不代表科研链路。`domain/hybrid.py`、`application/retrieval.py`、PubMed 摘要表未删除（第 2/3 层，待确认）。
+>
 > 2026-10-31 代码审查修复（工作区，未部署）：report 节点计算反馈去向并写入 `feedback_target`，条件边只读该字段，不再在路由函数中修改报告；ResearchService 四个入口共用 `_run`（同一 deadline、recursion_limit 与错误码转换）。`_prepare` 在副本上裁剪全文上下文，不再删除仍以 `evidence.text` 出现的锚点段落，避免模型合法引用后被判 `citation_invalid`。API/CLI/Graph 中把未知异常转换为错误码的位置统一用 `log_unexpected` 记录 `stage` 与 `exception_type`（不记录异常消息）。Graph 节点、边和对外接口不变；真实服务未复验。
 
 > 2026-10-31 架构收敛：API 与 CLI/飞书共用 `research_runtime.open_research_service` 装配唯一科研服务。该上下文接收调用者已有的 engine/embedder，管理三类 HTTP 客户端；API 仍让入库与科研共用同一模型和 engine。FulltextService 删除历史 PMC 关键词参数，直接接收当前 source/store。持久化格式、索引签名和检索策略未修改。专项验证与剩余问题见 [本轮报告](../architecture-convergence.md)。
@@ -31,7 +33,7 @@
 | [research.py](../../src/clinical_agent/application/research.py) / [graph.py](../../src/clinical_agent/agents/graph.py) | ResearchService保留业务入口/节点/路由；agents注册编译唯一Graph |
 | [state.py](../../src/clinical_agent/agents/state.py) | 请求局部WorkflowState、角色步骤与patch类型；旧workflow同对象导出 |
 | [nodes.py](../../src/clinical_agent/agents/nodes.py) | 六角色行为，复用现有用例；旧application.agents同对象导出 |
-| [application](../../src/clinical_agent/application) | pico、retrieval、pubmed、analysis、report、ingestion及updates等用例；Protocol在消费者处定义 |
+| [application](../../src/clinical_agent/application) | pico、retrieval、openalex、analysis、report、ingestion及updates等用例；Protocol在消费者处定义 |
 | [rag](../../src/clinical_agent/rag) / [integrations](../../src/clinical_agent/integrations) / [db](../../src/clinical_agent/db) | 本地解析/快照/E5；外部模型/在线文献/来源复核；PostgreSQL实现。旧adapters子模块保留同模块别名 |
 | [command_runtime](../../src/clinical_agent/command_runtime.py) / [api](../../src/clinical_agent/api) / [research_runtime](../../src/clinical_agent/research_runtime.py) | 命令上下文；API工厂/lifespan/有界执行；共享科研资源装配 |
 | [feishu](../../src/feishu) | main装配和SDK连接，events过滤，dedup租约，worker分派，sender渲染发送 |

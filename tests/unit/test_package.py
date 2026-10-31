@@ -33,7 +33,6 @@ if sys.argv[1].startswith("clinical_agent.db."):
     blocked_roots.remove("sqlalchemy")
 if sys.argv[1] in {
     "clinical_agent.integrations.openalex",
-    "clinical_agent.integrations.pubmed_online",
     "clinical_agent.integrations.oa_fulltext",
 }:
     # These existing HTTP adapters explicitly import httpx, without making requests.
@@ -113,8 +112,6 @@ sys.exit(1 if error else 0)
         "clinical_agent.db.retrieval",
         "clinical_agent.domain.hybrid",
         "clinical_agent.domain.pubmed",
-        "clinical_agent.integrations.pubmed_online",
-        "clinical_agent.application.pubmed",
         "clinical_agent.domain.pico",
         "clinical_agent.application.pico",
         "clinical_agent.domain.research",

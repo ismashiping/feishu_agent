@@ -11,7 +11,9 @@ ROOT = Path(__file__).parents[2]
 CONTRACT = json.loads(
     (ROOT / "tests/fixtures/migration/phase3-contracts.json").read_text(encoding="utf-8")
 )
-MODULES = CONTRACT["modules"]
+# PubMed online retrieval was removed after the Phase 3 relocation freeze.
+RETIRED = {"clinical_agent.integrations.pubmed_online"}
+MODULES = {old: new for old, new in CONTRACT["modules"].items() if new not in RETIRED}
 
 
 class ImportOrder(ast.NodeTransformer):
@@ -66,7 +68,7 @@ def test_only_import_locations_changed(old, new):
         .read_text(encoding="utf-8")
     )
     after = (ROOT / "src").joinpath(*new.split(".")).with_suffix(".py").read_text(encoding="utf-8")
-    for source, target in MODULES.items():
+    for source, target in CONTRACT["modules"].items():
         before = before.replace(source, target)
     assert ast.dump(ImportOrder().visit(ast.parse(before)), include_attributes=False) == ast.dump(
         ImportOrder().visit(ast.parse(after)), include_attributes=False

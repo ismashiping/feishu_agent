@@ -94,29 +94,6 @@ def test_actual_search_snapshot_statuses():
     assert result.model_copy(update={"status": "partial"}).pmid_status("39752907") == "unknown"
 
 
-def test_official_warning_detail_is_bounded():
-    import httpx
-
-    from tests.unit.test_pubmed_online import client, search
-
-    def handler(request):
-        return httpx.Response(
-            200,
-            json={
-                "esearchresult": {
-                    "count": "0",
-                    "idlist": [],
-                    "warninglist": {"quotedphrasesnotfound": ["x" * 500] * 25},
-                }
-            },
-        )
-
-    result = search(client(handler))
-    assert len(result.search_warnings) == 10
-    assert all(len(w) == 300 for w in result.search_warnings)
-    assert result.searched_pmids == [] and result.pmid_status("123") == "not_in_returned_set"
-
-
 @pytest.mark.parametrize(
     "q,groups",
     [

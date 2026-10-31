@@ -48,27 +48,19 @@ def test_agent_planner_preserves_frozen_provenance_gates(number, valid):
     assert replay.calls == 1 and state["agent_steps"] == []
 
 
-def test_agent_scout_rejects_pubmed_client():
+@pytest.mark.parametrize(
+    "scope,code", [("online", "openalex_required"), ("local", "local_corpus_not_evidence")]
+)
+def test_agent_scout_requires_openalex_and_never_reads_local_corpus(scope, code):
     from clinical_agent.agents.nodes import LiteratureScoutAgent
-    from clinical_agent.application.pubmed import PubMedRetrievalService
     from clinical_agent.domain.research import QuestionRequest, ResearchError
 
-    class Local:
-        def retrieve(self, request):
-            raise AssertionError("stored corpus is not research evidence")
-
-    class Search:
-        def search(self, *args, **kwargs):
-            raise AssertionError("PubMed must not be called")
-
-    agent = LiteratureScoutAgent(
-        Local(), online=PubMedRetrievalService(Search()), clock=lambda: 1.0
-    )
-    with pytest.raises(ResearchError, match="openalex_required"):
+    agent = LiteratureScoutAgent(clock=lambda: 1.0)
+    with pytest.raises(ResearchError, match=code):
         agent(
             {
                 "request": QuestionRequest(
-                    request_id=uuid4(), question="Frozen replay", scope="online"
+                    request_id=uuid4(), question="Frozen replay", scope=scope
                 ),
                 "deadline": 10.0,
             }

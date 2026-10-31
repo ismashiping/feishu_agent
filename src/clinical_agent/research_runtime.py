@@ -15,18 +15,12 @@ def open_research_service(engine, embedder, llm, openalex_settings, *, limits=No
     from clinical_agent.application.pico import PicoPlanner
     from clinical_agent.application.report import ReportBuilder
     from clinical_agent.application.research import ResearchService
-    from clinical_agent.application.retrieval import RetrievalService
     from clinical_agent.db.fulltext import PostgresFulltextStore
-    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.integrations.llm import RESPONSE_BYTE_LIMIT, open_llm
     from clinical_agent.integrations.oa_fulltext import OAFulltextSource
     from clinical_agent.integrations.openalex import open_openalex
     from clinical_agent.integrations.report_snapshot import SnapshotVerifier
 
-    postgres_retriever = PostgresRetriever(engine)
-    retrieval = RetrievalService(
-        embedder=embedder, retriever=postgres_retriever, hybrid_retriever=postgres_retriever
-    )
     with (
         open_llm(llm) as generator,
         open_openalex() as openalex,
@@ -43,7 +37,6 @@ def open_research_service(engine, embedder, llm, openalex_settings, *, limits=No
                 PostgresFulltextStore(engine, openalex=True),
                 embedder,
             ),
-            retriever=retrieval,
             generator=generator,
             limits=limits,
             planner=PicoPlanner(extractor=generator),

@@ -64,10 +64,15 @@ def test_public_signatures_and_api_unchanged():
     from clinical_agent.api import create_app
     from clinical_agent.application.research import ResearchService
 
+    expected = {name: relocated_type(value) for name, value in BASELINE["interfaces"].items()}
+    # Changed after Phase 0: production research no longer wires a local-corpus retriever.
+    port = "retriever: clinical_agent.agents.nodes.RetrievalPort"
+    assert port + "," in expected["__init__"]
+    expected["__init__"] = expected["__init__"].replace(port + ",", port + " | None = None,")
     assert {
         name: relocated_type(inspect.signature(getattr(ResearchService, name)))
         for name in BASELINE["interfaces"]
-    } == {name: relocated_type(value) for name, value in BASELINE["interfaces"].items()}
+    } == expected
     assert create_app().openapi() == BASELINE["openapi"]
 
 

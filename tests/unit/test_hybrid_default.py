@@ -1,11 +1,11 @@
-"""Public entry defaults authorize both sources; explicit local remains available."""
+"""Public entry defaults authorize both sources; the CLI rejects explicit local research."""
 
 from contextlib import contextmanager
 
 import pytest
 
 
-@pytest.mark.parametrize("scope", [None, "local", "online", "hybrid"])
+@pytest.mark.parametrize("scope", [None, "online", "hybrid"])
 def test_cli_passes_default_or_explicit_scope(scope, capsys):
     from clinical_agent.cli import main
     from clinical_agent.domain.research import ResearchError

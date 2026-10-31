@@ -152,7 +152,7 @@ def test_xml_metadata_plan_matches_real_publication(engine, tmp_path, fake_embed
     from clinical_agent.db.versions import VersionedPostgresStore
     from clinical_agent.domain.updates import UpdateRequest
     from clinical_agent.rag.offline import OfflineReader
-    from tests.unit.test_pubmed_online import article, xml
+    from tests.unit.pubmed_fixtures import article, xml
 
     path = tmp_path / "metadata.xml"
     path.write_bytes(xml(article("98765099")))

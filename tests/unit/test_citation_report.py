@@ -235,7 +235,7 @@ def test_citation_report_official_metadata(report_case, fault):
 
     from clinical_agent.application.report import ReportBuilder
     from clinical_agent.rag.pubmed_xml import parse_pubmed_response
-    from tests.unit.test_pubmed_online import article, xml
+    from tests.unit.pubmed_fixtures import article, xml
 
     case, analysis = report_case
     # Rebind both actual retrieval and analysis metadata to one synthetic PMID.
@@ -272,22 +272,6 @@ def test_citation_report_official_metadata(report_case, fault):
     assert verification.identity_status == (
         "valid" if fault == "valid" else "invalid" if fault in {"doi", "title"} else "unavailable"
     )
-
-
-def test_citation_report_bounded_efetch():
-    import httpx
-
-    from tests.unit.test_pubmed_online import article, client, xml
-
-    calls = []
-
-    def handler(request):
-        calls.append(request)
-        assert request.url.path.endswith("efetch.fcgi")
-        return httpx.Response(200, content=xml(article("123")))
-
-    records = client(handler).fetch_metadata(["123"], timeout_seconds=20.0)
-    assert records[0].pmid == "123" and len(calls) == 1
 
 
 def test_citation_report_hypothesis_and_complete_feishu_text(report_case):
@@ -455,66 +439,6 @@ def test_citation_report_feishu_worker_and_sender(report_case):
     assert "科研选题现状调研报告" in text and "可追溯文献引用及证据支持状态" in text
 
 
-def test_citation_report_online_multisection_snapshot():
-    from datetime import UTC, datetime
-
-    from clinical_agent.application.pubmed import PubMedRetrievalService
-    from clinical_agent.domain.citations import build_answer
-    from clinical_agent.domain.pubmed import PubMedSearchResult
-    from clinical_agent.domain.research import DraftClaim, GenerationDraft, QuestionRequest
-    from clinical_agent.integrations.report_snapshot import SnapshotVerifier
-    from clinical_agent.rag.pubmed_xml import parse_pubmed_response
-    from tests.unit.test_pubmed_online import article, xml
-
-    record_text = article("123").replace(
-        "</Abstract>", '<AbstractText Label="LIMITATIONS">Small sample.</AbstractText></Abstract>'
-    )
-    now = datetime.now(UTC)
-    record = parse_pubmed_response(xml(record_text), fetched_at=now)[0]
-    response = PubMedSearchResult(
-        query_sent="cohort",
-        query_translation=None,
-        total_count=1,
-        requested_limit=1,
-        returned_count=1,
-        truncated=False,
-        fetched_at=now,
-        date_from=None,
-        date_to=None,
-        date_field="pdat",
-        sort="relevance",
-        status="complete",
-        warnings=[],
-        missing_pmids=[],
-        records=[record],
-    )
-
-    class Search:
-        def search(self, *args, **kwargs):
-            return response
-
-    request = QuestionRequest(request_id=uuid4(), question="cohort", scope="online")
-    from clinical_agent.domain.retrieval import RetrievalRequest
-
-    retrieval = PubMedRetrievalService(Search()).retrieve(
-        RetrievalRequest.model_validate(request.model_dump(exclude={"request_id"}))
-    )
-    draft = GenerationDraft(
-        claims=[
-            DraftClaim(
-                text="Supplied passage",
-                kind="evidence",
-                evidence_chunk_ids=[retrieval.hits[0].chunk.chunk_id],
-                limitations=[],
-            )
-        ]
-    )
-    source = build_answer(request, retrieval, draft, generated_at=now).sources[0]
-    assert SnapshotVerifier().check(source, retrieval) == "valid"
-    retrieval.hits[0].chunk.text = "Wrong abstract"
-    assert SnapshotVerifier().check(source, retrieval) == "invalid"
-
-
 def test_citation_report_local_multirecord_xml(tmp_path, prepared_factory):
     from datetime import UTC, datetime
 
@@ -529,7 +453,7 @@ def test_citation_report_local_multirecord_xml(tmp_path, prepared_factory):
     )
     from clinical_agent.integrations.report_snapshot import SnapshotVerifier
     from clinical_agent.rag.offline import OfflineReader
-    from tests.unit.test_pubmed_online import article, xml
+    from tests.unit.pubmed_fixtures import article, xml
 
     now = datetime.now(UTC)
     path = tmp_path / "batch.xml"

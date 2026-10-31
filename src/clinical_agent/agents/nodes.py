@@ -54,11 +54,11 @@ class IdeaPlannerAgent:
 
 
 class LiteratureScoutAgent:
-    """Discovers papers through OpenAlex. Stored PubMed rows are not evidence."""
+    """Discovers papers through OpenAlex. Stored local rows are not evidence."""
 
     def __init__(
         self,
-        retriever: RetrievalPort,
+        retriever: RetrievalPort | None = None,
         *,
         online: OpenAlexRetrievalService | None = None,
         clock: Callable[[], float] = monotonic,
@@ -72,13 +72,13 @@ class LiteratureScoutAgent:
         try:
             data = request.model_dump(exclude={"request_id"})
             if request.scope == "local":
-                # Explicit local scope still reads the injected store for historical
-                # graph tests. Public CLI, API and Feishu reject this scope.
+                # Only injected test doubles read a local corpus. Public CLI, API and
+                # Feishu reject this scope, and production wiring injects no retriever.
+                if self.retriever is None:
+                    raise ResearchError("local_corpus_not_evidence")
                 retrieval = self.retriever.retrieve(RetrievalRequest.model_validate(data))
             else:
-                if self.online is None or type(self.online).__module__.endswith(
-                    "application.pubmed"
-                ):
+                if self.online is None:
                     raise ResearchError("openalex_required")
                 if request.options.mode != "vector":
                     raise ResearchError("local_corpus_not_evidence")
