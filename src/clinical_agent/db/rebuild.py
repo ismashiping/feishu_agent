@@ -222,15 +222,11 @@ class KnowledgeRebuilder:
             return _summary(record)
 
     def evaluate(self, prepared: list[PreparedIngestion]) -> str:
-        """Real isolated PG canaries, not medical quality or an LLM self-review."""
-        import re
+        """Isolated round-trip of stored chunks, not search ranking or medical review."""
         from uuid import uuid4
 
         from clinical_agent.db.models import Base
-        from clinical_agent.db.retrieval import PostgresRetriever
         from clinical_agent.db.store import PostgresStore
-        from clinical_agent.domain.embedding import QueryEmbedding
-        from clinical_agent.domain.retrieval import RetrievalOptions
 
         schema = "rebuild_check_" + uuid4().hex
         created = False
@@ -241,36 +237,18 @@ class KnowledgeRebuilder:
             isolated = self.engine.execution_options(schema_translate_map={None: schema})
             Base.metadata.create_all(isolated)
             store = PostgresStore(isolated)
-            retriever = PostgresRetriever(isolated)
             for value in prepared:
                 store.save(value)
-                evidence = value.embedded[0]
-                assert evidence.evidence.embedding_info is not None
-                query = QueryEmbedding(
-                    vector=evidence.vector, embedding_info=evidence.evidence.embedding_info
-                )
-                words = re.findall(r"[A-Za-z][A-Za-z0-9_]*", evidence.evidence.text)
-                terms = value.source.parsed.document.pmid or (words[0] if words else "evidence")
-                for mode in ("vector", "keyword", "hybrid"):
-                    result = retriever.search_hybrid(
-                        terms,
-                        query,
-                        RetrievalOptions(
-                            mode=mode, document_ids=[value.source.parsed.document.document_id]
-                        ),
-                        timeout_seconds=10.0,
-                    )
-                    if (
-                        mode != "keyword" or words or value.source.parsed.document.pmid
-                    ) and not result.hits:
-                        return "not_accepted"
-                    if any(
-                        h.document.document_id != value.source.parsed.document.document_id
-                        for h in result.hits
-                    ):
-                        return "not_accepted"
-                    for hit in result.hits:
-                        value.source.parsed.validate_chunk(hit.chunk)
+                identity = value.source.parsed.document.document_id
+                loaded = store.load(identity)
+                if loaded is None:
+                    return "not_accepted"
+                saved = {item.evidence.chunk_id: item.evidence.text for item in loaded.embedded}
+                expected = {item.evidence.chunk_id: item.evidence.text for item in value.embedded}
+                if saved != expected:
+                    return "not_accepted"
+                for item in loaded.embedded:
+                    value.source.parsed.validate_chunk(item.evidence)
             return "passed"
         except Exception:
             return "failed"

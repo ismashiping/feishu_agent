@@ -108,13 +108,11 @@ def test_status_compare_and_swap_and_idempotence(engine, source_factory, prepare
 
 
 @pytest.mark.parametrize("blocked", ["retracted", "withdrawn", "expression_of_concern"])
-def test_governance_filters_all_modes_and_preserves_history(
+def test_governance_status_history_survives_correction(
     engine, source_factory, prepared_factory, blocked
 ):
     from clinical_agent.db.governance import SourceGovernance
-    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.domain.governance import StatusChange
-    from clinical_agent.domain.retrieval import RetrievalOptions
 
     registry = SourceGovernance(engine)
     store, original, identity = setup_source(
@@ -134,22 +132,6 @@ def test_governance_filters_all_modes_and_preserves_history(
         evidence=basis(),
     )
     registry.change_status(first)
-    from clinical_agent.domain.embedding import QueryEmbedding
-    from clinical_agent.domain.retrieval import retrieval_embedding_info
-
-    query = QueryEmbedding(
-        vector=original.embedded[0].vector, embedding_info=retrieval_embedding_info()
-    )
-    retriever = PostgresRetriever(engine)
-    for mode in ("vector", "keyword", "hybrid"):
-        result = retriever.search_hybrid(
-            "cohort",
-            query,
-            RetrievalOptions(mode=mode, document_ids=[identity]),
-            timeout_seconds=10.0,
-        )
-        assert not result.hits
-        assert "source_governance_local_policy" in result.warnings
     updated = prepared_factory(
         source_factory(
             text="Updated governance cohort evidence.",
@@ -173,35 +155,7 @@ def test_governance_filters_all_modes_and_preserves_history(
             evidence=basis(),
         )
     )
-    result = retriever.search_hybrid(
-        "cohort",
-        None,
-        RetrievalOptions(mode="keyword", document_ids=[identity]),
-        timeout_seconds=10.0,
-    )
-    assert result.hits[0].document.governance.status == "corrected"
-    assert result.hits[0].document.governance.evidence.snapshot_hash == "a" * 64
-    from datetime import UTC, datetime
-
-    from clinical_agent.domain.citations import build_answer
-    from clinical_agent.domain.research import DraftClaim, GenerationDraft, QuestionRequest
-
-    answer = build_answer(
-        QuestionRequest(request_id=uuid4(), question="cohort", options=result.options),
-        result,
-        GenerationDraft(
-            claims=[
-                DraftClaim(
-                    text="Cohort evidence",
-                    kind="evidence",
-                    evidence_chunk_ids=[result.hits[0].chunk.chunk_id],
-                    limitations=[],
-                )
-            ]
-        ),
-        generated_at=datetime.now(UTC),
-    )
-    assert answer.sources[0].governance == result.hits[0].document.governance
+    assert registry.inspect(identity)["state"]["status"] == "corrected"
 
 
 def test_unknown_document_and_migration(engine):

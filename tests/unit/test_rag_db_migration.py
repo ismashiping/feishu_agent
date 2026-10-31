@@ -11,9 +11,13 @@ ROOT = Path(__file__).parents[2]
 CONTRACT = json.loads(
     (ROOT / "tests/fixtures/migration/phase3-contracts.json").read_text(encoding="utf-8")
 )
-# PubMed online retrieval was removed after the Phase 3 relocation freeze.
-RETIRED = {"clinical_agent.integrations.pubmed_online"}
-MODULES = {old: new for old, new in CONTRACT["modules"].items() if new not in RETIRED}
+# Removed or rewritten after the Phase 3 relocation freeze.
+RETIRED = {
+    "clinical_agent.integrations.pubmed_online",
+    "clinical_agent.db.retrieval",
+}
+DRIFTED = {"clinical_agent.db.rebuild"}
+MODULES = {old: new for old, new in CONTRACT["modules"].items() if new not in RETIRED | DRIFTED}
 
 
 class ImportOrder(ast.NodeTransformer):
@@ -53,10 +57,12 @@ def test_complete_ddl_and_migration_files_unchanged():
         }
         for t in Base.metadata.sorted_tables
     } == CONTRACT["ddl"]
-    assert {
+    hashes = {
         p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
         for p in (ROOT / "alembic/versions").glob("*.py")
-    } == CONTRACT["migration_hashes"]
+    }
+    added = hashes.pop("alembic/versions/oa3002_0010_drop_pubmed_cache.py")
+    assert added and hashes == CONTRACT["migration_hashes"]
 
 
 @pytest.mark.parametrize("old,new", MODULES.items())

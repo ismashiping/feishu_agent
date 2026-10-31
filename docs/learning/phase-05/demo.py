@@ -1,4 +1,9 @@
-"""Pure RRF demo with explicitly synthetic encoded evidence contracts."""
+"""Pure RRF demo with explicitly synthetic encoded evidence contracts.
+
+Archived: local hybrid retrieval was removed on 2026-10-31; run this at commit f271ab3.
+"""
+
+raise SystemExit("Local hybrid retrieval was removed. Check out commit f271ab3 to run this demo.")
 
 from datetime import UTC, datetime
 from uuid import UUID

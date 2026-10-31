@@ -136,19 +136,13 @@ def test_real_e5_postgres_model_api_pipeline(tmp_path, pdf_factory):
     from sqlalchemy import delete, func, select
 
     from clinical_agent.application.ingestion import IngestionService
-    from clinical_agent.application.research import ResearchService
-    from clinical_agent.application.retrieval import RetrievalService
     from clinical_agent.db.connection import DatabaseSettings, database_engine
     from clinical_agent.db.models import DocumentRecord
-    from clinical_agent.db.retrieval import PostgresRetriever
     from clinical_agent.db.store import PostgresStore
     from clinical_agent.domain.ingestion import ImportRequest
-    from clinical_agent.domain.research import QuestionRequest
-    from clinical_agent.integrations.llm import LLMSettings, open_llm
     from clinical_agent.rag.embedding import REVISION, LocalModelConfig, load_local_embedder
     from clinical_agent.rag.offline import OfflineReader
 
-    assert os.environ.get("CLINICAL_AGENT_P117_PAID_CALLS") == "1"
     settings = DatabaseSettings()
     assert settings.host == "127.0.0.1" and settings.name.startswith("clinical_agent_test_")
     assert os.environ.get("CLINICAL_AGENT_DB_ALLOW_TEST_RESET") == "1"
@@ -157,32 +151,10 @@ def test_real_e5_postgres_model_api_pipeline(tmp_path, pdf_factory):
             snapshot_dir=ROOT / "models/multilingual-e5-base" / REVISION,
         )
     )
-    llm = LLMSettings()
-    with database_engine(settings) as engine, open_llm(llm) as generator:
+    with database_engine(settings) as engine:
         with engine.connect() as connection:
             assert connection.scalar(select(func.count()).select_from(DocumentRecord)) == 0
-        retrieval = RetrievalService(embedder=embedder, retriever=PostgresRetriever(engine))
-        invocations = []
-
-        class CountedGenerator:
-            def generate(self, context, *, timeout_seconds):
-                invocations.append(1)
-                assert len(invocations) <= 1, "One paid request maximum per test run"
-                return generator.generate(context, timeout_seconds=timeout_seconds)
-
-        research = ResearchService(retriever=retrieval, generator=CountedGenerator())
         medical_xml = os.environ.get("CLINICAL_AGENT_P117_MEDICAL_XML")
-        question = (
-            "根据提供的研究摘要，说明纳入人群、比较的血压目标、主要结果及安全性限制。"
-            "保持摘要范围，不给个体治疗建议。"
-            if medical_xml
-            else "What limitations does this fictional teaching example have?"
-        )
-        request = QuestionRequest(
-            request_id=uuid4(), question=question, options={"top_k": 5, "min_similarity": -1.0}
-        )
-        assert research.answer(request).status == "insufficient_evidence"
-        assert not invocations
         body = (
             "This fictional teaching example included 12 invented participants. "
             "It had no control group and cannot establish treatment efficacy. "
@@ -218,39 +190,10 @@ def test_real_e5_postgres_model_api_pipeline(tmp_path, pdf_factory):
             by_id = {item.evidence.chunk_id: item.evidence for item in prepared.embedded}
             for chunk in by_id.values():
                 prepared.source.parsed.validate_chunk(chunk)
-            answer = research.answer(request)
-            assert answer.status == "answered" and answer.claims and len(invocations) == 1
-            if medical_xml:
-                assert all(
-                    source.pmid == "26551272" and source.content_scope == "abstract"
-                    for source in answer.sources
-                )
-            else:
-                assert all(source.pmid is None and source.doi is None for source in answer.sources)
-            for source in answer.sources:
-                for evidence in source.evidence:
-                    assert evidence.text == by_id[evidence.chunk_id].text
-                    assert evidence.location == by_id[evidence.chunk_id].location
-            directory = Path(os.environ["CLINICAL_AGENT_TEST_EVIDENCE_DIR"])
-            (directory / "pipeline-answer.json").write_text(
-                answer.model_dump_json(indent=2), encoding="utf-8"
-            )
-            (directory / "pipeline-result.json").write_text(
-                json.dumps(
-                    {
-                        "embedding": "real fixed E5 CPU",
-                        "database": "real PostgreSQL/pgvector",
-                        "llm": "real model API",
-                        "paid_calls": len(invocations),
-                        "empty_calls": 0,
-                        "citation_slices": "passed",
-                        "medical_review": "pending human review",
-                        "sample": "PMID 26551272 abstract" if medical_xml else "synthetic PDF",
-                    },
-                    indent=2,
-                ),
-                encoding="utf-8",
-            )
+                if medical_xml:
+                    assert prepared.source.parsed.document.pmid == "26551272"
+                else:
+                    assert prepared.source.parsed.document.pmid is None
         finally:
             with engine.begin() as connection:
                 connection.execute(delete(DocumentRecord))
