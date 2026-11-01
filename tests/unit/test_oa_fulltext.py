@@ -14,7 +14,9 @@ from clinical_agent.integrations.oa_fulltext import OAFulltextSource, parse_tei,
 
 
 def record():
-    runs = json.loads(Path("docs/openalex-stage2/live-check.json").read_text(encoding="utf8"))
+    runs = json.loads(
+        Path("history/docs-20261101/openalex-stage2/live-check.json").read_text(encoding="utf8")
+    )
     return next(
         OpenAlexRecord.model_validate(r)
         for run in runs

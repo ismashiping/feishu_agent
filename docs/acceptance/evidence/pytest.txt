@@ -1,0 +1,197 @@
+........................................................................ [  4%]
+........................................................................ [  9%]
+...............................................................F........ [ 13%]
+....................................................F................... [ 18%]
+........................................................................ [ 22%]
+.......................F................................................ [ 27%]
+........................................................................ [ 31%]
+....................................................F................... [ 36%]
+........................................................................ [ 40%]
+........................................................................ [ 45%]
+........................................................................ [ 49%]
+.......F................................................................ [ 54%]
+........................................................................ [ 58%]
+........................................................................ [ 63%]
+........................................................................ [ 67%]
+........................................................................ [ 72%]
+........................................................................ [ 76%]
+........................................................................ [ 81%]
+........................................................................ [ 85%]
+.........................................................FFFFF.......... [ 90%]
+........................................................................ [ 94%]
+........................................................................ [ 99%]
+..........                                                               [100%]
+================================== FAILURES ===================================
+__________________ test_public_signatures_and_api_unchanged ___________________
+tests\unit\test_agents_migration.py:81: in test_public_signatures_and_api_unchanged
+    assert create_app().openapi() == openapi
+E   AssertionError: assert {'openapi': '..., ...}, ...}}} == {'openapi': '..., ...}, ...}}}
+E     
+E     Omitting 3 identical items, use -vv to show
+E     Differing items:
+E     {'components': {'schemas': {'AnalysisItem': {'properties': {'value': {'anyOf': [...], 'title': 'Value'}, 'epistemic_ki...nalProperties': False, 'type': 'object', 'required': ['request_id', 'error_code', 'message', 'retryable'], ...}, ...}}} != {'components': {'schemas': {'AnalysisItem': {'properties': {'value': {'anyOf': [...], 'title': 'Value'}, 'epistemic_ki...nalProperties': False, 'type': 'object', 'required': ['request_id', 'error_code', 'message', 'retryable'], ...}, ...}}}
+E     Use -v to get more diff
+_________________________ test_openapi_matches_phase0 _________________________
+tests\unit\test_api_migration.py:27: in test_openapi_matches_phase0
+    assert create_app().openapi() == expected
+E   AssertionError: assert {'openapi': '..., ...}, ...}}} == {'openapi': '..., ...}, ...}}}
+E     
+E     Omitting 3 identical items, use -vv to show
+E     Differing items:
+E     {'components': {'schemas': {'AnalysisItem': {'properties': {'value': {'anyOf': [...], 'title': 'Value'}, 'epistemic_ki...nalProperties': False, 'type': 'object', 'required': ['request_id', 'error_code', 'message', 'retryable'], ...}, ...}}} != {'components': {'schemas': {'AnalysisItem': {'properties': {'value': {'anyOf': [...], 'title': 'Value'}, 'epistemic_ki...nalProperties': False, 'type': 'object', 'required': ['request_id', 'error_code', 'message', 'retryable'], ...}, ...}}}
+E     Use -v to get more diff
+______________________ test_citation_report_cli_and_api _______________________
+.tools\p117-python31216\python\Lib\argparse.py:1943: in _parse_known_args2
+    namespace, args = self._parse_known_args(args, namespace, intermixed)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:2184: in _parse_known_args
+    start_index = consume_optional(start_index)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:2113: in consume_optional
+    take_action(action, args, option_string)
+.tools\p117-python31216\python\Lib\argparse.py:2003: in take_action
+    argument_values = self._get_values(action, argument_strings)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:2514: in _get_values
+    self._check_value(action, value)
+.tools\p117-python31216\python\Lib\argparse.py:2573: in _check_value
+    raise ArgumentError(action, msg % args)
+E   argparse.ArgumentError: argument --scope: invalid choice: 'local' (choose from online, hybrid)
+
+During handling of the above exception, another exception occurred:
+tests\unit\test_citation_report.py:358: in test_citation_report_cli_and_api
+    main(
+src\clinical_agent\cli.py:268: in main
+    arguments = parser.parse_args(argv)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:1904: in parse_args
+    args, argv = self.parse_known_args(args, namespace)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:1914: in parse_known_args
+    return self._parse_known_args2(args, namespace, intermixed=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:1943: in _parse_known_args2
+    namespace, args = self._parse_known_args(args, namespace, intermixed)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:2165: in _parse_known_args
+    positionals_end_index = consume_positionals(start_index)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:2141: in consume_positionals
+    take_action(action, args)
+.tools\p117-python31216\python\Lib\argparse.py:2018: in take_action
+    action(self, namespace, argument_values, option_string)
+.tools\p117-python31216\python\Lib\argparse.py:1272: in __call__
+    subnamespace, arg_strings = parser.parse_known_args(arg_strings, None)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:1914: in parse_known_args
+    return self._parse_known_args2(args, namespace, intermixed=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.tools\p117-python31216\python\Lib\argparse.py:1945: in _parse_known_args2
+    self.error(str(err))
+src\clinical_agent\cli.py:40: in error
+    self.exit(2, "Invalid arguments.\n")
+.tools\p117-python31216\python\Lib\argparse.py:2637: in exit
+    _sys.exit(status)
+E   SystemExit: 2
+---------------------------- Captured stderr setup ----------------------------
+{"event": "Evidence trace stage=analyze failure_kind=partial counts=hits=1,max_output=16384,configured_max_output=16384,retries=0,schema=accepted,schema_status=accepted,content_chars=unknown,output_character_count=unknown,input_tokens=unknown,output_tokens=unknown,reasoning_tokens=unknown", "evidence_counts": "hits=1,max_output=16384,configured_max_output=16384,retries=0,schema=accepted,schema_status=accepted,content_chars=unknown,output_character_count=unknown,input_tokens=unknown,output_tokens=unknown,reasoning_tokens=unknown", "evidence_stage": "analyze", "failure_kind": "partial", "request_id": "472ccf8b-c8b0-42be-b789-eb9dd6d80973", "level": "info", "timestamp": "2026-11-01T03:09:42.404550Z"}
+----------------------------- Captured log setup ------------------------------
+INFO     clinical_agent.application.openalex:openalex.py:127 Evidence trace stage=analyze failure_kind=partial counts=hits=1,max_output=16384,configured_max_output=16384,retries=0,schema=accepted,schema_status=accepted,content_chars=unknown,output_character_count=unknown,input_tokens=unknown,output_tokens=unknown,reasoning_tokens=unknown
+---------------------------- Captured stderr call -----------------------------
+usage: clinical-agent ask [-h] [--report] [--format {json,markdown}]
+                          [--analyze] --question QUESTION
+                          [--retrieval-mode {vector,keyword,hybrid}]
+                          [--candidate-limit CANDIDATE_LIMIT]
+                          [--keyword-query KEYWORD_QUERY]
+                          [--local-date-from LOCAL_DATE_FROM]
+                          [--local-date-to LOCAL_DATE_TO]
+                          [--scope {online,hybrid}]
+                          [--pubmed-query PUBMED_QUERY]
+                          [--openalex-query OPENALEX_QUERY]
+                          [--date-from DATE_FROM] [--date-to DATE_TO]
+                          [--date-field {pdat,edat}]
+                          [--sort {relevance,pub_date}]
+                          [--max-results MAX_RESULTS] --model-dir MODEL_DIR
+                          [--top-k TOP_K] [--min-similarity MIN_SIMILARITY]
+                          [--request-id REQUEST_ID]
+Invalid arguments.
+___ test_user_entry_default_is_hybrid_and_internal_request_stays_compatible ___
+tests\unit\test_exploratory_discovery.py:127: in test_user_entry_default_is_hybrid_and_internal_request_stays_compatible
+    assert QuestionBody(question=QUESTION, scope="local").scope == "local"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   pydantic_core._pydantic_core.ValidationError: 1 validation error for QuestionBody
+E   scope
+E     Input should be 'online' or 'hybrid' [type=literal_error]
+E       For further information visit https://errors.pydantic.dev/2.14/v/literal_error
+_ test_original_algorithms_preserved[feishu.sender-clinical_agent.channels.feishu.sender] _
+tests\unit\test_feishu_migration.py:35: in test_original_algorithms_preserved
+    assert ast.dump(ImportOrder().visit(ast.parse(source))) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 31022 identical leading characters in diff, use -v to show
+E     - , If(test=Call(func=Name(id='isinstance', ctx=Load()), args=[Attribute(value=Name(id='answer', ctx=Load()), attr='search_provenance', ctx=Load()), Name(id='OpenAlexProvenance', ctx=Load())], keywords=[]), body=[Expr(value=Call(func=Attribute(value=Name(id='covered', ctx=Load()), attr='update', ctx=Load()), args=[Set(elts=[Subscript(value=Name(id='BASE_LIMITATIONS', ctx=Load()), slice=Constant(value=1), ctx=Load()), Constant(value='已查询 OpenAlex，证据限于本次检索与已获取摘要，不保证检全。'), Constant(value='已查询 OpenAlex，未发现可进...
+E     
+E     ...Full output truncated (4 lines hidden), use '-vv' to show
+_ test_only_import_locations_changed[clinical_agent.adapters.llm-clinical_agent.integrations.llm] _
+tests\unit\test_rag_db_migration.py:114: in test_only_import_locations_changed
+    assert ast.dump(ImportOrder().visit(ast.parse(before)), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 11669 identical leading characters in diff, use -v to show
+E     - ds=[])), Assign(targets=[Name(id='envelope', ctx=Store())], value=Constant(value=None)), Try(body=[Assign(targets=[Name(id='body', ctx=Store())], value=Call(func=Attribute(value=Name(id='response', ctx=Load()), attr='read', ctx=Load()), args=[], keywords=[])), If(test=Compare(left=Call(func=Name(id='len', ctx=Load()), args=[Name(id='body', ctx=Load())], keywords=[]), ops=[Gt()], comparators=[Name(id='RESPONSE_BYTE_LIMIT', ctx=Load())]), body=[Raise(exc=Call(func=Name(id='ResearchError', ctx=Load()), ar...
+E     
+E     ...Full output truncated (4 lines hidden), use '-vv' to show
+_ test_only_import_locations_changed[clinical_agent.adapters.langchain_generation-clinical_agent.integrations.langchain_generation] _
+tests\unit\test_rag_db_migration.py:114: in test_only_import_locations_changed
+    assert ast.dump(ImportOrder().visit(ast.parse(before)), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 741 identical leading characters in diff, use -v to show
+E     - ias(name='Any'), alias(name='TYPE_CHECKING')], level=0), If(test=Name(id='TYPE_CHECKING', ctx=Load()), body=[ImportFrom(module='langchain_core.language_models', names=[alias(name='BaseChatModel')], level=0)], orelse=[]), FunctionDef(name='_metric', args=arguments(posonlyargs=[], args=[arg(arg='value', annotation=Name(id='object', ctx=Load()))], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[If(test=BoolOp(op=And(), values=[Call(func=Name(id='isinstance', ctx=Load()), args=[Name(id='value', ctx=Load()...
+E     
+E     ...Full output truncated (4 lines hidden), use '-vv' to show
+_ test_only_import_locations_changed[clinical_agent.adapters.openalex-clinical_agent.integrations.openalex] _
+tests\unit\test_rag_db_migration.py:114: in test_only_import_locations_changed
+    assert ast.dump(ImportOrder().visit(ast.parse(before)), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 744 identical leading characters in diff, use -v to show
+E     - level=0), ImportFrom(module='typing', names=[alias(name='cast')], level=0), ClassDef(name='OpenAlexSettings', bases=[Name(id='BaseSettings', ctx=Load())], keywords=[], body=[Assign(targets=[Name(id='model_config', ctx=Store())], value=Call(func=Name(id='SettingsConfigDict', ctx=Load()), args=[], keywords=[keyword(arg='env_prefix', value=Constant(value='OPENALEX_')), keyword(arg='env_file', value=Constant(value='.env')), keyword(arg='extra', value=Constant(value='ignore'))])), AnnAssign(target=Name(id='ap...
+E     
+E     ...Full output truncated (4 lines hidden), use '-vv' to show
+_ test_only_import_locations_changed[clinical_agent.adapters.oa_fulltext-clinical_agent.integrations.oa_fulltext] _
+tests\unit\test_rag_db_migration.py:114: in test_only_import_locations_changed
+    assert ast.dump(ImportOrder().visit(ast.parse(before)), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 29359 identical leading characters in diff, use -v to show
+E     - Try(body=[Assign(targets=[Name(id='normalized_doi', ctx=Store())], value=Call(func=Name(id='normalize_doi', ctx=Load()), args=[Name(id='text', ctx=Load())], keywords=[])), If(test=Compare(left=Name(id='normalized_doi', ctx=Load()), ops=[IsNot()], comparators=[Constant(value=None)]), body=[Expr(value=Call(func=Attribute(value=Name(id='header_dois', ctx=Load()), attr='append', ctx=Load()), args=[Name(id='normalized_doi', ctx=Load())], keywords=[]))], orelse=[])], handlers=[ExceptHandler(type=Name(id='Val...
+E     
+E     ...Full output truncated (4 lines hidden), use '-vv' to show
+_ test_only_import_locations_changed[clinical_agent.adapters.report_snapshot-clinical_agent.integrations.report_snapshot] _
+tests\unit\test_rag_db_migration.py:114: in test_only_import_locations_changed
+    assert ast.dump(ImportOrder().visit(ast.parse(before)), include_attributes=False) == ast.dump(
+E   AssertionError: assert 'Module(body=...e_ignores=[])' == 'Module(body=...e_ignores=[])'
+E     
+E     Skipping 4740 identical leading characters in diff, use -v to show
+E     - [Name(id='pubmed_record', ctx=Store())], value=Call(func=Name(id='next', ctx=Load()), args=[GeneratorExp(elt=Name(id='r', ctx=Load()), generators=[comprehension(target=Name(id='r', ctx=Store()), iter=Name(id='records', ctx=Load()), ifs=[Compare(left=Attribute(value=Name(id='r', ctx=Load()), attr='pmid', ctx=Load()), ops=[Eq()], comparators=[Attribute(value=Name(id='source', ctx=Load()), attr='pmid', ctx=Load())])], is_async=0)]), Constant(value=None)], keywords=[])), If(test=BoolOp(op=Or(), values=[Comp...
+E     
+E     ...Full output truncated (4 lines hidden), use '-vv' to show
+============================== warnings summary ===============================
+tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[accepted-None]
+  E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\lark_oapi\ws\pb\google\protobuf\internal\well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/unit/test_agents_migration.py::test_public_signatures_and_api_unchanged
+FAILED tests/unit/test_api_migration.py::test_openapi_matches_phase0 - Assert...
+FAILED tests/unit/test_citation_report.py::test_citation_report_cli_and_api
+FAILED tests/unit/test_exploratory_discovery.py::test_user_entry_default_is_hybrid_and_internal_request_stays_compatible
+FAILED tests/unit/test_feishu_migration.py::test_original_algorithms_preserved[feishu.sender-clinical_agent.channels.feishu.sender]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.llm-clinical_agent.integrations.llm]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.langchain_generation-clinical_agent.integrations.langchain_generation]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.openalex-clinical_agent.integrations.openalex]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.oa_fulltext-clinical_agent.integrations.oa_fulltext]
+FAILED tests/unit/test_rag_db_migration.py::test_only_import_locations_changed[clinical_agent.adapters.report_snapshot-clinical_agent.integrations.report_snapshot]
+10 failed, 1584 passed, 100 deselected, 1 warning in 279.90s (0:04:39)

@@ -1,0 +1,104 @@
+[
+  {
+    "run": "cold",
+    "seconds": 6.891000000000076,
+    "batches": 1,
+    "status": "verification_incomplete",
+    "notes": [
+      "支持度是模型审核建议；引用有效不等于结论正确，候选缺口与方向需要人工验证。"
+    ],
+    "comparisons": [
+      {
+        "claim_id": "c11",
+        "text": "data：partial_overlap；该研究使用跨洲多中心数据库并做单中心前瞻验证，涉及多数据库数据，但未明确说明是否为公开数据。",
+        "before": "uncertain",
+        "after": "partially_supported",
+        "before_basis": "The quote supports use of three databases across Europe, USA and China, but does not establish whether data are public or the 'partial_overlap' similarity judgment, which depends on user constraints not provided.",
+        "after_basis": "引文支持使用三个数据库且存在跨洲人口学差异，但未说明是否公开数据；'partial_overlap'的相似性判断缺乏公开数据属性的直接证据，需结合用户约束复核。"
+      },
+      {
+        "claim_id": "c12",
+        "text": "methods：overlap；该研究比较了多种机器学习模型并以XGBoost取得最高AUC，与用户设想的机器学习建模方法重叠。",
+        "before": "partially_supported",
+        "after": "partially_supported",
+        "before_basis": "The quote supports that XGBoost had the highest AUC, consistent with comparing ML models, but the AUC value is truncated and the 'overlap' judgment depends on user constraints not provided.",
+        "after_basis": "引文确认XGBoost为AUC最高模型，支持机器学习方法重叠；但引文截断于'0.'，未给出完整AUC，且未明确比较多种模型的具体清单。"
+      },
+      {
+        "claim_id": "c13",
+        "text": "outcomes：overlap；结局为严重AKI诊断及预测准确性，与用户关注的AKI风险预测结局方向一致。",
+        "before": "partially_supported",
+        "after": "supported",
+        "before_basis": "The quote supports severe AKI diagnosis and 83.5% prediction accuracy, but the 'overlap' similarity judgment depends on user constraints not provided.",
+        "after_basis": "引文报告严重AKI诊断与预测准确率，与用户AKI风险预测结局方向一致，overlap判断有据。"
+      },
+      {
+        "claim_id": "c14",
+        "text": "population：partial_overlap；研究对象为ICU住院患者，但聚焦严重AKI且排除了短期住院患者，与用户泛化的ICU患者群体仅部分重叠。",
+        "before": "uncertain",
+        "after": "partially_supported",
+        "before_basis": "The quote only mentions mechanical ventilation, ICU stay and mortality in AKI patients; it does not establish ICU population scope, exclusion of short-stay patients, or the partial_overlap judgment.",
+        "after_basis": "引文仅描述AKI患者机械通气与ICU停留时间及死亡率，未直接说明纳入ICU患者或排除短期住院患者；'partial_overlap'的人群判断证据不足。"
+      },
+      {
+        "claim_id": "c15",
+        "text": "question：overlap；该研究同样以ICU患者严重AKI风险预测为目标，与用户想法的问题方向重叠。",
+        "before": "partially_supported",
+        "after": "supported",
+        "before_basis": "The quote supports severe AKI prediction with 83.5% accuracy, but does not explicitly state ICU population or the 'overlap' judgment relative to user's question.",
+        "after_basis": "引文报告严重AKI诊断与预测准确率，支持该研究以ICU患者严重AKI风险预测为目标，与用户问题方向重叠。"
+      }
+    ]
+  },
+  {
+    "run": "repeat",
+    "seconds": 6.313000000000102,
+    "batches": 1,
+    "status": "rejected",
+    "notes": [
+      "支持度是模型审核建议；引用有效不等于结论正确，候选缺口与方向需要人工验证。"
+    ],
+    "comparisons": [
+      {
+        "claim_id": "c12",
+        "text": "data：overlap；用户拟使用公开 ICU 临床数据，综述指出公开 ICU 数据集被广泛使用。",
+        "before": "supported",
+        "after": "supported",
+        "before_basis": "引文支持公开 ICU 数据集被广泛使用，与用户拟用公开 ICU 数据存在数据重叠的推断一致。",
+        "after_basis": "用户拟用公开 ICU 临床数据，引文称公开 ICU 数据集被广泛使用，数据维度重叠判断成立。"
+      },
+      {
+        "claim_id": "c13",
+        "text": "methods：partial_overlap；用户提出机器学习或深度学习，综述报告常用模型包括 LR、RF、XGBoost、SVM，深度学习并非唯一主流。",
+        "before": "supported",
+        "after": "supported",
+        "before_basis": "引文支持常用模型为 LR、RF、XGBoost、SVM，未将深度学习列为唯一主流，部分重叠推断合理。",
+        "after_basis": "用户提机器学习或深度学习，引文列常用模型为 LR/RF/XGBoost/SVM，未突出深度学习，partial_overlap 判断合理。"
+      },
+      {
+        "claim_id": "c14",
+        "text": "outcomes：overlap；用户目标是 AKI 风险预测，综述报告模型性能主要以 AUROC 评估，结局评价方向一致。",
+        "before": "supported",
+        "after": "partially_supported",
+        "before_basis": "引文支持以 AUROC 评估模型性能，与 AKI 风险预测的结局评价方向一致。",
+        "after_basis": "用户目标是 AKI 风险预测，引文仅说明以 AUROC 评估性能；结局方向重叠成立，但“结局评价方向一致”的表述把评估指标混同于结局定义，依据略弱。"
+      },
+      {
+        "claim_id": "c15",
+        "text": "population：overlap；用户面向患者人群，综述聚焦 ICU 场景下的 AKI 预测，人群场景相符。",
+        "before": "supported",
+        "after": "supported",
+        "before_basis": "引文明确聚焦 ICU 场景下 AKI 预测，与患者人群场景相符。",
+        "after_basis": "用户面向患者，引文聚焦 ICU 中 AKI 预测，人群场景重叠成立。"
+      },
+      {
+        "claim_id": "c16",
+        "text": "question：overlap；用户关注 ICU 患者 AKI 风险预测，该综述系统评估 ICU 中 AKI 的 AI 预测模型，问题方向一致。",
+        "before": "supported",
+        "after": "supported",
+        "before_basis": "引文明确系统评估 ICU 中 AKI 的 AI 预测模型，问题方向一致。",
+        "after_basis": "用户关注 ICU 患者 AKI 风险预测，引文为 ICU 中 AKI 的 AI 预测模型系统综述，问题方向重叠成立。"
+      }
+    ]
+  }
+]

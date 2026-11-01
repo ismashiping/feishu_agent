@@ -15,7 +15,7 @@ pytestmark = [pytest.mark.integration, pytest.mark.database, pytest.mark.externa
 
 
 @pytest.mark.usefixtures("release_model_memory")
-def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch):
+def test_real_http_api_ingestion_and_retired_scope(tmp_path, pdf_factory, monkeypatch):
     import uvicorn
     from sqlalchemy import delete, func, select, text
 
@@ -106,13 +106,6 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
             "This fictional teaching example has no control group and cannot establish efficacy.",
         ),
     )
-    (tmp_path / "sample.xml").write_text(
-        """<PubmedArticleSet><PubmedArticle><MedlineCitation>
-        <PMID>1234567890</PMID><Article><ArticleTitle>Synthetic API example</ArticleTitle>
-        <Abstract><AbstractText>This fictional example cannot establish efficacy.</AbstractText>
-        </Abstract></Article></MedlineCitation></PubmedArticle></PubmedArticleSet>""",
-        encoding="utf-8",
-    )
     settings = ApiSettings(
         model_dir=model_dir, import_root=tmp_path, snapshot_dir=tmp_path / "snapshots"
     )
@@ -136,7 +129,9 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
         listener.bind(("127.0.0.1", 0))
         port = listener.getsockname()[1]
         with engine.connect() as connection:
-            assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "p107_0002"
+            assert (
+                connection.scalar(text("SELECT version_num FROM alembic_version")) == "oa3003_0011"
+            )
             assert connection.scalar(select(func.count()).select_from(DocumentRecord)) == 0
 
         def run():
@@ -161,14 +156,13 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
                 for path, kind in [
                     ("sample.pdf", "pdf"),
                     ("sample.pdf", "pdf"),
-                    ("sample.xml", "pubmed_xml"),
                 ]:
                     response = client.post(
                         "/v1/documents/import", json={"source_type": kind, "relative_path": path}
                     )
                     assert response.status_code == 200, response.json().get("error_code")
                     statuses.append(response.json()["result"]["entries"][0]["status"])
-                assert statuses == ["imported", "already_present", "imported"]
+                assert statuses == ["imported", "already_present"]
                 response = client.post(
                     "/v1/questions",
                     json={
@@ -177,20 +171,12 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
                         "options": {"top_k": 2, "min_similarity": -1},
                     },
                 )
-                assert response.status_code == 200, response.json().get("error_code")
-                answer = response.json()
-                assert (
-                    answer["status"] == "answered"
-                    and answer["request_id"] == response.headers["x-request-id"]
-                )
-                assert answer["claims"][0]["evidence_chunk_ids"][0] in {
-                    item["chunk_id"] for source in answer["sources"] for item in source["evidence"]
-                }
-                assert "source_uri" not in response.text and len(loaded) == 1 and len(calls) == 2
+                assert response.status_code == 422
+                assert len(loaded) == 1 and len(calls) == 0
                 with engine.connect() as connection:
                     documents = connection.scalar(select(func.count()).select_from(DocumentRecord))
                     chunks = connection.scalar(select(func.count()).select_from(ChunkRecord))
-                assert documents == chunks == 2
+                assert documents == chunks == 1
                 report = {
                     "transport": "real loopback TCP / Uvicorn 0.54.0 / FastAPI 0.162.0",
                     "model_loads": len(loaded),
@@ -200,9 +186,9 @@ def test_real_http_api_ingestion_and_question(tmp_path, pdf_factory, monkeypatch
                     "ingestion_statuses": statuses,
                     "documents": documents,
                     "chunks": chunks,
-                    "answer_status": answer["status"],
+                    "retired_scope_http_status": response.status_code,
                     "http_llm_calls": len(calls),
-                    "citation_membership": "passed",
+                    "question_generation": "not run: local retired",
                 }
                 Path(
                     os.environ["CLINICAL_AGENT_TEST_EVIDENCE_DIR"], "real-api-result.json"

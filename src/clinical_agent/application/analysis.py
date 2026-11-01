@@ -7,7 +7,7 @@ from collections.abc import Callable
 from datetime import UTC, datetime
 from hashlib import sha256
 from time import monotonic
-from typing import Any, Protocol
+from typing import Any, Literal, Protocol, cast
 from uuid import UUID
 
 from pydantic import ValidationError
@@ -325,10 +325,19 @@ def build_draft(
                 entry = _quote(catalog, item.quote_id, {document_id})
                 if entry is None:
                     continue
+                if item.field_name == "sample_size":
+                    expected_scope = (
+                        "review_aggregate"
+                        if chosen.study_type == "systematic_review"
+                        else "current_study"
+                    )
+                    if item.sample_size_scope != expected_scope:
+                        continue
                 fields[item.field_name] = _fact_item(entry)
                 reported.add(item.field_name)
             for item in chosen.inferences:
-                if item.field_name in reported:
+                # Counts must be reported with established ownership, not inferred.
+                if item.field_name == "sample_size" or item.field_name in reported:
                     continue
                 entry = _quote(catalog, item.quote_id, {document_id})
                 if entry is None:
@@ -365,8 +374,8 @@ def build_draft(
                 study_type = "unknown"
                 type_evidence = []
                 metadata = []
-            allowed = set(publication_types.get(document_id, ()))
-            metadata = [item for item in metadata if item in allowed]
+            allowed_types = set(publication_types.get(document_id, ()))
+            metadata = [item for item in metadata if item in allowed_types]
             if type_basis == "metadata":
                 mapped = {_METADATA_STUDY_TYPES.get(item, "other") for item in metadata}
                 if not metadata:
@@ -389,25 +398,28 @@ def build_draft(
             }
         )
         supplied: dict[str, Any] = {}
-        similarity = similarities_by.get(document_id)
-        if similarity is not None:
-            for dimension in similarity.dimensions:
-                supplied.setdefault(dimension.name, dimension)
+        selected_similarity = similarities_by.get(document_id)
+        if selected_similarity is not None:
+            for supplied_dimension in selected_similarity.dimensions:
+                supplied.setdefault(supplied_dimension.name, supplied_dimension)
         dimensions: dict[str, Any] = {}
         for name in ("question", "population", "data", "methods", "outcomes"):
-            dimension = supplied.get(name)
+            selected_dimension = supplied.get(name)
             relation, idea, evidence, reason = "unknown", None, [], _GAP_REASON
-            if dimension is not None:
-                reason = dimension.reason
+            if selected_dimension is not None:
+                reason = selected_dimension.reason
                 entry = (
-                    _quote(catalog, dimension.quote_id, {document_id})
-                    if dimension.quote_id
+                    _quote(catalog, selected_dimension.quote_id, {document_id})
+                    if selected_dimension.quote_id
                     else None
                 )
-                idea_ok = dimension.idea_quote is not None and dimension.idea_quote in question
-                if dimension.relation != "unknown" and entry is not None and idea_ok:
-                    relation = dimension.relation
-                    idea = dimension.idea_quote
+                idea_ok = (
+                    selected_dimension.idea_quote is not None
+                    and selected_dimension.idea_quote in question
+                )
+                if selected_dimension.relation != "unknown" and entry is not None and idea_ok:
+                    relation = selected_dimension.relation
+                    idea = selected_dimension.idea_quote
                     evidence = [{"chunk_id": str(entry["chunk_id"]), "quote": entry["text"]}]
             dimensions[name] = {
                 "relation": relation,
@@ -612,10 +624,10 @@ class EvidenceAnalyzer:
         if query_plan is not None and query_plan.original_question != request.question:
             raise ResearchError("model_output_invalid")
         openalex = isinstance(retrieval.search_provenance, OpenAlexProvenance)
-        evidence_ids = []
+        evidence_ids: list[UUID] = []
         for hit in retrieval.hits:
             if openalex:
-                evidence_ids.extend(passage.chunk_id for passage in hit.fulltext[:1])
+                evidence_ids.extend(passage.chunk_id for passage in hit.fulltext)
             else:
                 evidence_ids.append(hit.chunk.chunk_id)
         # Reuse the existing trusted-source gate, including scope, hash and identity checks.
@@ -673,7 +685,7 @@ class EvidenceAnalyzer:
         if query_plan and query_plan.task_intent == "feasibility":
             empty["feasibility"] = [
                 FeasibilityAssessment(
-                    dimension=dimension,
+                    dimension=cast(Literal["data", "methods", "compute", "validation"], dimension),
                     status="unknown",
                     assessment=AnalysisItem(
                         value=None,
@@ -729,7 +741,17 @@ class EvidenceAnalyzer:
         catalog = quote_catalog(hits)
         sources = []
         for source in eligible.values():
-            dumped = source.model_dump(mode="json", exclude={"snapshot_xml", "openalex_record"})
+            dumped = source.model_dump(
+                mode="json",
+                include={
+                    "document_id",
+                    "title",
+                    "publication_types",
+                    "source_notices",
+                    "content_scope",
+                    "evidence",
+                },
+            )
             dumped["evidence"] = [
                 {"chunk_id": item["chunk_id"], "location": item["location"]}
                 for item in dumped["evidence"]
@@ -737,14 +759,38 @@ class EvidenceAnalyzer:
             sources.append(dumped)
         context: dict[str, object] = {
             "original_idea": request.question,
-            "query_plan": query_plan.model_dump(mode="json") if query_plan else None,
+            "query_plan": query_plan.model_dump(
+                mode="json", include={"task_intent", "research_intent", "research_constraints"}
+            )
+            if query_plan
+            else None,
             "sources": sources,
             "quotes": _public_quotes(catalog),
             "output_schema": AnalysisSelection.model_json_schema(),
         }
         payload = json.dumps(context, ensure_ascii=False)
-        if len(payload) > self.limits.max_context_characters:
-            raise ResearchError("context_limit")
+        selected_quotes = list(catalog.values())
+        trimmed = False
+        while len(payload) > self.limits.max_context_characters:
+            # Retain at least one whole evidence sentence per eligible paper.
+            counts: dict[UUID, int] = {}
+            for quote in selected_quotes:
+                identity = quote["document_id"]
+                counts[identity] = counts.get(identity, 0) + 1
+            removable = [q for q in selected_quotes if counts[q["document_id"]] > 1]
+            if not removable:
+                raise ResearchError("context_limit")
+            removed = max(removable, key=lambda q: (counts[q["document_id"]], len(q["text"])))
+            selected_quotes.remove(removed)
+            context["quotes"] = _public_quotes({q["quote_id"]: q for q in selected_quotes})
+            payload = json.dumps(context, ensure_ascii=False)
+            trimmed = True
+        if trimmed:
+            base["limitations"].append(
+                "Analysis quote selection was reduced to the context budget; "
+                "omitted sentences are not evidence of absent findings."
+            )
+            catalog = {q["quote_id"]: q for q in selected_quotes}
         output_tokens = self.analysis_max_tokens
         raw: object = None
         correction: dict[str, str] | None = None
@@ -884,8 +930,8 @@ class EvidenceAnalyzer:
                             "Metadata and text study-design classification differ; "
                             "review the original source."
                         )
-                    for item in study.fields.values():
-                        check(item.evidence, {study.document_id}, "studies.fields.evidence")
+                    for study_item in study.fields.values():
+                        check(study_item.evidence, {study.document_id}, "studies.fields.evidence")
                 for similarity in draft.idea_similarities:
                     for dimension in similarity.dimensions.values():
                         check(
@@ -953,7 +999,7 @@ class EvidenceAnalyzer:
                     and len(json.dumps(revised, ensure_ascii=False))
                     <= self.limits.max_context_characters
                 ):
-                    correction = revised["correction"]
+                    correction = {"rule_code": failure.rule, "field_paths": failure.field_paths}
                     continue
                 self._log_call(
                     request,
@@ -1052,4 +1098,8 @@ class EvidenceAnalyzer:
             failure_kind=status,
             hits=len(retrieval.hits),
         )
-        return AnalysisResult(**base, **draft.model_dump(), analysis_status=status)
+        return AnalysisResult(
+            **base,
+            **draft.model_dump(),
+            analysis_status=cast(Literal["partial", "completed"], status),
+        )

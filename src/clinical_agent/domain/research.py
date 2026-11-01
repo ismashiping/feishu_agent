@@ -88,7 +88,7 @@ Count = Annotated[int, Field(strict=True, gt=0)]
 
 
 class ResearchLimits(DTO):
-    max_seconds: Seconds = 90.0
+    max_seconds: Seconds = 180.0
     generation_seconds: Seconds = 60.0
     max_context_characters: Count = 32000
     max_output_bytes: Count = 32000

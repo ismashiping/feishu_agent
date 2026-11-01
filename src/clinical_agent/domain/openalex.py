@@ -5,7 +5,7 @@ import json
 import re
 from datetime import date
 from hashlib import sha256
-from typing import Annotated, Literal, Self
+from typing import Annotated, Literal, Self, cast
 
 from pydantic import AwareDatetime, Field, StrictBool, model_validator
 from pydantic_core import PydanticCustomError
@@ -65,19 +65,26 @@ def resolve_dates(
 ):
     start, end = None, None
     if constraints.time_intent in {"latest", "relative_years"}:
-        months = recent_months if constraints.time_intent == "latest" else constraints.years * 12
+        months = (
+            recent_months
+            if constraints.time_intent == "latest"
+            else cast(int, constraints.years) * 12
+        )
         year, month = divmod(today.year * 12 + today.month - 1 - months, 12)
         month += 1
         start = date(year, month, min(today.day, calendar.monthrange(year, month)[1]))
         end = today
     elif constraints.time_intent == "explicit_years":
-        start, end = date(constraints.year_from, 1, 1), date(constraints.year_to, 12, 31)
+        start, end = (
+            date(cast(int, constraints.year_from), 1, 1),
+            date(cast(int, constraints.year_to), 12, 31),
+        )
     a, b = explicit
     if (a is None) != (b is None):
         raise ValueError("Explicit date pair required")
     if a is not None:
-        start, end = max(start, a) if start else a, min(end, b) if end else b
-    if start is not None and start > end:
+        start, end = max(start, a) if start else a, min(end, cast(date, b)) if end else b
+    if start is not None and start > cast(date, end):
         raise ValueError("Conflicting date constraints")
     return start, end
 
@@ -162,7 +169,7 @@ class OpenAlexRecord(DTO):
             journal=source.get("display_name"),
             publication_date=publication,
             abstract=abstract,
-            abstract_status=status,
+            abstract_status=cast(Literal["available", "missing", "invalid_abstract"], status),
             work_type=work["type"],
             is_retracted=work.get("is_retracted", False),
             open_access=work.get("open_access") or {},
@@ -192,7 +199,7 @@ class OpenAlexOptions(DTO):
     @model_validator(mode="after")
     def dates(self) -> Self:
         if (self.date_from is None) != (self.date_to is None) or (
-            self.date_from and self.date_from > self.date_to
+            self.date_from and self.date_from > cast(date, self.date_to)
         ):
             raise ValueError("Ordered date pair required")
         return self

@@ -106,7 +106,7 @@ def build_answer(
             raise ValueError("Mismatched retrieval options")
         limitations = list(BASE_LIMITATIONS)
         openalex = isinstance(retrieval.search_provenance, OpenAlexProvenance)
-        if openalex:
+        if isinstance(retrieval.search_provenance, OpenAlexProvenance):
             if any(hit.fulltext for hit in retrieval.hits):
                 limitations[0] = OPENALEX_FULLTEXT_LIMITATION
             elif retrieval.hits:
@@ -262,10 +262,10 @@ def build_answer(
                 for source in sources.values()
                 if source.openalex_record is not None
             )
-            for identity, outcome in retrieval.search_provenance.candidate_outcomes.items():
+            for candidate_id, outcome in retrieval.search_provenance.candidate_outcomes.items():
                 if outcome == "selected":
-                    retrieval.search_provenance.candidate_outcomes[identity] = (
-                        "cited" if identity in cited_identities else "selected_not_cited"
+                    retrieval.search_provenance.candidate_outcomes[candidate_id] = (
+                        "cited" if candidate_id in cited_identities else "selected_not_cited"
                     )
         scopes = {source.content_scope for source in sources.values()}
         if any(

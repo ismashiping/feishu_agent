@@ -1,0 +1,22 @@
+{
+  "analysis_seconds": 10.827999999999975,
+  "review_seconds": 9.264999999999418,
+  "sample_size": [
+    {
+      "value": null,
+      "epistemic_kind": "reported_fact",
+      "evidence": [],
+      "basis": "not_reported",
+      "verification_needed": null
+    },
+    {
+      "value": null,
+      "epistemic_kind": "reported_fact",
+      "evidence": [],
+      "basis": "not_reported",
+      "verification_needed": null
+    }
+  ],
+  "status": "verification_incomplete",
+  "unsupported": []
+}

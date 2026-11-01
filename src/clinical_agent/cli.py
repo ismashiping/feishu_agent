@@ -67,13 +67,6 @@ def _business(
                 update_existing=arguments.update_existing,
             )
         else:
-            if arguments.scope == "local" and (
-                arguments.pubmed_query
-                or arguments.openalex_query
-                or arguments.date_from
-                or arguments.date_to
-            ):
-                raise ValueError("PubMed filters require online scope")
             if (
                 arguments.pubmed_query
                 or arguments.date_field != "pdat"
@@ -89,9 +82,7 @@ def _business(
                     query=arguments.openalex_query,
                     date_from=arguments.date_from,
                     date_to=arguments.date_to,
-                )
-                if arguments.scope != "local"
-                else None,
+                ),
                 options=RetrievalOptions(
                     top_k=int(arguments.top_k),
                     min_similarity=float(arguments.min_similarity),
@@ -102,8 +93,6 @@ def _business(
                     date_to=arguments.local_date_to,
                 ),
             )
-            if question.scope == "local":
-                raise ResearchError("local_corpus_not_evidence")
     except ResearchError as error:
         _error(request_id, error.code)
         return 1
@@ -238,9 +227,9 @@ def main(
     commands = parser.add_subparsers(dest="command")
     commands.add_parser("doctor", help="Check the local environment without external services.")
     ingest = commands.add_parser(
-        "ingest", help="Import one local PDF or PubMed XML file.", allow_abbrev=False
+        "ingest", help="Import one local PDF.", allow_abbrev=False
     )
-    ingest.add_argument("--source-type", required=True, choices=["pdf", "pubmed_xml"])
+    ingest.add_argument("--source-type", required=True, choices=["pdf"])
     for flag in ("--path", "--allowed-root", "--snapshot-dir", "--model-dir"):
         ingest.add_argument(flag, required=True)
     ingest.add_argument("--request-id")
@@ -249,7 +238,7 @@ def main(
     )
     ask = commands.add_parser(
         "ask",
-        help="Local RAG; sends retrieved excerpts to configured model API.",
+        help="OpenAlex research; reuses cached fulltext excerpts.",
         allow_abbrev=False,
     )
     output_mode = ask.add_mutually_exclusive_group()
@@ -264,7 +253,7 @@ def main(
     ask.add_argument("--keyword-query")
     ask.add_argument("--local-date-from")
     ask.add_argument("--local-date-to")
-    ask.add_argument("--scope", choices=["local", "online", "hybrid"], default="hybrid")
+    ask.add_argument("--scope", choices=["online", "hybrid"], default="hybrid")
     ask.add_argument("--pubmed-query", help="retired; rejected")
     ask.add_argument("--openalex-query")
     ask.add_argument("--date-from")

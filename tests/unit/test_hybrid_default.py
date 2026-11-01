@@ -29,7 +29,7 @@ def test_cli_passes_default_or_explicit_scope(scope, capsys):
     assert seen[0].options.mode == "vector"
 
 
-@pytest.mark.parametrize("scope", [None, "local", "online", "hybrid"])
+@pytest.mark.parametrize("scope", [None, "online", "hybrid"])
 def test_api_default_and_explicit_scope(scope):
     from clinical_agent.api.schemas import QuestionBody
 

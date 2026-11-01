@@ -1,0 +1,15 @@
+{
+  "cli": "main with production composition",
+  "embedding": "real fixed E5 CPU; reused within test",
+  "database": "real PostgreSQL/pgvector",
+  "llm": "HTTPX MockTransport; NOT real model API",
+  "ingestion_statuses": [
+    "imported",
+    "already_present"
+  ],
+  "documents": 1,
+  "chunks": 1,
+  "retired_scope_exit_code": 2,
+  "http_requests": 0,
+  "question_generation": "not run: local retired"
+}

@@ -115,8 +115,8 @@ def test_local_corpus_scope_is_rejected_before_research(setup_api):
     app, services, _ = setup_api
     with TestClient(app) as client:
         response = client.post("/v1/questions", json={"scope": "local", "question": "q"})
-    assert response.status_code == 502
-    assert response.json()["error_code"] == "local_corpus_not_evidence"
+    assert response.status_code == 422
+    assert response.json()["error_code"] == "invalid_request"
     assert services.research.calls == []
 
 
@@ -148,11 +148,11 @@ def test_import_uses_only_server_root(setup_api, tmp_path):
     from fastapi.testclient import TestClient
 
     app, services, _ = setup_api
-    path = tmp_path / "sample.xml"
+    path = tmp_path / "sample.pdf"
     path.write_text("synthetic")
     with TestClient(app) as client:
         response = client.post(
-            "/v1/documents/import", json={"source_type": "pubmed_xml", "relative_path": path.name}
+            "/v1/documents/import", json={"source_type": "pdf", "relative_path": path.name}
         )
     assert response.status_code == 200 and response.json()["result"]["entries"] == []
     request = services.ingestion.calls[0]

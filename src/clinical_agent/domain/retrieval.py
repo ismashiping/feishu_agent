@@ -2,7 +2,7 @@
 
 from datetime import UTC, date
 from hashlib import sha256
-from typing import Annotated, Literal, Self, get_args
+from typing import Annotated, Literal, Self, cast, get_args
 from uuid import UUID
 
 from pydantic import AwareDatetime, BeforeValidator, Field, StringConstraints, model_validator
@@ -237,7 +237,7 @@ class EvidenceHit(DTO):
                 != (
                     "doi:" + self.document.doi
                     if self.document.doi
-                    else self.document.openalex_record.openalex_id
+                    else cast(OpenAlexRecord, self.document.openalex_record).openalex_id
                 )
                 if self.document.source_type == "openalex"
                 else passage.pmid != self.document.pmid
@@ -275,7 +275,7 @@ class EvidenceHit(DTO):
                 "PubMed ranks require actual online metadata, without fabricated embeddings"
             )
         if self.document.source_type == "openalex":
-            record = self.document.openalex_record
+            record = cast(OpenAlexRecord, self.document.openalex_record)
             loc = self.chunk.location
             if record.abstract[loc.start : loc.end] != self.chunk.text:
                 raise ValueError("OpenAlex evidence must match acquired abstract")

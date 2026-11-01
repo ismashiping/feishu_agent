@@ -1,0 +1,140 @@
+........................................................................ [  4%]
+........................................................................ [  8%]
+...............................................................F........ [ 13%]
+....................................................F................... [ 17%]
+........................................................................ [ 22%]
+.................................................................F...... [ 26%]
+........................................................................ [ 30%]
+........................................................................ [ 35%]
+........................................................................ [ 39%]
+........................................................................ [ 44%]
+........................................................................ [ 48%]
+........................................................................ [ 52%]
+........................................................................ [ 57%]
+........................................................................ [ 61%]
+........................................................................ [ 66%]
+........................................................................ [ 70%]
+........................................................................ [ 74%]
+........................................................................ [ 79%]
+........................................................................ [ 83%]
+........................................................................ [ 88%]
+........................................................................ [ 92%]
+........................................................................ [ 96%]
+...................................................                      [100%]
+================================== FAILURES ===================================
+__________________ test_public_signatures_and_api_unchanged ___________________
+tests\unit\test_agents_migration.py:87: in test_public_signatures_and_api_unchanged
+    assert create_app().openapi() == openapi
+E   AssertionError: assert {'openapi': '..., ...}, ...}}} == {'openapi': '..., ...}, ...}}}
+E     
+E     Omitting 3 identical items, use -vv to show
+E     Differing items:
+E     {'components': {'schemas': {'AnalysisItem': {'properties': {'value': {'anyOf': [...], 'title': 'Value'}, 'epistemic_ki...nalProperties': False, 'type': 'object', 'required': ['request_id', 'error_code', 'message', 'retryable'], ...}, ...}}} != {'components': {'schemas': {'AnalysisItem': {'properties': {'value': {'anyOf': [...], 'title': 'Value'}, 'epistemic_ki...nalProperties': False, 'type': 'object', 'required': ['request_id', 'error_code', 'message', 'retryable'], ...}, ...}}}
+E     Use -v to get more diff
+_________________________ test_openapi_matches_phase0 _________________________
+tests\unit\test_api_migration.py:31: in test_openapi_matches_phase0
+    assert create_app().openapi() == expected
+E   AssertionError: assert {'openapi': '..., ...}, ...}}} == {'openapi': '..., ...}, ...}}}
+E     
+E     Omitting 3 identical items, use -vv to show
+E     Differing items:
+E     {'components': {'schemas': {'AnalysisItem': {'properties': {'value': {'anyOf': [...], 'title': 'Value'}, 'epistemic_ki...nalProperties': False, 'type': 'object', 'required': ['request_id', 'error_code', 'message', 'retryable'], ...}, ...}}} != {'components': {'schemas': {'AnalysisItem': {'properties': {'value': {'anyOf': [...], 'title': 'Value'}, 'epistemic_ki...nalProperties': False, 'type': 'object', 'required': ['request_id', 'error_code', 'message', 'retryable'], ...}, ...}}}
+E     Use -v to get more diff
+______________ test_real_context_replay_fits_and_reaches_models _______________
+tests\unit\test_compact_context.py:68: in test_real_context_replay_fits_and_reaches_models
+    assert model.analysis_calls == model.review_calls == 1
+E   assert 1 == 7
+E    +  where 1 = <tests.unit.test_compact_context.test_real_context_replay_fits_and_reaches_models.<locals>.Model object at 0x0000016523CE4200>.analysis_calls
+E    +  and   7 = <tests.unit.test_compact_context.test_real_context_replay_fits_and_reaches_models.<locals>.Model object at 0x0000016523CE4200>.review_calls
+---------------------------- Captured stderr call -----------------------------
+--- Logging error ---
+Traceback (most recent call last):
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.tools\p117-python31216\python\Lib\logging\__init__.py", line 1163, in emit
+    stream.write(msg + self.terminator)
+ValueError: I/O operation on closed file.
+Call stack:
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pytest\__main__.py", line 9, in <module>
+    raise SystemExit(_console_main())
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\config\__init__.py", line 253, in _console_main
+    code = _main(prog=_get_prog_name(sys.argv))
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\config\__init__.py", line 229, in _main
+    ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\main.py", line 377, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\main.py", line 330, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\main.py", line 384, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\main.py", line 408, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 118, in pytest_runtest_protocol
+    runtestprotocol(item, nextitem=nextitem)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 139, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 249, in call_and_report
+    call = CallInfo.from_call(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 361, in from_call
+    result: TResult | None = func()
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 250, in <lambda>
+    lambda: runtest_hook(item=item, **kwds),
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\runner.py", line 184, in pytest_runtest_call
+    item.runtest()
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\python.py", line 1707, in runtest
+    self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_caller.py", line 197, in __call__
+    return self._hookexec(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_manager.py", line 183, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\pluggy\_execution.py", line 147, in _multicall
+    res = hook_impl.function(*args)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\python.py", line 167, in pytest_pyfunc_call
+    result = testfunction(**testargs)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\tests\unit\test_compact_context.py", line 62, in test_real_context_replay_fits_and_reaches_models
+    analysis = EvidenceAnalyzer(model=model).analyze(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\application\analysis.py", line 1093, in analyze
+    self._log_call(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\application\analysis.py", line 598, in _log_call
+    log_evidence_trace(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\application\openalex.py", line 127, in log_evidence_trace
+    logging.getLogger(__name__).info(
+Message: 'Evidence trace stage=analyze failure_kind=partial counts=hits=3,max_output=16384,configured_max_output=16384,retries=0,schema=accepted,schema_status=accepted,content_chars=unknown,output_character_count=unknown,input_tokens=unknown,output_tokens=unknown,reasoning_tokens=unknown'
+Arguments: ()
+------------------------------ Captured log call ------------------------------
+INFO     clinical_agent.application.openalex:openalex.py:127 Evidence trace stage=analyze failure_kind=partial counts=hits=3,max_output=16384,configured_max_output=16384,retries=0,schema=accepted,schema_status=accepted,content_chars=unknown,output_character_count=unknown,input_tokens=unknown,output_tokens=unknown,reasoning_tokens=unknown
+============================== warnings summary ===============================
+tests/unit/test_feishu_main.py::test_sdk_callback_routes_without_waiting[accepted-None]
+  E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\lark_oapi\ws\pb\google\protobuf\internal\well_known_types.py:91: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    _EPOCH_DATETIME_NAIVE = datetime.datetime.utcfromtimestamp(0)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/unit/test_agents_migration.py::test_public_signatures_and_api_unchanged
+FAILED tests/unit/test_api_migration.py::test_openapi_matches_phase0 - Assert...
+FAILED tests/unit/test_compact_context.py::test_real_context_replay_fits_and_reaches_models
+3 failed, 1632 passed, 100 deselected, 1 warning in 222.62s (0:03:42)

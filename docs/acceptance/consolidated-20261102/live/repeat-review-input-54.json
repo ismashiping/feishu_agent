@@ -1,0 +1,320 @@
+{
+  "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "research_constraints": {
+    "population": [
+      "患者"
+    ],
+    "task": [
+      "预测患者发生急性肾损伤的风险"
+    ],
+    "data_type": [
+      "公开 ICU 临床数据"
+    ],
+    "paper_type": [],
+    "answer_dimensions": [
+      "已有类似研究",
+      "已有研究主要采用的方法",
+      "研究差异",
+      "数据、方法、算力和验证方面的可行性"
+    ],
+    "time_text": "目前",
+    "time_intent": "unspecified",
+    "years": null,
+    "year_from": null,
+    "year_to": null
+  },
+  "idea_comparisons": [
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "该研究开发连续AKI风险预测模型，与用户预测AKI风险的问题直接重叠。",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+        }
+      ]
+    },
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "overlap",
+      "reason": "研究针对ICU患者进行AKI风险预测，与用户ICU患者设定重叠。",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+        }
+      ]
+    },
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "dimension": "methods",
+      "idea_quote": "机器学习或深度学习模型",
+      "relation": "overlap",
+      "reason": "研究采用双通道深度学习模型，与用户深度学习建模设想重叠。",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+        }
+      ]
+    },
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "dimension": "outcomes",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "研究以AKI风险预测性能为结局，与用户关注的风险预测结果一致。",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+        }
+      ]
+    },
+    {
+      "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+      "dimension": "outcomes",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "研究以AUC等指标评价AKI预测模型，与用户关注的风险预测结果一致。",
+      "evidence": [
+        {
+          "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+          "quote": "Compared to other models, XGBoost demonstrated relatively superior model fit performance, with an AUC of 0.8127, BS of 0.1757 (Sensitivity: 0.7165, Specificity: 0.7605, Accuracy: 0.7394, F1 score: 0."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c13",
+      "section": 4,
+      "text": "outcomes：the 12-h weight-adjusted urine output (uo_rt_12 h) tops global importance with bidirectional impact: Reduced output increases aKi risk (positive attribution), while increased output lowers risk.",
+      "epistemic_kind": "reported_fact",
+      "evidence": [
+        {
+          "chunk_id": "0f272c58-34d8-5322-928c-306350592610",
+          "quote": "the 12-h weight-adjusted urine output (uo_rt_12 h) tops global importance with bidirectional impact: Reduced output increases aKi risk (positive attribution), while increased output lowers risk."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    },
+    {
+      "claim_id": "c14",
+      "section": 4,
+      "text": "results：While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination.",
+      "epistemic_kind": "reported_fact",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    },
+    {
+      "claim_id": "c15",
+      "section": 4,
+      "text": "technical_methods：in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu.",
+      "epistemic_kind": "reported_fact",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    },
+    {
+      "claim_id": "c16",
+      "section": 3,
+      "text": "研究设计分类：cohort；判定来源：text",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+          "quote": "In the present study, comparative analyses between the optimal ML model and conventional scoring systems demonstrated the superior performance of the AIP-integrated model in both internal and external validation cohorts."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "核对出版类型与研究设计原文"
+    },
+    {
+      "claim_id": "c17",
+      "section": 4,
+      "text": "design：In the present study, comparative analyses between the optimal ML model and conventional scoring systems demonstrated the superior performance of the AIP-integrated model in both internal and external validation cohorts.",
+      "epistemic_kind": "reported_fact",
+      "evidence": [
+        {
+          "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+          "quote": "In the present study, comparative analyses between the optimal ML model and conventional scoring systems demonstrated the superior performance of the AIP-integrated model in both internal and external validation cohorts."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    },
+    {
+      "claim_id": "c18",
+      "section": 4,
+      "text": "evaluation_metrics：Compared to other models, XGBoost demonstrated relatively superior model fit performance, with an AUC of 0.8127, BS of 0.1757 (Sensitivity: 0.7165, Specificity: 0.7605, Accuracy: 0.7394, F1 score: 0.",
+      "epistemic_kind": "reported_fact",
+      "evidence": [
+        {
+          "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+          "quote": "Compared to other models, XGBoost demonstrated relatively superior model fit performance, with an AUC of 0.8127, BS of 0.1757 (Sensitivity: 0.7165, Specificity: 0.7605, Accuracy: 0.7394, F1 score: 0."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    }
+  ],
+  "sources": [
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "title": "Development and validation of a dual-channel deep learning for continuous acute kidney injury prediction in critically ill patients",
+      "publication_types": [
+        "article"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "0f272c58-34d8-5322-928c-306350592610",
+          "text": "the 12-h weight-adjusted urine output (uo_rt_12 h) tops global importance with bidirectional impact: Reduced output increases aKi risk (positive attribution), while increased output lowers risk.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Model interpretation",
+            "start": 22329,
+            "end": 23393
+          }
+        },
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "text": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Conclusion",
+            "start": 29830,
+            "end": 30406
+          }
+        },
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "text": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Conclusion",
+            "start": 29830,
+            "end": 30406
+          }
+        }
+      ]
+    },
+    {
+      "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+      "title": "Atherogenic index of plasma and risk of acute kidney injury in critically ill patients: a multi-cohort study with machine learning and SHAP analysis",
+      "publication_types": [
+        "article"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+          "text": "In the present study, comparative analyses between the optimal ML model and conventional scoring systems demonstrated the superior performance of the AIP-integrated model in both internal and external validation cohorts.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Discussion",
+            "start": 23105,
+            "end": 24064
+          }
+        },
+        {
+          "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+          "text": "Compared to other models, XGBoost demonstrated relatively superior model fit performance, with an AUC of 0.8127, BS of 0.1757 (Sensitivity: 0.7165, Specificity: 0.7605, Accuracy: 0.7394, F1 score: 0.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "The results of the ML model performance evaluation",
+            "start": 14039,
+            "end": 15078
+          }
+        }
+      ]
+    }
+  ],
+  "output_schema": {
+    "$defs": {
+      "ClaimReview": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "title": "Claim Id",
+            "type": "string"
+          },
+          "support_status": {
+            "enum": [
+              "supported",
+              "partially_supported",
+              "unsupported",
+              "uncertain"
+            ],
+            "title": "Support Status",
+            "type": "string"
+          },
+          "basis": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Basis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "support_status",
+          "basis"
+        ],
+        "title": "ClaimReview",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "reviews": {
+        "items": {
+          "$ref": "#/$defs/ClaimReview"
+        },
+        "maxItems": 500,
+        "title": "Reviews",
+        "type": "array"
+      }
+    },
+    "required": [
+      "reviews"
+    ],
+    "title": "ReviewDraft",
+    "type": "object"
+  }
+}

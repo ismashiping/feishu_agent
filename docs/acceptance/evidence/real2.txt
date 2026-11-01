@@ -1,0 +1,106 @@
+Traceback (most recent call last):
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 149, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3299, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 445, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1324, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 709, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 176, in _do_get
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 166, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 174, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 386, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 671, in __init__
+    self.__connect()
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 916, in __connect
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 166, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 912, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 645, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 869, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\psycopg\connection.py", line 126, in connect
+    raise last_ex.with_traceback(None)
+psycopg.errors.ConnectionTimeout: connection timeout expired
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.artifacts\governance\run-real.py", line 20, in <module>
+    with engine.connect().execution_options(isolation_level="AUTOCOMMIT") as connection:
+         ^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3275, in connect
+    return self._connection_cls(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 151, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2432, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 149, in __init__
+    self._dbapi_connection = engine.raw_connection()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 3299, in raw_connection
+    return self.pool.connect()
+           ^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 445, in connect
+    return _ConnectionFairy._checkout(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 1324, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 709, in checkout
+    rec = pool._do_get()
+          ^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 176, in _do_get
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 166, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\impl.py", line 174, in _do_get
+    return self._create_connection()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 386, in _create_connection
+    return _ConnectionRecord(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 671, in __init__
+    self.__connect()
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 916, in __connect
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 166, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\pool\base.py", line 912, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\create.py", line 645, in connect
+    return dialect.connect(*cargs_tup, **cparams)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 869, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)  # type: ignore[no-any-return]  # NOQA: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\psycopg\connection.py", line 126, in connect
+    raise last_ex.with_traceback(None)
+sqlalchemy.exc.OperationalError: (psycopg.errors.ConnectionTimeout) connection timeout expired
+(Background on this error at: https://sqlalche.me/e/21/e3q8)

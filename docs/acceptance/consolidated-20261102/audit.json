@@ -1,0 +1,155 @@
+[
+  {
+    "run": "first",
+    "entry_result": {
+      "run": "first",
+      "before": {
+        "indexes": 11,
+        "vectors": 511
+      },
+      "status": "returned",
+      "report_status": "verification_incomplete",
+      "content_status": "partial",
+      "seconds": 65.922,
+      "after": {
+        "indexes": 12,
+        "vectors": 562
+      }
+    },
+    "claims": 34,
+    "papers": 2,
+    "passages": 6,
+    "review_batches": 6,
+    "review_complete": true,
+    "quote_checks": 39,
+    "quotes_match": true,
+    "only_fulltext": true,
+    "support": {
+      "uncertain": 4,
+      "supported": 23,
+      "partially_supported": 7
+    },
+    "feedback_stop": "no_actionable_feedback",
+    "notes": [
+      "支持度是模型审核建议；引用有效不等于结论正确，候选缺口与方向需要人工验证。"
+    ],
+    "cache_hits": [
+      "doi:10.1093/jamiaopen/ooaf065"
+    ],
+    "feasibility": [
+      [
+        "data",
+        "conditional"
+      ],
+      [
+        "methods",
+        "conditional"
+      ],
+      [
+        "compute",
+        "unknown"
+      ],
+      [
+        "validation",
+        "reported_barrier"
+      ]
+    ],
+    "sample_sizes": [
+      {
+        "value": null,
+        "epistemic_kind": "reported_fact",
+        "evidence": [],
+        "basis": "not_reported",
+        "verification_needed": null
+      },
+      {
+        "value": null,
+        "epistemic_kind": "reported_fact",
+        "evidence": [],
+        "basis": "not_reported",
+        "verification_needed": null
+      }
+    ]
+  },
+  {
+    "run": "repeat",
+    "entry_result": {
+      "run": "repeat",
+      "before": {
+        "indexes": 12,
+        "vectors": 562
+      },
+      "status": "returned",
+      "report_status": "verification_incomplete",
+      "content_status": "partial",
+      "seconds": 57.656,
+      "after": {
+        "indexes": 12,
+        "vectors": 562
+      }
+    },
+    "claims": 49,
+    "papers": 3,
+    "passages": 9,
+    "review_batches": 9,
+    "review_complete": true,
+    "quote_checks": 57,
+    "quotes_match": true,
+    "only_fulltext": true,
+    "support": {
+      "uncertain": 5,
+      "supported": 35,
+      "partially_supported": 9
+    },
+    "feedback_stop": "budget_limit",
+    "notes": [
+      "支持度是模型审核建议；引用有效不等于结论正确，候选缺口与方向需要人工验证。"
+    ],
+    "cache_hits": [
+      "doi:10.1093/jamiaopen/ooaf065",
+      "doi:10.1080/0886022x.2026.2690700",
+      "doi:10.1080/0886022x.2025.2611198"
+    ],
+    "feasibility": [
+      [
+        "data",
+        "conditional"
+      ],
+      [
+        "methods",
+        "conditional"
+      ],
+      [
+        "compute",
+        "unknown"
+      ],
+      [
+        "validation",
+        "reported_barrier"
+      ]
+    ],
+    "sample_sizes": [
+      {
+        "value": null,
+        "epistemic_kind": "reported_fact",
+        "evidence": [],
+        "basis": "not_reported",
+        "verification_needed": null
+      },
+      {
+        "value": null,
+        "epistemic_kind": "reported_fact",
+        "evidence": [],
+        "basis": "not_reported",
+        "verification_needed": null
+      },
+      {
+        "value": null,
+        "epistemic_kind": "reported_fact",
+        "evidence": [],
+        "basis": "not_reported",
+        "verification_needed": null
+      }
+    ]
+  }
+]

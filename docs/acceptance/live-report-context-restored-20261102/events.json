@@ -1,0 +1,367 @@
+{
+  "run": "repeat",
+  "events": [
+    {
+      "run": "cold",
+      "stage": "planner_response",
+      "status": "ok",
+      "seconds": 4.531
+    },
+    {
+      "run": "cold",
+      "stage": "planning",
+      "status": "ok",
+      "seconds": 4.531
+    },
+    {
+      "run": "cold",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 10,
+      "total": 194,
+      "seconds": 3.828
+    },
+    {
+      "run": "cold",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 10,
+      "total": 194,
+      "seconds": 1.625
+    },
+    {
+      "run": "cold",
+      "stage": "screening",
+      "status": "failed",
+      "error_type": "ResearchError",
+      "code": "model_output_invalid",
+      "basis": null,
+      "seconds": 6.297
+    },
+    {
+      "run": "cold",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 10,
+      "total": 1553,
+      "seconds": 2.64
+    },
+    {
+      "run": "cold",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 10,
+      "total": 1383,
+      "seconds": 1.734
+    },
+    {
+      "run": "cold",
+      "stage": "screening",
+      "status": "ok",
+      "seconds": 6.359
+    },
+    {
+      "run": "cold",
+      "stage": "retrieval",
+      "status": "ok",
+      "selected": 3,
+      "fulltext_papers": 0,
+      "passages": 0,
+      "warnings": [
+        "openalex_screening_failed"
+      ],
+      "seconds": 22.703
+    },
+    {
+      "run": "cold",
+      "stage": "cache_load",
+      "status": "ok",
+      "hit": false,
+      "seconds": 0.0
+    },
+    {
+      "run": "cold",
+      "stage": "download_parse",
+      "status": "ok",
+      "paper": "https://openalex.org/W4214921692",
+      "candidates": 3,
+      "units": 21,
+      "seconds": 1.672
+    },
+    {
+      "run": "cold",
+      "stage": "embed_passages",
+      "status": "ok",
+      "seconds": 24.063
+    },
+    {
+      "run": "cold",
+      "stage": "cache_publish",
+      "status": "ok",
+      "chunks": 27,
+      "seconds": 0.125
+    },
+    {
+      "run": "cold",
+      "stage": "embed_query",
+      "status": "ok",
+      "seconds": 0.36
+    },
+    {
+      "run": "cold",
+      "stage": "vector_search",
+      "status": "ok",
+      "seconds": 0.11
+    },
+    {
+      "run": "cold",
+      "stage": "cache_load",
+      "status": "ok",
+      "hit": false,
+      "seconds": 0.0
+    },
+    {
+      "run": "cold",
+      "stage": "download_parse",
+      "status": "ok",
+      "paper": "https://openalex.org/W3091454251",
+      "candidates": 3,
+      "units": 27,
+      "seconds": 2.11
+    },
+    {
+      "run": "cold",
+      "stage": "embed_passages",
+      "status": "failed",
+      "error_type": "EmbeddingError",
+      "code": "embedding_timeout",
+      "basis": null,
+      "seconds": 26.922
+    },
+    {
+      "run": "cold",
+      "stage": "fulltext_rag",
+      "status": "ok",
+      "selected": 3,
+      "fulltext_papers": 1,
+      "passages": 3,
+      "warnings": [
+        "openalex_screening_failed",
+        "doi:10.1136/bmjopen-2021-054092:fulltext_available",
+        "doi:10.1093/ckj/sfaa145:fulltext_embedding_failed",
+        "doi:10.1016/j.ijmedinf.2025.105815:fulltext_budget;stage_deadline"
+      ],
+      "seconds": 61.844
+    },
+    {
+      "run": "cold",
+      "stage": "analysis",
+      "status": "ok",
+      "seconds": 9.75
+    },
+    {
+      "run": "cold",
+      "stage": "report_review",
+      "status": "ok",
+      "seconds": 5.172
+    },
+    {
+      "run": "repeat",
+      "stage": "planner_response",
+      "status": "ok",
+      "seconds": 4.406
+    },
+    {
+      "run": "repeat",
+      "stage": "planning",
+      "status": "ok",
+      "seconds": 4.406
+    },
+    {
+      "run": "repeat",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 0,
+      "total": 0,
+      "seconds": 1.797
+    },
+    {
+      "run": "repeat",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 0,
+      "total": 0,
+      "seconds": 0.531
+    },
+    {
+      "run": "repeat",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 10,
+      "total": 1436,
+      "seconds": 2.172
+    },
+    {
+      "run": "repeat",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 10,
+      "total": 1294,
+      "seconds": 2.453
+    },
+    {
+      "run": "repeat",
+      "stage": "screening",
+      "status": "ok",
+      "seconds": 5.531
+    },
+    {
+      "run": "repeat",
+      "stage": "retrieval",
+      "status": "ok",
+      "selected": 5,
+      "fulltext_papers": 0,
+      "passages": 0,
+      "warnings": [],
+      "seconds": 12.61
+    },
+    {
+      "run": "repeat",
+      "stage": "cache_load",
+      "status": "ok",
+      "hit": false,
+      "seconds": 0.016
+    },
+    {
+      "run": "repeat",
+      "stage": "download_parse",
+      "status": "ok",
+      "paper": "https://openalex.org/W4411994860",
+      "candidates": 3,
+      "units": 41,
+      "seconds": 1.062
+    },
+    {
+      "run": "repeat",
+      "stage": "embed_passages",
+      "status": "ok",
+      "seconds": 35.047
+    },
+    {
+      "run": "repeat",
+      "stage": "cache_publish",
+      "status": "ok",
+      "chunks": 48,
+      "seconds": 0.234
+    },
+    {
+      "run": "repeat",
+      "stage": "embed_query",
+      "status": "ok",
+      "seconds": 0.172
+    },
+    {
+      "run": "repeat",
+      "stage": "vector_search",
+      "status": "ok",
+      "seconds": 0.016
+    },
+    {
+      "run": "repeat",
+      "stage": "cache_load",
+      "status": "ok",
+      "hit": false,
+      "seconds": 0.0
+    },
+    {
+      "run": "repeat",
+      "stage": "download_parse",
+      "status": "ok",
+      "paper": "https://openalex.org/W4400283511",
+      "candidates": 2,
+      "units": 18,
+      "seconds": 6.516
+    },
+    {
+      "run": "repeat",
+      "stage": "embed_passages",
+      "status": "failed",
+      "error_type": "EmbeddingError",
+      "code": "embedding_timeout",
+      "basis": null,
+      "seconds": 18.25
+    },
+    {
+      "run": "repeat",
+      "stage": "fulltext_rag",
+      "status": "ok",
+      "selected": 5,
+      "fulltext_papers": 1,
+      "passages": 3,
+      "warnings": [
+        "doi:10.1093/jamiaopen/ooaf065:fulltext_available",
+        "doi:10.1097/ccm.0000000000006359:fulltext_embedding_failed",
+        "doi:10.1080/0886022x.2022.2036619:fulltext_budget;stage_deadline",
+        "doi:10.1186/s12967-022-03364-0:fulltext_budget;stage_deadline",
+        "doi:10.1093/ckj/sfac181:fulltext_budget;stage_deadline"
+      ],
+      "seconds": 61.969
+    },
+    {
+      "run": "repeat",
+      "stage": "analysis",
+      "status": "ok",
+      "seconds": 9.484
+    },
+    {
+      "run": "repeat",
+      "stage": "report_review",
+      "status": "ok",
+      "seconds": 4.094
+    }
+  ],
+  "model_load_seconds": 103.563,
+  "question": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "results": [
+    {
+      "run": "cold",
+      "before": {
+        "indexes": 0,
+        "vectors": 0
+      },
+      "status": "returned",
+      "report_status": "verification_incomplete",
+      "content_status": "partial",
+      "seconds": 104.156,
+      "after": {
+        "indexes": 1,
+        "vectors": 27
+      }
+    },
+    {
+      "run": "repeat",
+      "before": {
+        "indexes": 1,
+        "vectors": 27
+      },
+      "status": "returned",
+      "report_status": "verification_incomplete",
+      "content_status": "partial",
+      "seconds": 92.641,
+      "after": {
+        "indexes": 2,
+        "vectors": 75
+      }
+    }
+  ],
+  "before": {
+    "indexes": 0,
+    "vectors": 0
+  },
+  "limits": {
+    "max_seconds": 180.0,
+    "generation_seconds": 60.0,
+    "max_context_characters": 32000,
+    "max_output_bytes": 32000
+  }
+}

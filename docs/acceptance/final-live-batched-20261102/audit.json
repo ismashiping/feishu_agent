@@ -1,0 +1,146 @@
+[
+  {
+    "run": "first",
+    "review_batches": 12,
+    "claim_count": 67,
+    "all_reviewed": true,
+    "all_quotes_match": true,
+    "quote_checks": 67,
+    "max_batch_chars": 11250,
+    "support": {
+      "uncertain": 11,
+      "supported": 46,
+      "partially_supported": 10
+    },
+    "status": "verification_incomplete",
+    "feedback_stop": "budget_limit",
+    "verification": [
+      {
+        "source_id": "db50365c-545f-5f49-accb-59508e7e5630",
+        "identity_status": "not_applicable",
+        "metadata_status": "not_applicable",
+        "location_status": "valid",
+        "checked_at": "2026-11-01T19:44:37.965530Z",
+        "errors": []
+      },
+      {
+        "source_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+        "identity_status": "not_applicable",
+        "metadata_status": "not_applicable",
+        "location_status": "valid",
+        "checked_at": "2026-11-01T19:44:37.966564Z",
+        "errors": []
+      },
+      {
+        "source_id": "e5282ea0-735a-547f-b8a6-be41d460f29a",
+        "identity_status": "not_applicable",
+        "metadata_status": "not_applicable",
+        "location_status": "valid",
+        "checked_at": "2026-11-01T19:44:37.967560Z",
+        "errors": []
+      },
+      {
+        "source_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+        "identity_status": "not_applicable",
+        "metadata_status": "not_applicable",
+        "location_status": "valid",
+        "checked_at": "2026-11-01T19:44:37.969329Z",
+        "errors": []
+      },
+      {
+        "source_id": "7dbbaee1-21bf-5fe7-94da-9789e1ccb660",
+        "identity_status": "not_applicable",
+        "metadata_status": "not_applicable",
+        "location_status": "valid",
+        "checked_at": "2026-11-01T19:44:37.969870Z",
+        "errors": []
+      }
+    ],
+    "cache_hits": [
+      "doi:10.1080/0886022x.2026.2690700",
+      "doi:10.1080/0886022x.2025.2611198"
+    ],
+    "feasibility": [
+      [
+        "data",
+        "conditional"
+      ],
+      [
+        "methods",
+        "conditional"
+      ],
+      [
+        "compute",
+        "unknown"
+      ],
+      [
+        "validation",
+        "conditional"
+      ]
+    ],
+    "sample_size": [
+      "A total of 370 sepsis patients were included in the external validation, Among them, 61 patients developed AKI.",
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  {
+    "run": "repeat",
+    "review_batches": 6,
+    "claim_count": 34,
+    "all_reviewed": true,
+    "all_quotes_match": true,
+    "quote_checks": 36,
+    "max_batch_chars": 11623,
+    "support": {
+      "uncertain": 6,
+      "supported": 22,
+      "partially_supported": 6
+    },
+    "status": "verification_incomplete",
+    "feedback_stop": "no_actionable_feedback",
+    "verification": [
+      {
+        "source_id": "186fe080-74df-524c-8652-a1f3e4c89ce3",
+        "identity_status": "not_applicable",
+        "metadata_status": "not_applicable",
+        "location_status": "valid",
+        "checked_at": "2026-11-01T19:46:20.307008Z",
+        "errors": []
+      },
+      {
+        "source_id": "346f40e2-fcd7-5023-bd38-c1df77f0aaa2",
+        "identity_status": "not_applicable",
+        "metadata_status": "not_applicable",
+        "location_status": "valid",
+        "checked_at": "2026-11-01T19:46:20.309983Z",
+        "errors": []
+      }
+    ],
+    "cache_hits": [],
+    "feasibility": [
+      [
+        "data",
+        "unknown"
+      ],
+      [
+        "methods",
+        "conditional"
+      ],
+      [
+        "compute",
+        "unknown"
+      ],
+      [
+        "validation",
+        "reported_barrier"
+      ]
+    ],
+    "sample_size": [
+      "et al 2019[128] Retrospective 2001 to 2012 ICU patients North America KDIGO KDIGO sCr on day 1 of ICU admission 23950 3954 V.",
+      null
+    ]
+  }
+]

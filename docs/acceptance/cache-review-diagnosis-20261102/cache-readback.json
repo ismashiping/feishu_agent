@@ -1,0 +1,70 @@
+{
+  "rows": [
+    {
+      "paper_key": "doi:10.1136/bmjopen-2021-054092",
+      "signature_matches": true,
+      "unexpired": true,
+      "passages": 27,
+      "vectors": 27
+    },
+    {
+      "paper_key": "doi:10.1093/jamiaopen/ooaf065",
+      "signature_matches": true,
+      "unexpired": true,
+      "passages": 48,
+      "vectors": 48
+    }
+  ],
+  "cold": [
+    {
+      "key": "doi:10.1136/bmjopen-2021-054092",
+      "openalex_id": "https://openalex.org/W4214921692",
+      "now_load_hit": true,
+      "run_fulltext_passages": 3
+    },
+    {
+      "key": "doi:10.1093/ckj/sfaa145",
+      "openalex_id": "https://openalex.org/W3091454251",
+      "now_load_hit": false,
+      "run_fulltext_passages": 0
+    },
+    {
+      "key": "doi:10.1016/j.ijmedinf.2025.105815",
+      "openalex_id": "https://openalex.org/W4407134183",
+      "now_load_hit": false,
+      "run_fulltext_passages": 0
+    }
+  ],
+  "repeat": [
+    {
+      "key": "doi:10.1093/jamiaopen/ooaf065",
+      "openalex_id": "https://openalex.org/W4411994860",
+      "now_load_hit": true,
+      "run_fulltext_passages": 3
+    },
+    {
+      "key": "doi:10.1097/ccm.0000000000006359",
+      "openalex_id": "https://openalex.org/W4400283511",
+      "now_load_hit": false,
+      "run_fulltext_passages": 0
+    },
+    {
+      "key": "doi:10.1080/0886022x.2022.2036619",
+      "openalex_id": "https://openalex.org/W4213035382",
+      "now_load_hit": false,
+      "run_fulltext_passages": 0
+    },
+    {
+      "key": "doi:10.1186/s12967-022-03364-0",
+      "openalex_id": "https://openalex.org/W4280556240",
+      "now_load_hit": false,
+      "run_fulltext_passages": 0
+    },
+    {
+      "key": "doi:10.1093/ckj/sfac181",
+      "openalex_id": "https://openalex.org/W4289519525",
+      "now_load_hit": false,
+      "run_fulltext_passages": 0
+    }
+  ]
+}

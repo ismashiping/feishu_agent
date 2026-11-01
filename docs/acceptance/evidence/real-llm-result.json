@@ -1,0 +1,10 @@
+{
+  "requested_model": "deepseek-chat",
+  "response_model": "deepseek-flash",
+  "status": "answered",
+  "claims": 4,
+  "sources": 1,
+  "citation_membership": "passed",
+  "retriever": "synthetic fixture (not E5/PG)",
+  "medical_quality_evaluation": "not performed"
+}

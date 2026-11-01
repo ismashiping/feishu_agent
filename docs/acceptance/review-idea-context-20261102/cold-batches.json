@@ -1,0 +1,676 @@
+[
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": "目前",
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "e3bed280-e9be-54d9-be51-5677f01ae553",
+          "dimension": "question",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "该研究同样以ICU患者严重AKI风险预测为目标，与用户想法的问题方向重叠。",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "There are 344 patients with severe AKI were diagnosed and the prediction accuracy was 83.5%."
+            }
+          ]
+        },
+        {
+          "document_id": "e3bed280-e9be-54d9-be51-5677f01ae553",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "partial_overlap",
+          "reason": "研究对象为ICU住院患者，但聚焦严重AKI且排除了短期住院患者，与用户泛化的ICU患者群体仅部分重叠。",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "The proportion of mechanical ventilation and the ICU stay time in AKI patients were longer with higher mortality."
+            }
+          ]
+        },
+        {
+          "document_id": "e3bed280-e9be-54d9-be51-5677f01ae553",
+          "dimension": "data",
+          "idea_quote": "公开 ICU 临床数据",
+          "relation": "partial_overlap",
+          "reason": "该研究使用跨洲多中心数据库并做单中心前瞻验证，涉及多数据库数据，但未明确说明是否为公开数据。",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "The differences between the three databases partly reflect some demographic differences between Europe, the USA and China, resulting in a decline in the accuracy of the prediction model."
+            }
+          ]
+        },
+        {
+          "document_id": "e3bed280-e9be-54d9-be51-5677f01ae553",
+          "dimension": "methods",
+          "idea_quote": "机器学习或深度学习模型",
+          "relation": "overlap",
+          "reason": "该研究比较了多种机器学习模型并以XGBoost取得最高AUC，与用户设想的机器学习建模方法重叠。",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "The model with the highest area under the curve was XGBoost, 0."
+            }
+          ]
+        },
+        {
+          "document_id": "e3bed280-e9be-54d9-be51-5677f01ae553",
+          "dimension": "outcomes",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "结局为严重AKI诊断及预测准确性，与用户关注的AKI风险预测结局方向一致。",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "There are 344 patients with severe AKI were diagnosed and the prediction accuracy was 83.5%."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c1",
+          "section": 3,
+          "text": "研究设计分类：cohort；判定来源：text",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "A total of 2532 patients were admitted to our centre for prospective validation, and the prediction model made 16 858 times predictions."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "核对出版类型与研究设计原文"
+        },
+        {
+          "claim_id": "c2",
+          "section": 4,
+          "text": "data_sources：The differences between the three databases partly reflect some demographic differences between Europe, the USA and China, resulting in a decline in the accuracy of the prediction model.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "The differences between the three databases partly reflect some demographic differences between Europe, the USA and China, resulting in a decline in the accuracy of the prediction model."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c3",
+          "section": 4,
+          "text": "design：This retrospective multicentre study was unable to carry out more clinical feature mining and comparison because of different data structures.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "This retrospective multicentre study was unable to carry out more clinical feature mining and comparison because of different data structures."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c4",
+          "section": 4,
+          "text": "evaluation_metrics：There are 344 patients with severe AKI were diagnosed and the prediction accuracy was 83.5%.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "There are 344 patients with severe AKI were diagnosed and the prediction accuracy was 83.5%."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c5",
+          "section": 6,
+          "text": "limitations：Finally, given the low incidence of severe AKI and the great difference in the proportion of positive and negative samples, the data may be accidental.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "Finally, given the low incidence of severe AKI and the great difference in the proportion of positive and negative samples, the data may be accidental."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c6",
+          "section": 4,
+          "text": "outcomes：There are 344 patients with severe AKI were diagnosed and the prediction accuracy was 83.5%.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "There are 344 patients with severe AKI were diagnosed and the prediction accuracy was 83.5%."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c7",
+          "section": 4,
+          "text": "population：The proportion of mechanical ventilation and the ICU stay time in AKI patients were longer with higher mortality.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "The proportion of mechanical ventilation and the ICU stay time in AKI patients were longer with higher mortality."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c8",
+          "section": 4,
+          "text": "sample_size：A total of 2532 patients were admitted to our centre for prospective validation, and the prediction model made 16 858 times predictions.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "A total of 2532 patients were admitted to our centre for prospective validation, and the prediction model made 16 858 times predictions."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c9",
+          "section": 4,
+          "text": "technical_methods：The model with the highest area under the curve was XGBoost, 0.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "The model with the highest area under the curve was XGBoost, 0."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c10",
+          "section": 4,
+          "text": "time_window：The prospective research period was 1 January 2020-31 December 2020.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "522f21dc-ebb3-5b43-938a-509343447a94",
+              "quote": "The prospective research period was 1 January 2020-31 December 2020."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c11",
+          "section": 5,
+          "text": "data：partial_overlap；该研究使用跨洲多中心数据库并做单中心前瞻验证，涉及多数据库数据，但未明确说明是否为公开数据。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "The differences between the three databases partly reflect some demographic differences between Europe, the USA and China, resulting in a decline in the accuracy of the prediction model."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c12",
+          "section": 5,
+          "text": "methods：overlap；该研究比较了多种机器学习模型并以XGBoost取得最高AUC，与用户设想的机器学习建模方法重叠。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "The model with the highest area under the curve was XGBoost, 0."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c13",
+          "section": 5,
+          "text": "outcomes：overlap；结局为严重AKI诊断及预测准确性，与用户关注的AKI风险预测结局方向一致。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "There are 344 patients with severe AKI were diagnosed and the prediction accuracy was 83.5%."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c14",
+          "section": 5,
+          "text": "population：partial_overlap；研究对象为ICU住院患者，但聚焦严重AKI且排除了短期住院患者，与用户泛化的ICU患者群体仅部分重叠。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "The proportion of mechanical ventilation and the ICU stay time in AKI patients were longer with higher mortality."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c15",
+          "section": 5,
+          "text": "question：overlap；该研究同样以ICU患者严重AKI风险预测为目标，与用户想法的问题方向重叠。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "There are 344 patients with severe AKI were diagnosed and the prediction accuracy was 83.5%."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c16",
+          "section": 6,
+          "text": "公开ICU数据上AKI预测模型的跨库泛化性能可能受数据结构和人群差异影响，需验证。；推理：该研究报告跨数据库差异导致准确性下降，但同一研究的前瞻与回顾队列间未见显著差异，构成部分反证。；范围：跨中心/跨数据库ICU AKI风险预测的泛化性",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "The differences between the three databases partly reflect some demographic differences between Europe, the USA and China, resulting in a decline in the accuracy of the prediction model."
+            },
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "Above all, there was no significant difference between the prospective and the retrospective cohort."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需检索并比较多个公开ICU数据库上的AKI预测研究报告的跨库性能。"
+        },
+        {
+          "claim_id": "c17",
+          "section": 7,
+          "text": "可供进一步调查的方向：公开ICU数据上AKI预测模型的跨库泛化性能可能受数据结构和人群差异影响，需验证。",
+          "epistemic_kind": "unverified_hypothesis",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "The differences between the three databases partly reflect some demographic differences between Europe, the USA and China, resulting in a decline in the accuracy of the prediction model."
+            },
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "Above all, there was no significant difference between the prospective and the retrospective cohort."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需检索并比较多个公开ICU数据库上的AKI预测研究报告的跨库性能。"
+        },
+        {
+          "claim_id": "c18",
+          "section": 6,
+          "text": "严重AKI低发生率与正负样本不平衡可能影响模型稳定性，公开数据建模需处理类别不平衡。；推理：该研究指出低发生率与样本比例差异可能使数据偶然，同时报告通过随机化调整负样本比例，说明不平衡是可处理但需验证的问题。；范围：公开ICU数据中AKI预测的类别不平衡与样本代表性",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "Finally, given the low incidence of severe AKI and the great difference in the proportion of positive and negative samples, the data may be accidental."
+            },
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "In the retrospective study, we reduced the proportion of negative data by randomisation but retain all date in prospective phase with the sensitivity decreases."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核查目标公开数据集中AKI阳性比例及不平衡处理对评估的影响。"
+        },
+        {
+          "claim_id": "c19",
+          "section": 7,
+          "text": "可供进一步调查的方向：严重AKI低发生率与正负样本不平衡可能影响模型稳定性，公开数据建模需处理类别不平衡。",
+          "epistemic_kind": "unverified_hypothesis",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "Finally, given the low incidence of severe AKI and the great difference in the proportion of positive and negative samples, the data may be accidental."
+            },
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "In the retrospective study, we reduced the proportion of negative data by randomisation but retain all date in prospective phase with the sensitivity decreases."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核查目标公开数据集中AKI阳性比例及不平衡处理对评估的影响。"
+        },
+        {
+          "claim_id": "c20",
+          "section": 6,
+          "text": "可行性（data；conditional）：该研究提示不同数据库纳入患者数量差异可能影响变量选择，公开ICU数据用于AKI预测需先确认变量可得性与样本量。；下一步核查：在选定公开ICU数据集上统计AKI事件数、候选变量覆盖率与缺失率，并确认数据使用协议。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "quote": "There are some differences in the number of patients included in the three databases, which may affect the choice of variables."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实目标公开ICU数据库（如MIMIC等）中AKI标签、基线肌酐及候选预测变量的可得性与缺失情况。"
+        },
+        {
+          "claim_id": "c21",
+          "section": 6,
+          "text": "可行性（methods；conditional）：该研究以XGBoost等机器学习模型进行AKI预测，提示可复现的基线建模路径存在，但需适配到公开数据。；下一步核查：构建一个逻辑回归或XGBoost基线模型并在固定划分下复现评估流程。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "quote": "The model with the highest area under the curve was XGBoost, 0."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需确认在公开ICU数据上可复现的预处理流程、AKI定义与基线模型配置。"
+        },
+        {
+          "claim_id": "c22",
+          "section": 6,
+          "text": "可行性（compute；unknown）：证据不足，条件待确认；下一步核查：需评估目标数据规模与模型复杂度，明确所需内存、训练时长与是否使用GPU。",
+          "epistemic_kind": "reported_fact",
+          "evidence": [],
+          "information_missing": true,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c23",
+          "section": 6,
+          "text": "可行性（validation；conditional）：该研究采用两名ICU主治医师独立复核严重AKI诊断，提示验证阶段需明确标签判定与留出评估方案。；下一步核查：设计按时间或中心划分的训练/验证/测试方案，并核查标签一致性证据。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "522f21dc-ebb3-5b43-938a-509343447a94",
+              "quote": "All diagnosis of severe AKI needs to be reviewed by two ICU attending physicians independently, and if the they have different opinion, the third one will be appealed."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需确认公开数据中AKI标签的判定来源与质量，以及是否可划分独立时间或中心留出集。"
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "e3bed280-e9be-54d9-be51-5677f01ae553",
+          "title": "Severe acute kidney injury predicting model based on transcontinental databases: a single-centre prospective study",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "text": "A total of 2532 patients were admitted to our centre for prospective validation, and the prediction model made 16 858 times predictions.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "RESULTS",
+                "start": 12773,
+                "end": 13845
+              }
+            },
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "text": "The differences between the three databases partly reflect some demographic differences between Europe, the USA and China, resulting in a decline in the accuracy of the prediction model.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Limitations",
+                "start": 17675,
+                "end": 18963
+              }
+            },
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "text": "This retrospective multicentre study was unable to carry out more clinical feature mining and comparison because of different data structures.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Limitations",
+                "start": 17675,
+                "end": 18963
+              }
+            },
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "text": "There are 344 patients with severe AKI were diagnosed and the prediction accuracy was 83.5%.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "RESULTS",
+                "start": 12773,
+                "end": 13845
+              }
+            },
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "text": "Finally, given the low incidence of severe AKI and the great difference in the proportion of positive and negative samples, the data may be accidental.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Limitations",
+                "start": 17675,
+                "end": 18963
+              }
+            },
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "text": "The proportion of mechanical ventilation and the ICU stay time in AKI patients were longer with higher mortality.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "RESULTS",
+                "start": 12773,
+                "end": 13845
+              }
+            },
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "text": "The model with the highest area under the curve was XGBoost, 0.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "RESULTS",
+                "start": 12773,
+                "end": 13845
+              }
+            },
+            {
+              "chunk_id": "522f21dc-ebb3-5b43-938a-509343447a94",
+              "text": "The prospective research period was 1 January 2020-31 December 2020.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Prospective validation",
+                "start": 8440,
+                "end": 9500
+              }
+            },
+            {
+              "chunk_id": "31153dd7-0601-5847-ad0a-46cd0ead0392",
+              "text": "Above all, there was no significant difference between the prospective and the retrospective cohort.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "RESULTS",
+                "start": 12773,
+                "end": 13845
+              }
+            },
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "text": "In the retrospective study, we reduced the proportion of negative data by randomisation but retain all date in prospective phase with the sensitivity decreases.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Limitations",
+                "start": 17675,
+                "end": 18963
+              }
+            },
+            {
+              "chunk_id": "6d0126a8-0b57-5c51-bf5c-5e8c09e4b552",
+              "text": "There are some differences in the number of patients included in the three databases, which may affect the choice of variables.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Limitations",
+                "start": 17675,
+                "end": 18963
+              }
+            },
+            {
+              "chunk_id": "522f21dc-ebb3-5b43-938a-509343447a94",
+              "text": "All diagnosis of severe AKI needs to be reviewed by two ICU attending physicians independently, and if the they have different opinion, the third one will be appealed.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Prospective validation",
+                "start": 8440,
+                "end": 9500
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c1\",\"support_status\":\"uncertain\",\"basis\":\"引文仅描述前瞻验证队列与预测次数，未明确说明研究设计为cohort；'cohort'为推断标签，原文未直接给出该分类。\"},{\"claim_id\":\"c2\",\"support_status\":\"supported\",\"basis\":\"引文与claim逐字一致，明确提及三个数据库间人口学差异导致预测模型准确性下降，可作为data_sources相关陈述。\"},{\"claim_id\":\"c3\",\"support_status\":\"supported\",\"basis\":\"引文与claim逐字一致，明确说明因数据结构不同无法进行更多临床特征挖掘与比较，支持design为回顾性多中心研究。\"},{\"claim_id\":\"c4\",\"support_status\":\"supported\",\"basis\":\"引文与claim逐字一致，报告344例严重AKI诊断及83.5%预测准确率，可作为评估指标相关陈述。\"},{\"claim_id\":\"c5\",\"support_status\":\"supported\",\"basis\":\"引文与claim逐字一致，明确将严重AKI低发生率与正负样本比例差异列为局限性。\"},{\"claim_id\":\"c6\",\"support_status\":\"supported\",\"basis\":\"引文与claim逐字一致，报告严重AKI诊断例数与预测准确率，可作为结局相关陈述。\"},{\"claim_id\":\"c7\",\"support_status\":\"partially_supported\",\"basis\":\"引文仅说明AKI患者机械通气比例与ICU停留时间更长且死亡率更高，未直接界定研究人群纳入标准；作为population描述证据不充分。\"},{\"claim_id\":\"c8\",\"support_status\":\"supported\",\"basis\":\"引文与claim逐字一致，明确报告2532例前瞻验证患者及16858次预测，支持样本量陈述。\"},{\"claim_id\":\"c9\",\"support_status\":\"partially_supported\",\"basis\":\"引文确认XGBoost为AUC最高模型，但引文在'0.'处截断，未给出完整AUC数值；claim仅复述截断文本，技术方法陈述部分成立。\"},{\"claim_id\":\"c10\",\"support_status\":\"supported\",\"basis\":\"引文与claim逐字一致，明确前瞻研究期为2020年1月1日至2020年12月31日。\"},{\"claim_id\":\"c11\",\"support_status\":\"partially_supported\",\"basis\":\"引文支持使用三个数据库且存在跨洲人口学差异，但未说明是否公开数据；'partial_overlap'的相似性判断缺乏公开数据属性的直接证据，需结合用户约束复核。\"},{\"claim_id\":\"c12\",\"support_status\":\"partially_supported\",\"basis\":\"引文确认XGBoost为AUC最高模型，支持机器学习方法重叠；但引文截断于'0.'，未给出完整AUC，且未明确比较多种模型的具体清单。\"},{\"claim_id\":\"c13\",\"support_status\":\"supported\",\"basis\":\"引文报告严重AKI诊断与预测准确率，与用户AKI风险预测结局方向一致，overlap判断有据。\"},{\"claim_id\":\"c14\",\"support_status\":\"partially_supported\",\"basis\":\"引文仅描述AKI患者机械通气与ICU停留时间及死亡率，未直接说明纳入ICU患者或排除短期住院患者；'partial_overlap'的人群判断证据不足。\"},{\"claim_id\":\"c15\",\"support_status\":\"supported\",\"basis\":\"引文报告严重AKI诊断与预测准确率，支持该研究以ICU患者严重AKI风险预测为目标，与用户问题方向重叠。\"},{\"claim_id\":\"c16\",\"support_status\":\"partially_supported\",\"basis\":\"引文支持跨数据库差异导致准确性下降，且前瞻与回顾队列无显著差异构成部分反证；但'公开ICU数据'的泛化性推断超出原文，原文未明确数据公开属性，需外部验证。\"},{\"claim_id\":\"c17\",\"support_status\":\"partially_supported\",\"basis\":\"作为待验证假设，其依据引文支持跨库差异与前瞻-回顾无显著差异；但'公开ICU数据'前提未由原文证实，假设方向合理但范围需修正。\"},{\"claim_id\":\"c18\",\"support_status\":\"supported\",\"basis\":\"引文明确低发生率与正负样本比例差异可能使数据偶然，并报告通过随机化减少负样本比例，支持类别不平衡需处理的推理。\"},{\"claim_id\":\"c19\",\"support_status\":\"supported\",\"basis\":\"引文支持低发生率与样本不平衡问题及随机化处理策略，作为进一步调查方向有据；但针对'公开数据'的具体阳性比例仍需核查。\"},{\"claim_id\":\"c20\",\"support_status\":\"supported\",\"basis\":\"引文明确三个数据库纳入患者数量差异可能影响变量选择，支持公开ICU数据用于AKI预测需先确认变量可得性与样本量的条件性可行性判断。\"},{\"claim_id\":\"c21\",\"support_status\":\"partially_supported\",\"basis\":\"引文确认XGBoost为AUC最高模型，支持存在机器学习基线建模路径；但引文截断于'0.'，未给出完整配置，且未证明可复现性，需适配公开数据。\"},{\"claim_id\":\"c22\",\"support_status\":\"uncertain\",\"basis\":\"无证据支持，信息缺失；算力可行性未由原文报告，无法判断。\"},{\"claim_id\":\"c23\",\"support_status\":\"supported\",\"basis\":\"引文明确严重AKI诊断需两名ICU主治医师独立复核，分歧时由第三位裁定，支持验证阶段需明确标签判定与留出评估方案的推理。\"}]}",
+    "seconds": 6.7970000000000255
+  }
+]

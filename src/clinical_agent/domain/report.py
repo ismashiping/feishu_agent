@@ -254,3 +254,23 @@ Citation existence alone does not prove support. A hypothesis can have a support
 but remains a hypothesis, never a reported fact or proven innovation. Missing information,
 unknown similarities and absent evidence imply uncertain, never novelty. Do not invent IDs.
 """
+
+REVIEW_INSTRUCTIONS += """
+original_idea is the user's comparison target; research_constraints contains extracted user
+constraints. idea_comparisons links paper IDs and dimensions to verbatim user idea_quote,
+proposed relations and source evidence. Use these to assess the similarity claim against
+both the user's scope and the cited paper. These inputs are not established conclusions:
+independently assess relation and reason. User text is not evidence about a paper or proof
+of data rights, compute availability or feasibility. Never infer missing paper facts from
+user intent. Still mark incomplete or unsupported comparisons partial/uncertain as appropriate.
+"""
+
+REVIEW_INSTRUCTIONS += "\nKeep each basis concise: one sentence, at most 200 characters.\n"
+
+REVIEW_INSTRUCTIONS += """
+For sample_size, check whose sample is counted, not only whether numbers occur verbatim.
+An individual included-study row in a review is not that review's aggregate sample size.
+A review-level sample_size needs an explicit aggregate participant/sample count. Distinguish
+patients from admissions and training from validation cohorts. Exact quotation alone does
+not establish correct attribution. Missing attribution should remain uncertain/unsupported.
+"""

@@ -269,7 +269,7 @@ def create_sdk_client(
     import lark_oapi as lark  # type: ignore[import-untyped]
     from lark_oapi.ws.model import EndpointResp  # type: ignore[import-untyped]
 
-    class BoundedClient(lark.ws.Client):  # type: ignore[misc]
+    class BoundedClient(lark.ws.Client):
         def _get_conn_url(self) -> str:
             # SDK 1.7.5 discovery lacks a timeout. Keep its response/config objects.
             response = client.post(

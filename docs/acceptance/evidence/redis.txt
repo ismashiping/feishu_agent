@@ -1,0 +1,23 @@
+..F.........F                                                            [100%]
+================================== FAILURES ===================================
+_____________ test_release_then_old_owner_cannot_touch_new_lease ______________
+tests\integration\test_feishu_dedup_redis.py:83: in test_release_then_old_owner_cannot_touch_new_lease
+    assert service.check(b) == "owned"
+E   AssertionError: assert 'lost' == 'owned'
+E     
+E     - owned
+E     + lost
+___________ test_real_redis_worker_sender_dedup_capacity_and_drain ____________
+tests\integration\test_phase1_acceptance.py:102: in test_real_redis_worker_sender_dedup_capacity_and_drain
+    assert first.status == "accepted" and entered.wait(5)
+E   AssertionError: assert ('accepted' == 'accepted'
+E     
+E       accepted and False)
+E    +  where False = wait(5)
+E    +    where wait = <threading.Event at 0x15929c49430: unset>.wait
+------------------------------ Captured log call ------------------------------
+WARNING  feishu.worker:worker.py:180 feishu_research_failed
+=========================== short test summary info ===========================
+FAILED tests/integration/test_feishu_dedup_redis.py::test_release_then_old_owner_cannot_touch_new_lease
+FAILED tests/integration/test_phase1_acceptance.py::test_real_redis_worker_sender_dedup_capacity_and_drain
+2 failed, 11 passed in 14.38s

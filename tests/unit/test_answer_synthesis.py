@@ -76,7 +76,9 @@ def test_real_organ_abstract_negative_control_dataflow(question, source_factory,
     from clinical_agent.rag.pubmed_xml import parse_pubmed_response
     from tests.unit.test_research import Retriever, draft, result
 
-    xml = (ROOT / "docs/final-acceptance/answer-synthesis/organ-segmentation.xml").read_bytes()
+    xml = (
+        ROOT / "history/docs-20261101/final-acceptance/answer-synthesis/organ-segmentation.xml"
+    ).read_bytes()
     record = parse_pubmed_response(xml, fetched_at=datetime(2026, 10, 29, tzinfo=UTC))[0]
     assert "liver segmentation" in record.title.lower()
     assert "14" in record.abstract and "atlas" in record.abstract.lower()
@@ -121,7 +123,9 @@ def test_existing_real_mismatch_snapshot_keeps_original_question_and_passages():
     from clinical_agent.domain.research import GenerationInput
 
     saved = json.loads(
-        (ROOT / "docs/final-acceptance/docker-e2e/actual-zh.json").read_text(encoding="utf-8")
+        (ROOT / "history/docs-20261101/final-acceptance/docker-e2e/actual-zh.json").read_text(
+            encoding="utf-8"
+        )
     )
     context = dict(saved["context"])
     context.pop("instructions", None)

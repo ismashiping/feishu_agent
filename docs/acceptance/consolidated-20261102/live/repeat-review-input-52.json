@@ -1,0 +1,281 @@
+{
+  "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "research_constraints": {
+    "population": [
+      "患者"
+    ],
+    "task": [
+      "预测患者发生急性肾损伤的风险"
+    ],
+    "data_type": [
+      "公开 ICU 临床数据"
+    ],
+    "paper_type": [],
+    "answer_dimensions": [
+      "已有类似研究",
+      "已有研究主要采用的方法",
+      "研究差异",
+      "数据、方法、算力和验证方面的可行性"
+    ],
+    "time_text": "目前",
+    "time_intent": "unspecified",
+    "years": null,
+    "year_from": null,
+    "year_to": null
+  },
+  "idea_comparisons": [
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "该综述系统评价ICU中AKI预测的AI模型，与用户预测AKI风险的问题方向一致。",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "overlap",
+      "reason": "综述针对ICU中AKI预测，人群为ICU危重患者，与用户ICU患者设定重叠。",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "data",
+      "idea_quote": "公开 ICU 临床数据",
+      "relation": "overlap",
+      "reason": "综述指出公共ICU数据集被广泛使用，与用户使用公开ICU临床数据的设想一致。",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Public ICU datasets were widely used."
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "outcomes",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "综述以AUROC等指标评价AKI预测模型性能，与用户关注AKI风险预测结果一致。",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c1",
+      "section": 3,
+      "text": "研究设计分类：unknown；判定来源：unknown",
+      "epistemic_kind": "model_inference",
+      "evidence": [],
+      "information_missing": true,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "核对出版类型与研究设计原文"
+    },
+    {
+      "claim_id": "c2",
+      "section": 4,
+      "text": "data_sources：Public ICU datasets were widely used.",
+      "epistemic_kind": "reported_fact",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Public ICU datasets were widely used."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    },
+    {
+      "claim_id": "c3",
+      "section": 4,
+      "text": "design：This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU.",
+      "epistemic_kind": "reported_fact",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    },
+    {
+      "claim_id": "c4",
+      "section": 4,
+      "text": "evaluation_metrics：Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported.",
+      "epistemic_kind": "reported_fact",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    },
+    {
+      "claim_id": "c5",
+      "section": 6,
+      "text": "limitations：Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain.",
+      "epistemic_kind": "reported_fact",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    },
+    {
+      "claim_id": "c6",
+      "section": 4,
+      "text": "population：该综述聚焦于ICU中急性肾损伤（AKI）预测的AI模型研究，提示目标人群为ICU危重患者。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核对综述纳入研究的具体ICU人群定义与纳入排除标准。"
+    }
+  ],
+  "sources": [
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+      "publication_types": [
+        "review"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Public ICU datasets were widely used.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        },
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "text": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Conclusions",
+            "start": 31751,
+            "end": 33017
+          }
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        }
+      ]
+    }
+  ],
+  "output_schema": {
+    "$defs": {
+      "ClaimReview": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "title": "Claim Id",
+            "type": "string"
+          },
+          "support_status": {
+            "enum": [
+              "supported",
+              "partially_supported",
+              "unsupported",
+              "uncertain"
+            ],
+            "title": "Support Status",
+            "type": "string"
+          },
+          "basis": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Basis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "support_status",
+          "basis"
+        ],
+        "title": "ClaimReview",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "reviews": {
+        "items": {
+          "$ref": "#/$defs/ClaimReview"
+        },
+        "maxItems": 500,
+        "title": "Reviews",
+        "type": "array"
+      }
+    },
+    "required": [
+      "reviews"
+    ],
+    "title": "ReviewDraft",
+    "type": "object"
+  }
+}

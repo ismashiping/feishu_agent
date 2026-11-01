@@ -182,7 +182,7 @@ def test_invalid_input_never_assembles_resources(extra, capsys):
         pytest.fail("Invalid input assembled resources")
 
     try:
-        code = main(ask_args() + extra, research_factory=forbidden)
+        code = main(ask_online_args() + extra, research_factory=forbidden)
     except SystemExit as error:
         code = error.code
     assert code == 2
@@ -289,10 +289,9 @@ def test_local_corpus_scope_is_rejected_before_resources(capsys):
     def forbidden(*args):
         pytest.fail("Local scope assembled resources")
 
-    assert main(ask_args(), research_factory=forbidden) == 1
-    assert json.loads(capsys.readouterr().err.splitlines()[-1])["error_code"] == (
-        "local_corpus_not_evidence"
-    )
+    with pytest.raises(SystemExit) as error:
+        main(ask_args(), research_factory=forbidden)
+    assert error.value.code == 2
 
 
 def test_answered_cli_preserves_all_claim_and_citation_fields(

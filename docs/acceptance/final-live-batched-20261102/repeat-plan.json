@@ -1,0 +1,281 @@
+{
+  "task_intent": "feasibility",
+  "paper_target": null,
+  "research_constraints": {
+    "population": [
+      "患者"
+    ],
+    "task": [
+      "预测患者发生急性肾损伤的风险"
+    ],
+    "data_type": [
+      "公开 ICU 临床数据"
+    ],
+    "paper_type": [],
+    "answer_dimensions": [
+      "已有类似研究",
+      "已有研究主要采用的方法",
+      "研究差异",
+      "数据、方法、算力和验证方面的可行性"
+    ],
+    "time_text": "目前",
+    "time_intent": "unspecified",
+    "years": null,
+    "year_from": null,
+    "year_to": null
+  },
+  "concept_relations": [
+    {
+      "source_text": "急性肾损伤",
+      "english_term": "acute kidney injury",
+      "relation": "exact_synonym",
+      "concept_id": "aki",
+      "required": true,
+      "confidence": 0.99,
+      "verification": "candidate"
+    },
+    {
+      "source_text": "急性肾损伤",
+      "english_term": "AKI",
+      "relation": "exact_synonym",
+      "concept_id": "aki",
+      "required": false,
+      "confidence": 0.95,
+      "verification": "candidate"
+    },
+    {
+      "source_text": "预测患者发生急性肾损伤的风险",
+      "english_term": "predict risk of acute kidney injury in patients",
+      "relation": "required_constraint",
+      "concept_id": "aki_prediction",
+      "required": true,
+      "confidence": 0.95,
+      "verification": "candidate"
+    },
+    {
+      "source_text": "预测患者发生急性肾损伤的风险",
+      "english_term": "acute kidney injury risk prediction",
+      "relation": "related_concept",
+      "concept_id": "aki_prediction",
+      "required": false,
+      "confidence": 0.9,
+      "verification": "candidate"
+    },
+    {
+      "source_text": "机器学习",
+      "english_term": "machine learning",
+      "relation": "exact_synonym",
+      "concept_id": "ml",
+      "required": true,
+      "confidence": 0.99,
+      "verification": "candidate"
+    },
+    {
+      "source_text": "深度学习",
+      "english_term": "deep learning",
+      "relation": "exact_synonym",
+      "concept_id": "dl",
+      "required": true,
+      "confidence": 0.99,
+      "verification": "candidate"
+    },
+    {
+      "source_text": "公开 ICU 临床数据",
+      "english_term": "public ICU clinical data",
+      "relation": "required_constraint",
+      "concept_id": "icu_data",
+      "required": true,
+      "confidence": 0.95,
+      "verification": "candidate"
+    },
+    {
+      "source_text": "公开 ICU 临床数据",
+      "english_term": "MIMIC",
+      "relation": "related_concept",
+      "concept_id": "icu_data",
+      "required": false,
+      "confidence": 0.7,
+      "verification": "candidate"
+    },
+    {
+      "source_text": "公开 ICU 临床数据",
+      "english_term": "eICU",
+      "relation": "related_concept",
+      "concept_id": "icu_data",
+      "required": false,
+      "confidence": 0.7,
+      "verification": "candidate"
+    }
+  ],
+  "research_intent": "exploration",
+  "concept_mappings": [
+    {
+      "source_text": "急性肾损伤",
+      "english_terms": [
+        "acute kidney injury",
+        "AKI"
+      ],
+      "role": "population",
+      "required": true
+    },
+    {
+      "source_text": "预测患者发生急性肾损伤的风险",
+      "english_terms": [
+        "acute kidney injury risk prediction",
+        "predict risk of acute kidney injury"
+      ],
+      "role": "topic",
+      "required": true
+    },
+    {
+      "source_text": "机器学习",
+      "english_terms": [
+        "machine learning",
+        "ML"
+      ],
+      "role": "method",
+      "required": true
+    },
+    {
+      "source_text": "深度学习",
+      "english_terms": [
+        "deep learning",
+        "DL"
+      ],
+      "role": "method",
+      "required": true
+    },
+    {
+      "source_text": "公开 ICU 临床数据",
+      "english_terms": [
+        "public ICU clinical data",
+        "MIMIC",
+        "eICU"
+      ],
+      "role": "other",
+      "required": true
+    }
+  ],
+  "concept_groups": [
+    [
+      "acute kidney injury",
+      "AKI"
+    ],
+    [
+      "acute kidney injury risk prediction",
+      "predict risk of acute kidney injury"
+    ],
+    [
+      "machine learning",
+      "ML"
+    ],
+    [
+      "deep learning",
+      "DL"
+    ],
+    [
+      "public ICU clinical data",
+      "MIMIC",
+      "eICU"
+    ]
+  ],
+  "version": "pico-v1",
+  "original_question": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "structured_question": {
+    "question_type": "prognosis",
+    "pico": {
+      "population": {
+        "text": "患者",
+        "origin": "user_text",
+        "source_span": {
+          "start": 33,
+          "end": 35
+        }
+      },
+      "intervention": {
+        "text": "利用机器学习或深度学习模型",
+        "origin": "user_text",
+        "source_span": {
+          "start": 4,
+          "end": 17
+        }
+      },
+      "comparison": null,
+      "outcome": {
+        "text": "预测患者发生急性肾损伤的风险",
+        "origin": "user_text",
+        "source_span": {
+          "start": 31,
+          "end": 45
+        }
+      }
+    },
+    "ambiguities": [
+      "是否需要限定特定的公开 ICU 数据库（如 MIMIC、eICU）？",
+      "是否需要限定急性肾损伤的具体定义标准（如 KDIGO 分期）？",
+      "是否需要限定预测时间窗（如入 ICU 后 48 小时或 7 天内）？"
+    ],
+    "extraction_status": "partial",
+    "blocking_ambiguities": []
+  },
+  "terms": [
+    {
+      "text": "机器学习",
+      "origin": "user_text",
+      "source_span": {
+        "start": 6,
+        "end": 10
+      }
+    },
+    {
+      "text": "深度学习",
+      "origin": "user_text",
+      "source_span": {
+        "start": 11,
+        "end": 15
+      }
+    },
+    {
+      "text": "公开 ICU 临床数据",
+      "origin": "user_text",
+      "source_span": {
+        "start": 20,
+        "end": 31
+      }
+    },
+    {
+      "text": "急性肾损伤",
+      "origin": "user_text",
+      "source_span": {
+        "start": 37,
+        "end": 42
+      }
+    },
+    {
+      "text": "风险预测",
+      "origin": "query_expansion",
+      "source_span": null
+    },
+    {
+      "text": "MIMIC",
+      "origin": "query_expansion",
+      "source_span": null
+    },
+    {
+      "text": "eICU",
+      "origin": "query_expansion",
+      "source_span": null
+    }
+  ],
+  "preserved_constraints": [
+    {
+      "text": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "origin": "user_text",
+      "source_span": {
+        "start": 0,
+        "end": 113
+      }
+    }
+  ],
+  "search_intent": "prognosis"
+}

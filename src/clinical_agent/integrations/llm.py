@@ -99,7 +99,7 @@ def _guard_response(response: httpx.Response) -> None:
             source_stream.close()
 
     response.stream = BoundedStream()
-    envelope: object = None
+    envelope = None
     try:
         # read() caches the bounded body through HTTPX's public API for SDK decoding.
         body = response.read()
@@ -158,6 +158,9 @@ def _completion_details(envelope: object) -> tuple[str, dict[str, str]]:
         else "unknown"
     )
     return finish, {
+        "finish_reason": finish
+        if finish in {"stop", "length", "content_filter", "tool_calls"}
+        else "unknown",
         "content_chars": str(chars),
         "input_tokens": _token_text(
             usage.get("prompt_tokens") if isinstance(usage, dict) else None

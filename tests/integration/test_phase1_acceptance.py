@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def test_phase1_learning_demo_and_navigation(tmp_path):
-    directory = ROOT / "docs/learning/phase-01"
+    directory = ROOT / "history/docs-20261101/learning/phase-01"
     for name in (
         "README.md",
         "tutorial.md",
@@ -52,6 +52,7 @@ def test_real_redis_worker_sender_dedup_capacity_and_drain():
     from clinical_agent.channels.feishu.sender import Sender
     from clinical_agent.channels.feishu.worker import Dispatcher, WorkerPolicy
     from clinical_agent.domain.citations import build_answer
+    from clinical_agent.domain.openalex import OpenAlexProvenance
     from clinical_agent.domain.retrieval import RetrievalResult, retrieval_embedding_info
 
     url = os.environ.get("CLINICAL_AGENT_TEST_REDIS_URL")
@@ -67,11 +68,19 @@ def test_real_redis_worker_sender_dedup_capacity_and_drain():
             return build_answer(
                 request,
                 RetrievalResult(
-                    options=request.options, embedding_info=retrieval_embedding_info(), hits=[]
+                    options=request.options,
+                    embedding_info=retrieval_embedding_info(),
+                    hits=[],
+                    scope=request.scope,
+                    search_provenance=OpenAlexProvenance(
+                        query_sent="synthetic", fetched_at=datetime.now(UTC)
+                    ),
                 ),
                 None,
                 generated_at=datetime.now(UTC),
             )
+
+        respond = answer
 
     class Transport:
         def send(self, envelope, text, *, deadline, guard):

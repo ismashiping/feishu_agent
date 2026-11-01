@@ -1,0 +1,680 @@
+[
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "question",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "用户关注 ICU 患者 AKI 风险预测，该综述系统评估 ICU 中 AKI 的 AI 预测模型，问题方向一致。",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "用户面向患者人群，综述聚焦 ICU 场景下的 AKI 预测，人群场景相符。",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "data",
+          "idea_quote": "公开 ICU 临床数据",
+          "relation": "overlap",
+          "reason": "用户拟使用公开 ICU 临床数据，综述指出公开 ICU 数据集被广泛使用。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "methods",
+          "idea_quote": "机器学习或深度学习模型",
+          "relation": "partial_overlap",
+          "reason": "用户提出机器学习或深度学习，综述报告常用模型包括 LR、RF、XGBoost、SVM，深度学习并非唯一主流。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "outcomes",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "用户目标是 AKI 风险预测，综述报告模型性能主要以 AUROC 评估，结局评价方向一致。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c1",
+          "section": 3,
+          "text": "研究设计分类：systematic_review；判定来源：text",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "核对出版类型与研究设计原文"
+        },
+        {
+          "claim_id": "c2",
+          "section": 4,
+          "text": "data_sources：Public ICU datasets were widely used.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c3",
+          "section": 4,
+          "text": "design：This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c4",
+          "section": 4,
+          "text": "evaluation_metrics：Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c5",
+          "section": 6,
+          "text": "limitations：Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c6",
+          "section": 4,
+          "text": "outcomes：该综述关注 ICU 中急性肾损伤（AKI）预测模型的建模方法、数据利用与临床适用性，而非单一模型的效应估计。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "It provided a detailed overview of current AKI prediction studies on modeling methods, data utilization, and clinical applicability."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核对原文纳入标准与结局定义，确认是否统一采用 AKI 诊断标准。"
+        },
+        {
+          "claim_id": "c7",
+          "section": 4,
+          "text": "population：This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c8",
+          "section": 6,
+          "text": "quality_signals：The PROBAST assessment suggested a high risk of bias in most studies, especially in the analysis domain.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "quote": "The PROBAST assessment suggested a high risk of bias in most studies, especially in the analysis domain."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c9",
+          "section": 4,
+          "text": "results：Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c10",
+          "section": 4,
+          "text": "sample_size：Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c11",
+          "section": 4,
+          "text": "technical_methods：Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c12",
+          "section": 5,
+          "text": "data：overlap；用户拟使用公开 ICU 临床数据，综述指出公开 ICU 数据集被广泛使用。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c13",
+          "section": 5,
+          "text": "methods：partial_overlap；用户提出机器学习或深度学习，综述报告常用模型包括 LR、RF、XGBoost、SVM，深度学习并非唯一主流。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c14",
+          "section": 5,
+          "text": "outcomes：overlap；用户目标是 AKI 风险预测，综述报告模型性能主要以 AUROC 评估，结局评价方向一致。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c15",
+          "section": 5,
+          "text": "population：overlap；用户面向患者人群，综述聚焦 ICU 场景下的 AKI 预测，人群场景相符。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c16",
+          "section": 5,
+          "text": "question：overlap；用户关注 ICU 患者 AKI 风险预测，该综述系统评估 ICU 中 AKI 的 AI 预测模型，问题方向一致。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c17",
+          "section": 6,
+          "text": "现有 ICU AKI 预测研究外部验证比例有限，用户可考虑在公开 ICU 数据上设计更充分的外部或时间切分验证。；推理：综述报告仅 14 项研究开展外部验证，同时公开 ICU 数据集被广泛使用，二者结合提示验证设计存在改进空间，但需核实数据可比性。；范围：ICU 中 AKI 的 AI 预测模型研究",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实目标公开数据集之间的人群、变量定义与时间跨度是否可比，避免将不可比数据当作外部验证。"
+        },
+        {
+          "claim_id": "c18",
+          "section": 7,
+          "text": "可供进一步调查的方向：现有 ICU AKI 预测研究外部验证比例有限，用户可考虑在公开 ICU 数据上设计更充分的外部或时间切分验证。",
+          "epistemic_kind": "unverified_hypothesis",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实目标公开数据集之间的人群、变量定义与时间跨度是否可比，避免将不可比数据当作外部验证。"
+        },
+        {
+          "claim_id": "c19",
+          "section": 6,
+          "text": "现有研究报告的评估指标以 AUROC 为主，校准与其他指标报告较少，用户可考虑补充校准与多指标评估。；推理：综述指出模型性能主要用 AUROC 评估，其他指标与校准报告较少，提示评估维度可扩展。；范围：ICU 中 AKI 的 AI 预测模型评估",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实目标研究场景对校准与临床决策阈值评估的具体要求。"
+        },
+        {
+          "claim_id": "c20",
+          "section": 7,
+          "text": "可供进一步调查的方向：现有研究报告的评估指标以 AUROC 为主，校准与其他指标报告较少，用户可考虑补充校准与多指标评估。",
+          "epistemic_kind": "unverified_hypothesis",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实目标研究场景对校准与临床决策阈值评估的具体要求。"
+        },
+        {
+          "claim_id": "c21",
+          "section": 6,
+          "text": "现有研究在泛化性、可解释性与临床转化方面仍存在局限，用户可考虑在建模同时纳入可解释性分析。；推理：综述指出泛化性、透明度与临床转化局限，同时报告部分研究已使用 SHAP 等解释工具，提示可解释性仍有改进空间。；范围：ICU 中 AKI 的 AI 预测模型研究",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain."
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实可解释性方法在目标数据集上的稳定性与临床可解释性。"
+        },
+        {
+          "claim_id": "c22",
+          "section": 7,
+          "text": "可供进一步调查的方向：现有研究在泛化性、可解释性与临床转化方面仍存在局限，用户可考虑在建模同时纳入可解释性分析。",
+          "epistemic_kind": "unverified_hypothesis",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain."
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实可解释性方法在目标数据集上的稳定性与临床可解释性。"
+        },
+        {
+          "claim_id": "c23",
+          "section": 6,
+          "text": "可行性（data；conditional）：公开 ICU 数据集被广泛使用，提示数据可得性有先例；但用户具体可访问的数据集、使用许可与标注质量未在证据中说明。；下一步核查：查阅目标公开 ICU 数据集的官方文档与数据使用协议，核对 AKI 结局变量与关键特征的可获得性。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需确认拟用公开 ICU 数据集的具体名称、访问申请流程、数据使用协议及 AKI 标签定义与缺失情况。"
+        },
+        {
+          "claim_id": "c24",
+          "section": 6,
+          "text": "可行性（methods；conditional）：综述报告 LR、RF、XGBoost、SVM 为最常用模型，特征选择以 LASSO 与专家驱动为主，可作为方法适配与基线构建的参考。；下一步核查：在目标数据集上复现一个 LR 或 XGBoost 基线，并记录预处理与特征选择流程。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需确认用户所选模型与特征工程方案在目标数据集上的可复现性，并建立可复现基线。"
+        },
+        {
+          "claim_id": "c25",
+          "section": 6,
+          "text": "可行性（compute；unknown）：证据不足，条件待确认；下一步核查：证据未提供算力或成本信息；需评估目标数据集规模与所选模型训练所需资源后再判断。",
+          "epistemic_kind": "reported_fact",
+          "evidence": [],
+          "information_missing": true,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c26",
+          "section": 6,
+          "text": "可行性（validation；reported_barrier）：Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.；下一步核查：确认是否存在可用的独立 ICU 数据集用于外部验证，或设计严格的内部留出与时间切分评估方案。",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+          "publication_types": [
+            "review"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "text": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Conclusions",
+                "start": 31751,
+                "end": 33017
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Public ICU datasets were widely used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "text": "It provided a detailed overview of current AKI prediction studies on modeling methods, data utilization, and clinical applicability.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Conclusions",
+                "start": 31751,
+                "end": 33017
+              }
+            },
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "text": "The PROBAST assessment suggested a high risk of bias in most studies, especially in the analysis domain.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Risk of bias and clinical applicability",
+                "start": 28319,
+                "end": 29359
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c1\",\"support_status\":\"supported\",\"basis\":\"引文明确为系统综述（systematic review），与所标研究设计一致。\"},{\"claim_id\":\"c2\",\"support_status\":\"supported\",\"basis\":\"引文原文即“Public ICU datasets were widely used.”，与 data_sources 陈述一致。\"},{\"claim_id\":\"c3\",\"support_status\":\"supported\",\"basis\":\"引文原文明确为系统综述评估 ICU 中 AKI 的 AI 预测模型，与 design 陈述一致。\"},{\"claim_id\":\"c4\",\"support_status\":\"supported\",\"basis\":\"引文原文直接说明主要用 AUROC 评估、其他指标与校准报告较少，与 evaluation_metrics 一致。\"},{\"claim_id\":\"c5\",\"support_status\":\"supported\",\"basis\":\"引文原文直接陈述泛化性、透明度与临床转化局限，与 limitations 一致。\"},{\"claim_id\":\"c6\",\"support_status\":\"supported\",\"basis\":\"引文说明综述概述建模方法、数据利用与临床适用性，与 outcomes 描述一致；但未涉及统一 AKI 诊断标准，该点属额外推断。\"},{\"claim_id\":\"c7\",\"support_status\":\"supported\",\"basis\":\"引文明确为 ICU 中 AKI 预测，与 population 的 ICU 患者场景一致。\"},{\"claim_id\":\"c8\",\"support_status\":\"supported\",\"basis\":\"引文原文直接报告 PROBAST 显示多数研究高偏倚风险，尤以分析域为甚。\"},{\"claim_id\":\"c9\",\"support_status\":\"supported\",\"basis\":\"引文原文直接给出仅 14 项外部验证、33 项使用解释工具（主要 SHAP），与 results 一致。\"},{\"claim_id\":\"c10\",\"support_status\":\"unsupported\",\"basis\":\"引文仅说明纳入 47 项研究及常用模型，未提供任何样本量信息；将“47 项研究”当作 sample_size 属误标。\"},{\"claim_id\":\"c11\",\"support_status\":\"supported\",\"basis\":\"引文原文列出 LR、RF、XGBoost、SVM 为最常用模型，与 technical_methods 一致。\"},{\"claim_id\":\"c12\",\"support_status\":\"supported\",\"basis\":\"用户拟用公开 ICU 临床数据，引文称公开 ICU 数据集被广泛使用，数据维度重叠判断成立。\"},{\"claim_id\":\"c13\",\"support_status\":\"supported\",\"basis\":\"用户提机器学习或深度学习，引文列常用模型为 LR/RF/XGBoost/SVM，未突出深度学习，partial_overlap 判断合理。\"},{\"claim_id\":\"c14\",\"support_status\":\"partially_supported\",\"basis\":\"用户目标是 AKI 风险预测，引文仅说明以 AUROC 评估性能；结局方向重叠成立，但“结局评价方向一致”的表述把评估指标混同于结局定义，依据略弱。\"},{\"claim_id\":\"c15\",\"support_status\":\"supported\",\"basis\":\"用户面向患者，引文聚焦 ICU 中 AKI 预测，人群场景重叠成立。\"},{\"claim_id\":\"c16\",\"support_status\":\"supported\",\"basis\":\"用户关注 ICU 患者 AKI 风险预测，引文为 ICU 中 AKI 的 AI 预测模型系统综述，问题方向重叠成立。\"},{\"claim_id\":\"c17\",\"support_status\":\"partially_supported\",\"basis\":\"“仅 14 项研究外部验证”有原文支持，但“公开数据集广泛使用”不能直接推出验证设计存在改进空间或数据可比；该建议为合理推断而非证据结论，且需核实数据集可比性。\"},{\"claim_id\":\"c18\",\"support_status\":\"partially_supported\",\"basis\":\"作为待验证假设，其事实前提（14 项外部验证）有原文支持；但“可设计更充分外部/时间切分验证”属建议性推断，未获证据直接支持，且数据集可比性未核实。\"},{\"claim_id\":\"c19\",\"support_status\":\"supported\",\"basis\":\"引文明确 AUROC 为主、其他指标与校准报告较少，据此建议补充校准与多指标评估属合理推断。\"},{\"claim_id\":\"c20\",\"support_status\":\"partially_supported\",\"basis\":\"事实前提有原文支持，但“补充校准与多指标评估”为未验证建议，且目标场景对校准与阈值评估的具体要求未核实。\"},{\"claim_id\":\"c21\",\"support_status\":\"supported\",\"basis\":\"引文直接指出泛化性、透明度与临床转化局限，并报告 33 项使用 SHAP 等解释工具，据此建议纳入可解释性分析属合理推断。\"},{\"claim_id\":\"c22\",\"support_status\":\"partially_supported\",\"basis\":\"事实前提有原文支持，但“建模同时纳入可解释性分析”为未验证建议，解释方法在目标数据上的稳定性与临床可解释性未核实。\"},{\"claim_id\":\"c23\",\"support_status\":\"partially_supported\",\"basis\":\"“公开 ICU 数据集被广泛使用”有原文支持，可提示数据可得性先例；但具体数据集、许可与标注质量证据未提供，可行性仅为条件性推断。\"},{\"claim_id\":\"c24\",\"support_status\":\"partially_supported\",\"basis\":\"常用模型（LR/RF/XGBoost/SVM）有原文支持；但“特征选择以 LASSO 与专家驱动为主”在所给引文中无依据，属未支持补充。\"},{\"claim_id\":\"c25\",\"support_status\":\"uncertain\",\"basis\":\"无证据条目，原文未提供算力或成本信息，无法判断，标为 unknown 恰当。\"},{\"claim_id\":\"c26\",\"support_status\":\"supported\",\"basis\":\"引文原文直接报告仅 14 项研究开展外部验证，作为验证障碍的报告事实成立；后续核查建议属合理延伸。\"}]}",
+    "seconds": 6.186999999999898
+  }
+]

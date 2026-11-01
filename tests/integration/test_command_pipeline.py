@@ -13,7 +13,7 @@ pytestmark = [pytest.mark.integration, pytest.mark.database, pytest.mark.externa
 
 
 @pytest.mark.usefixtures("release_model_memory")
-def test_cli_ingestion_and_rag_with_real_model_database(
+def test_cli_ingestion_and_retired_scope_with_real_model_database(
     tmp_path,
     pdf_factory,
     monkeypatch,
@@ -112,15 +112,6 @@ def test_cli_ingestion_and_rag_with_real_model_database(
             "This fictional teaching example has no control group and cannot establish efficacy.",
         ),
     )
-    xml = tmp_path / "example.xml"
-    xml.write_text(
-        """<PubmedArticleSet><PubmedArticle><MedlineCitation>
-        <PMID>1234567890</PMID><Article><ArticleTitle>Synthetic teaching example</ArticleTitle>
-        <Abstract><AbstractText>This fictional example cannot establish efficacy.
-        </AbstractText></Abstract>
-        </Article></MedlineCitation></PubmedArticle></PubmedArticleSet>""",
-        encoding="utf-8",
-    )
 
     def ingest(path, kind):
         code = cli.main(
@@ -144,56 +135,37 @@ def test_cli_ingestion_and_rag_with_real_model_database(
 
     with database_engine(settings) as engine:
         with engine.connect() as connection:
-            assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "p107_0002"
+            assert (
+                connection.scalar(text("SELECT version_num FROM alembic_version")) == "oa3003_0011"
+            )
             assert connection.scalar(select(func.count()).select_from(DocumentRecord)) == 0
         try:
             first = ingest(pdf, "pdf")
             again = ingest(pdf, "pdf")
-            article = ingest(xml, "pubmed_xml")
-            assert first["status"] == article["status"] == "imported"
+            assert first["status"] == "imported"
             assert (
                 again["status"] == "already_present"
                 and again["document_id"] == first["document_id"]
             )
-            code = cli.main(
-                [
-                    "ask",
-                    "--scope",
-                    "local",
-                    "--question",
-                    "What limitations does this fictional example have?",
-                    "--model-dir",
-                    str(model_dir),
-                    "--top-k",
-                    "2",
-                    "--min-similarity",
-                    "-1",
-                ]
-            )
-            captured = capsys.readouterr()
-            assert code == 0, captured.err
-            answer = json.loads(captured.out)
-            assert answer["status"] == "answered" and len(calls) == 2
-            assert answer["claims"][0]["evidence_chunk_ids"][0] in {
-                item["chunk_id"] for source in answer["sources"] for item in source["evidence"]
-            }
-            assert "source_uri" not in captured.out
+            with pytest.raises(SystemExit) as rejected:
+                cli.main(["ask", "--scope", "local", "--question", "test"])
+            assert rejected.value.code == 2
+            assert len(calls) == 0
             with engine.connect() as connection:
                 documents = connection.scalar(select(func.count()).select_from(DocumentRecord))
                 chunks = connection.scalar(select(func.count()).select_from(ChunkRecord))
-            assert documents == 2 and chunks == 2
+            assert documents == 1 and chunks == 1
             report = {
                 "cli": "main with production composition",
                 "embedding": "real fixed E5 CPU; reused within test",
                 "database": "real PostgreSQL/pgvector",
                 "llm": "HTTPX MockTransport; NOT real model API",
-                "ingestion_statuses": [first["status"], again["status"], article["status"]],
+                "ingestion_statuses": [first["status"], again["status"]],
                 "documents": documents,
                 "chunks": chunks,
-                "answer_status": answer["status"],
-                "sources": len(answer["sources"]),
+                "retired_scope_exit_code": rejected.value.code,
                 "http_requests": len(calls),
-                "citation_membership": "passed",
+                "question_generation": "not run: local retired",
             }
             output = Path(os.environ["CLINICAL_AGENT_TEST_EVIDENCE_DIR"])
             (output / "real-cli-result.json").write_text(

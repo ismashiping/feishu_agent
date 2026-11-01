@@ -75,6 +75,10 @@ def test_completion_has_separate_ttl_and_cannot_be_deleted(service):
 
 
 def test_release_then_old_owner_cannot_touch_new_lease(service):
+    # This checks owner isolation, not expiry; allow Docker round-trip latency.
+    service.policy = service.policy.model_copy(
+        update={"lease_ms": 5000, "max_processing_ms": 10000}
+    )
     a = service.acquire(IDENTITY).lease
     assert service.release(a) == "owned"
     b = service.acquire(IDENTITY).lease

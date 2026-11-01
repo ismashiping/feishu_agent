@@ -1,0 +1,370 @@
+{
+  "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "research_constraints": {
+    "population": [
+      "患者"
+    ],
+    "task": [
+      "预测患者发生急性肾损伤的风险"
+    ],
+    "data_type": [
+      "公开 ICU 临床数据"
+    ],
+    "paper_type": [],
+    "answer_dimensions": [
+      "已有类似研究",
+      "已有研究主要采用的方法",
+      "研究差异",
+      "数据、方法、算力和验证方面的可行性"
+    ],
+    "time_text": null,
+    "time_intent": "unspecified",
+    "years": null,
+    "year_from": null,
+    "year_to": null
+  },
+  "idea_comparisons": [
+    {
+      "document_id": "e94c1f49-3ff9-5ddc-ba24-40243c5a0fdb",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "两者均聚焦ICU内AKI发生风险的预测任务。",
+      "evidence": [
+        {
+          "chunk_id": "8bf5c840-83b6-595c-abe5-007908f91a79",
+          "quote": "In this paper, we have integrated most of the routinely available ICU data based on two large ICU databases with general population to developed and externally validated an ideal artificial intelligence assisted early warning system for predicting the onset of AKI within the first week of ICU stay."
+        }
+      ]
+    },
+    {
+      "document_id": "e94c1f49-3ff9-5ddc-ba24-40243c5a0fdb",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "overlap",
+      "reason": "该研究基于两个ICU数据库的一般人群，与用户所述ICU患者人群一致。",
+      "evidence": [
+        {
+          "chunk_id": "8bf5c840-83b6-595c-abe5-007908f91a79",
+          "quote": "In this paper, we have integrated most of the routinely available ICU data based on two large ICU databases with general population to developed and externally validated an ideal artificial intelligence assisted early warning system for predicting the onset of AKI within the first week of ICU stay."
+        }
+      ]
+    },
+    {
+      "document_id": "e94c1f49-3ff9-5ddc-ba24-40243c5a0fdb",
+      "dimension": "outcomes",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "该研究预测ICU入住第一周内AKI的发生，与用户AKI风险预测目标一致。",
+      "evidence": [
+        {
+          "chunk_id": "8bf5c840-83b6-595c-abe5-007908f91a79",
+          "quote": "In this paper, we have integrated most of the routinely available ICU data based on two large ICU databases with general population to developed and externally validated an ideal artificial intelligence assisted early warning system for predicting the onset of AKI within the first week of ICU stay."
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "该综述系统评价ICU中AKI预测的AI模型，与用户问题直接相关。",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "overlap",
+      "reason": "综述聚焦ICU环境中的AKI预测，人群与用户ICU患者一致。",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "data",
+      "idea_quote": "公开 ICU 临床数据",
+      "relation": "overlap",
+      "reason": "综述指出公开ICU数据集被广泛使用，与用户数据设想一致。",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Public ICU datasets were widely used."
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "outcomes",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "综述评价的结局为ICU中AKI预测，与用户目标一致。",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c25",
+      "section": 5,
+      "text": "question：overlap；该综述系统评价ICU中AKI预测的AI模型，与用户问题直接相关。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "结合用户原始约束及文献复核相似性"
+    },
+    {
+      "claim_id": "c26",
+      "section": 6,
+      "text": "supports；可比性：两者均涉及ICU中AKI的AI预测，但一项为原始多中心队列研究，另一项为系统综述。；原始研究使用两个公开ICU数据库进行开发与外部验证，综述报告公开ICU数据集广泛使用且外部验证比例低，二者在数据来源与验证现状上相互印证。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "8bf5c840-83b6-595c-abe5-007908f91a79",
+          "quote": "In this paper, we have integrated most of the routinely available ICU data based on two large ICU databases with general population to developed and externally validated an ideal artificial intelligence assisted early warning system for predicting the onset of AKI within the first week of ICU stay."
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Public ICU datasets were widely used."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "复核两侧研究设计、人群与结局"
+    },
+    {
+      "claim_id": "c27",
+      "section": 6,
+      "text": "现有AKI预测研究外部验证比例较低，用户若仅用单一公开数据集训练可能难以评估泛化性。；推理：综述报告仅14项研究进行外部验证，而另一研究已用两个独立ICU数据库做外部验证，说明该缺口并非普遍存在。；范围：ICU中AKI预测模型的验证设计",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+        },
+        {
+          "chunk_id": "8bf5c840-83b6-595c-abe5-007908f91a79",
+          "quote": "In this paper, we have integrated most of the routinely available ICU data based on two large ICU databases with general population to developed and externally validated an ideal artificial intelligence assisted early warning system for predicting the onset of AKI within the first week of ICU stay."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实用户可获取的数据集数量及是否支持跨中心外部验证。"
+    },
+    {
+      "claim_id": "c28",
+      "section": 7,
+      "text": "可供进一步调查的方向：现有AKI预测研究外部验证比例较低，用户若仅用单一公开数据集训练可能难以评估泛化性。",
+      "epistemic_kind": "unverified_hypothesis",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+        },
+        {
+          "chunk_id": "8bf5c840-83b6-595c-abe5-007908f91a79",
+          "quote": "In this paper, we have integrated most of the routinely available ICU data based on two large ICU databases with general population to developed and externally validated an ideal artificial intelligence assisted early warning system for predicting the onset of AKI within the first week of ICU stay."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实用户可获取的数据集数量及是否支持跨中心外部验证。"
+    },
+    {
+      "claim_id": "c29",
+      "section": 6,
+      "text": "现有模型在可解释性与临床转化方面仍有限，用户可考虑在预测模型中纳入可解释性分析。；推理：综述指出可解释性不足，但同文也报告33项研究应用了以SHAP为主的解释工具，说明部分研究已涉及可解释性。；范围：AKI预测模型的可解释性与临床适用性",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "However, limitations are still present in current studies, including inadequate generalizability and interpretability of models, low proportions of external validation, and barriers to data sharing due to technical and ethical challenges."
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需确认用户研究是否要求可解释性输出及采用何种解释方法。"
+    },
+    {
+      "claim_id": "c30",
+      "section": 7,
+      "text": "可供进一步调查的方向：现有模型在可解释性与临床转化方面仍有限，用户可考虑在预测模型中纳入可解释性分析。",
+      "epistemic_kind": "unverified_hypothesis",
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "However, limitations are still present in current studies, including inadequate generalizability and interpretability of models, low proportions of external validation, and barriers to data sharing due to technical and ethical challenges."
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需确认用户研究是否要求可解释性输出及采用何种解释方法。"
+    }
+  ],
+  "sources": [
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+      "publication_types": [
+        "review"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "text": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Conclusions",
+            "start": 31751,
+            "end": 33017
+          }
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Public ICU datasets were widely used.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        },
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "text": "However, limitations are still present in current studies, including inadequate generalizability and interpretability of models, low proportions of external validation, and barriers to data sharing due to technical and ethical challenges.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Conclusions",
+            "start": 31751,
+            "end": 33017
+          }
+        }
+      ]
+    },
+    {
+      "document_id": "e94c1f49-3ff9-5ddc-ba24-40243c5a0fdb",
+      "title": "Artificial Intelligence Assisted Early Warning System for Acute Kidney Injury Driven by Multi-Center ICU Database",
+      "publication_types": [
+        "preprint"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "8bf5c840-83b6-595c-abe5-007908f91a79",
+          "text": "In this paper, we have integrated most of the routinely available ICU data based on two large ICU databases with general population to developed and externally validated an ideal artificial intelligence assisted early warning system for predicting the onset of AKI within the first week of ICU stay.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Discussion",
+            "start": 21283,
+            "end": 22306
+          }
+        }
+      ]
+    }
+  ],
+  "output_schema": {
+    "$defs": {
+      "ClaimReview": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "title": "Claim Id",
+            "type": "string"
+          },
+          "support_status": {
+            "enum": [
+              "supported",
+              "partially_supported",
+              "unsupported",
+              "uncertain"
+            ],
+            "title": "Support Status",
+            "type": "string"
+          },
+          "basis": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Basis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "support_status",
+          "basis"
+        ],
+        "title": "ClaimReview",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "reviews": {
+        "items": {
+          "$ref": "#/$defs/ClaimReview"
+        },
+        "maxItems": 500,
+        "title": "Reviews",
+        "type": "array"
+      }
+    },
+    "required": [
+      "reviews"
+    ],
+    "title": "ReviewDraft",
+    "type": "object"
+  }
+}

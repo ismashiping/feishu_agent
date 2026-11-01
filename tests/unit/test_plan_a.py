@@ -85,7 +85,7 @@ def test_actual_search_snapshot_statuses():
     from clinical_agent.domain.pubmed import PubMedSearchResult
 
     data = json.loads(
-        Path("docs/final-acceptance/docker-e2e/actual-zh.json").read_text(encoding="utf-8")
+        Path("history/docs-20261101/final-acceptance/docker-e2e/actual-zh.json").read_text(encoding="utf-8")
     )
     result = PubMedSearchResult.model_validate(data["search"])
     assert result.total_count == 3 and len(result.records) == 3 and not result.truncated

@@ -1,5 +1,6 @@
 """Compare migration against contracts captured from the Phase 0 worktree."""
 
+import copy
 import inspect
 import json
 import re
@@ -17,9 +18,11 @@ BASELINE = json.loads(
 
 def relocated_type(value):
     """Only module locations and process-specific function addresses may differ."""
-    return re.sub(r"0x[0-9a-fA-F]+(?=>)", "0xADDRESS", str(value)).replace(
-        "clinical_agent.application.workflow", "clinical_agent.agents.state"
-    ).replace("clinical_agent.application.agents", "clinical_agent.agents.nodes")
+    return (
+        re.sub(r"0x[0-9a-fA-F]+(?=>)", "0xADDRESS", str(value))
+        .replace("clinical_agent.application.workflow", "clinical_agent.agents.state")
+        .replace("clinical_agent.application.agents", "clinical_agent.agents.nodes")
+    )
 
 
 @pytest.mark.parametrize("planner", [False, True])
@@ -73,7 +76,21 @@ def test_public_signatures_and_api_unchanged():
         name: relocated_type(inspect.signature(getattr(ResearchService, name)))
         for name in BASELINE["interfaces"]
     } == expected
-    assert create_app().openapi() == BASELINE["openapi"]
+    openapi = copy.deepcopy(BASELINE["openapi"])
+    source_type = openapi["components"]["schemas"]["ImportBody"]["properties"]["source_type"]
+    assert source_type.pop("enum") == ["pdf", "pubmed_xml"]
+    source_type["const"] = "pdf"
+    openapi["components"]["schemas"]["QuestionBody"]["properties"]["scope"]["enum"] = [
+        "online",
+        "hybrid",
+    ]
+    # Planner schema now explains the already-enforced required-anchor contract.
+    openapi["components"]["schemas"]["ConceptRelation"]["properties"]["required"]["description"] = (
+        "true only for exact_synonym, method, or required_constraint anchors. "
+        "Must be false for narrower_concept, broader_concept, related_concept, "
+        "and optional_constraint. Each expansion shares concept_id with a valid anchor."
+    )
+    assert create_app().openapi() == openapi
 
 
 @pytest.mark.parametrize("module", ["agents", "agents.state", "agents.nodes", "agents.graph"])

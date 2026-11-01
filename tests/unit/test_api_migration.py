@@ -1,5 +1,6 @@
 """Freeze HTTP behavior independently of historical local-scope fixtures."""
 
+import copy
 import json
 from contextlib import contextmanager
 from pathlib import Path
@@ -18,7 +19,24 @@ def test_openapi_matches_phase0():
             encoding="utf-8"
         )
     )
-    assert create_app().openapi() == baseline["openapi"]
+    expected = copy.deepcopy(baseline["openapi"])
+    # Public import no longer accepts local PubMed XML. OpenAlex GROBID XML is unchanged.
+    source_type = expected["components"]["schemas"]["ImportBody"]["properties"]["source_type"]
+    assert source_type.pop("enum") == ["pdf", "pubmed_xml"]
+    source_type["const"] = "pdf"
+    expected["components"]["schemas"]["QuestionBody"]["properties"]["scope"]["enum"] = [
+        "online",
+        "hybrid",
+    ]
+    # Planner schema now explains the already-enforced required-anchor contract.
+    expected["components"]["schemas"]["ConceptRelation"]["properties"]["required"][
+        "description"
+    ] = (
+        "true only for exact_synonym, method, or required_constraint anchors. "
+        "Must be false for narrower_concept, broader_concept, related_concept, "
+        "and optional_constraint. Each expansion shares concept_id with a valid anchor."
+    )
+    assert create_app().openapi() == expected
 
 
 @pytest.mark.parametrize(

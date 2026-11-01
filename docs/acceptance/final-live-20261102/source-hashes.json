@@ -1,0 +1,9 @@
+{
+  "src/clinical_agent/application/analysis.py": "dc895399b4abc174c7c5d1d6d65432390b13b7e125b3ad896946fff615acc8e7",
+  "src/clinical_agent/application/report.py": "74d51d2ea01000da18f01679955d129d0dcc7febbd398d271cf76ed1191da67b",
+  "src/clinical_agent/application/research.py": "87e669b65527cdf2f5ef9aa4fbd342a17505639a67dd4a1ab37b725b94c34ce2",
+  "src/clinical_agent/domain/analysis.py": "3ff0f275f5ca882f57cd10138df519d6a7cb15038b6f272c0682f8d888d1f3a3",
+  "src/clinical_agent/domain/report.py": "544a004bf236606bc1ae26af353c3ab67030f61165f91bfd5a917746e6bbfca5",
+  "src/clinical_agent/domain/pico.py": "cfef9e5745e9624bb6112369bbda921b05fd29248c9721378728306ef1d393b6",
+  "src/clinical_agent/integrations/oa_fulltext.py": "620117eb90c8f721ab94881a5c5958915d84b4b57720b36f786977ec1738c6f6"
+}

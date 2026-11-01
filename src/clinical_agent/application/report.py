@@ -113,12 +113,12 @@ def collect_claims(analysis: AnalysisResult) -> list[ReportClaim]:
             refs,
             gap.description.verification_needed,
         )
-    for item in analysis.feasibility:
-        judgment = item.assessment
+    for feasibility in analysis.feasibility:
+        judgment = feasibility.assessment
         add(
             6,
-            f"可行性（{item.dimension}；{item.status}）："
-            f"{judgment.value or '证据不足，条件待确认'}；下一步核查：{item.next_check}",
+            f"可行性（{feasibility.dimension}；{feasibility.status}）："
+            f"{judgment.value or '证据不足，条件待确认'}；下一步核查：{feasibility.next_check}",
             judgment.epistemic_kind,
             judgment.evidence,
             judgment.verification_needed,
@@ -171,8 +171,14 @@ class ReportBuilder:
         # Rebind all supplied metadata/chunks to the actual retrieval, before any review.
         if retrieval is not None:
             from clinical_agent.domain.citations import build_answer
+            from clinical_agent.domain.openalex import OpenAlexProvenance
             from clinical_agent.domain.research import DraftClaim, GenerationDraft
 
+            evidence_ids = (
+                [passage.chunk_id for hit in retrieval.hits for passage in hit.fulltext]
+                if isinstance(retrieval.search_provenance, OpenAlexProvenance)
+                else [hit.chunk.chunk_id for hit in retrieval.hits]
+            )
             trusted = build_answer(
                 request,
                 retrieval,
@@ -181,13 +187,13 @@ class ReportBuilder:
                         DraftClaim(
                             text="Supplied passage.",
                             kind="evidence",
-                            evidence_chunk_ids=[h.chunk.chunk_id],
+                            evidence_chunk_ids=[identity],
                             limitations=[],
                         )
-                        for h in retrieval.hits
+                        for identity in evidence_ids
                     ]
                 )
-                if retrieval.hits
+                if evidence_ids
                 else None,
                 generated_at=datetime.now(UTC),
             ).sources
@@ -271,45 +277,106 @@ class ReportBuilder:
                         verification.errors.append("correction_requires_review")
             except Exception:
                 notes.append("官方元数据服务不可用；保留原文献身份，未将其判为无效。")
-        if claims:
-            context: dict[str, object] = {
-                "claims": [c.model_dump(mode="json") for c in claims],
+
+        def review_context(batch: list[ReportClaim]) -> dict[str, object]:
+            selected: dict[UUID, dict[tuple[UUID, str], dict[str, object]]] = {}
+            for claim in batch:
+                for pointer in claim.evidence:
+                    source, evidence = chunks[pointer.chunk_id]
+                    selected.setdefault(source.document_id, {})[
+                        (pointer.chunk_id, pointer.quote)
+                    ] = {
+                        "chunk_id": str(pointer.chunk_id),
+                        "text": pointer.quote,
+                        "location": evidence.location.model_dump(mode="json"),
+                    }
+            batch_evidence = {(p.chunk_id, p.quote) for claim in batch for p in claim.evidence}
+            return {
+                "original_idea": analysis.original_idea,
+                "research_constraints": (
+                    analysis.query_plan.research_constraints.model_dump(mode="json")
+                    if analysis.query_plan and analysis.query_plan.research_constraints
+                    else None
+                ),
+                "idea_comparisons": [
+                    {
+                        "document_id": str(similarity.document_id),
+                        "dimension": name,
+                        "idea_quote": dimension.idea_quote,
+                        "relation": dimension.relation,
+                        "reason": dimension.reason,
+                        "evidence": [p.model_dump(mode="json") for p in dimension.evidence],
+                    }
+                    for similarity in analysis.idea_similarities
+                    for name, dimension in similarity.dimensions.items()
+                    if any((p.chunk_id, p.quote) in batch_evidence for p in dimension.evidence)
+                ],
+                "claims": [c.model_dump(mode="json") for c in batch],
                 "sources": [
-                    s.model_dump(mode="json", exclude={"snapshot_xml", "openalex_record"})
-                    for s in analysis.sources
+                    {
+                        "document_id": str(identity),
+                        "title": sources[identity].title,
+                        "publication_types": sources[identity].publication_types,
+                        "source_notices": sources[identity].source_notices,
+                        "evidence": list(evidence.values()),
+                    }
+                    for identity, evidence in selected.items()
                 ],
                 "output_schema": ReviewDraft.model_json_schema(),
             }
-            if len(json.dumps(context, ensure_ascii=False)) > self.limits.max_context_characters:
-                notes.append("支持度审核上下文超预算，所有条目保持 uncertain。")
+
+        batches: list[list[ReportClaim]] = []
+        batch: list[ReportClaim] = []
+        for claim in claims:
+            candidate = [*batch, claim]
+            if (
+                len(candidate) <= 6
+                and len(json.dumps(review_context(candidate), ensure_ascii=False))
+                <= self.limits.max_context_characters
+            ):
+                batch = candidate
+                continue
+            if batch:
+                batches.append(batch)
+                batch = []
+            if (
+                len(json.dumps(review_context([claim]), ensure_ascii=False))
+                <= self.limits.max_context_characters
+            ):
+                batch = [claim]
             else:
-                try:
-                    raw = self.reviewer.review_claims(
-                        context,
-                        timeout_seconds=min(
-                            self.limits.generation_seconds, max(0.0, deadline - self.clock())
-                        ),
+                notes.append(f"论断 {claim.claim_id} 超过审核上下文预算，保持 uncertain。")
+        if batch:
+            batches.append(batch)
+        for batch in batches:
+            if self.clock() >= deadline:
+                raise ResearchError("research_timeout")
+            try:
+                raw = self.reviewer.review_claims(
+                    review_context(batch),
+                    timeout_seconds=min(self.limits.generation_seconds, deadline - self.clock()),
+                )
+                if not isinstance(raw, str) or len(raw.encode()) > self.limits.max_output_bytes:
+                    raise ValueError("Review output budget")
+                draft = ReviewDraft.model_validate(
+                    json.loads(raw, object_pairs_hook=_unique, parse_constant=_invalid_constant)
+                )
+                reviews = {r.claim_id: r for r in draft.reviews}
+                if set(reviews) != {c.claim_id for c in batch} or len(reviews) != len(
+                    draft.reviews
+                ):
+                    raise ValueError("Review must cover exactly the batch claims")
+                for claim in batch:
+                    review = reviews[claim.claim_id]
+                    claim.support_status = (
+                        review.support_status
+                        if claim.evidence and not claim.information_missing
+                        else "uncertain"
                     )
-                    if not isinstance(raw, str) or len(raw.encode()) > self.limits.max_output_bytes:
-                        raise ValueError("Review output budget")
-                    draft = ReviewDraft.model_validate(
-                        json.loads(raw, object_pairs_hook=_unique, parse_constant=_invalid_constant)
-                    )
-                    reviews = {r.claim_id: r for r in draft.reviews}
-                    if set(reviews) != {c.claim_id for c in claims} or len(reviews) != len(
-                        draft.reviews
-                    ):
-                        raise ValueError("Review must cover exactly all claims")
-                    for claim in claims:
-                        review = reviews[claim.claim_id]
-                        claim.support_status = (
-                            review.support_status
-                            if claim.evidence and not claim.information_missing
-                            else "uncertain"
-                        )
-                        claim.basis = review.basis
-                except Exception:
-                    notes.append("支持度审核不可用或响应无效，保持 uncertain；未删除原结论。")
+                    claim.basis = review.basis
+            except Exception:
+                notes.append("支持度审核批次不可用或响应无效，未审核条目保持 uncertain。")
+                break
         if self.clock() >= deadline:
             raise ResearchError("research_timeout")
         rejected = any(

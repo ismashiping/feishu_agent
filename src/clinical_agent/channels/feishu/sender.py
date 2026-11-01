@@ -216,7 +216,7 @@ def _readable_answer_lines(answer: ResearchAnswer) -> list[str]:
         "部分来源仅包含摘要，不能视为已阅读全文。",
         "部分来源为PDF文本层提取，未验证版面、表格或全文完整性。",
     }
-    if openalex:
+    if isinstance(answer.search_provenance, OpenAlexProvenance):
         covered.update(
             {
                 BASE_LIMITATIONS[1],
@@ -263,7 +263,7 @@ def _readable_answer_lines(answer: ResearchAnswer) -> list[str]:
                     else "候选未截断，但不保证检全。"
                 )
             )
-        if openalex and search.status == "partial":
+        if isinstance(search, OpenAlexProvenance) and search.status == "partial":
             lines.append("本次检索未完整完成，结论仅限所列文献，不代表领域全貌。")
         lines.append(
             "未执行在线 PubMed 检索。" + DISCLAIMER

@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "E:\02_Projects\chatgpt_project\clinical_agent\.artifacts\governance\run-openalex.py", line 22, in <module>
+    acquired=source.fetch_record(record,deadline,[0])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\integrations\oa_fulltext.py", line 599, in fetch_record
+    self._remember(errors, error)
+  File "E:\02_Projects\chatgpt_project\clinical_agent\src\clinical_agent\integrations\oa_fulltext.py", line 570, in _remember
+    raise ValueError(code) from None
+ValueError: fulltext_budget

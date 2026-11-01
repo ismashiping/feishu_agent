@@ -101,7 +101,13 @@ class ConceptRelation(DTO):
     ]
     # Stable concept key associates expansions with a required anchor.
     concept_id: QuestionText
-    required: bool
+    required: bool = Field(
+        description=(
+            "true only for exact_synonym, method, or required_constraint anchors. "
+            "Must be false for narrower_concept, broader_concept, related_concept, "
+            "and optional_constraint. Each expansion shares concept_id with a valid anchor."
+        )
+    )
     confidence: Annotated[float, Field(ge=0, le=1)] | None = None
     verification: Literal["candidate", "verified"] = "candidate"
 
@@ -304,6 +310,15 @@ or explicit constraints. Label true equivalents exact_synonym; subtypes narrower
 parents broader_concept; alternative research expressions related_concept; techniques method.
 Label explicit restrictions required_constraint and refinements optional_constraint.
 Every concept needs a required anchor; optional_constraint can stand alone.
+HARD CONTRACT: required=true is allowed ONLY for exact_synonym, method or
+required_constraint. narrower_concept, broader_concept, related_concept and
+optional_constraint MUST have required=false. Do not mark a related expression required
+just because the original task is required. Instead include a faithful translation of
+that task as a required_constraint anchor with the same concept_id, and keep the related
+expression optional. For example, for 预测患者发生急性肾损伤的风险, use
+"predict risk of acute kidney injury in patients" as required_constraint/true;
+"risk prediction" may be related_concept/false with that same concept_id.
+Before returning JSON, check every required flag against these allowed relations.
 Never label a subtype or related technique as an exact synonym. Never invent a mandatory
 modality. Broadening a population changes the research scope and must not be automatic.
 Relations supersede concept_groups for query compilation. Preserve the latter for old clients.

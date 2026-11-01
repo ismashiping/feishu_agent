@@ -37,7 +37,7 @@ class ApiSettings(BaseSettings):
 
 
 class ImportBody(DTO):
-    source_type: Literal["pdf", "pubmed_xml"]
+    source_type: Literal["pdf"]
     relative_path: Annotated[str, StringConstraints(strict=True, min_length=1, max_length=512)]
 
     @field_validator("relative_path")
@@ -53,7 +53,7 @@ class ImportBody(DTO):
 
 
 class QuestionBody(RetrievalRequest):
-    scope: Literal["local", "online", "hybrid"] = "hybrid"
+    scope: Literal["online", "hybrid"] = "hybrid"
 
 
 class ImportResponse(DTO):

@@ -1,0 +1,9 @@
+{
+  "checked_claim_pointers": 40,
+  "fulltext_chunks": 6,
+  "all_pointers_match": true,
+  "cache_hits": {
+    "warm": 1,
+    "repeat": 1
+  }
+}

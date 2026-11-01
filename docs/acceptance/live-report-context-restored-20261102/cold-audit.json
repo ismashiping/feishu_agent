@@ -1,0 +1,35 @@
+{
+  "claims": 23,
+  "reviewed": 23,
+  "support": {
+    "uncertain": 4,
+    "supported": 9,
+    "partially_supported": 10
+  },
+  "status": "verification_incomplete",
+  "feedback_stop": "budget_limit",
+  "notes": [
+    "支持度是模型审核建议；引用有效不等于结论正确，候选缺口与方向需要人工验证。"
+  ],
+  "citation_pointers": 26,
+  "all_quotes_valid": true,
+  "feasibility": [
+    [
+      "data",
+      "conditional"
+    ],
+    [
+      "methods",
+      "conditional"
+    ],
+    [
+      "compute",
+      "unknown"
+    ],
+    [
+      "validation",
+      "conditional"
+    ]
+  ],
+  "cache_hits": 0
+}

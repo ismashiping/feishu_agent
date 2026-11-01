@@ -1,0 +1,2498 @@
+[
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "dimension": "question",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "两者均以ICU患者AKI风险预测为核心问题。",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ]
+        },
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "该研究人群为ICU患者，与想法中的患者群体一致。",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ]
+        },
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "partial_overlap",
+          "reason": "该研究采用深度学习，属于想法中机器学习/深度学习范畴，但具体为双通道连续预测架构。",
+          "evidence": [
+            {
+              "chunk_id": "af0b5eb4-bfa6-5182-b875-5220228438e0",
+              "quote": "in contrast, deep learning models can automatically learn features from high-dimensional EHR data, improving predictive accuracy."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c1",
+          "section": 3,
+          "text": "研究设计分类：cohort；判定来源：text",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "核对出版类型与研究设计原文"
+        },
+        {
+          "claim_id": "c2",
+          "section": 4,
+          "text": "design：in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c3",
+          "section": 6,
+          "text": "limitations：While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c4",
+          "section": 4,
+          "text": "outcomes：in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c5",
+          "section": 4,
+          "text": "population：in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c6",
+          "section": 4,
+          "text": "technical_methods：in contrast, deep learning models can automatically learn features from high-dimensional EHR data, improving predictive accuracy.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "af0b5eb4-bfa6-5182-b875-5220228438e0",
+              "quote": "in contrast, deep learning models can automatically learn features from high-dimensional EHR data, improving predictive accuracy."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "title": "Development and validation of a dual-channel deep learning for continuous acute kidney injury prediction in critically ill patients",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "text": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Conclusion",
+                "start": 29830,
+                "end": 30406
+              }
+            },
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "text": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Conclusion",
+                "start": 29830,
+                "end": 30406
+              }
+            },
+            {
+              "chunk_id": "af0b5eb4-bfa6-5182-b875-5220228438e0",
+              "text": "in contrast, deep learning models can automatically learn features from high-dimensional EHR data, improving predictive accuracy.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Introduction",
+                "start": 1007,
+                "end": 1683
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c1\",\"support_status\":\"uncertain\",\"basis\":\"引文仅提及开发与外部队列表现，未明确说明研究设计为cohort，无法从该句判定设计分类。\"},{\"claim_id\":\"c2\",\"support_status\":\"supported\",\"basis\":\"引文原文明确说明开发了dC-aKi双通道深度学习模型用于ICU连续AKI风险预测。\"},{\"claim_id\":\"c3\",\"support_status\":\"supported\",\"basis\":\"引文原文直接陈述跨机构性能差异及eICU-CRD数据粒度限制判别力。\"},{\"claim_id\":\"c4\",\"support_status\":\"partially_supported\",\"basis\":\"引文提及AKI风险预测，但未明确报告结局定义或结局指标，仅部分支持outcomes。\"},{\"claim_id\":\"c5\",\"support_status\":\"partially_supported\",\"basis\":\"引文仅提及ICU，未明确患者纳入标准或人群特征，仅部分支持population。\"},{\"claim_id\":\"c6\",\"support_status\":\"supported\",\"basis\":\"引文原文直接陈述深度学习可从高维EHR数据自动学习特征并提高预测准确性。\"}]}",
+    "seconds": 1.6410000000000764
+  },
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "研究人群为危重患者，与想法一致。",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ]
+        },
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "partial_overlap",
+          "reason": "该研究使用多种传统机器学习模型，属于想法中机器学习范畴，但未突出深度学习。",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c7",
+          "section": 3,
+          "text": "研究设计分类：cohort；判定来源：text",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+              "quote": "In the present study, comparative analyses between the optimal ML model and conventional scoring systems demonstrated the superior performance of the AIP-integrated model in both internal and external validation cohorts."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "核对出版类型与研究设计原文"
+        },
+        {
+          "claim_id": "c8",
+          "section": 4,
+          "text": "design：In the present study, comparative analyses between the optimal ML model and conventional scoring systems demonstrated the superior performance of the AIP-integrated model in both internal and external validation cohorts.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+              "quote": "In the present study, comparative analyses between the optimal ML model and conventional scoring systems demonstrated the superior performance of the AIP-integrated model in both internal and external validation cohorts."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c9",
+          "section": 4,
+          "text": "evaluation_metrics：Compared to other models, XGBoost demonstrated relatively superior model fit performance, with an AUC of 0.8127, BS of 0.1757 (Sensitivity: 0.7165, Specificity: 0.7605, Accuracy: 0.7394, F1 score: 0.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "Compared to other models, XGBoost demonstrated relatively superior model fit performance, with an AUC of 0.8127, BS of 0.1757 (Sensitivity: 0.7165, Specificity: 0.7605, Accuracy: 0.7394, F1 score: 0."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c10",
+          "section": 4,
+          "text": "outcomes：Therefore, these findings support AIP as a complementary metabolic biomarker for AKI risk assessment and reinforce its clinical utility in critically ill patients.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+              "quote": "Therefore, these findings support AIP as a complementary metabolic biomarker for AKI risk assessment and reinforce its clinical utility in critically ill patients."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c11",
+          "section": 4,
+          "text": "population：We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure .",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c12",
+          "section": 4,
+          "text": "results：Compared to other models, XGBoost demonstrated relatively superior model fit performance, with an AUC of 0.8127, BS of 0.1757 (Sensitivity: 0.7165, Specificity: 0.7605, Accuracy: 0.7394, F1 score: 0.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "Compared to other models, XGBoost demonstrated relatively superior model fit performance, with an AUC of 0.8127, BS of 0.1757 (Sensitivity: 0.7165, Specificity: 0.7605, Accuracy: 0.7394, F1 score: 0."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "title": "Atherogenic index of plasma and risk of acute kidney injury in critically ill patients: a multi-cohort study with machine learning and SHAP analysis",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+              "text": "In the present study, comparative analyses between the optimal ML model and conventional scoring systems demonstrated the superior performance of the AIP-integrated model in both internal and external validation cohorts.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Discussion",
+                "start": 23105,
+                "end": 24064
+              }
+            },
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "text": "Compared to other models, XGBoost demonstrated relatively superior model fit performance, with an AUC of 0.8127, BS of 0.1757 (Sensitivity: 0.7165, Specificity: 0.7605, Accuracy: 0.7394, F1 score: 0.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "The results of the ML model performance evaluation",
+                "start": 14039,
+                "end": 15078
+              }
+            },
+            {
+              "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+              "text": "Therefore, these findings support AIP as a complementary metabolic biomarker for AKI risk assessment and reinforce its clinical utility in critically ill patients.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Discussion",
+                "start": 23105,
+                "end": 24064
+              }
+            },
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "text": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure .",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "The results of the ML model performance evaluation",
+                "start": 14039,
+                "end": 15078
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c7\",\"support_status\":\"uncertain\",\"basis\":\"引文仅提及内部和外部验证队列，未明确说明研究设计为cohort；判定来源为text但证据不足以确认。\"},{\"claim_id\":\"c8\",\"support_status\":\"supported\",\"basis\":\"引文逐字匹配，明确报告了ML模型与常规评分系统的比较及内外部验证结果。\"},{\"claim_id\":\"c9\",\"support_status\":\"supported\",\"basis\":\"引文逐字匹配，报告了XGBoost的AUC 0.8127、BS 0.1757及敏感性、特异性、准确率等指标。\"},{\"claim_id\":\"c10\",\"support_status\":\"supported\",\"basis\":\"引文逐字匹配，明确表述AIP作为AKI风险评估的补充代谢生物标志物。\"},{\"claim_id\":\"c11\",\"support_status\":\"supported\",\"basis\":\"引文逐字匹配，明确说明构建13个模型预测危重患者AKI发生。\"},{\"claim_id\":\"c12\",\"support_status\":\"supported\",\"basis\":\"引文逐字匹配，报告XGBoost模型拟合性能优于其他模型及具体指标数值。\"}]}",
+    "seconds": 1.5630000000001019
+  },
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "研究人群为危重患者，与想法一致。",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ]
+        },
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "partial_overlap",
+          "reason": "该研究使用多种传统机器学习模型，属于想法中机器学习范畴，但未突出深度学习。",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "question",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "该综述系统评估ICU中AKI预测的AI模型，与想法问题一致。",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "综述聚焦ICU患者AKI预测。",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "data",
+          "idea_quote": "基于公开 ICU 临床数据",
+          "relation": "overlap",
+          "reason": "综述指出公开ICU数据集被广泛使用，与想法数据来源一致。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "overlap",
+          "reason": "综述总结了LR、RF、XGBoost、SVM等机器学习模型，覆盖想法中的方法范畴。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c13",
+          "section": 4,
+          "text": "technical_methods：We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure .",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c14",
+          "section": 3,
+          "text": "研究设计分类：systematic_review；判定来源：text",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "核对出版类型与研究设计原文"
+        },
+        {
+          "claim_id": "c15",
+          "section": 4,
+          "text": "data_sources：Public ICU datasets were widely used.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c16",
+          "section": 4,
+          "text": "design：Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c17",
+          "section": 4,
+          "text": "evaluation_metrics：Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c18",
+          "section": 6,
+          "text": "limitations：Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "title": "Atherogenic index of plasma and risk of acute kidney injury in critically ill patients: a multi-cohort study with machine learning and SHAP analysis",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "text": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure .",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "The results of the ML model performance evaluation",
+                "start": 14039,
+                "end": 15078
+              }
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+          "publication_types": [
+            "review"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "text": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Conclusions",
+                "start": 31751,
+                "end": 33017
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Public ICU datasets were widely used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c13\",\"support_status\":\"supported\",\"basis\":\"The cited chunk verbatim states 13 models including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN for AKI prediction in critically ill patients.\"},{\"claim_id\":\"c14\",\"support_status\":\"supported\",\"basis\":\"The cited conclusion explicitly describes the work as a systematic review evaluating AI models for ICU AKI prediction.\"},{\"claim_id\":\"c15\",\"support_status\":\"supported\",\"basis\":\"The cited summative analysis sentence verbatim states public ICU datasets were widely used.\"},{\"claim_id\":\"c16\",\"support_status\":\"supported\",\"basis\":\"The cited sentence verbatim reports across 47 included studies LR, RF, XGBoost and SVM were most commonly used.\"},{\"claim_id\":\"c17\",\"support_status\":\"supported\",\"basis\":\"The cited sentence verbatim states performance was primarily evaluated using AUROC while other metrics and calibration were less reported.\"},{\"claim_id\":\"c18\",\"support_status\":\"supported\",\"basis\":\"The cited sentence verbatim notes remaining limitations in generalizability, transparency and clinical translation despite modeling progress.\"}]}",
+    "seconds": 1.6399999999998727
+  },
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "partial_overlap",
+          "reason": "该研究采用深度学习，属于想法中机器学习/深度学习范畴，但具体为双通道连续预测架构。",
+          "evidence": [
+            {
+              "chunk_id": "af0b5eb4-bfa6-5182-b875-5220228438e0",
+              "quote": "in contrast, deep learning models can automatically learn features from high-dimensional EHR data, improving predictive accuracy."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "overlap",
+          "reason": "综述总结了LR、RF、XGBoost、SVM等机器学习模型，覆盖想法中的方法范畴。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c19",
+          "section": 6,
+          "text": "quality_signals：The PROBAST assessment suggested a high risk of bias in most studies, especially in the analysis domain.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "quote": "The PROBAST assessment suggested a high risk of bias in most studies, especially in the analysis domain."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c20",
+          "section": 4,
+          "text": "results：Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c21",
+          "section": 4,
+          "text": "technical_methods：Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        },
+        {
+          "claim_id": "c22",
+          "section": 5,
+          "text": "data：unknown；所给证据未明确说明是否使用公开ICU数据集。",
+          "epistemic_kind": "model_inference",
+          "evidence": [],
+          "information_missing": true,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c23",
+          "section": 5,
+          "text": "methods：partial_overlap；该研究采用深度学习，属于想法中机器学习/深度学习范畴，但具体为双通道连续预测架构。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "af0b5eb4-bfa6-5182-b875-5220228438e0",
+              "quote": "in contrast, deep learning models can automatically learn features from high-dimensional EHR data, improving predictive accuracy."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c24",
+          "section": 5,
+          "text": "outcomes：unknown；Not reported in the supplied evidence.",
+          "epistemic_kind": "model_inference",
+          "evidence": [],
+          "information_missing": true,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+          "publication_types": [
+            "review"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "text": "The PROBAST assessment suggested a high risk of bias in most studies, especially in the analysis domain.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Risk of bias and clinical applicability",
+                "start": 28319,
+                "end": 29359
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            }
+          ]
+        },
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "title": "Development and validation of a dual-channel deep learning for continuous acute kidney injury prediction in critically ill patients",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "af0b5eb4-bfa6-5182-b875-5220228438e0",
+              "text": "in contrast, deep learning models can automatically learn features from high-dimensional EHR data, improving predictive accuracy.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Introduction",
+                "start": 1007,
+                "end": 1683
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c19\",\"support_status\":\"supported\",\"basis\":\"The supplied quote exactly matches the claim: PROBAST indicated high risk of bias in most studies, especially the analysis domain.\"},{\"claim_id\":\"c20\",\"support_status\":\"supported\",\"basis\":\"The supplied quote exactly matches the claim: 14 studies did external validation and 33 used interpretation tools, mainly SHAP.\"},{\"claim_id\":\"c21\",\"support_status\":\"supported\",\"basis\":\"The supplied quote exactly matches the claim: across 47 studies, LR, RF, XGBoost and SVM were most commonly used.\"},{\"claim_id\":\"c22\",\"support_status\":\"uncertain\",\"basis\":\"No evidence is supplied on whether public ICU datasets were used; the unknown data status is correctly flagged as missing.\"},{\"claim_id\":\"c23\",\"support_status\":\"partially_supported\",\"basis\":\"The quote supports deep learning use, but the dual-channel continuous architecture detail is not shown in the supplied evidence.\"},{\"claim_id\":\"c24\",\"support_status\":\"uncertain\",\"basis\":\"No outcome evidence is supplied, so the unknown outcome status is appropriate but unverifiable.\"}]}",
+    "seconds": 1.4540000000001783
+  },
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "dimension": "question",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "两者均以ICU患者AKI风险预测为核心问题。",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ]
+        },
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "该研究人群为ICU患者，与想法中的患者群体一致。",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ]
+        },
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "研究人群为危重患者，与想法一致。",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ]
+        },
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "partial_overlap",
+          "reason": "该研究使用多种传统机器学习模型，属于想法中机器学习范畴，但未突出深度学习。",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c25",
+          "section": 5,
+          "text": "population：overlap；该研究人群为ICU患者，与想法中的患者群体一致。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c26",
+          "section": 5,
+          "text": "question：overlap；两者均以ICU患者AKI风险预测为核心问题。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c27",
+          "section": 5,
+          "text": "data：unknown；所给证据未明确说明数据是否来自公开ICU数据库。",
+          "epistemic_kind": "model_inference",
+          "evidence": [],
+          "information_missing": true,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c28",
+          "section": 5,
+          "text": "methods：partial_overlap；该研究使用多种传统机器学习模型，属于想法中机器学习范畴，但未突出深度学习。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c29",
+          "section": 5,
+          "text": "outcomes：unknown；Not reported in the supplied evidence.",
+          "epistemic_kind": "model_inference",
+          "evidence": [],
+          "information_missing": true,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c30",
+          "section": 5,
+          "text": "population：overlap；研究人群为危重患者，与想法一致。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "title": "Development and validation of a dual-channel deep learning for continuous acute kidney injury prediction in critically ill patients",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "text": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Conclusion",
+                "start": 29830,
+                "end": 30406
+              }
+            }
+          ]
+        },
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "title": "Atherogenic index of plasma and risk of acute kidney injury in critically ill patients: a multi-cohort study with machine learning and SHAP analysis",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "text": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure .",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "The results of the ML model performance evaluation",
+                "start": 14039,
+                "end": 15078
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c25\",\"support_status\":\"supported\",\"basis\":\"引文明确该模型用于ICU连续AKI风险预测，人群为ICU患者，与想法患者群体一致。\"},{\"claim_id\":\"c26\",\"support_status\":\"supported\",\"basis\":\"引文表明研究核心为ICU患者AKI风险预测，与想法核心问题重叠。\"},{\"claim_id\":\"c27\",\"support_status\":\"uncertain\",\"basis\":\"所给证据未提及数据来源是否为公开ICU数据库，无法判断数据维度相似性。\"},{\"claim_id\":\"c28\",\"support_status\":\"supported\",\"basis\":\"引文列出XGBoost、SVM、随机森林、ANN等13种模型，属机器学习但未突出深度学习，部分重叠成立。\"},{\"claim_id\":\"c29\",\"support_status\":\"uncertain\",\"basis\":\"所给证据未报告结局指标或性能结果，无法评估结局维度。\"},{\"claim_id\":\"c30\",\"support_status\":\"supported\",\"basis\":\"引文明确模型用于危重患者AKI预测，人群与想法中的患者一致。\"}]}",
+    "seconds": 1.280999999999949
+  },
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "dimension": "question",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "该研究同样进行ICU患者AKI预测建模。",
+          "evidence": [
+            {
+              "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+              "quote": "Methodologically, ML was applied in this study for AKI prediction, consistent with recent advances in ICU-based predictive modeling ."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "question",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "该综述系统评估ICU中AKI预测的AI模型，与想法问题一致。",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "综述聚焦ICU患者AKI预测。",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "data",
+          "idea_quote": "基于公开 ICU 临床数据",
+          "relation": "overlap",
+          "reason": "综述指出公开ICU数据集被广泛使用，与想法数据来源一致。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "overlap",
+          "reason": "综述总结了LR、RF、XGBoost、SVM等机器学习模型，覆盖想法中的方法范畴。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c31",
+          "section": 5,
+          "text": "question：overlap；该研究同样进行ICU患者AKI预测建模。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+              "quote": "Methodologically, ML was applied in this study for AKI prediction, consistent with recent advances in ICU-based predictive modeling ."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c32",
+          "section": 5,
+          "text": "data：overlap；综述指出公开ICU数据集被广泛使用，与想法数据来源一致。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c33",
+          "section": 5,
+          "text": "methods：overlap；综述总结了LR、RF、XGBoost、SVM等机器学习模型，覆盖想法中的方法范畴。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c34",
+          "section": 5,
+          "text": "outcomes：unknown；Not reported in the supplied evidence.",
+          "epistemic_kind": "model_inference",
+          "evidence": [],
+          "information_missing": true,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c35",
+          "section": 5,
+          "text": "population：overlap；综述聚焦ICU患者AKI预测。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        },
+        {
+          "claim_id": "c36",
+          "section": 5,
+          "text": "question：overlap；该综述系统评估ICU中AKI预测的AI模型，与想法问题一致。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "结合用户原始约束及文献复核相似性"
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "title": "Atherogenic index of plasma and risk of acute kidney injury in critically ill patients: a multi-cohort study with machine learning and SHAP analysis",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+              "text": "Methodologically, ML was applied in this study for AKI prediction, consistent with recent advances in ICU-based predictive modeling .",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Discussion",
+                "start": 23105,
+                "end": 24064
+              }
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+          "publication_types": [
+            "review"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Public ICU datasets were widely used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "text": "This systematic review comprehensively evaluated the AI models for the prediction of AKI in the ICU.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Conclusions",
+                "start": 31751,
+                "end": 33017
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c31\",\"support_status\":\"supported\",\"basis\":\"引文明确说明该研究将ML用于AKI预测，与ICU预测建模一致，支持问题重叠判断。\"},{\"claim_id\":\"c32\",\"support_status\":\"supported\",\"basis\":\"引文明确称公开ICU数据集被广泛使用，支持数据来源重叠的判断。\"},{\"claim_id\":\"c33\",\"support_status\":\"supported\",\"basis\":\"引文列出LR、RF、XGBoost、SVM为最常用模型，支持方法范畴重叠。\"},{\"claim_id\":\"c34\",\"support_status\":\"uncertain\",\"basis\":\"所供证据未报告结局指标，无法评估结局维度是否重叠。\"},{\"claim_id\":\"c35\",\"support_status\":\"supported\",\"basis\":\"引文称综述评估ICU中AKI预测的AI模型，支持ICU患者人群重叠。\"},{\"claim_id\":\"c36\",\"support_status\":\"supported\",\"basis\":\"引文明确综述系统评估ICU中AKI预测的AI模型，支持研究问题重叠。\"}]}",
+    "seconds": 1.844000000000051
+  },
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "dimension": "question",
+          "idea_quote": "预测患者发生急性肾损伤的风险",
+          "relation": "overlap",
+          "reason": "两者均以ICU患者AKI风险预测为核心问题。",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ]
+        },
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "该研究人群为ICU患者，与想法中的患者群体一致。",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ]
+        },
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "dimension": "population",
+          "idea_quote": "患者",
+          "relation": "overlap",
+          "reason": "研究人群为危重患者，与想法一致。",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ]
+        },
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "partial_overlap",
+          "reason": "该研究使用多种传统机器学习模型，属于想法中机器学习范畴，但未突出深度学习。",
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "overlap",
+          "reason": "综述总结了LR、RF、XGBoost、SVM等机器学习模型，覆盖想法中的方法范畴。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c37",
+          "section": 6,
+          "text": "uncertain；可比性：两者均针对ICU患者AKI预测，但方法路线不同（深度学习连续预测 vs 传统机器学习加生物标志物）。；一项采用双通道深度学习，另一项采用多种传统机器学习模型并整合AIP，直接性能比较受数据与任务定义差异限制。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            },
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "复核两侧研究设计、人群与结局"
+        },
+        {
+          "claim_id": "c38",
+          "section": 6,
+          "text": "supports；可比性：综述总结了ICU AKI预测的AI模型方法，涵盖深度学习路线。；综述指出AI模型在处理复杂ICU数据与时间动态方面具有优势，与深度学习研究的方向一致。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "quote": "Our findings highlight the advantages of AI models in handling complex ICU data, capturing temporal dynamics, and supporting early prediction of AKI."
+            },
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "复核两侧研究设计、人群与结局"
+        },
+        {
+          "claim_id": "c39",
+          "section": 6,
+          "text": "supports；可比性：综述统计了常用模型类型，该研究使用XGBoost等模型。；综述指出LR、RF、XGBoost、SVM为最常用模型，与该研究采用XGBoost等模型一致。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            },
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "复核两侧研究设计、人群与结局"
+        },
+        {
+          "claim_id": "c40",
+          "section": 6,
+          "text": "现有ICU AKI预测研究外部验证比例有限，可探索更充分的验证设计。；推理：综述指出仅14项研究进行外部验证，提示验证不足，但已有研究也报告了泛化性局限。；范围：ICU AKI预测模型的验证设计",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实该综述纳入研究的验证方式分类是否完整。"
+        },
+        {
+          "claim_id": "c41",
+          "section": 7,
+          "text": "可供进一步调查的方向：现有ICU AKI预测研究外部验证比例有限，可探索更充分的验证设计。",
+          "epistemic_kind": "unverified_hypothesis",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实该综述纳入研究的验证方式分类是否完整。"
+        },
+        {
+          "claim_id": "c42",
+          "section": 6,
+          "text": "模型性能多以AUROC为主，校准与其他指标报告较少，可关注更全面的评估。；推理：综述指出评估主要用AUROC，其他指标与校准报告较少。；范围：AKI预测模型的评估指标",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实综述中指标报告的统计口径。"
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+          "title": "Development and validation of a dual-channel deep learning for continuous acute kidney injury prediction in critically ill patients",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+              "text": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Conclusion",
+                "start": 29830,
+                "end": 30406
+              }
+            }
+          ]
+        },
+        {
+          "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+          "title": "Atherogenic index of plasma and risk of acute kidney injury in critically ill patients: a multi-cohort study with machine learning and SHAP analysis",
+          "publication_types": [
+            "article"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+              "text": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure .",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "The results of the ML model performance evaluation",
+                "start": 14039,
+                "end": 15078
+              }
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+          "publication_types": [
+            "review"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+              "text": "Our findings highlight the advantages of AI models in handling complex ICU data, capturing temporal dynamics, and supporting early prediction of AKI.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Conclusions",
+                "start": 31751,
+                "end": 33017
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c37\",\"support_status\":\"partially_supported\",\"basis\":\"证据支持双通道深度学习连续预测与13种传统ML模型（含AIP）的差异，但'直接性能比较受限'为合理推断，非源文陈述。\"},{\"claim_id\":\"c38\",\"support_status\":\"supported\",\"basis\":\"综述结论明确AI模型在处理复杂ICU数据、捕捉时间动态方面有优势，与深度学习连续预测方向一致。\"},{\"claim_id\":\"c39\",\"support_status\":\"supported\",\"basis\":\"综述称LR/RF/XGBoost/SVM最常用，另一研究确用XGBoost等13种模型，方法类型一致。\"},{\"claim_id\":\"c40\",\"support_status\":\"supported\",\"basis\":\"综述明确仅14项研究做外部验证，并指出泛化性局限，支持验证不足的推断。\"},{\"claim_id\":\"c41\",\"support_status\":\"supported\",\"basis\":\"基于综述外部验证仅14项及泛化性局限，提出更充分验证设计属合理待验证方向。\"},{\"claim_id\":\"c42\",\"support_status\":\"supported\",\"basis\":\"综述明确性能主要用AUROC评估，其他指标与校准报告较少，支持该推断。\"}]}",
+    "seconds": 1.719000000000051
+  },
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "data",
+          "idea_quote": "基于公开 ICU 临床数据",
+          "relation": "overlap",
+          "reason": "综述指出公开ICU数据集被广泛使用，与想法数据来源一致。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ]
+        },
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "dimension": "methods",
+          "idea_quote": "利用机器学习或深度学习模型",
+          "relation": "overlap",
+          "reason": "综述总结了LR、RF、XGBoost、SVM等机器学习模型，覆盖想法中的方法范畴。",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ]
+        }
+      ],
+      "claims": [
+        {
+          "claim_id": "c43",
+          "section": 7,
+          "text": "可供进一步调查的方向：模型性能多以AUROC为主，校准与其他指标报告较少，可关注更全面的评估。",
+          "epistemic_kind": "unverified_hypothesis",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实综述中指标报告的统计口径。"
+        },
+        {
+          "claim_id": "c44",
+          "section": 6,
+          "text": "多数模型尚未进入临床整合，可探索面向实际工作流的验证。；推理：综述指出多数模型远离临床整合，但已有研究提供了网页计算器等工具。；范围：AKI预测模型的临床转化",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "quote": "Despite notable progress in predictive modeling for AKI in ICU settings, most models remain far from clinical integration."
+            },
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "quote": "One study trained an ML model on a prospectively collected cohort and externally validated it, providing an additional web-based calculator for clinical use."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实综述对临床转化的具体判定标准。"
+        },
+        {
+          "claim_id": "c45",
+          "section": 7,
+          "text": "可供进一步调查的方向：多数模型尚未进入临床整合，可探索面向实际工作流的验证。",
+          "epistemic_kind": "unverified_hypothesis",
+          "evidence": [
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "quote": "Despite notable progress in predictive modeling for AKI in ICU settings, most models remain far from clinical integration."
+            },
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "quote": "One study trained an ML model on a prospectively collected cohort and externally validated it, providing an additional web-based calculator for clinical use."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需核实综述对临床转化的具体判定标准。"
+        },
+        {
+          "claim_id": "c46",
+          "section": 6,
+          "text": "可行性（data；conditional）：公开ICU数据集被广泛用于AKI预测研究，但具体数据访问权限与标注质量需自行核实。；下一步核查：核查候选公开ICU数据库的数据使用协议与AKI标签可得性。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Public ICU datasets were widely used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需确认目标公开ICU数据集的使用许可、AKI标签定义与缺失情况。"
+        },
+        {
+          "claim_id": "c47",
+          "section": 6,
+          "text": "可行性（methods；conditional）：已有研究常用LR、RF、XGBoost、SVM等模型，可作为可复现基线。；下一步核查：复现一个已报道的基线模型并核对评估流程。",
+          "epistemic_kind": "model_inference",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": "需确认所选基线的预处理流程与超参数设置可复现。"
+        },
+        {
+          "claim_id": "c48",
+          "section": 6,
+          "text": "可行性（compute；unknown）：证据不足，条件待确认；下一步核查：评估本地或云端算力是否满足所选模型训练需求。",
+          "epistemic_kind": "reported_fact",
+          "evidence": [],
+          "information_missing": true,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+          "publication_types": [
+            "review"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Model performance was primarily evaluated using AUROC, while other metrics and calibration were less reported.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "text": "Despite notable progress in predictive modeling for AKI in ICU settings, most models remain far from clinical integration.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Risk of bias and clinical applicability",
+                "start": 28319,
+                "end": 29359
+              }
+            },
+            {
+              "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+              "text": "One study trained an ML model on a prospectively collected cohort and externally validated it, providing an additional web-based calculator for clinical use.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Risk of bias and clinical applicability",
+                "start": 28319,
+                "end": 29359
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Public ICU datasets were widely used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            },
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c43\",\"support_status\":\"supported\",\"basis\":\"引文明确称AUROC为主要评估指标，其他指标与校准报告较少，与主张一致。\"},{\"claim_id\":\"c44\",\"support_status\":\"supported\",\"basis\":\"引文称多数模型远离临床整合，且有一项研究提供网页计算器，支持推理与范围。\"},{\"claim_id\":\"c45\",\"support_status\":\"supported\",\"basis\":\"引文明确多数模型远离临床整合，支持探索面向实际工作流验证的方向。\"},{\"claim_id\":\"c46\",\"support_status\":\"partially_supported\",\"basis\":\"引文仅称公开ICU数据集被广泛使用，未涉及访问权限或标注质量，条件性表述合理。\"},{\"claim_id\":\"c47\",\"support_status\":\"supported\",\"basis\":\"引文列出LR、RF、XGBoost、SVM为最常用模型，支持作为可复现基线的可行性。\"},{\"claim_id\":\"c48\",\"support_status\":\"uncertain\",\"basis\":\"无引文证据，算力可行性信息缺失，标为unknown合理。\"}]}",
+    "seconds": 1.4369999999998981
+  },
+  {
+    "context": {
+      "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+      "research_constraints": {
+        "population": [
+          "患者"
+        ],
+        "task": [
+          "预测患者发生急性肾损伤的风险"
+        ],
+        "data_type": [
+          "公开 ICU 临床数据"
+        ],
+        "paper_type": [],
+        "answer_dimensions": [
+          "已有类似研究",
+          "已有研究主要采用的方法",
+          "研究差异",
+          "数据、方法、算力和验证方面的可行性"
+        ],
+        "time_text": null,
+        "time_intent": "unspecified",
+        "years": null,
+        "year_from": null,
+        "year_to": null
+      },
+      "idea_comparisons": [],
+      "claims": [
+        {
+          "claim_id": "c49",
+          "section": 6,
+          "text": "可行性（validation；reported_barrier）：Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.；下一步核查：确认是否可获得独立外部验证队列或留出验证方案。",
+          "epistemic_kind": "reported_fact",
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+            }
+          ],
+          "information_missing": false,
+          "support_status": "uncertain",
+          "basis": "not_reviewed",
+          "verification_needed": null
+        }
+      ],
+      "sources": [
+        {
+          "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+          "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+          "publication_types": [
+            "review"
+          ],
+          "source_notices": [],
+          "evidence": [
+            {
+              "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+              "text": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.",
+              "location": {
+                "kind": "fulltext",
+                "page": null,
+                "section": "Summative analysis",
+                "start": 15012,
+                "end": 15594
+              }
+            }
+          ]
+        }
+      ],
+      "output_schema": {
+        "$defs": {
+          "ClaimReview": {
+            "additionalProperties": false,
+            "properties": {
+              "claim_id": {
+                "title": "Claim Id",
+                "type": "string"
+              },
+              "support_status": {
+                "enum": [
+                  "supported",
+                  "partially_supported",
+                  "unsupported",
+                  "uncertain"
+                ],
+                "title": "Support Status",
+                "type": "string"
+              },
+              "basis": {
+                "maxLength": 2000,
+                "minLength": 1,
+                "title": "Basis",
+                "type": "string"
+              }
+            },
+            "required": [
+              "claim_id",
+              "support_status",
+              "basis"
+            ],
+            "title": "ClaimReview",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "reviews": {
+            "items": {
+              "$ref": "#/$defs/ClaimReview"
+            },
+            "maxItems": 500,
+            "title": "Reviews",
+            "type": "array"
+          }
+        },
+        "required": [
+          "reviews"
+        ],
+        "title": "ReviewDraft",
+        "type": "object"
+      }
+    },
+    "raw_response": "{\"reviews\":[{\"claim_id\":\"c49\",\"support_status\":\"supported\",\"basis\":\"The source quote exactly states that only 14 studies conducted external validation and 33 applied interpretation tools, mainly SHAP.\"}]}",
+    "seconds": 0.8910000000000764
+  }
+]

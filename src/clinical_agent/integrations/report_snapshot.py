@@ -38,16 +38,20 @@ class SnapshotVerifier:
                     ("<PubmedArticleSet>" + source.snapshot_xml + "</PubmedArticleSet>").encode(),
                     fetched_at=datetime.now(UTC),
                 )
-                record = next((r for r in records if r.pmid == source.pmid), None)
-                if record is None or record.title != source.title or record.doi != source.doi:
+                pubmed_record = next((r for r in records if r.pmid == source.pmid), None)
+                if (
+                    pubmed_record is None
+                    or pubmed_record.title != source.title
+                    or pubmed_record.doi != source.doi
+                ):
                     return "invalid"
-                units = record.source_units
+                units = pubmed_record.source_units
                 for hit in hits:
                     loc = hit.chunk.location
                     if (
                         loc.kind != "abstract"
-                        or loc.end > len(record.abstract)
-                        or record.abstract[loc.start : loc.end] != hit.chunk.text
+                        or loc.end > len(pubmed_record.abstract)
+                        or pubmed_record.abstract[loc.start : loc.end] != hit.chunk.text
                         or (
                             loc.section is not None
                             and not any(

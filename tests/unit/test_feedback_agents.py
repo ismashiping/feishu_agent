@@ -23,8 +23,10 @@ def service(case, statuses, rounds=1):
         calls = 0
 
         def review_claims(self, context, **kwargs):
-            state = statuses[min(self.calls, len(statuses) - 1)]
-            self.calls += 1
+            # Count review passes independently of their bounded HTTP batches.
+            if context["claims"][0]["claim_id"] == "c1":
+                self.calls += 1
+            state = statuses[min(self.calls - 1, len(statuses) - 1)]
             result = json.loads(super().review_claims(context, **kwargs))
             for r in result["reviews"]:
                 r["support_status"] = state
@@ -130,3 +132,30 @@ def test_empty_exhaustion_is_incomplete(case):
     assert report.content_status == "insufficient_evidence"
     assert report.status == "verification_incomplete" and report.feedback_stop == "round_limit"
     assert reviewer.calls == model.calls == 0
+
+
+@pytest.mark.parametrize("target", ["methods", "scout"])
+def test_feedback_budget_returns_existing_report(case, target):
+    from time import monotonic
+
+    svc, reviewer, model, retriever = service(case, ["unsupported"])
+    if target == "scout":
+        retriever.retrieve = lambda request: case[1].model_copy(update={"hits": []})
+    elapsed = [0.0]
+    svc._clock = lambda: monotonic() + elapsed[0]
+    original = svc._review_agent
+
+    def review(state):
+        patch = original(state)
+        elapsed[0] = 155.0
+        return patch
+
+    svc._review_agent = review
+    report = svc.report(case[0]).report
+    assert report.feedback_stop == "budget_limit"
+    assert report.feedback_history == []
+    if target == "methods":
+        assert report.status == "rejected"
+        assert reviewer.calls == model.calls == 1
+    else:
+        assert report.content_status == "insufficient_evidence"

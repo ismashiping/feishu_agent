@@ -1,0 +1,17 @@
+{
+  "claims": 38,
+  "max_tokens": 1500,
+  "provider": {
+    "failure_kind": "length",
+    "evidence_counts": "content_chars=6347,input_tokens=11011,output_tokens=1500,reasoning_tokens=unknown"
+  },
+  "status": "failed",
+  "code": "model_output_invalid",
+  "details": {
+    "content_chars": "6347",
+    "input_tokens": "11011",
+    "output_tokens": "1500",
+    "reasoning_tokens": "unknown"
+  },
+  "seconds": 11.905999999999949
+}

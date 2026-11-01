@@ -1,0 +1,449 @@
+{
+  "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "research_constraints": {
+    "population": [
+      "患者"
+    ],
+    "task": [
+      "预测患者发生急性肾损伤的风险"
+    ],
+    "data_type": [
+      "公开 ICU 临床数据"
+    ],
+    "paper_type": [],
+    "answer_dimensions": [
+      "已有类似研究",
+      "已有研究主要采用的方法",
+      "研究差异",
+      "数据、方法、算力和验证方面的可行性"
+    ],
+    "time_text": "目前",
+    "time_intent": "unspecified",
+    "years": null,
+    "year_from": null,
+    "year_to": null
+  },
+  "idea_comparisons": [
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "methods",
+      "idea_quote": "机器学习或深度学习模型",
+      "relation": "overlap",
+      "reason": "综述总结了LR、RF、XGBoost、SVM等常用模型，与用户机器学习/深度学习建模设想重叠。",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+        }
+      ]
+    },
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "该研究开发连续AKI风险预测模型，与用户预测AKI风险的问题直接重叠。",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+        }
+      ]
+    },
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "overlap",
+      "reason": "研究针对ICU患者进行AKI风险预测，与用户ICU患者设定重叠。",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+        }
+      ]
+    },
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "dimension": "methods",
+      "idea_quote": "机器学习或深度学习模型",
+      "relation": "overlap",
+      "reason": "研究采用双通道深度学习模型，与用户深度学习建模设想重叠。",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+        }
+      ]
+    },
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "dimension": "outcomes",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "研究以AKI风险预测性能为结局，与用户关注的风险预测结果一致。",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+        }
+      ]
+    },
+    {
+      "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "该研究应用ML进行AKI预测，与用户预测AKI风险的问题重叠。",
+      "evidence": [
+        {
+          "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+          "quote": "Methodologically, ML was applied in this study for AKI prediction, consistent with recent advances in ICU-based predictive modeling ."
+        }
+      ]
+    },
+    {
+      "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "overlap",
+      "reason": "研究在危重患者中预测AKI发生，与用户ICU患者设定重叠。",
+      "evidence": [
+        {
+          "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+          "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+        }
+      ]
+    },
+    {
+      "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+      "dimension": "methods",
+      "idea_quote": "机器学习或深度学习模型",
+      "relation": "overlap",
+      "reason": "研究构建XGBoost、SVM、随机森林、ANN等多种ML模型，与用户机器学习建模设想重叠。",
+      "evidence": [
+        {
+          "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+          "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c37",
+      "section": 5,
+      "text": "question：overlap；该研究应用ML进行AKI预测，与用户预测AKI风险的问题重叠。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+          "quote": "Methodologically, ML was applied in this study for AKI prediction, consistent with recent advances in ICU-based predictive modeling ."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "结合用户原始约束及文献复核相似性"
+    },
+    {
+      "claim_id": "c38",
+      "section": 6,
+      "text": "supports；可比性：两者均涉及ICU中AKI预测建模，综述总结方法学现状，原始研究提供深度学习实例。；综述指出深度学习等方法被使用且外部验证有限，双通道深度学习研究展示了开发与一个外部队列验证，二者在方法学方向上相互支持。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+        },
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu."
+        },
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "复核两侧研究设计、人群与结局"
+    },
+    {
+      "claim_id": "c39",
+      "section": 6,
+      "text": "supports；可比性：综述总结常用ML模型与特征选择方法，原始多队列研究使用LASSO/Boruta与多种ML模型。；综述指出LR、RF、XGBoost、SVM常用且LASSO为常见特征选择方法，多队列研究实际采用LASSO与Boruta并构建多种ML模型，二者一致。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Feature selection methods varied, with LASSO and expert-driven approaches being the most common."
+        },
+        {
+          "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+          "quote": "The variables representing AIP and AKI were selected based on the intersection of results from LASSO regression and the Boruta algorithm."
+        },
+        {
+          "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+          "quote": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure ."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "复核两侧研究设计、人群与结局"
+    },
+    {
+      "claim_id": "c40",
+      "section": 6,
+      "text": "现有ICU AKI预测研究外部验证比例有限，用户若计划开展类似研究，可考虑将外部验证作为设计重点。；推理：综述指出仅14项研究进行外部验证，而双通道深度学习研究已开展一个外部队列验证，说明外部验证并非完全空白但整体仍有限。；范围：ICU中AKI预测AI模型的外部验证现状",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+        },
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实用户可获得的独立外部验证数据来源与规模。"
+    },
+    {
+      "claim_id": "c41",
+      "section": 7,
+      "text": "可供进一步调查的方向：现有ICU AKI预测研究外部验证比例有限，用户若计划开展类似研究，可考虑将外部验证作为设计重点。",
+      "epistemic_kind": "unverified_hypothesis",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP."
+        },
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实用户可获得的独立外部验证数据来源与规模。"
+    },
+    {
+      "claim_id": "c42",
+      "section": 6,
+      "text": "模型在不同机构间性能差异明显，数据粒度与本地记录实践可能影响可迁移性，用户研究需考虑跨机构泛化。；推理：双通道模型在外部队列性能下降，综述亦指出泛化性局限，二者一致提示跨机构泛化挑战。；范围：ICU AKI预测模型的跨机构泛化",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实目标数据集间数据粒度与记录规范差异。"
+    }
+  ],
+  "sources": [
+    {
+      "document_id": "813570f1-5389-5fcd-a6ec-7ae13f49375f",
+      "title": "Atherogenic index of plasma and risk of acute kidney injury in critically ill patients: a multi-cohort study with machine learning and SHAP analysis",
+      "publication_types": [
+        "article"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "70fc6368-2a39-5561-aaa1-c243cbbe3126",
+          "text": "Methodologically, ML was applied in this study for AKI prediction, consistent with recent advances in ICU-based predictive modeling .",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Discussion",
+            "start": 23105,
+            "end": 24064
+          }
+        },
+        {
+          "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+          "text": "The variables representing AIP and AKI were selected based on the intersection of results from LASSO regression and the Boruta algorithm.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "The results of the ML model performance evaluation",
+            "start": 14039,
+            "end": 15078
+          }
+        },
+        {
+          "chunk_id": "2746a5f9-a483-529c-9f20-e2d7e202bc3c",
+          "text": "We constructed 13 models to predict AKI occurrence in critically ill patients, including XGBoost, Adaboost, CatBoost, Bagging, SVM, KNN, Random Forest and ANN, as shown in Figure .",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "The results of the ML model performance evaluation",
+            "start": 14039,
+            "end": 15078
+          }
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+      "publication_types": [
+        "review"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Only 14 studies conducted external validation, and 33 applied interpretation tools, mainly SHAP.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Feature selection methods varied, with LASSO and expert-driven approaches being the most common.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        }
+      ]
+    },
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "title": "Development and validation of a dual-channel deep learning for continuous acute kidney injury prediction in critically ill patients",
+      "publication_types": [
+        "article"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "text": "in this study, we developed dC-aKi, a dual-channel deep learning model for continuous aKi risk prediction in the iCu.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Conclusion",
+            "start": 29830,
+            "end": 30406
+          }
+        },
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "text": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Conclusion",
+            "start": 29830,
+            "end": 30406
+          }
+        }
+      ]
+    }
+  ],
+  "output_schema": {
+    "$defs": {
+      "ClaimReview": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "title": "Claim Id",
+            "type": "string"
+          },
+          "support_status": {
+            "enum": [
+              "supported",
+              "partially_supported",
+              "unsupported",
+              "uncertain"
+            ],
+            "title": "Support Status",
+            "type": "string"
+          },
+          "basis": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Basis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "support_status",
+          "basis"
+        ],
+        "title": "ClaimReview",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "reviews": {
+        "items": {
+          "$ref": "#/$defs/ClaimReview"
+        },
+        "maxItems": 500,
+        "title": "Reviews",
+        "type": "array"
+      }
+    },
+    "required": [
+      "reviews"
+    ],
+    "title": "ReviewDraft",
+    "type": "object"
+  }
+}

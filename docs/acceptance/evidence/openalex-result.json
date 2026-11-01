@@ -1,0 +1,11 @@
+{
+  "records": 10,
+  "total": 1542,
+  "warnings": [],
+  "identity_snapshots": "passed",
+  "fulltext": "not acquired",
+  "acquisition_errors": [
+    "fulltext_no_fulltext_url",
+    "fulltext_budget"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "python": "3.12.16",
+  "httpx": "0.28.1",
+  "sqlalchemy": "2.1.6",
+  "pgvector": "0.5.1",
+  "alembic": "1.20.1",
+  "sentence-transformers": "6.2.0",
+  "langgraph": "1.2.17",
+  "langchain-openai": "1.7.3",
+  "llama-index-core": "0.14.22",
+  "llm": {
+    "configuration_valid": true,
+    "host": "api.deepseek.com",
+    "invoked": false,
+    "billing": "not established; no model request sent"
+  },
+  "openalex_key_present": true,
+  "test_database": {
+    "connected": true,
+    "revision": "oa3003_0011",
+    "pgvector": "0.8.7",
+    "cache_rows": 0,
+    "vector_rows": 0
+  },
+  "e5": {
+    "loaded": true,
+    "load_seconds": 79.93799999999464,
+    "query_seconds": 0.25,
+    "dimension": 768
+  }
+}

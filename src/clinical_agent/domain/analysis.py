@@ -1,5 +1,6 @@
 """Phase 6 analysis contracts; evidence pointers never certify semantic truth."""
 
+from collections.abc import Set as AbstractSet
 from typing import Annotated, Literal, Self
 from uuid import UUID
 
@@ -40,7 +41,7 @@ def _fail(code: str) -> None:
     raise PydanticCustomError(code, code)
 
 
-def consistent_relation(relations: set[str]) -> str:
+def consistent_relation(relations: AbstractSet[str]) -> str:
     """One unknown dimension keeps the result unknown. Mixed known relations stay partial."""
     if not relations or "unknown" in relations:
         return "unknown"
@@ -258,13 +259,39 @@ DimensionName = Literal["question", "population", "data", "methods", "outcomes"]
 
 
 class FieldSelection(DTO):
-    field_name: MethodName
+    field_name: MethodName = Field(
+        description=(
+            "For sample_size, select only an explicitly reported count of participants, "
+            "admissions/records, or experimental samples; retain the exact unit. Counts of "
+            "included studies/articles in a review are not sample_size; place them in "
+            "design/results if appropriate. Omit sample_size if no eligible count is stated."
+        )
+    )
     quote_id: str
     role: Literal["reported", "comparator", "unrelated"]
+    sample_size_scope: (
+        Literal["current_study", "review_aggregate", "cited_study", "unknown"] | None
+    ) = Field(
+        default=None,
+        description=(
+            "For sample_size, identify whose count the exact quote reports. current_study: "
+            "this original study's own participants/records/samples. review_aggregate: "
+            "explicit combined participant/sample total across included studies. cited_study: "
+            "an individual referenced study or review-table row. unknown: attribution unclear. "
+            "Never label a cited study row as the review's aggregate."
+        ),
+    )
 
 
 class InferenceSelection(DTO):
-    field_name: MethodName
+    field_name: MethodName = Field(
+        description=(
+            "For sample_size, select only an explicitly reported count of participants, "
+            "admissions/records, or experimental samples; retain the exact unit. Counts of "
+            "included studies/articles in a review are not sample_size; place them in "
+            "design/results if appropriate. Omit sample_size if no eligible count is stated."
+        )
+    )
     value: Text
     epistemic_kind: Literal["model_inference", "unverified_hypothesis"]
     verification_needed: Text | None = None
@@ -392,4 +419,26 @@ pilot, comparator and falsifiable result; never invent numerical thresholds or c
 experiment ran. If the evidence cannot support a complete proposal, leave experiments
 empty and list the missing conditions in feasibility.next_check. Do not infer absence of
 research or its reasons from empty retrieval. Never provide an unsupported aggregate score.
+"""
+
+ANALYSIS_INSTRUCTIONS += """
+SAMPLE SIZE CONTRACT: sample_size is not a generic number field. It is an explicitly
+reported number of participants/patients, admissions or records, or experimental samples.
+Keep the unit and population/split scope exactly as reported; records are not unique patients.
+A review's count of included studies/articles (e.g. 47 studies) is NOT patient/sample size.
+Place that count in design or results when appropriate, otherwise omit it. Do not substitute
+predictions, AUROC, follow-up duration or a list of model names for sample_size.
+A review/meta-analysis explicitly reporting aggregate participants may supply that count;
+do not forbid all review sample sizes. When no eligible count is reported, omit the field
+and leave it not_reported. Do not reconstruct sample size using inference or external knowledge.
+"""
+
+ANALYSIS_INSTRUCTIONS += """
+SAMPLE OWNERSHIP: for each reported sample_size select sample_size_scope. Original-study
+counts use current_study; a systematic review's explicitly combined participant/sample count
+uses review_aggregate. Counts in a review table row or a description of another named study
+use cited_study and must not become this review's sample_size. If ownership is not explicit,
+use unknown or omit sample_size. Do not invent aggregate totals or sum table rows. Preserve
+training/validation/external-cohort and patient-vs-admission units in the exact quotation.
+A count cannot be supplied as a model inference. Bibliographic study counts remain excluded.
 """

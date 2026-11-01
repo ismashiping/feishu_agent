@@ -1,0 +1,28 @@
+[
+  {
+    "run": "first",
+    "batches": 7,
+    "reviewed": 38,
+    "support": {
+      "uncertain": 3,
+      "partially_supported": 17,
+      "supported": 18
+    },
+    "max_batch_claims": 6,
+    "max_context_chars": 10059,
+    "status": "verification_incomplete"
+  },
+  {
+    "run": "repeat",
+    "batches": 9,
+    "reviewed": 49,
+    "support": {
+      "uncertain": 8,
+      "supported": 36,
+      "partially_supported": 5
+    },
+    "max_batch_claims": 6,
+    "max_context_chars": 10236,
+    "status": "verification_incomplete"
+  }
+]

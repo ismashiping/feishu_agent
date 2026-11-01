@@ -6,9 +6,11 @@ import re
 import unicodedata
 from datetime import UTC, date, datetime
 from time import monotonic
-from typing import Protocol
+from typing import Any, Protocol, cast
 from uuid import NAMESPACE_URL, uuid5
 from zoneinfo import ZoneInfo
+
+from pydantic import HttpUrl
 
 from clinical_agent.domain.models import EvidenceChunk, EvidenceLocation, SourceMetadata
 from clinical_agent.domain.openalex import (
@@ -18,12 +20,13 @@ from clinical_agent.domain.openalex import (
     OpenAlexOptions,
     OpenAlexProvenance,
     OpenAlexRecord,
+    ResearchConstraints,
     normalize_doi,
     parse_assessments,
     resolve_dates,
 )
 from clinical_agent.domain.pico import QueryPlan
-from clinical_agent.domain.research import ResearchError
+from clinical_agent.domain.research import ResearchCode, ResearchError
 from clinical_agent.domain.retrieval import (
     DocumentSummary,
     EvidenceHit,
@@ -201,7 +204,7 @@ def compile_queries(plan: QueryPlan) -> list[str]:
         return [query]
 
     if plan.concept_relations:
-        constraints = plan.research_constraints
+        constraints = cast(ResearchConstraints, plan.research_constraints)
         content_quotes = (
             [
                 *constraints.population,
@@ -305,7 +308,7 @@ def compile_queries(plan: QueryPlan) -> list[str]:
         return focused
     if (
         plan.research_intent == "comparison"
-        and not plan.research_constraints.population
+        and not cast(ResearchConstraints, plan.research_constraints).population
         and len(comparison_groups) == 2
     ):
         queries = [queries[0], *comparison_groups]
@@ -335,8 +338,8 @@ def record_hit(record: OpenAlexRecord, fetched_at: datetime) -> EvidenceHit:
     identity = uuid5(NAMESPACE_URL, record.openalex_id)
     metadata = SourceMetadata(
         source_type="openalex",
-        source_url=record.openalex_id,
-        source_uri=record.openalex_id,
+        source_url=HttpUrl(record.openalex_id),
+        source_uri=HttpUrl(record.openalex_id),
         content_hash=record.content_hash,
         content_scope="abstract",
     )
@@ -408,7 +411,8 @@ def _has_fulltext_url(record: OpenAlexRecord | None) -> bool:
     if has.get("pdf") is True or has.get("grobid_xml") is True:
         return True
     if any(
-        isinstance(urls.get(key), str) and urls.get(key).strip() for key in ("pdf", "grobid_xml")
+        isinstance(urls.get(key), str) and cast(str, urls.get(key)).strip()
+        for key in ("pdf", "grobid_xml")
     ):
         return True
     locations = []
@@ -416,7 +420,8 @@ def _has_fulltext_url(record: OpenAlexRecord | None) -> bool:
         locations.append(record.best_oa_location)
     locations.extend(item for item in record.locations if isinstance(item, dict))
     return any(
-        isinstance(item.get("pdf_url"), str) and item.get("pdf_url").strip() for item in locations
+        isinstance(item.get("pdf_url"), str) and cast(str, item.get("pdf_url")).strip()
+        for item in locations
     )
 
 
@@ -470,7 +475,8 @@ class OpenAlexRetrievalService:
         provenance = OpenAlexProvenance(
             query_sent=queries[0], fetched_at=datetime.now(UTC), date_from=start, date_to=end
         )
-        pool, seen_dois, seen_pmids, seen_studies = {}, {}, {}, set()
+        pool: dict[str, EvidenceHit] = {}
+        seen_dois, seen_pmids, seen_studies = {}, {}, set()
         assessments = {}
         successful = 0
         identity_task = query_plan.task_intent in {"paper_explanation", "definition"}
@@ -621,7 +627,11 @@ class OpenAlexRetrievalService:
                 if start and (
                     publication.precision != "day"
                     or not start
-                    <= date(publication.year, publication.month, publication.day)
+                    <= date(
+                        cast(int, publication.year),
+                        cast(int, publication.month),
+                        cast(int, publication.day),
+                    )
                     <= end
                 ):
                     provenance.candidate_outcomes[identity] = "date_mismatch_or_unknown"
@@ -640,7 +650,7 @@ class OpenAlexRetrievalService:
                     "publication_date": publication.model_dump(mode="json"),
                     "paper_types": hit.document.publication_types,
                 }
-            context = {
+            context: dict[str, Any] = {
                 "question": request.question,
                 "task_intent": query_plan.task_intent,
                 "paper_target": query_plan.paper_target.model_dump()
@@ -742,17 +752,17 @@ class OpenAlexRetrievalService:
             code = next(
                 (w for w in provenance.warnings if w != "openalex_budget"), "openalex_timeout"
             )
-            raise ResearchError(code)
+            raise ResearchError(cast(ResearchCode, code))
         provenance.assessments = list(assessments.values())
         if direct and len(direct) < min(5, request.options.top_k):
             provenance.evidence_gaps.append("limited_independent_evidence")
         eligible = []
         for identity, hit in pool.items():
-            assessment = assessments.get(identity)
-            if assessment:
-                provenance.candidate_outcomes[identity] = assessment.relevance
-                if usable(assessment):
-                    eligible.append((identity, hit, assessment))
+            candidate_assessment = assessments.get(identity)
+            if candidate_assessment:
+                provenance.candidate_outcomes[identity] = candidate_assessment.relevance
+                if usable(candidate_assessment):
+                    eligible.append((identity, hit, candidate_assessment))
             elif identity not in provenance.candidate_outcomes:
                 provenance.candidate_outcomes[identity] = "not_screened"
 
@@ -768,10 +778,11 @@ class OpenAlexRetrievalService:
             )
 
         # Cover evidenced question dimensions before filling remaining quality slots.
-        selected, covered = [], set()
+        selected: list[tuple[str, EvidenceHit, CandidateAssessment]] = []
+        covered = set()
         remaining = sorted(eligible, key=quality)
         while remaining and len(selected) < request.options.top_k:
-            item = min(
+            chosen = min(
                 remaining,
                 key=lambda x: (
                     _missing_comparison_side(query_plan, x[1].document.title, selected),
@@ -781,9 +792,9 @@ class OpenAlexRetrievalService:
                     quality(x),
                 ),
             )
-            remaining.remove(item)
-            selected.append(item)
-            covered.update(item[2].covered_dimensions)
+            remaining.remove(chosen)
+            selected.append(chosen)
+            covered.update(chosen[2].covered_dimensions)
         hits = []
         online_rank = 0
         for identity, hit, _ in selected:

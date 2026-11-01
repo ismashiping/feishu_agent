@@ -1,0 +1,196 @@
+{
+  "run": "hot",
+  "events": [
+    {
+      "run": "hot",
+      "stage": "planner_response",
+      "status": "ok",
+      "seconds": 5.954
+    },
+    {
+      "run": "hot",
+      "stage": "planning",
+      "status": "ok",
+      "seconds": 5.954
+    },
+    {
+      "run": "hot",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 0,
+      "total": 0,
+      "seconds": 3.406
+    },
+    {
+      "run": "hot",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 0,
+      "total": 0,
+      "seconds": 1.078
+    },
+    {
+      "run": "hot",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 10,
+      "total": 17,
+      "seconds": 2.531
+    },
+    {
+      "run": "hot",
+      "stage": "search_http",
+      "status": "ok",
+      "returned": 10,
+      "total": 12,
+      "seconds": 1.812
+    },
+    {
+      "run": "hot",
+      "stage": "screening",
+      "status": "ok",
+      "seconds": 6.688
+    },
+    {
+      "run": "hot",
+      "stage": "retrieval",
+      "status": "ok",
+      "selected": 3,
+      "fulltext_papers": 0,
+      "passages": 0,
+      "warnings": [],
+      "seconds": 15.641
+    },
+    {
+      "run": "hot",
+      "stage": "cache_load",
+      "status": "ok",
+      "hit": false,
+      "seconds": 0.047
+    },
+    {
+      "run": "hot",
+      "stage": "download_parse",
+      "status": "ok",
+      "paper": "https://openalex.org/W4411994860",
+      "candidates": 3,
+      "units": 41,
+      "seconds": 5.14
+    },
+    {
+      "run": "hot",
+      "stage": "embed_passages",
+      "status": "ok",
+      "seconds": 14.516
+    },
+    {
+      "run": "hot",
+      "stage": "cache_publish",
+      "status": "ok",
+      "chunks": 48,
+      "seconds": 0.937
+    },
+    {
+      "run": "hot",
+      "stage": "embed_query",
+      "status": "ok",
+      "seconds": 0.109
+    },
+    {
+      "run": "hot",
+      "stage": "vector_search",
+      "status": "ok",
+      "seconds": 0.125
+    },
+    {
+      "run": "hot",
+      "stage": "cache_load",
+      "status": "ok",
+      "hit": false,
+      "seconds": 0.0
+    },
+    {
+      "run": "hot",
+      "stage": "download_parse",
+      "status": "ok",
+      "paper": "https://openalex.org/W7166805379",
+      "candidates": 3,
+      "units": 56,
+      "seconds": 1.235
+    },
+    {
+      "run": "hot",
+      "stage": "embed_passages",
+      "status": "failed",
+      "error_type": "EmbeddingError",
+      "code": "embedding_timeout",
+      "basis": null,
+      "seconds": 13.906
+    },
+    {
+      "run": "hot",
+      "stage": "fulltext_rag",
+      "status": "ok",
+      "selected": 3,
+      "fulltext_papers": 1,
+      "passages": 3,
+      "warnings": [
+        "doi:10.1093/jamiaopen/ooaf065:fulltext_available",
+        "doi:10.1080/0886022x.2026.2690700:fulltext_embedding_failed",
+        "doi:10.1080/0886022x.2025.2611198:fulltext_budget;stage_deadline"
+      ],
+      "seconds": 40.453
+    },
+    {
+      "run": "hot",
+      "stage": "analysis",
+      "status": "ok",
+      "seconds": 10.828
+    },
+    {
+      "run": "hot",
+      "stage": "report_review",
+      "status": "ok",
+      "seconds": 6.656
+    },
+    {
+      "run": "hot",
+      "stage": "analysis",
+      "status": "failed",
+      "error_type": "ResearchError",
+      "code": "generation_timeout",
+      "basis": null,
+      "seconds": 10.609
+    }
+  ],
+  "model_load_seconds": 60.75,
+  "question": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "results": [
+    {
+      "run": "hot",
+      "before": {
+        "indexes": 1,
+        "vectors": 33
+      },
+      "status": "failed",
+      "error_type": "ResearchError",
+      "code": "generation_timeout",
+      "details": {},
+      "seconds": 90.203,
+      "after": {
+        "indexes": 2,
+        "vectors": 81
+      }
+    }
+  ],
+  "before": {
+    "indexes": 1,
+    "vectors": 33
+  },
+  "limits": {
+    "max_seconds": 90.0,
+    "generation_seconds": 60.0,
+    "max_context_characters": 32000,
+    "max_output_bytes": 32000
+  }
+}

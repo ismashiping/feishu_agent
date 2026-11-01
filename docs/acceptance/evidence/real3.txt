@@ -1,0 +1,31 @@
+Dedicated database migrated to oa3003_0011
+FF                                                                       [100%]
+================================== FAILURES ===================================
+_______________ test_real_http_api_ingestion_and_retired_scope ________________
+tests\integration\test_api_pipeline.py:132: in test_real_http_api_ingestion_and_retired_scope
+    assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "p107_0002"
+E   AssertionError: assert 'oa3003_0011' == 'p107_0002'
+E     
+E     - p107_0002
+E     + oa3003_0011
+________ test_cli_ingestion_and_retired_scope_with_real_model_database ________
+tests\integration\test_command_pipeline.py:138: in test_cli_ingestion_and_retired_scope_with_real_model_database
+    assert connection.scalar(text("SELECT version_num FROM alembic_version")) == "p107_0002"
+E   AssertionError: assert 'oa3003_0011' == 'p107_0002'
+E     
+E     - p107_0002
+E     + oa3003_0011
+============================== warnings summary ===============================
+.venv\Lib\site-packages\_pytest\cacheprovider.py:469
+  E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\cacheprovider.py:469: PytestCacheWarning: could not create cache path E:\02_Projects\chatgpt_project\clinical_agent\.artifacts\tmp\pytest-cache\v\cache\nodeids: [WinError 5] 拒绝访问。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\pytest-cache\\v\\cache'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+.venv\Lib\site-packages\_pytest\cacheprovider.py:423
+  E:\02_Projects\chatgpt_project\clinical_agent\.venv\Lib\site-packages\_pytest\cacheprovider.py:423: PytestCacheWarning: could not create cache path E:\02_Projects\chatgpt_project\clinical_agent\.artifacts\tmp\pytest-cache\v\cache\lastfailed: [WinError 5] 拒绝访问。: 'E:\\02_Projects\\chatgpt_project\\clinical_agent\\.artifacts\\tmp\\pytest-cache\\v\\cache'
+    config.cache.set("cache/lastfailed", self.lastfailed)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/integration/test_api_pipeline.py::test_real_http_api_ingestion_and_retired_scope
+FAILED tests/integration/test_command_pipeline.py::test_cli_ingestion_and_retired_scope_with_real_model_database
+2 failed, 2 warnings in 4.01s

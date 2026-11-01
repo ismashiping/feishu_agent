@@ -1,0 +1,82 @@
+{
+  "entry": "OpenAlexClient.search (diagnostic only; not planned or model-screened)",
+  "query": "acute kidney injury machine learning MIMIC ICU",
+  "authenticated": false,
+  "returned": 10,
+  "total": 4238,
+  "warnings": [],
+  "works": [
+    {
+      "id": "https://openalex.org/W7213476980",
+      "title": "Machine Learning Prediction and Causal Forest Analysis of Severe Acute Kidney Injury in ICU Patients with COPD: A MIMIC-IV Study",
+      "doi": null,
+      "abstract_status": "available",
+      "candidate_count": 0
+    },
+    {
+      "id": "https://openalex.org/W7213148636",
+      "title": "Machine Learning Prediction and Causal Forest Analysis of Severe Acute Kidney Injury in ICU Patients with COPD: A MIMIC-IV Study",
+      "doi": "10.2147/copd.s611985",
+      "abstract_status": "available",
+      "candidate_count": 0
+    },
+    {
+      "id": "https://openalex.org/W4417298968",
+      "title": "Machine Learning-Based Prediction of ICU Mortality in Sepsis-Associated Acute Kidney Injury Patients Using MIMIC-IV Database with Validation from eICU Database",
+      "doi": "10.48550/arxiv.2502.17978",
+      "abstract_status": "available",
+      "candidate_count": 1
+    },
+    {
+      "id": "https://openalex.org/W4280556240",
+      "title": "Machine learning for the prediction of acute kidney injury in patients with sepsis",
+      "doi": "10.1186/s12967-022-03364-0",
+      "abstract_status": "available",
+      "candidate_count": 3
+    },
+    {
+      "id": "https://openalex.org/W2946302516",
+      "title": "Machine learning for the prediction of volume responsiveness in patients with oliguric acute kidney injury in critical care",
+      "doi": "10.1186/s13054-019-2411-z",
+      "abstract_status": "available",
+      "candidate_count": 0
+    },
+    {
+      "id": "https://openalex.org/W2914405142",
+      "title": "Predicting in-hospital mortality of patients with acute kidney injury in the ICU using random forest model",
+      "doi": "10.1016/j.ijmedinf.2019.02.002",
+      "abstract_status": "missing",
+      "candidate_count": 0
+    },
+    {
+      "id": "https://openalex.org/W3091454251",
+      "title": "Predicting acute kidney injury in critically ill patients using comorbid conditions utilizing machine learning",
+      "doi": "10.1093/ckj/sfaa145",
+      "abstract_status": "available",
+      "candidate_count": 3
+    },
+    {
+      "id": "https://openalex.org/W4200215312",
+      "title": "Application of Machine Learning to Predict Acute Kidney Disease in Patients With Sepsis Associated Acute Kidney Injury",
+      "doi": "10.3389/fmed.2021.792974",
+      "abstract_status": "available",
+      "candidate_count": 3
+    },
+    {
+      "id": "https://openalex.org/W2914416972",
+      "title": "Early prediction of acute kidney injury following ICU admission using a multivariate panel of physiological measurements",
+      "doi": "10.1186/s12911-019-0733-z",
+      "abstract_status": "available",
+      "candidate_count": 3
+    },
+    {
+      "id": "https://openalex.org/W4281633150",
+      "title": "Application of interpretable machine learning for early prediction of prognosis in acute kidney injury",
+      "doi": "10.1016/j.csbj.2022.06.003",
+      "abstract_status": "available",
+      "candidate_count": 3
+    }
+  ],
+  "snapshot_check": "passed",
+  "seconds": 1.7820000000065193
+}

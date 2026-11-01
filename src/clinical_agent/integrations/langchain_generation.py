@@ -6,7 +6,7 @@ import json
 import math
 from copy import deepcopy
 from time import monotonic
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from clinical_agent.domain.pico import PICO_INSTRUCTIONS, ClassificationRequest, ExtractionDraft
 from clinical_agent.domain.research import GenerationInput, ResearchError
@@ -134,7 +134,7 @@ class LangChainAnswerGenerator:
             raise ResearchError("generation_timeout")
         self.completion_details = {}
         deadline = monotonic() + timeout_seconds
-        request_kwargs: dict[str, object] = {}
+        request_kwargs: dict[str, Any] = {}
         if disable_thinking or max_output_tokens is not None:
             # Provider thinking is on by default and can consume the whole output budget,
             # leaving content empty. Structured JSON calls need that content.
@@ -202,7 +202,7 @@ def _log_rejected_output(message: object) -> None:
         usage = meta.get("usage")
     details = usage.get("completion_tokens_details") if isinstance(usage, dict) else None
     if isinstance(details, dict) and "reasoning_tokens" in details:
-        reasoning: int | str = details.get("reasoning_tokens")
+        reasoning = details.get("reasoning_tokens")
         if type(reasoning) is not int or not 0 <= reasoning <= 1_000_000:
             reasoning = "unknown"
     else:

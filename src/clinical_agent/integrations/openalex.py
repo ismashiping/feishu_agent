@@ -4,6 +4,7 @@ import json
 from contextlib import contextmanager
 from datetime import date
 from time import monotonic
+from typing import cast
 
 import httpx
 from pydantic import Field, SecretStr
@@ -36,7 +37,8 @@ class OpenAlexClient:
         params = {"search": query, "per_page": "10", "sort": sort}
         if date_from is not None:
             params["filter"] = (
-                f"from_publication_date:{date_from.isoformat()},to_publication_date:{date_to.isoformat()}"
+                f"from_publication_date:{date_from.isoformat()},"
+                f"to_publication_date:{cast(date, date_to).isoformat()}"
             )
         headers = {"Authorization": f"Bearer {self.api_key}"} if self.api_key else {}
         deadline = monotonic() + timeout_seconds

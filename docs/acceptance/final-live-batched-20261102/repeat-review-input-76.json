@@ -1,0 +1,418 @@
+{
+  "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "research_constraints": {
+    "population": [
+      "患者"
+    ],
+    "task": [
+      "预测患者发生急性肾损伤的风险"
+    ],
+    "data_type": [
+      "公开 ICU 临床数据"
+    ],
+    "paper_type": [],
+    "answer_dimensions": [
+      "已有类似研究",
+      "已有研究主要采用的方法",
+      "研究差异",
+      "数据、方法、算力和验证方面的可行性"
+    ],
+    "time_text": "目前",
+    "time_intent": "unspecified",
+    "years": null,
+    "year_from": null,
+    "year_to": null
+  },
+  "idea_comparisons": [
+    {
+      "document_id": "186fe080-74df-524c-8652-a1f3e4c89ce3",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "该综述聚焦ICU急性肾损伤风险预测模型，与用户预测AKI风险的问题方向一致。",
+      "evidence": [
+        {
+          "chunk_id": "c64a7d92-b110-5534-b445-41d9a851f1e6",
+          "quote": "Prediction models of AKI in ICU (n=21) An, S."
+        }
+      ]
+    },
+    {
+      "document_id": "186fe080-74df-524c-8652-a1f3e4c89ce3",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "overlap",
+      "reason": "综述专门汇总ICU人群的AKI预测模型，与用户关注的ICU患者人群重叠。",
+      "evidence": [
+        {
+          "chunk_id": "c64a7d92-b110-5534-b445-41d9a851f1e6",
+          "quote": "Prediction models of AKI in ICU (n=21) An, S."
+        }
+      ]
+    },
+    {
+      "document_id": "186fe080-74df-524c-8652-a1f3e4c89ce3",
+      "dimension": "methods",
+      "idea_quote": "利用机器学习或深度学习模型",
+      "relation": "partial_overlap",
+      "reason": "综述涵盖机器学习集成与时间序列模型，但也包含传统logistic回归，与用户偏重机器学习/深度学习不完全一致。",
+      "evidence": [
+        {
+          "chunk_id": "d1a644f8-4971-5511-b78d-8df886a16e88",
+          "quote": "et al 2020[125] at 24 hours after ICU admission within 48 hours after a given prediction time point during ICU admission, dynamically Probab ly No Probab ly Yes ML ensemble learning and time series model AUC: 0.806± 0.002 F1 score: 0.44 Yes No Wiersema, R."
+        }
+      ]
+    },
+    {
+      "document_id": "346f40e2-fcd7-5023-bd38-c1df77f0aaa2",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "该综述系统评价AKI机器学习预测模型，与用户预测AKI风险的研究问题一致。",
+      "evidence": [
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Findings\nWe reviewed and critically appraised ML models for the pre-\ndiction of AKI in terms of performance, methodological sound-\nness, and clinical applicability."
+        }
+      ]
+    },
+    {
+      "document_id": "346f40e2-fcd7-5023-bd38-c1df77f0aaa2",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "overlap",
+      "reason": "综述指出模型多针对ICU人群开发，与用户ICU患者人群重叠。",
+      "evidence": [
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Models were mostly developed\nfor the ICU population, followed by the general hospital and\n(cardiac) surgery populations."
+        }
+      ]
+    },
+    {
+      "document_id": "346f40e2-fcd7-5023-bd38-c1df77f0aaa2",
+      "dimension": "methods",
+      "idea_quote": "利用机器学习或深度学习模型",
+      "relation": "overlap",
+      "reason": "综述纳入机器学习模型并提及深度学习模型的出现，与用户方法方向一致。",
+      "evidence": [
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Although deep-learning models\nhave emerged since 2014,more traditional,flexible ML methods\n(random forest and gradient-boosted trees) are still widely used\nto predict AKI."
+        }
+      ]
+    },
+    {
+      "document_id": "346f40e2-fcd7-5023-bd38-c1df77f0aaa2",
+      "dimension": "outcomes",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "综述以模型区分度与校准作为评价结局，与用户预测AKI风险的目标一致。",
+      "evidence": [
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Althoughallstudiesprovidedmodeldiscrimination,equallyim-\nportantmeasuresofcalibrationwererare."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c25",
+      "section": 5,
+      "text": "question：overlap；该综述系统评价AKI机器学习预测模型，与用户预测AKI风险的研究问题一致。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Findings\nWe reviewed and critically appraised ML models for the pre-\ndiction of AKI in terms of performance, methodological sound-\nness, and clinical applicability."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "结合用户原始约束及文献复核相似性"
+    },
+    {
+      "claim_id": "c26",
+      "section": 6,
+      "text": "supports；可比性：两篇均为AKI风险预测模型的综述，一篇覆盖含传统回归在内的预测模型，另一篇专门聚焦机器学习模型，范围部分重叠。；两篇综述均涉及ICU人群AKI预测，且都报告机器学习方法的使用，方向相互支持；但纳入标准与方法学评价重点不同，不能直接合并结论。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "c64a7d92-b110-5534-b445-41d9a851f1e6",
+          "quote": "Prediction models of AKI in ICU (n=21) An, S."
+        },
+        {
+          "chunk_id": "d1a644f8-4971-5511-b78d-8df886a16e88",
+          "quote": "et al 2020[125] at 24 hours after ICU admission within 48 hours after a given prediction time point during ICU admission, dynamically Probab ly No Probab ly Yes ML ensemble learning and time series model AUC: 0.806± 0.002 F1 score: 0.44 Yes No Wiersema, R."
+        },
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Models were mostly developed\nfor the ICU population, followed by the general hospital and\n(cardiac) surgery populations."
+        },
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Although deep-learning models\nhave emerged since 2014,more traditional,flexible ML methods\n(random forest and gradient-boosted trees) are still widely used\nto predict AKI."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "复核两侧研究设计、人群与结局"
+    },
+    {
+      "claim_id": "c27",
+      "section": 6,
+      "text": "现有AKI机器学习预测模型多缺乏外部验证，且校准报告较少，提示在公开ICU数据上开展带外部验证与校准评估的研究仍有空间。；推理：综述指出多数模型未外部验证，同时提到所有研究均报告区分度但校准少见，二者共同指向验证环节的薄弱点。；范围：ICU人群AKI机器学习预测模型的验证与校准报告",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Mostmodelswerenot\nexternally validated."
+        },
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Althoughallstudiesprovidedmodeldiscrimination,equallyim-\nportantmeasuresofcalibrationwererare."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需检索更多原始研究确认外部验证与校准报告的实际比例，不能仅凭本综述推断研究空白。"
+    },
+    {
+      "claim_id": "c28",
+      "section": 7,
+      "text": "可供进一步调查的方向：现有AKI机器学习预测模型多缺乏外部验证，且校准报告较少，提示在公开ICU数据上开展带外部验证与校准评估的研究仍有空间。",
+      "epistemic_kind": "unverified_hypothesis",
+      "evidence": [
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Mostmodelswerenot\nexternally validated."
+        },
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "quote": "Althoughallstudiesprovidedmodeldiscrimination,equallyim-\nportantmeasuresofcalibrationwererare."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需检索更多原始研究确认外部验证与校准报告的实际比例，不能仅凭本综述推断研究空白。"
+    },
+    {
+      "claim_id": "c29",
+      "section": 6,
+      "text": "缺失数据处理在AKI预测模型研究中报告不一致，部分研究未说明或未做插补，提示数据预处理规范是可探讨的方法学差异点。；推理：综述报告部分研究未说明缺失数据或未插补，而少数研究使用MICE，显示预处理做法存在差异。；范围：AKI机器学习预测模型的数据预处理与缺失值处理",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "a4299844-ae93-5a0b-8a40-e950d29f035c",
+          "quote": "Data pre-processing\nTwelve studies (26%) did not specify whether missing data were\npresent or how they were treated,and five (11%) did not use any\nimputationmethod."
+        },
+        {
+          "chunk_id": "a4299844-ae93-5a0b-8a40-e950d29f035c",
+          "quote": "Four studies (8%) applied the mul-\ntivariate imputation by chained equations (MICE) [42] method\n(Supplementary Figure S3)."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核对原始研究确认缺失处理对模型性能的影响，不能据此断言缺失处理决定性能。"
+    },
+    {
+      "claim_id": "c30",
+      "section": 7,
+      "text": "可供进一步调查的方向：缺失数据处理在AKI预测模型研究中报告不一致，部分研究未说明或未做插补，提示数据预处理规范是可探讨的方法学差异点。",
+      "epistemic_kind": "unverified_hypothesis",
+      "evidence": [
+        {
+          "chunk_id": "a4299844-ae93-5a0b-8a40-e950d29f035c",
+          "quote": "Data pre-processing\nTwelve studies (26%) did not specify whether missing data were\npresent or how they were treated,and five (11%) did not use any\nimputationmethod."
+        },
+        {
+          "chunk_id": "a4299844-ae93-5a0b-8a40-e950d29f035c",
+          "quote": "Four studies (8%) applied the mul-\ntivariate imputation by chained equations (MICE) [42] method\n(Supplementary Figure S3)."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核对原始研究确认缺失处理对模型性能的影响，不能据此断言缺失处理决定性能。"
+    }
+  ],
+  "sources": [
+    {
+      "document_id": "346f40e2-fcd7-5023-bd38-c1df77f0aaa2",
+      "title": "Machine learning models for predicting acute kidney injury: a systematic review and critical appraisal",
+      "publication_types": [
+        "review"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "text": "Findings\nWe reviewed and critically appraised ML models for the pre-\ndiction of AKI in terms of performance, methodological sound-\nness, and clinical applicability.",
+          "location": {
+            "kind": "fulltext",
+            "page": 6,
+            "section": "Discussion",
+            "start": 20479,
+            "end": 21227
+          }
+        },
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "text": "Models were mostly developed\nfor the ICU population, followed by the general hospital and\n(cardiac) surgery populations.",
+          "location": {
+            "kind": "fulltext",
+            "page": 6,
+            "section": "Discussion",
+            "start": 20479,
+            "end": 21227
+          }
+        },
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "text": "Although deep-learning models\nhave emerged since 2014,more traditional,flexible ML methods\n(random forest and gradient-boosted trees) are still widely used\nto predict AKI.",
+          "location": {
+            "kind": "fulltext",
+            "page": 6,
+            "section": "Discussion",
+            "start": 20479,
+            "end": 21227
+          }
+        },
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "text": "Mostmodelswerenot\nexternally validated.",
+          "location": {
+            "kind": "fulltext",
+            "page": 6,
+            "section": "Discussion",
+            "start": 20479,
+            "end": 21227
+          }
+        },
+        {
+          "chunk_id": "a20fbf3a-42c8-565c-979a-63c39f82e8d7",
+          "text": "Althoughallstudiesprovidedmodeldiscrimination,equallyim-\nportantmeasuresofcalibrationwererare.",
+          "location": {
+            "kind": "fulltext",
+            "page": 6,
+            "section": "Discussion",
+            "start": 20479,
+            "end": 21227
+          }
+        },
+        {
+          "chunk_id": "a4299844-ae93-5a0b-8a40-e950d29f035c",
+          "text": "Data pre-processing\nTwelve studies (26%) did not specify whether missing data were\npresent or how they were treated,and five (11%) did not use any\nimputationmethod.",
+          "location": {
+            "kind": "fulltext",
+            "page": 6,
+            "section": "Results",
+            "start": 17695,
+            "end": 18871
+          }
+        },
+        {
+          "chunk_id": "a4299844-ae93-5a0b-8a40-e950d29f035c",
+          "text": "Four studies (8%) applied the mul-\ntivariate imputation by chained equations (MICE) [42] method\n(Supplementary Figure S3).",
+          "location": {
+            "kind": "fulltext",
+            "page": 6,
+            "section": "Results",
+            "start": 17695,
+            "end": 18871
+          }
+        }
+      ]
+    },
+    {
+      "document_id": "186fe080-74df-524c-8652-a1f3e4c89ce3",
+      "title": "Characterization of Risk Prediction Models for Acute Kidney Injury",
+      "publication_types": [
+        "review"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "c64a7d92-b110-5534-b445-41d9a851f1e6",
+          "text": "Prediction models of AKI in ICU (n=21) An, S.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Middle East",
+            "start": 55846,
+            "end": 56609
+          }
+        },
+        {
+          "chunk_id": "d1a644f8-4971-5511-b78d-8df886a16e88",
+          "text": "et al 2020[125] at 24 hours after ICU admission within 48 hours after a given prediction time point during ICU admission, dynamically Probab ly No Probab ly Yes ML ensemble learning and time series model AUC: 0.806± 0.002 F1 score: 0.44 Yes No Wiersema, R.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Middle East",
+            "start": 59548,
+            "end": 60217
+          }
+        }
+      ]
+    }
+  ],
+  "output_schema": {
+    "$defs": {
+      "ClaimReview": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "title": "Claim Id",
+            "type": "string"
+          },
+          "support_status": {
+            "enum": [
+              "supported",
+              "partially_supported",
+              "unsupported",
+              "uncertain"
+            ],
+            "title": "Support Status",
+            "type": "string"
+          },
+          "basis": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Basis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "support_status",
+          "basis"
+        ],
+        "title": "ClaimReview",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "reviews": {
+        "items": {
+          "$ref": "#/$defs/ClaimReview"
+        },
+        "maxItems": 500,
+        "title": "Reviews",
+        "type": "array"
+      }
+    },
+    "required": [
+      "reviews"
+    ],
+    "title": "ReviewDraft",
+    "type": "object"
+  }
+}

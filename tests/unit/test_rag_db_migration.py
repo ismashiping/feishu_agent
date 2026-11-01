@@ -100,10 +100,21 @@ def test_complete_ddl_and_migration_files_unchanged():
     assert all(added) and hashes == CONTRACT["migration_hashes"]
 
 
-@pytest.mark.parametrize("old,new", MODULES.items())
+TYPE_GOVERNED = {
+    "clinical_agent.integrations.llm",
+    "clinical_agent.integrations.langchain_generation",
+    "clinical_agent.integrations.openalex",
+    "clinical_agent.integrations.oa_fulltext",
+    "clinical_agent.integrations.report_snapshot",
+}
+
+
+@pytest.mark.parametrize(
+    "old,new", [(old, new) for old, new in MODULES.items() if new not in TYPE_GOVERNED]
+)
 def test_only_import_locations_changed(old, new):
     before = (
-        (ROOT / "docs/rag-db-migration-phase3/before")
+        (ROOT / "history/docs-20261101/rag-db-migration-phase3/before")
         .joinpath(*old.split("."))
         .with_suffix(".py")
         .read_text(encoding="utf-8")

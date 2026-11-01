@@ -3,12 +3,14 @@
 import json
 import re
 from hashlib import sha256
+from typing import cast
 from uuid import NAMESPACE_URL, uuid5
 
 from clinical_agent.domain.fulltext import FulltextPassage, FulltextUnit, paper_key
 from clinical_agent.domain.governance import BLOCKED_STATUSES
 from clinical_agent.domain.retrieval import retrieval_embedding_info
-from clinical_agent.integrations.oa_fulltext import Acquisition
+from clinical_agent.integrations.oa_fulltext import Acquisition, AcquisitionError
+from clinical_agent.logging_config import log_unexpected
 
 SIGNATURE = "oa-content-tei-pdf-location-v2:" + retrieval_embedding_info().model_dump_json()
 
@@ -141,6 +143,7 @@ def _nearest(passages, vectors, query, limit):
 def enrich_openalex(service, question, result, *, deadline):
     from llama_index.core import Document
     from llama_index.core.node_parser import SentenceSplitter
+    from llama_index.core.schema import TextNode
 
     deadline = min(deadline, service.clock() + 60.0)
     acquisition_deadline = min(deadline, service.clock() + 50.0)
@@ -153,7 +156,7 @@ def enrich_openalex(service, question, result, *, deadline):
         if key in seen:
             continue
         seen.add(key)
-        reason = "fulltext_budget"
+        reason = "fulltext_budget;stage_deadline"
         if service.clock() >= deadline:
             result.warnings.append(f"{key}:{reason}")
             continue
@@ -164,7 +167,7 @@ def enrich_openalex(service, question, result, *, deadline):
             held_vectors = None
             if payload is None:
                 if downloaded >= 6:
-                    raise ValueError("fulltext_budget")
+                    raise AcquisitionError("fulltext_budget", "paper_limit")
                 before = count[0]
                 try:
                     fetched = service.oa_source.fetch_record(record, acquisition_deadline, count)
@@ -205,7 +208,7 @@ def enrich_openalex(service, question, result, *, deadline):
                             continue
                         for node in splitter.get_nodes_from_documents([Document(text=unit.text)]):
                             text = node.get_content()
-                            position = node.start_char_idx
+                            position = cast(TextNode, node).start_char_idx
                             if (
                                 position is None
                                 or unit.text[position : position + len(text)] != text
@@ -231,8 +234,12 @@ def enrich_openalex(service, question, result, *, deadline):
                                 license=license_name,
                             )
                             chunks.append(passage.model_dump(mode="json"))
-                            if len(chunks) > 128 or service.clock() >= deadline:
-                                raise ValueError("fulltext_processing_budget")
+                            if len(chunks) > 128:
+                                raise AcquisitionError("fulltext_processing_budget", "chunk_limit")
+                            if service.clock() >= deadline:
+                                raise AcquisitionError(
+                                    "fulltext_processing_budget", "stage_deadline"
+                                )
                     if not chunks:
                         raise ValueError("fulltext_empty")
                     try:
@@ -244,7 +251,7 @@ def enrich_openalex(service, question, result, *, deadline):
                             raise ValueError("fulltext_embedding_failed") from None
                         raise
                     if service.clock() >= deadline:
-                        raise ValueError("fulltext_timeout")
+                        raise AcquisitionError("fulltext_timeout", "stage_deadline")
                     payload = {
                         "paper_key": key,
                         "passages": chunks,
@@ -312,7 +319,7 @@ def enrich_openalex(service, question, result, *, deadline):
                 ):
                     raise ValueError("fulltext_cache_location_mismatch")
             if service.clock() >= deadline:
-                raise ValueError("fulltext_timeout")
+                raise AcquisitionError("fulltext_timeout", "stage_deadline")
             hit.fulltext = rerank_passages(candidates, question)
             reason = "fulltext_available" if hit.fulltext else "fulltext_empty"
         except Exception as error:
@@ -320,6 +327,8 @@ def enrich_openalex(service, question, result, *, deadline):
             # OpenAlex answer generation does not use it as evidence.
             message = str(error)
             reason = message if re.fullmatch(r"fulltext_[a-z_]+", message) else "fulltext_failed"
+            if reason == "fulltext_failed":
+                log_unexpected("fulltext", error)
             detail = getattr(error, "basis", "")
             if isinstance(detail, str) and re.fullmatch(r"[a-z0-9_.:-]{1,80}", detail):
                 reason = f"{reason};{detail}"

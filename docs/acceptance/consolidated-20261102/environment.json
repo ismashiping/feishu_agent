@@ -1,0 +1,25 @@
+{
+  "python": "3.12.16 (main, Oct 26 2026, 14:10:56) [MSC v.1944 64 bit (AMD64)]",
+  "packages": {
+    "pytest": "9.1.1",
+    "ruff": "0.17.2",
+    "mypy": "2.4.0",
+    "httpx": "0.28.1",
+    "pydantic": "2.14.1",
+    "SQLAlchemy": "2.1.6",
+    "pgvector": "0.5.1",
+    "alembic": "1.20.1",
+    "sentence-transformers": "6.2.0",
+    "torch": "2.14.1+cpu",
+    "llama-index-core": "0.14.22",
+    "langchain-openai": "1.7.3",
+    "langgraph": "1.2.17"
+  },
+  "llm_key_present": true,
+  "openalex_key_present": true,
+  "test_database": "clinical_agent_test_context_20261102",
+  "revision": "oa3003_0011",
+  "pgvector": "0.8.7",
+  "index_count": 11,
+  "vector_count": 511
+}

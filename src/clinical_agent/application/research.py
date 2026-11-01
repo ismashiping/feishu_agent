@@ -4,6 +4,7 @@ from collections.abc import Callable
 from datetime import UTC, datetime
 from time import monotonic
 from typing import Any, Protocol, TypeVar
+from uuid import UUID
 
 from clinical_agent.agents.graph import build_research_graph
 from clinical_agent.agents.nodes import (
@@ -80,9 +81,10 @@ class ResearchService:
 
     def _plan(self, state: State) -> dict[str, object]:
         assert self._idea_agent is not None
-        patch = dict(self._idea_agent(state))
+        agent_patch = self._idea_agent(state)
+        patch: dict[str, object] = dict(agent_patch)
         if state.get("auto_route"):
-            plan = patch["query_plan"]
+            plan = agent_patch["query_plan"]
             if plan.task_intent is None:
                 log_extraction_rejection(
                     stage="route",
@@ -149,18 +151,20 @@ class ResearchService:
         return remaining
 
     def _retrieve(self, state: State) -> dict[str, object]:
-        patch = dict(self._scout_agent(state))
+        scout_patch = self._scout_agent(state)
+        retrieval = scout_patch["retrieval"]
+        patch: dict[str, object] = dict(scout_patch)
         if self._fulltext is not None:
             try:
                 patch["retrieval"] = self._fulltext.enrich(
                     state["request"].question,
                     patch["retrieval"],
-                    deadline=min(state["deadline"] - 30.0, self._clock() + 60.0),
+                    deadline=min(state["deadline"] - 60.0, self._clock() + 60.0),
                 )
             except Exception as error:
                 # Degrades to insufficient_evidence; the cause must stay diagnosable.
                 log_unexpected("fulltext", error)
-                patch["retrieval"].warnings.append("fulltext_unavailable")
+                retrieval.warnings.append("fulltext_unavailable")
         return patch
 
     def _route(self, state: State) -> str:
@@ -182,13 +186,13 @@ class ResearchService:
 
         retrieval = state["retrieval"].model_copy(deep=True)
         provenance = retrieval.search_provenance
-        evidence_groups = {}
+        evidence_groups: dict[str, list[UUID]] = {}
         study_roles = {}
         openalex = isinstance(provenance, OpenAlexProvenance)
         hits = [hit for hit in retrieval.hits if hit.fulltext] if openalex else retrieval.hits
         if openalex and not hits:
             raise ResearchError("research_failed")
-        if openalex:
+        if isinstance(provenance, OpenAlexProvenance):
             by_identity = {
                 (
                     h.document.openalex_record.openalex_id
@@ -312,13 +316,26 @@ class ResearchService:
         report = patch["report"]
         target = EvidenceReviewerAgent.feedback(report)
         exhausted = state.get("feedback_rounds", 0) >= self._max_feedback_rounds
-        if target != "stop" and exhausted and report.status != "rejected":
+        # Measured first-pass costs require a whole bounded cycle, not just
+        # enough time to start another model call. Preserve the current report.
+        feedback_seconds = 135.0 if target == "scout" else 90.0
+        budget_limited = target != "stop" and self._remaining(state) < feedback_seconds
+        if target != "stop" and (exhausted or budget_limited) and report.status != "rejected":
             report.status = "verification_incomplete"
         report.feedback_history = list(state.get("feedback_history", []))
         report.feedback_stop = (
-            "round_limit" if target != "stop" and exhausted else "no_actionable_feedback"
+            "round_limit"
+            if target != "stop" and exhausted
+            else "budget_limit"
+            if budget_limited
+            else "no_actionable_feedback"
         )
-        if target == "stop" or exhausted or report.content_status == "needs_clarification":
+        if (
+            target == "stop"
+            or exhausted
+            or budget_limited
+            or report.content_status == "needs_clarification"
+        ):
             patch["feedback_target"] = "stop"
         else:
             patch["feedback_target"] = target

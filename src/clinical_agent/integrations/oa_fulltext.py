@@ -9,6 +9,7 @@ HTTPS, public-network, size, timeout, file-type and title/DOI checks stay.
 
 import gzip
 import ipaddress
+import logging
 import re
 import socket
 import tempfile
@@ -250,7 +251,9 @@ def parse_tei(raw: bytes, record: OpenAlexRecord) -> list[FulltextUnit]:
         if "10." not in text.casefold():
             continue
         try:
-            header_dois.append(normalize_doi(text))
+            normalized_doi = normalize_doi(text)
+            if normalized_doi is not None:
+                header_dois.append(normalized_doi)
         except ValueError:
             continue
     title_ok = any(_same_title(record.title, title) for title in titles)
@@ -327,7 +330,7 @@ def parse_oa_pdf(raw: bytes, record: OpenAlexRecord) -> list[FulltextUnit]:
     repeated = {line for line, count in counts.items() if count >= max(3, len(pages) * 0.6)}
     section, offset, units = "UNKNOWN", 0, []
     for page, lines in pages:
-        content = []
+        content: list[str] = []
 
         def flush(current_section, page=page, content=content):
             nonlocal offset
@@ -362,7 +365,9 @@ def _dois_in(text: str) -> set[str]:
     found = set()
     for raw in re.findall(r"10\.\d{4,9}/\S+", text, flags=re.I):
         try:
-            found.add(normalize_doi(raw.rstrip(".,;:)]}>\"'")))
+            normalized_doi = normalize_doi(raw.rstrip(".,;:)]}>\"'"))
+            if normalized_doi is not None:
+                found.add(normalized_doi)
         except ValueError:
             continue
     return found
@@ -500,14 +505,16 @@ class OAFulltextSource:
         retried = False
         try:
             while redirects < 3:
-                if count[0] >= HTTP_LIMIT or monotonic() >= deadline:
-                    raise ValueError("fulltext_budget")
+                if count[0] >= HTTP_LIMIT:
+                    raise AcquisitionError("fulltext_budget", "http_limit")
+                if monotonic() >= deadline:
+                    raise AcquisitionError("fulltext_budget", "deadline")
                 parsed = urlsplit(url)
                 host = (parsed.hostname or "").lower()
                 safe_url(url, self.resolve)
                 count[0] += 1
                 if deadline - monotonic() <= 0:
-                    raise ValueError("fulltext_budget")
+                    raise AcquisitionError("fulltext_budget", "deadline")
                 headers = {
                     "Accept-Encoding": "gzip, deflate",
                     "User-Agent": "clinical-agent/fulltext",
@@ -548,23 +555,25 @@ class OAFulltextSource:
                         data = bytearray()
                         for block in response.iter_bytes():
                             data.extend(block)
-                            if len(data) > 10 * 1024 * 1024 or monotonic() >= deadline:
-                                raise ValueError("fulltext_budget")
+                            if monotonic() >= deadline:
+                                raise AcquisitionError("fulltext_budget", "deadline")
+                            if len(data) > 10 * 1024 * 1024:
+                                raise AcquisitionError("fulltext_budget", "file_size")
                         body = bytes(data)
                         if expect_pdf and not body.startswith(b"%PDF-"):
                             raise ValueError("fulltext_invalid_file")
                         return body, url.split("?", 1)[0]
             raise ValueError("fulltext_redirect_limit")
         except httpx.TimeoutException:
-            raise TimeoutError("fulltext_timeout") from None
+            raise AcquisitionError("fulltext_timeout", "http_timeout") from None
         except httpx.HTTPError:
             raise ValueError("fulltext_download_failed") from None
 
     def _remember(self, errors: list[AcquisitionError], error: BaseException) -> None:
         code = _public_code(error)
-        if code in {"fulltext_budget", "fulltext_timeout"}:
-            raise ValueError(code) from None
         basis = getattr(error, "basis", "")
+        if code == "fulltext_budget" and basis != "file_size":
+            raise error
         errors.append(AcquisitionError(code, basis if isinstance(basis, str) else ""))
 
     def _acquire(
@@ -586,11 +595,28 @@ class OAFulltextSource:
         candidates = fulltext_candidates(record)
         if not candidates:
             raise AcquisitionError("fulltext_no_fulltext_url")
-        for url, kind, license_name in candidates:
+        for candidate_index, (url, kind, license_name) in enumerate(candidates, 1):
+            started = monotonic()
             try:
                 return self._acquire(
                     record, url, deadline, count, kind=kind, license_name=license_name
                 )
-            except (ValueError, TimeoutError) as error:
+            except (ValueError, TimeoutError) as caught:
+                error: BaseException = caught
+                if monotonic() >= deadline:
+                    error = AcquisitionError("fulltext_budget", "deadline")
+                elif count[0] >= HTTP_LIMIT:
+                    error = AcquisitionError("fulltext_budget", "http_limit")
+                logging.getLogger(__name__).info(
+                    "Fulltext candidate paper=%s candidate=%d code=%s basis=%s "
+                    "elapsed=%.3f remaining=%.3f http_remaining=%d",
+                    record.openalex_id,
+                    candidate_index,
+                    _public_code(error),
+                    getattr(error, "basis", ""),
+                    monotonic() - started,
+                    max(0.0, deadline - monotonic()),
+                    max(0, HTTP_LIMIT - count[0]),
+                )
                 self._remember(errors, error)
         _raise_best(errors)

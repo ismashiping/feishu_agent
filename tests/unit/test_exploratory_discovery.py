@@ -124,7 +124,10 @@ def test_user_entry_default_is_hybrid_and_internal_request_stays_compatible():
     from clinical_agent.channels.feishu.sender import render_answer
 
     assert QuestionBody(question=QUESTION).scope == "hybrid"
-    assert QuestionBody(question=QUESTION, scope="local").scope == "local"
+    from pydantic import ValidationError
+
+    with pytest.raises(ValidationError):
+        QuestionBody(question=QUESTION, scope="local")
     assert QuestionRequest(question=QUESTION, request_id=uuid4()).scope == "local"
     # CLI/worker default construction is also exercised by existing entrypoint regressions.
     from clinical_agent.domain.research import ResearchAnswer

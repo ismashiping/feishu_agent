@@ -1,0 +1,16 @@
+{
+  "transport": "real loopback TCP / Uvicorn 0.54.0 / FastAPI 0.162.0",
+  "model_loads": 1,
+  "embedding": "real fixed local E5 CPU",
+  "database": "real PostgreSQL/pgvector",
+  "llm": "HTTPX MockTransport; NOT real model API",
+  "ingestion_statuses": [
+    "imported",
+    "already_present"
+  ],
+  "documents": 1,
+  "chunks": 1,
+  "retired_scope_http_status": 422,
+  "http_llm_calls": 0,
+  "question_generation": "not run: local retired"
+}

@@ -308,13 +308,13 @@ def test_cooperative_budget_after_external_call(setup_rag, stage):
     class SlowRetriever(Retriever):
         def retrieve(self, request):
             if stage == "retrieval":
-                now[0] = 91.0
+                now[0] = ResearchLimits().max_seconds + 1.0
             return super().retrieve(request)
 
     class SlowGenerator(Generator):
         def generate(self, context, *, timeout_seconds):
             output = super().generate(context, timeout_seconds=timeout_seconds)
-            now[0] = 91.0
+            now[0] = ResearchLimits().max_seconds + 1.0
             return output
 
     generator = SlowGenerator()

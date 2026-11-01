@@ -335,7 +335,7 @@ docs/learning/phase-XX/
 - `clinical_agent.agents` 只集中 LangGraph 状态、角色和 Graph 组装；`ResearchService` 继续是研究用例入口。
 - `clinical_agent.api` 负责 HTTP 边界、Lifespan、中间件和有界同步执行，不实现科研业务。
 - `clinical_agent.rag` 负责本地解析与 Embedding，`clinical_agent.integrations` 负责外部模型和在线来源，`clinical_agent.db` 负责 PostgreSQL 实现；业务规则继续位于 `application` / `domain`。
-- `clinical_agent.channels.feishu` 是飞书唯一实现；顶层 `feishu` 仅为兼容模块别名。事件过滤、Redis owner 租约、工作容量、发送队列和未知交付语义不得因结构调整改变。
+- `clinical_agent.channels.feishu` 是飞书唯一实现；Phase 5 已删除顶层 `feishu` 兼容包。事件过滤、Redis owner 租约、工作容量、发送队列和未知交付语义不得因结构调整改变。
 - 入口必须显式组装资源并管理关闭；导入模块时不得创建数据库连接、HTTP/LLM Client、Embedding 模型或后台线程。
 - 旧导入、入口或兼容模块只能在完成引用审计、验证和回滚方案并获得用户确认后删除。
 

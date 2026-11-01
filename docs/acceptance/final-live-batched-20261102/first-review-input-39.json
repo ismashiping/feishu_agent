@@ -1,0 +1,265 @@
+{
+  "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "research_constraints": {
+    "population": [
+      "患者"
+    ],
+    "task": [
+      "预测患者发生急性肾损伤的风险"
+    ],
+    "data_type": [
+      "公开 ICU 临床数据"
+    ],
+    "paper_type": [],
+    "answer_dimensions": [
+      "已有类似研究",
+      "已有研究主要采用的方法",
+      "研究差异",
+      "数据、方法、算力和验证方面的可行性"
+    ],
+    "time_text": null,
+    "time_intent": "unspecified",
+    "years": null,
+    "year_from": null,
+    "year_to": null
+  },
+  "idea_comparisons": [
+    {
+      "document_id": "e5282ea0-735a-547f-b8a6-be41d460f29a",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "partial_overlap",
+      "reason": "该研究聚焦于已有AKI机器学习模型的外部验证，而非新建模。",
+      "evidence": [
+        {
+          "chunk_id": "a97074cd-8d39-50d3-a158-926611a0c1a7",
+          "quote": "[8] take such an approach, aiming \nto validate a previously derived machine learning model for \nthe prediction of persistent severe AKI."
+        }
+      ]
+    },
+    {
+      "document_id": "e5282ea0-735a-547f-b8a6-be41d460f29a",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "partial_overlap",
+      "reason": "验证场景为普通ICU人群，但模型来源于肿瘤人群。",
+      "evidence": [
+        {
+          "chunk_id": "b1bbee22-0b24-58dd-840f-5032d7617d8c",
+          "quote": "The two clinical scenarios ICU and cancer \npopulation in any situation (active treatment up to follow-up) \ndiffer in multiple aspects."
+        }
+      ]
+    },
+    {
+      "document_id": "e5282ea0-735a-547f-b8a6-be41d460f29a",
+      "dimension": "data",
+      "idea_quote": "公开 ICU 临床数据",
+      "relation": "overlap",
+      "reason": "涉及MIMIC数据。",
+      "evidence": [
+        {
+          "chunk_id": "b1bbee22-0b24-58dd-840f-5032d7617d8c",
+          "quote": "data from MIMIC."
+        }
+      ]
+    },
+    {
+      "document_id": "e5282ea0-735a-547f-b8a6-be41d460f29a",
+      "dimension": "methods",
+      "idea_quote": "机器学习或深度学习模型",
+      "relation": "partial_overlap",
+      "reason": "涉及机器学习模型的验证而非开发。",
+      "evidence": [
+        {
+          "chunk_id": "a97074cd-8d39-50d3-a158-926611a0c1a7",
+          "quote": "[8] take such an approach, aiming \nto validate a previously derived machine learning model for \nthe prediction of persistent severe AKI."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c43",
+      "section": 5,
+      "text": "data：overlap；涉及MIMIC数据。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "b1bbee22-0b24-58dd-840f-5032d7617d8c",
+          "quote": "data from MIMIC."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "结合用户原始约束及文献复核相似性"
+    },
+    {
+      "claim_id": "c44",
+      "section": 5,
+      "text": "methods：partial_overlap；涉及机器学习模型的验证而非开发。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "a97074cd-8d39-50d3-a158-926611a0c1a7",
+          "quote": "[8] take such an approach, aiming \nto validate a previously derived machine learning model for \nthe prediction of persistent severe AKI."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "结合用户原始约束及文献复核相似性"
+    },
+    {
+      "claim_id": "c45",
+      "section": 5,
+      "text": "outcomes：unknown；Not reported in the supplied evidence.",
+      "epistemic_kind": "model_inference",
+      "evidence": [],
+      "information_missing": true,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "结合用户原始约束及文献复核相似性"
+    },
+    {
+      "claim_id": "c46",
+      "section": 5,
+      "text": "population：partial_overlap；验证场景为普通ICU人群，但模型来源于肿瘤人群。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "b1bbee22-0b24-58dd-840f-5032d7617d8c",
+          "quote": "The two clinical scenarios ICU and cancer \npopulation in any situation (active treatment up to follow-up) \ndiffer in multiple aspects."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "结合用户原始约束及文献复核相似性"
+    },
+    {
+      "claim_id": "c47",
+      "section": 5,
+      "text": "question：partial_overlap；该研究聚焦于已有AKI机器学习模型的外部验证，而非新建模。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "a97074cd-8d39-50d3-a158-926611a0c1a7",
+          "quote": "[8] take such an approach, aiming \nto validate a previously derived machine learning model for \nthe prediction of persistent severe AKI."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "结合用户原始约束及文献复核相似性"
+    },
+    {
+      "claim_id": "c48",
+      "section": 5,
+      "text": "data：unknown；Not reported in the supplied evidence.",
+      "epistemic_kind": "model_inference",
+      "evidence": [],
+      "information_missing": true,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "结合用户原始约束及文献复核相似性"
+    }
+  ],
+  "sources": [
+    {
+      "document_id": "e5282ea0-735a-547f-b8a6-be41d460f29a",
+      "title": "Validation of a cancer population derived AKI machine learning algorithm in a general critical care scenario",
+      "publication_types": [
+        "article"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "b1bbee22-0b24-58dd-840f-5032d7617d8c",
+          "text": "data from MIMIC.",
+          "location": {
+            "kind": "fulltext",
+            "page": 7,
+            "section": "Discussion",
+            "start": 21408,
+            "end": 22525
+          }
+        },
+        {
+          "chunk_id": "a97074cd-8d39-50d3-a158-926611a0c1a7",
+          "text": "[8] take such an approach, aiming \nto validate a previously derived machine learning model for \nthe prediction of persistent severe AKI.",
+          "location": {
+            "kind": "fulltext",
+            "page": 3,
+            "section": "Introduction",
+            "start": 7871,
+            "end": 9128
+          }
+        },
+        {
+          "chunk_id": "b1bbee22-0b24-58dd-840f-5032d7617d8c",
+          "text": "The two clinical scenarios ICU and cancer \npopulation in any situation (active treatment up to follow-up) \ndiffer in multiple aspects.",
+          "location": {
+            "kind": "fulltext",
+            "page": 7,
+            "section": "Discussion",
+            "start": 21408,
+            "end": 22525
+          }
+        }
+      ]
+    }
+  ],
+  "output_schema": {
+    "$defs": {
+      "ClaimReview": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "title": "Claim Id",
+            "type": "string"
+          },
+          "support_status": {
+            "enum": [
+              "supported",
+              "partially_supported",
+              "unsupported",
+              "uncertain"
+            ],
+            "title": "Support Status",
+            "type": "string"
+          },
+          "basis": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Basis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "support_status",
+          "basis"
+        ],
+        "title": "ClaimReview",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "reviews": {
+        "items": {
+          "$ref": "#/$defs/ClaimReview"
+        },
+        "maxItems": 500,
+        "title": "Reviews",
+        "type": "array"
+      }
+    },
+    "required": [
+      "reviews"
+    ],
+    "title": "ReviewDraft",
+    "type": "object"
+  }
+}

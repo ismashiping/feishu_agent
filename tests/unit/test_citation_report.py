@@ -354,7 +354,7 @@ def test_citation_report_cli_and_api(report_case, tmp_path, capsys):
     def factory(*args):
         yield service
 
-    assert (
+    with pytest.raises(SystemExit) as rejected:
         main(
             [
                 "ask",
@@ -368,9 +368,8 @@ def test_citation_report_cli_and_api(report_case, tmp_path, capsys):
             ],
             research_factory=factory,
         )
-        != 0
-    )
-    assert "local_corpus_not_evidence" in capsys.readouterr().err
+    assert rejected.value.code == 2
+    capsys.readouterr()
 
     @contextmanager
     def runtime(settings):
@@ -385,8 +384,8 @@ def test_citation_report_cli_and_api(report_case, tmp_path, capsys):
         response = session.post(
             "/v1/reports", json={"scope": "local", "question": case[0].question}
         )
-        assert response.status_code == 502, response.text
-        assert response.json()["error_code"] == "local_corpus_not_evidence"
+        assert response.status_code == 422, response.text
+        assert response.json()["error_code"] == "invalid_request"
         assert (
             session.post(
                 "/v1/reports", content="invalid", headers={"Content-Type": "text/plain"}

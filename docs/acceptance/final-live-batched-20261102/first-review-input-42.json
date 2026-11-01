@@ -1,0 +1,319 @@
+{
+  "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "research_constraints": {
+    "population": [
+      "患者"
+    ],
+    "task": [
+      "预测患者发生急性肾损伤的风险"
+    ],
+    "data_type": [
+      "公开 ICU 临床数据"
+    ],
+    "paper_type": [],
+    "answer_dimensions": [
+      "已有类似研究",
+      "已有研究主要采用的方法",
+      "研究差异",
+      "数据、方法、算力和验证方面的可行性"
+    ],
+    "time_text": null,
+    "time_intent": "unspecified",
+    "years": null,
+    "year_from": null,
+    "year_to": null
+  },
+  "idea_comparisons": [
+    {
+      "document_id": "db50365c-545f-5f49-accb-59508e7e5630",
+      "dimension": "methods",
+      "idea_quote": "机器学习或深度学习模型",
+      "relation": "overlap",
+      "reason": "该研究比较了XGBoost、随机森林等机器学习模型。",
+      "evidence": [
+        {
+          "chunk_id": "f572167a-8817-503e-83e9-3a91f8069341",
+          "quote": "Among the externally validated models, the AUC for XGBoost was the highest at 0.838, RF was 0.799, making it the second highest after XGBoost."
+        }
+      ]
+    },
+    {
+      "document_id": "7dbbaee1-21bf-5fe7-94da-9789e1ccb660",
+      "dimension": "question",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "该研究同样预测ICU患者AKI风险。",
+      "evidence": [
+        {
+          "chunk_id": "7435b7d2-d4fe-5558-8b98-c083898973ac",
+          "quote": "However, there is no relevant research or clinical prediction model for the risk assessment of AKI within 7 days after admission in ICU patients with liver cirrhosis."
+        }
+      ]
+    },
+    {
+      "document_id": "7dbbaee1-21bf-5fe7-94da-9789e1ccb660",
+      "dimension": "population",
+      "idea_quote": "患者",
+      "relation": "partial_overlap",
+      "reason": "限定于ICU肝硬化患者，而非全部ICU患者。",
+      "evidence": [
+        {
+          "chunk_id": "7435b7d2-d4fe-5558-8b98-c083898973ac",
+          "quote": "However, there is no relevant research or clinical prediction model for the risk assessment of AKI within 7 days after admission in ICU patients with liver cirrhosis."
+        }
+      ]
+    },
+    {
+      "document_id": "7dbbaee1-21bf-5fe7-94da-9789e1ccb660",
+      "dimension": "data",
+      "idea_quote": "公开 ICU 临床数据",
+      "relation": "overlap",
+      "reason": "使用公开的MIMIC-IV数据库。",
+      "evidence": [
+        {
+          "chunk_id": "7435b7d2-d4fe-5558-8b98-c083898973ac",
+          "quote": "Multiparameter Intelligent Monitoring in Intensive Care Database IV (MIMIC-IV) is a large public relations database."
+        }
+      ]
+    },
+    {
+      "document_id": "7dbbaee1-21bf-5fe7-94da-9789e1ccb660",
+      "dimension": "outcomes",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "结局为入院后7天内AKI发生风险。",
+      "evidence": [
+        {
+          "chunk_id": "7435b7d2-d4fe-5558-8b98-c083898973ac",
+          "quote": "However, there is no relevant research or clinical prediction model for the risk assessment of AKI within 7 days after admission in ICU patients with liver cirrhosis."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c61",
+      "section": 7,
+      "text": "可供进一步调查的方向：现有AKI预测研究多限定于特定亚人群（如脓毒症、肝硬化、肿瘤），面向全部ICU患者的通用模型证据仍需核实。",
+      "epistemic_kind": "unverified_hypothesis",
+      "evidence": [
+        {
+          "chunk_id": "7435b7d2-d4fe-5558-8b98-c083898973ac",
+          "quote": "However, there is no relevant research or clinical prediction model for the risk assessment of AKI within 7 days after admission in ICU patients with liver cirrhosis."
+        },
+        {
+          "chunk_id": "c184a970-69a1-53cd-85b0-252eb43704a4",
+          "quote": "Multiple studies have reported prediction models for AKI in different clinical settings ."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需系统检索确认是否存在覆盖全部ICU人群的AKI预测模型。"
+    },
+    {
+      "claim_id": "c62",
+      "section": 6,
+      "text": "部分研究受限于数据可得性，未纳入新型生物标志物，公开数据建模可能面临特征覆盖限制。；推理：该研究报告因数据可得性未纳入部分标志物，提示公开数据存在变量覆盖限制。；范围：公开ICU数据的变量覆盖与特征选择",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "0ca72e67-cdec-537c-bf8f-d8814c6ec92e",
+          "quote": "Given limitations in data availability, novel biomarkers and genetic polymorphisms were not included in the analysis."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实目标公开数据库中可用变量是否满足建模需求。"
+    },
+    {
+      "claim_id": "c63",
+      "section": 7,
+      "text": "可供进一步调查的方向：部分研究受限于数据可得性，未纳入新型生物标志物，公开数据建模可能面临特征覆盖限制。",
+      "epistemic_kind": "unverified_hypothesis",
+      "evidence": [
+        {
+          "chunk_id": "0ca72e67-cdec-537c-bf8f-d8814c6ec92e",
+          "quote": "Given limitations in data availability, novel biomarkers and genetic polymorphisms were not included in the analysis."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实目标公开数据库中可用变量是否满足建模需求。"
+    },
+    {
+      "claim_id": "c64",
+      "section": 6,
+      "text": "可行性（data；conditional）：公开ICU数据库（如MIMIC-IV）可用于AKI预测建模，但需确认数据使用权限与标注质量。；下一步核查：确认拟用公开ICU数据库的申请条件、变量覆盖范围与AKI结局标注方案。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "7435b7d2-d4fe-5558-8b98-c083898973ac",
+          "quote": "Multiparameter Intelligent Monitoring in Intensive Care Database IV (MIMIC-IV) is a large public relations database."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实目标公开数据库的访问申请流程、伦理/数据使用协议及AKI标签定义的一致性。"
+    },
+    {
+      "claim_id": "c65",
+      "section": 6,
+      "text": "可行性（methods；conditional）：已有研究采用XGBoost、随机森林及深度学习等方法进行AKI预测，可作为方法学参照。；下一步核查：复现一个已报道的基线模型（如XGBoost）并核对评估流程。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "f572167a-8817-503e-83e9-3a91f8069341",
+          "quote": "Among the externally validated models, the AUC for XGBoost was the highest at 0.838, RF was 0.799, making it the second highest after XGBoost."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需确认所选模型在目标数据上的可复现性与特征工程流程。"
+    },
+    {
+      "claim_id": "c66",
+      "section": 6,
+      "text": "可行性（compute；unknown）：证据不足，条件待确认；下一步核查：评估本地GPU/CPU资源与训练数据规模是否匹配所选模型。",
+      "epistemic_kind": "reported_fact",
+      "evidence": [],
+      "information_missing": true,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    }
+  ],
+  "sources": [
+    {
+      "document_id": "7dbbaee1-21bf-5fe7-94da-9789e1ccb660",
+      "title": "A dynamic model to predict early occurrence of acute kidney injury in ICU hospitalized cirrhotic patients: a MIMIC database analysis",
+      "publication_types": [
+        "article"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "7435b7d2-d4fe-5558-8b98-c083898973ac",
+          "text": "However, there is no relevant research or clinical prediction model for the risk assessment of AKI within 7 days after admission in ICU patients with liver cirrhosis.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Background",
+            "start": 1828,
+            "end": 3163
+          }
+        },
+        {
+          "chunk_id": "c184a970-69a1-53cd-85b0-252eb43704a4",
+          "text": "Multiple studies have reported prediction models for AKI in different clinical settings .",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Discussion",
+            "start": 13930,
+            "end": 15048
+          }
+        },
+        {
+          "chunk_id": "7435b7d2-d4fe-5558-8b98-c083898973ac",
+          "text": "Multiparameter Intelligent Monitoring in Intensive Care Database IV (MIMIC-IV) is a large public relations database.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Background",
+            "start": 1828,
+            "end": 3163
+          }
+        }
+      ]
+    },
+    {
+      "document_id": "db50365c-545f-5f49-accb-59508e7e5630",
+      "title": "Machine learning model for predicting the risk of AKI in early hemodynamically stable sepsis patients: a study based on the MIMIC IV database",
+      "publication_types": [
+        "article"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "0ca72e67-cdec-537c-bf8f-d8814c6ec92e",
+          "text": "Given limitations in data availability, novel biomarkers and genetic polymorphisms were not included in the analysis.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Discussion",
+            "start": 24365,
+            "end": 25193
+          }
+        },
+        {
+          "chunk_id": "f572167a-8817-503e-83e9-3a91f8069341",
+          "text": "Among the externally validated models, the AUC for XGBoost was the highest at 0.838, RF was 0.799, making it the second highest after XGBoost.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Results",
+            "start": 13105,
+            "end": 13978
+          }
+        }
+      ]
+    }
+  ],
+  "output_schema": {
+    "$defs": {
+      "ClaimReview": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "title": "Claim Id",
+            "type": "string"
+          },
+          "support_status": {
+            "enum": [
+              "supported",
+              "partially_supported",
+              "unsupported",
+              "uncertain"
+            ],
+            "title": "Support Status",
+            "type": "string"
+          },
+          "basis": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Basis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "support_status",
+          "basis"
+        ],
+        "title": "ClaimReview",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "reviews": {
+        "items": {
+          "$ref": "#/$defs/ClaimReview"
+        },
+        "maxItems": 500,
+        "title": "Reviews",
+        "type": "array"
+      }
+    },
+    "required": [
+      "reviews"
+    ],
+    "title": "ReviewDraft",
+    "type": "object"
+  }
+}

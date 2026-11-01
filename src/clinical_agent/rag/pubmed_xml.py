@@ -12,9 +12,9 @@ from uuid import UUID
 from xml.etree.ElementTree import Element, ParseError, tostring
 
 # defusedxml 0.7.1 has no typing marker; isolate only these external imports.
-import defusedxml  # type: ignore[import-untyped]
+import defusedxml
 from defusedxml import ElementTree as safe_xml
-from defusedxml.common import DefusedXmlException  # type: ignore[import-untyped]
+from defusedxml.common import DefusedXmlException
 from pydantic import Field, FileUrl, ValidationError
 
 from clinical_agent.domain.models import (

@@ -9,7 +9,7 @@ from clinical_agent.api.schemas import HealthReport, ImportBody, ImportResponse,
 from clinical_agent.domain.analysis import AnalysisResult
 from clinical_agent.domain.ingestion import BatchIngestionResult, ImportRequest
 from clinical_agent.domain.report import ReportResult
-from clinical_agent.domain.research import QuestionRequest, ResearchAnswer, ResearchError
+from clinical_agent.domain.research import QuestionRequest, ResearchAnswer
 
 if TYPE_CHECKING:
     from fastapi import FastAPI
@@ -34,8 +34,6 @@ def register_routes(app: "FastAPI", state: _State) -> None:
         def operation() -> ResearchAnswer:
             assert state.services is not None
             question = QuestionRequest(request_id=identity(request), **body.model_dump())
-            if question.scope == "local":
-                raise ResearchError("local_corpus_not_evidence")
             answer = ResearchAnswer.model_validate(state.services.research.answer(question))
             if answer.request_id != question.request_id or answer.retrieval_scope != question.scope:
                 raise ValueError("Answer correlation mismatch")
@@ -48,8 +46,6 @@ def register_routes(app: "FastAPI", state: _State) -> None:
         def operation() -> ReportResult:
             assert state.services is not None
             question = QuestionRequest(request_id=identity(request), **body.model_dump())
-            if question.scope == "local":
-                raise ResearchError("local_corpus_not_evidence")
             result = ReportResult.model_validate(state.services.research.report(question))
             if result.report.request_id != question.request_id:
                 raise ValueError("Report correlation mismatch")
@@ -62,8 +58,6 @@ def register_routes(app: "FastAPI", state: _State) -> None:
         def operation() -> AnalysisResult:
             assert state.services is not None
             question = QuestionRequest(request_id=identity(request), **body.model_dump())
-            if question.scope == "local":
-                raise ResearchError("local_corpus_not_evidence")
             result = AnalysisResult.model_validate(state.services.research.analyze(question))
             if result.request_id != question.request_id:
                 raise ValueError("Analysis correlation mismatch")

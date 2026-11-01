@@ -1,0 +1,312 @@
+{
+  "original_idea": "我想研究利用机器学习或深度学习模型，基于公开 ICU 临床数据预测患者发生急性肾损伤的风险。请分析目前是否已经有类似研究、已有研究主要采用哪些方法、可能存在什么研究差异，以及这个想法在数据、方法、算力和验证方面是否具有可行性。",
+  "research_constraints": {
+    "population": [
+      "患者"
+    ],
+    "task": [
+      "预测患者发生急性肾损伤的风险"
+    ],
+    "data_type": [
+      "公开 ICU 临床数据"
+    ],
+    "paper_type": [],
+    "answer_dimensions": [
+      "已有类似研究",
+      "已有研究主要采用的方法",
+      "研究差异",
+      "数据、方法、算力和验证方面的可行性"
+    ],
+    "time_text": "目前",
+    "time_intent": "unspecified",
+    "years": null,
+    "year_from": null,
+    "year_to": null
+  },
+  "idea_comparisons": [
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "data",
+      "idea_quote": "公开 ICU 临床数据",
+      "relation": "overlap",
+      "reason": "综述指出公共ICU数据集被广泛使用，与用户使用公开ICU临床数据的设想一致。",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Public ICU datasets were widely used."
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "dimension": "methods",
+      "idea_quote": "机器学习或深度学习模型",
+      "relation": "overlap",
+      "reason": "综述总结了LR、RF、XGBoost、SVM等常用模型，与用户机器学习/深度学习建模设想重叠。",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+        }
+      ]
+    },
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "dimension": "outcomes",
+      "idea_quote": "预测患者发生急性肾损伤的风险",
+      "relation": "overlap",
+      "reason": "研究以AKI风险预测性能为结局，与用户关注的风险预测结果一致。",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+        }
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "c43",
+      "section": 7,
+      "text": "可供进一步调查的方向：模型在不同机构间性能差异明显，数据粒度与本地记录实践可能影响可迁移性，用户研究需考虑跨机构泛化。",
+      "epistemic_kind": "unverified_hypothesis",
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "quote": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination."
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实目标数据集间数据粒度与记录规范差异。"
+    },
+    {
+      "claim_id": "c44",
+      "section": 6,
+      "text": "多数模型尚未进入临床整合，用户研究若定位为方法学探索，可关注可解释性与临床可用性而非部署。；推理：综述指出多数模型远离临床整合，同时认为实时动态模型有助于早期识别，提示研究价值与方法学定位需区分。；范围：ICU AKI预测模型的临床转化现状",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+          "quote": "Despite notable progress in predictive modeling for AKI in ICU settings, most models remain far from clinical integration."
+        },
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "The real-time dynamic AKI prediction models help identify high-risk patients early and facilitate timely clinical interventions."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实用户研究目标是否包含临床部署评估。"
+    },
+    {
+      "claim_id": "c45",
+      "section": 7,
+      "text": "可供进一步调查的方向：多数模型尚未进入临床整合，用户研究若定位为方法学探索，可关注可解释性与临床可用性而非部署。",
+      "epistemic_kind": "unverified_hypothesis",
+      "evidence": [
+        {
+          "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+          "quote": "Despite notable progress in predictive modeling for AKI in ICU settings, most models remain far from clinical integration."
+        },
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "quote": "The real-time dynamic AKI prediction models help identify high-risk patients early and facilitate timely clinical interventions."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需核实用户研究目标是否包含临床部署评估。"
+    },
+    {
+      "claim_id": "c46",
+      "section": 6,
+      "text": "可行性（data；conditional）：公开ICU数据集被广泛用于AKI预测建模，提示数据可得性存在先例；但用户具体可访问的数据集、使用许可与标注质量仍需核实。；下一步核查：列出候选公开ICU数据集并逐一核查访问许可、AKI标签定义与数据完整度。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Public ICU datasets were widely used."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需确认拟用公开ICU数据集的具体名称、访问授权、AKI标签定义与缺失/标注质量。"
+    },
+    {
+      "claim_id": "c47",
+      "section": 6,
+      "text": "可行性（methods；conditional）：已有研究常用LR、RF、XGBoost、SVM等模型，方法上有可复现基线；但用户具体模型适配与基线复现仍需验证。；下一步核查：在选定数据集上复现一个已报道的基线模型并记录预处理与评估流程。",
+      "epistemic_kind": "model_inference",
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "quote": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used."
+        }
+      ],
+      "information_missing": false,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": "需确认所选模型架构、特征工程流程与可复现基线设置。"
+    },
+    {
+      "claim_id": "c48",
+      "section": 6,
+      "text": "可行性（compute；unknown）：证据不足，条件待确认；下一步核查：评估所选模型训练与调参所需的算力资源与成本，并确认可用硬件。",
+      "epistemic_kind": "reported_fact",
+      "evidence": [],
+      "information_missing": true,
+      "support_status": "uncertain",
+      "basis": "not_reviewed",
+      "verification_needed": null
+    }
+  ],
+  "sources": [
+    {
+      "document_id": "d07d59e0-b848-55f4-bdb5-ad8c5e5a2fc8",
+      "title": "Development and validation of a dual-channel deep learning for continuous acute kidney injury prediction in critically ill patients",
+      "publication_types": [
+        "article"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "cb8a12c0-afdf-52db-9b4f-3a4a4d183cba",
+          "text": "While dC-aKi demonstrated strong performance in the development and one external cohort, performance varied substantially across institutions-most notably in eiCu-CRd, where coarser data granularity limited discrimination.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Conclusion",
+            "start": 29830,
+            "end": 30406
+          }
+        }
+      ]
+    },
+    {
+      "document_id": "549385ae-e657-5537-8459-c67ae9e4efe5",
+      "title": "Artificial intelligence models for predicting acute kidney injury in the intensive care unit: a systematic review of modeling methods, data utilization, and clinical applicability",
+      "publication_types": [
+        "review"
+      ],
+      "source_notices": [],
+      "evidence": [
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Overall, although progress in modeling approaches is evident, limitations in generalizability, transparency, and clinical translation remain.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        },
+        {
+          "chunk_id": "0d354ad1-dfd2-52e0-ac8c-adcaf2eb63b6",
+          "text": "Despite notable progress in predictive modeling for AKI in ICU settings, most models remain far from clinical integration.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Risk of bias and clinical applicability",
+            "start": 28319,
+            "end": 29359
+          }
+        },
+        {
+          "chunk_id": "3391b293-72d8-54a8-810e-2a86d068b46c",
+          "text": "The real-time dynamic AKI prediction models help identify high-risk patients early and facilitate timely clinical interventions.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Conclusions",
+            "start": 31751,
+            "end": 33017
+          }
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Public ICU datasets were widely used.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        },
+        {
+          "chunk_id": "de0e9415-e7fb-5975-a90e-a07332b289a6",
+          "text": "Across the 47 included studies, models including LR, RF, XGBoost, and SVM were the most commonly used.",
+          "location": {
+            "kind": "fulltext",
+            "page": null,
+            "section": "Summative analysis",
+            "start": 15012,
+            "end": 15594
+          }
+        }
+      ]
+    }
+  ],
+  "output_schema": {
+    "$defs": {
+      "ClaimReview": {
+        "additionalProperties": false,
+        "properties": {
+          "claim_id": {
+            "title": "Claim Id",
+            "type": "string"
+          },
+          "support_status": {
+            "enum": [
+              "supported",
+              "partially_supported",
+              "unsupported",
+              "uncertain"
+            ],
+            "title": "Support Status",
+            "type": "string"
+          },
+          "basis": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Basis",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "support_status",
+          "basis"
+        ],
+        "title": "ClaimReview",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "reviews": {
+        "items": {
+          "$ref": "#/$defs/ClaimReview"
+        },
+        "maxItems": 500,
+        "title": "Reviews",
+        "type": "array"
+      }
+    },
+    "required": [
+      "reviews"
+    ],
+    "title": "ReviewDraft",
+    "type": "object"
+  }
+}

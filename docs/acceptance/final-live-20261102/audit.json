@@ -1,0 +1,193 @@
+[
+  {
+    "run": "first",
+    "claims": 38,
+    "source_papers": 2,
+    "fulltext_chunks": 6,
+    "quote_pointer_checks": 42,
+    "quote_checks_passed": true,
+    "support": {
+      "uncertain": 38
+    },
+    "review_batches": [
+      {
+        "run": "first",
+        "stage": "review_batch",
+        "claim_ids": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5",
+          "c6",
+          "c7",
+          "c8",
+          "c9",
+          "c10",
+          "c11",
+          "c12",
+          "c13",
+          "c14",
+          "c15",
+          "c16",
+          "c17",
+          "c18",
+          "c19",
+          "c20",
+          "c21",
+          "c22",
+          "c23",
+          "c24",
+          "c25",
+          "c26",
+          "c27",
+          "c28",
+          "c29",
+          "c30",
+          "c31",
+          "c32",
+          "c33",
+          "c34",
+          "c35",
+          "c36",
+          "c37",
+          "c38"
+        ],
+        "context_characters": 31459,
+        "status": "failed",
+        "error_type": "ResearchError",
+        "code": "model_output_invalid",
+        "basis": null,
+        "seconds": 6.75
+      }
+    ],
+    "notes": [
+      "支持度是模型审核建议；引用有效不等于结论正确，候选缺口与方向需要人工验证。",
+      "支持度审核批次不可用或响应无效，未审核条目保持 uncertain。"
+    ],
+    "feedback_stop": "budget_limit",
+    "feasibility": [
+      [
+        "data",
+        "conditional"
+      ],
+      [
+        "methods",
+        "conditional"
+      ],
+      [
+        "compute",
+        "unknown"
+      ],
+      [
+        "validation",
+        "conditional"
+      ]
+    ],
+    "samples": [
+      null,
+      "RESUL TS\nWe combined and harmonized data for 334,812 ICU \nstays that occurred between 2003 and 2019."
+    ],
+    "cache_hits": [],
+    "model_reviewed_claims": 0,
+    "not_reviewed_claims": 38
+  },
+  {
+    "run": "repeat",
+    "claims": 49,
+    "source_papers": 3,
+    "fulltext_chunks": 9,
+    "quote_pointer_checks": 50,
+    "quote_checks_passed": true,
+    "support": {
+      "uncertain": 49
+    },
+    "review_batches": [
+      {
+        "run": "repeat",
+        "stage": "review_batch",
+        "claim_ids": [
+          "c1",
+          "c2",
+          "c3",
+          "c4",
+          "c5",
+          "c6",
+          "c7",
+          "c8",
+          "c9",
+          "c10",
+          "c11",
+          "c12",
+          "c13",
+          "c14",
+          "c15",
+          "c16",
+          "c17",
+          "c18",
+          "c19",
+          "c20",
+          "c21",
+          "c22",
+          "c23",
+          "c24",
+          "c25",
+          "c26",
+          "c27",
+          "c28",
+          "c29",
+          "c30",
+          "c31",
+          "c32",
+          "c33",
+          "c34",
+          "c35",
+          "c36",
+          "c37",
+          "c38",
+          "c39",
+          "c40"
+        ],
+        "context_characters": 31537,
+        "status": "failed",
+        "error_type": "ResearchError",
+        "code": "model_output_invalid",
+        "basis": null,
+        "seconds": 5.938
+      }
+    ],
+    "notes": [
+      "支持度是模型审核建议；引用有效不等于结论正确，候选缺口与方向需要人工验证。",
+      "支持度审核批次不可用或响应无效，未审核条目保持 uncertain。"
+    ],
+    "feedback_stop": "no_actionable_feedback",
+    "feasibility": [
+      [
+        "data",
+        "conditional"
+      ],
+      [
+        "methods",
+        "conditional"
+      ],
+      [
+        "compute",
+        "unknown"
+      ],
+      [
+        "validation",
+        "reported_barrier"
+      ]
+    ],
+    "samples": [
+      null,
+      null,
+      null
+    ],
+    "cache_hits": [
+      "doi:10.1093/jamiaopen/ooaf065"
+    ],
+    "model_reviewed_claims": 0,
+    "not_reviewed_claims": 49
+  }
+]

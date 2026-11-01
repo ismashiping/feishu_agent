@@ -17,7 +17,8 @@ if TYPE_CHECKING:
     from collections.abc import AsyncIterator
 
     from fastapi import FastAPI
-
+#符合 RuntimeFactory 类型要求的函数，应当接收一个 ApiSettings
+# 对象，返回一个上下文管理器，进入该上下文后获得 ServiceBundle 对象。
 RuntimeFactory = Callable[[ApiSettings], AbstractContextManager[ServiceBundle]]
 
 
